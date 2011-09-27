@@ -2,7 +2,6 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="gen"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6"/>
 	<classpathentry kind="con" path="com.android.ide.eclipse.adt.ANDROID_FRAMEWORK"/>
 	<classpathentry kind="lib" path="/Android Test/src/com/nofatclips/androidtesting/guitree" sourcepath="/Android Test/src/com/nofatclips/androidtesting/guitree"/>
 	<classpathentry kind="lib" path="/Android Test/src/com/nofatclips/androidtesting/model" sourcepath="/Android Test/src/com/nofatclips/androidtesting/model"/>

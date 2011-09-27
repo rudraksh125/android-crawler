@@ -37,9 +37,16 @@ public class SimpleUser implements EventHandler, InputHandler {
 	public UserInput handleInput(WidgetState w) {
 		if (!useForInput(w)) return null;
 		Log.d("nofatclips", "Handling input on widget id=" + w.getId() + " type=" + w.getSimpleType());
-		int randomInt = randomGenerator.nextInt(this.upperLimit-this.lowerLimit) + this.lowerLimit;  
-		UserInput input = getAbstractor().createInput(w, String.valueOf(randomInt));
-		return input;
+		if (w.getSimpleType().equals("check")) {
+//			if (randomGenerator.nextBoolean()) return null;
+			UserInput input = getAbstractor().createInput(w, "", "click");
+			return input;			
+		} else if (w.getSimpleType().equals("editText")) {
+			int randomInt = randomGenerator.nextInt(this.upperLimit-this.lowerLimit) + this.lowerLimit;  
+			UserInput input = getAbstractor().createInput(w, String.valueOf(randomInt));
+			return input;
+		}
+		return null;
 	}
 
 	protected boolean useForEvent (WidgetState w) {
@@ -48,7 +55,7 @@ public class SimpleUser implements EventHandler, InputHandler {
 
 	protected boolean useForInput (WidgetState w) {
 		if (useForEvent(w)) return false;
-		return ( (w.getSimpleType().equals("editText") || w.getSimpleType().equals("radio")) && !w.getId().equals("-1"));
+		return ( (w.getSimpleType().equals("editText") || w.getSimpleType().equals("radio") || w.getSimpleType().equals("check")) && !w.getId().equals("-1"));
 	}
 	
 //	protected boolean useForSwapTabs (WidgetState w) {

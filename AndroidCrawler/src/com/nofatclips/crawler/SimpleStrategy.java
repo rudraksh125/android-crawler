@@ -26,12 +26,13 @@ public class SimpleStrategy implements Strategy {
 	public boolean compareState(ActivityState theActivity) {
 		String name = theActivity.getName();
 		Log.i("nofatclips", "Checking strategy for activity " + name);
-		for (ActivityState a: guiNodes) {
-			Log.d("nofatclips", "Comparing against activity " + a.getName());
-			if (getComparator().compare(theActivity, a)) {
+		for (ActivityState stored: guiNodes) {
+			Log.d("nofatclips", "Comparing against activity " + stored.getName());
+			if (getComparator().compare(theActivity, stored)) {
 				return true;
 			}
 		}
+		Log.i("nofatclips", "Registering activity " + name + " as a new found state");
 		addState (theActivity);
 		return false;
 	}

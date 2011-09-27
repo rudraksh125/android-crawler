@@ -99,9 +99,14 @@ public class GuiTreeAbstractor implements Abstractor, FilterHandler {
 
 	@Override
 	public UserInput createInput(WidgetState target, String text) {
+		return createInput(target, text, "editText");
+	}
+	
+	public UserInput createInput(WidgetState target, String text, String type) {
 		TestCaseInput newInput = TestCaseInput.createInput(getTheSession());
 		newInput.setWidget(target);
 		newInput.setValue(text);
+		newInput.setType(type);
 		return newInput;
 	}
 

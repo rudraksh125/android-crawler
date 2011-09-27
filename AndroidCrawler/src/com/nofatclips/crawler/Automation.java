@@ -44,8 +44,11 @@ public class Automation implements Robot, Extractor {
 	@SuppressWarnings("rawtypes")
 	public void bind (ActivityInstrumentationTestCase2 test) {		
 		this.test = test;
-		this.theActivity = this.test.getActivity();
-		this.solo = new Solo (this.test.getInstrumentation(), theActivity);
+//		this.theActivity = this.test.getActivity();
+		this.solo = new Solo (this.test.getInstrumentation(), test.getActivity());
+		afterRestart();
+		this.theActivity = solo.getCurrentActivity();
+		Log.w ("nofatclips","--->" + theActivity.getLocalClassName());
 	}
 	
 	@Override
@@ -118,14 +121,14 @@ public class Automation implements Robot, Extractor {
 		this.theActivity = solo.getCurrentActivity();
 	}
 	
-	private void setInput (int widgetId, String widgetType, String value) {
+	private void setInput (int widgetId, String inputType, String value) {
 		View v = getWidget(widgetId);
 		if (v == null) {
 			v = theActivity.findViewById(widgetId);
 		}
-		if (widgetType == "editText") {
+		if (inputType == "editText") {
 			solo.enterText((EditText)v, value);
-		} else if (widgetType == "button") {
+		} else if (inputType == "click") {
 			TouchUtils.clickView(test, v);
 		}
 	}
@@ -180,7 +183,8 @@ public class Automation implements Robot, Extractor {
 	}
 
 	public void afterRestart() {
-		solo.sleep(200);		
+		solo.sleep(SLEEP_AFTER_RESTART);
+		Log.d("nofatclips", "Ready to operate after restarting...");
 	}
 	
 	public String getAppName () {

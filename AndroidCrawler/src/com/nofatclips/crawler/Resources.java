@@ -16,12 +16,12 @@ public class Resources {
 //	public final static int SLEEP_AFTER_EVENT = 0;
 //	public final static int SLEEP_AFTER_RESTART = 2000;
 
-	public final static String PACKAGE_NAME = "com.evancharlton.mileage";
-	public final static String CLASS_NAME = "com.evancharlton.mileage.Mileage";
-	public final static String FILE_NAME = "mileage.xml";
-	public final static Comparator COMPARATOR = new EditTextComparator();
-	public final static int SLEEP_AFTER_EVENT = 2000;
-	public final static int SLEEP_AFTER_RESTART = 2000;
+//	public final static String PACKAGE_NAME = "com.evancharlton.mileage";
+//	public final static String CLASS_NAME = "com.evancharlton.mileage.Mileage";
+//	public final static String FILE_NAME = "mileage.xml";
+//	public final static Comparator COMPARATOR = new EditTextComparator();
+//	public final static int SLEEP_AFTER_EVENT = 2000;
+//	public final static int SLEEP_AFTER_RESTART = 2000;
 
 //	public final static String PACKAGE_NAME = "net.sf.andbatdog.batterydog";
 //	public final static String CLASS_NAME = "net.sf.andbatdog.batterydog.BatteryDog";
@@ -36,6 +36,13 @@ public class Resources {
 //	public final static Comparator COMPARATOR = new EditTextComparator();
 //	public final static int SLEEP_AFTER_EVENT = 2000;
 //	public final static int SLEEP_AFTER_RESTART = 4000;
+
+	public final static String PACKAGE_NAME = "com.bwx.bequick";
+	public final static String CLASS_NAME = "com.bwx.bequick.ShowSettingsActivity";
+	public final static String FILE_NAME = "quick_settings.xml";
+	public final static Comparator COMPARATOR = new EditTextComparator();
+	public final static int SLEEP_AFTER_EVENT = 200;
+	public final static int SLEEP_AFTER_RESTART = 0;
 
 	public final static CrawlerLog LOGGER = new SessionLogger();
 	

@@ -12,7 +12,7 @@ public class EditTextComparator extends NameComparator {
 			int id = Integer.valueOf(campo.getId());
 			Log.d("nofatclips","Found widget " + id + " (type = " + campo.getSimpleType() + ")");
 			if (campo.getSimpleType().equals("editText") && (id>0) ) {
-				Log.i("nofatclips","Cheching widget " + id);
+				Log.v("nofatclips","Comparing editText " + id);
 				boolean trovato = false;
 				for (WidgetState altroCampo: stored) {
 					if (altroCampo.getId().equals(campo.getId())) {

@@ -2,6 +2,7 @@ package com.nofatclips.crawler;
 
 import static com.nofatclips.crawler.Resources.*;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -20,19 +21,24 @@ import com.nofatclips.androidtesting.model.Transition;
 import com.nofatclips.androidtesting.model.UserEvent;
 import com.nofatclips.androidtesting.model.UserInput;
 
-public class Automation implements Robot, Extractor {
+// Automation implements the methods to interact with the application via the Instrumentation (Robot)
+// and to extract informations from it (Extractor); the Robotium framework is used where possible
+
+public class Automation implements Robot, Extractor, TaskProcessor {
 	
 //	private Instrumentation inst;
 	@SuppressWarnings("rawtypes")
-	private ActivityInstrumentationTestCase2 test;
-	private Activity theActivity;
-	private Map<Integer,View> theViews = new HashMap<Integer,View> ();
-	private Solo solo;
+	private ActivityInstrumentationTestCase2 test; // The test case used to crawl the application
+	private Activity theActivity; // Current Activity
+	private Map<Integer,View> theViews = new HashMap<Integer,View> (); // A list of widgets with an id
+	private ArrayList<View> allViews = new ArrayList<View>(); // A list of all widgets
+	private Solo solo; // Robotium
 	private Extractor extractor;
 	private Restarter restarter;
-	private TabHost	tabs;
-	private int tabNum;
+	private TabHost	tabs; // Reference to the TabHost widget if present
+	private int tabNum; // Number of tabs used by the Activity
 	
+	// A Trivial Extractor is provided if none is assigned
 	public Automation () {
 		setExtractor (new TrivialExtractor());
 	}
@@ -41,6 +47,7 @@ public class Automation implements Robot, Extractor {
 		setExtractor (e);
 	}
 	
+	// Initializations
 	@SuppressWarnings("rawtypes")
 	public void bind (ActivityInstrumentationTestCase2 test) {		
 		this.test = test;
@@ -49,6 +56,11 @@ public class Automation implements Robot, Extractor {
 		afterRestart();
 		this.theActivity = solo.getCurrentActivity();
 		Log.w ("nofatclips","--->" + theActivity.getLocalClassName());
+	}
+	
+	@Override
+	public void execute (Trace t) {
+		process (t);
 	}
 	
 	@Override
@@ -148,12 +160,22 @@ public class Automation implements Robot, Extractor {
 		this.test.getInstrumentation().waitForIdleSync();
 	}
 	
-	public void retrieveWidgets () {
+	public void clearWidgetList() {
 		theViews.clear();
+		allViews.clear();		
+	}
+	
+	public void retrieveWidgets () {
+		clearWidgetList();
 		Log.i("nofatclips", "Retrieving widgets");
 		for (View w: solo.getCurrentViews()) {
 			Log.d("nofatclips", "Found widget: id=" + w.getId() + " ("+ w.toString() + ")");
-			theViews.put(w.getId(), w);
+			if (!theViews.containsKey(w.getId())) {
+				allViews.add(w);
+			}
+			if (w.getId()>0) {
+				theViews.put(w.getId(), w); // Add only if the widget has a valid ID
+			}
 			if (w instanceof TabHost) {
 				setTabs((TabHost)w);
 				Log.d("nofatclips", "Found tabhost: id=" + w.getId());
@@ -164,7 +186,11 @@ public class Automation implements Robot, Extractor {
 	public Map<Integer,View> getWidgets () {
 		return this.theViews;
 	}
-	
+
+	public ArrayList<View> getAllWidgets () {
+		return this.allViews;
+	}
+
 	public Activity getActivity() {
 		return this.theActivity;
 	}
@@ -211,6 +237,10 @@ public class Automation implements Robot, Extractor {
 		return extractor.getNumTabs();
 	}
 
+	// The TrivialExtractor uses the same methods available in Automation to create
+	// a description of the Activity, which is basically the name and a list of widgets
+	// in the Activity.
+	
 	public class TrivialExtractor implements Extractor {
 
 		@Override
@@ -234,7 +264,7 @@ public class Automation implements Robot, Extractor {
 				
 				@Override
 				public Iterator<View> iterator() {
-					return getWidgets().values().iterator();
+					return getAllWidgets().iterator();
 				}
 
 				@Override

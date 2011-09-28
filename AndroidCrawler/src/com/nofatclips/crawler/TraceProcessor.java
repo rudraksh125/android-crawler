@@ -4,6 +4,8 @@ import com.nofatclips.androidtesting.model.Trace;
 import com.nofatclips.androidtesting.model.Transition;
 import com.nofatclips.androidtesting.model.UserInput;
 
+// Not Used
+
 public class TraceProcessor implements TaskProcessor {
 	
 	private Robot robot;
@@ -17,16 +19,18 @@ public class TraceProcessor implements TaskProcessor {
 	
 	@Override
 	public void execute (Trace trace) {
+		// For each transition t in the Task, call the method to execute it
 		for (Transition t: trace) {
 			execute (t);
 		}
 	}
 
+	// For the given transition, just set the inputs and fire the events
 	private void execute(Transition t) {
 		for (UserInput i: t) {
-			robot.setInput(i);
+			this.robot.setInput(i);
 		}
-		robot.fireEvent(t.getEvent());
+		this.robot.fireEvent(t.getEvent());
 	}
 	
 	public void setRobot (Robot r) {

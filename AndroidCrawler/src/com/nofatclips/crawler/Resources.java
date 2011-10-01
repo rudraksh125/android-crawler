@@ -1,5 +1,10 @@
 package com.nofatclips.crawler;
 
+import com.nofatclips.crawler.model.Comparator;
+import com.nofatclips.crawler.storage.CrawlerLog;
+import com.nofatclips.crawler.storage.SessionLogger;
+import com.nofatclips.crawler.strategy.EditTextComparator;
+
 public class Resources {
 
 //	public final static String PACKAGE_NAME = "com.softmimo.android.mileagetracker";

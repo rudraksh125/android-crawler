@@ -4,6 +4,15 @@ import com.nofatclips.androidtesting.model.ActivityState;
 import com.nofatclips.androidtesting.model.Session;
 import com.nofatclips.androidtesting.model.Trace;
 import com.nofatclips.androidtesting.model.Transition;
+import com.nofatclips.crawler.model.Abstractor;
+import com.nofatclips.crawler.model.ActivityDescription;
+import com.nofatclips.crawler.model.Extractor;
+import com.nofatclips.crawler.model.Persistence;
+import com.nofatclips.crawler.model.Plan;
+import com.nofatclips.crawler.model.Planner;
+import com.nofatclips.crawler.model.Robot;
+import com.nofatclips.crawler.model.Strategy;
+import com.nofatclips.crawler.planning.TraceDispatcher;
 
 import android.test.ActivityInstrumentationTestCase2;
 

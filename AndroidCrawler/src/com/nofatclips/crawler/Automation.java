@@ -13,6 +13,7 @@ import android.test.ActivityInstrumentationTestCase2;
 import android.test.TouchUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TabHost;
 import com.jayway.android.robotium.solo.Solo;
@@ -90,8 +91,13 @@ public class Automation implements Robot, Extractor, TaskProcessor {
 
 	@Override
 	public void fireEvent(UserEvent e) {
-		Log.d("nofatclips", "Firing event: type= " + e.getType() + " id=" + e.getWidgetId() + " widget="+ e.getWidgetType());
-		fireEvent (Integer.parseInt(e.getWidgetId()), e.getWidgetType(), e.getType(), e.getValue());
+		if (e.getWidgetId().equals("-1")) {
+			Log.d("nofatclips", "Firing event: type= " + e.getType() + " name=" + e.getWidgetName() + " widget="+ e.getWidgetType());
+			fireEvent (e.getWidgetName(), e.getWidgetType(), e.getType(), e.getValue());			
+		} else {
+			Log.d("nofatclips", "Firing event: type= " + e.getType() + " id=" + e.getWidgetId() + " widget="+ e.getWidgetType());
+			fireEvent (Integer.parseInt(e.getWidgetId()), e.getWidgetType(), e.getType(), e.getValue());
+		}
 		solo.sleep(SLEEP_AFTER_EVENT);
 		extractState();
 	}
@@ -119,6 +125,29 @@ public class Automation implements Robot, Extractor, TaskProcessor {
 		if (v == null) {
 			v = theActivity.findViewById(widgetId);
 		}
+		fireEvent(v, eventType, value);
+	}
+
+	private void fireEvent (String widgetName, String widgetType, String eventType, String value) {
+		View v = null;
+		if (widgetType.endsWith("Button")) {
+			v = solo.getButton(widgetName);
+		}
+		if (v == null) {
+			for (View w: getAllWidgets()) {
+				if (w instanceof Button) {
+					Button candidate = (Button) w;
+					if (candidate.getText().equals(widgetName)) {
+						v = candidate;
+					}
+				}
+				if (v!=null) break;
+			}
+		}
+		fireEvent(v, eventType, value);
+	}
+	
+	private void fireEvent (View v, String eventType, String value) {
 		if (eventType == "click") {
 			TouchUtils.clickView(test, v);
 		} else if (eventType == "swapTab" && value!=null) {
@@ -130,9 +159,9 @@ public class Automation implements Robot, Extractor, TaskProcessor {
 		} else {
 			return;
 		}
-		this.theActivity = solo.getCurrentActivity();
+		this.theActivity = solo.getCurrentActivity();		
 	}
-	
+
 	private void setInput (int widgetId, String inputType, String value) {
 		View v = getWidget(widgetId);
 		if (v == null) {

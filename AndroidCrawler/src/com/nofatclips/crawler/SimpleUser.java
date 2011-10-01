@@ -10,6 +10,8 @@ import com.nofatclips.androidtesting.model.UserEvent;
 import com.nofatclips.androidtesting.model.UserInput;
 import com.nofatclips.androidtesting.model.WidgetState;
 
+import static com.nofatclips.crawler.Resources.*;
+
 public class SimpleUser implements EventHandler, InputHandler {
 
 	public SimpleUser () {
@@ -26,8 +28,8 @@ public class SimpleUser implements EventHandler, InputHandler {
 	public Collection<UserEvent> handleEvent(WidgetState w) {
 		ArrayList<UserEvent> events = new ArrayList<UserEvent>();
 		if (!useForEvent(w)) return events;
-		if (w.getId().equals("-1")) return events;
-		Log.d("nofatclips", "Handling event on widget id=" + w.getId() + " type=" + w.getSimpleType());
+		if ( (w.getId().equals("-1"))  && (!EVENT_WHEN_NO_ID || (w.getName().equals("")) )) return events;
+		Log.d("nofatclips", "Handling event on widget id=" + w.getId() + " type=" + w.getSimpleType() + " name=" + w.getName());
 		UserEvent event = getAbstractor().createEvent(w, "click");
 		events.add(event);
 		return events;

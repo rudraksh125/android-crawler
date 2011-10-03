@@ -15,6 +15,7 @@ import com.nofatclips.crawler.planning.SimplePlanner;
 import com.nofatclips.crawler.planning.SimpleUser;
 import com.nofatclips.crawler.planning.TraceDispatcher;
 import com.nofatclips.crawler.storage.DiskPersistence;
+import com.nofatclips.crawler.strategy.MaxStepsTermination;
 import com.nofatclips.crawler.strategy.SimpleStrategy;
 
 import static com.nofatclips.crawler.Resources.*;
@@ -59,9 +60,12 @@ public class GuiTreeEngine extends Engine {
 		p.setUser(user);
 		p.setFormFiller(user);
 		p.setAbstractor(this.guiAbstractor);
-		
 		setPlanner (p);
+		
 		setStrategy(new SimpleStrategy (COMPARATOR));
+		if (MAX_NUM_TRACES>0) {
+			getStrategy().addTerminationCriteria(new MaxStepsTermination(MAX_NUM_TRACES));
+		}
 		
 		d = new DiskPersistence (this.theGuiTree);
 		setPersistence (d);

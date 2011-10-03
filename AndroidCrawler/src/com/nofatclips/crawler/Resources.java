@@ -63,6 +63,7 @@ public class Resources {
 	public final static int SLEEP_AFTER_RESTART = 10000;
 	public final static boolean EVENT_WHEN_NO_ID = true; // Whether to inject events on widgets without ID or not 
 
+	public final static int MAX_NUM_TRACES = 10;
 	public final static CrawlerLog LOGGER = new SessionLogger();
 	
 	public static Class<?> theClass;

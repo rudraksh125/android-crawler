@@ -44,10 +44,12 @@ public abstract class Engine extends ActivityInstrumentationTestCase2 {
 			ActivityDescription d = getExtractor().describeActivity();
 			ActivityState theActivity = getAbstractor().createActivity(d);
 			theTask.setFinalActivity (theActivity);
+			if (!getStrategy().checkForTransition(theActivity)) continue;
+			getSession().addTrace(theTask);
 			if (!getStrategy().compareState(theActivity)) {
 				planTests(theTask, theActivity);
 			}
-			getSession().addTrace(theTask);
+			if (getStrategy().checkForTermination(theActivity)) break;
 		}
 		getPersistence().save();
 	}

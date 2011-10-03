@@ -1,5 +1,7 @@
 package com.nofatclips.crawler.strategy;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashSet;
 
 import android.util.Log;
@@ -7,6 +9,8 @@ import android.util.Log;
 import com.nofatclips.androidtesting.model.ActivityState;
 import com.nofatclips.crawler.model.Comparator;
 import com.nofatclips.crawler.model.Strategy;
+import com.nofatclips.crawler.model.TerminationCriteria;
+import com.nofatclips.crawler.model.TransitionCriteria;
 
 public class SimpleStrategy implements Strategy {
 	
@@ -40,6 +44,29 @@ public class SimpleStrategy implements Strategy {
 	}
 	
 	@Override
+	public boolean checkForTermination (ActivityState a) {
+		for (TerminationCriteria t: this.terminators) {
+			if (t.termination(a)) return true;
+		}
+		return false;
+	}
+	
+	public boolean checkForTransition (ActivityState a) {
+		// TODO Stub method: assume that there is always a transition
+		return true;
+	}
+	
+	public void addTerminationCriteria (TerminationCriteria t) {
+		this.terminators.add(t);
+	}
+
+	@Override
+	public void addTransitionCriteria(TransitionCriteria theCriteria) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
 	public Comparator getComparator() {
 		return this.c;
 	}
@@ -51,5 +78,6 @@ public class SimpleStrategy implements Strategy {
 
 	private HashSet<ActivityState> guiNodes = new HashSet<ActivityState> ();
 	private Comparator c;
+	private Collection<TerminationCriteria> terminators = new ArrayList<TerminationCriteria>();
 
 }

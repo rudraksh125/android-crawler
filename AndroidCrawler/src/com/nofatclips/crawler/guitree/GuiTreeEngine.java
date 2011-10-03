@@ -82,6 +82,8 @@ public class GuiTreeEngine extends Engine {
 		d.setContext(theAutomation.getActivity());
 		theRestarter.setRestartPoint(theAutomation.getActivity());
 		theGuiTree.setAppName(theAutomation.getAppName());
+		theGuiTree.setClassName(CLASS_NAME);
+		theGuiTree.setPackageName(PACKAGE_NAME);
 	}
 	
 	private Automation theAutomation;

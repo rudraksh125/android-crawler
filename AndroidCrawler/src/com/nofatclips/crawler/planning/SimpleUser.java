@@ -27,6 +27,7 @@ public class SimpleUser implements EventHandler, InputHandler {
 		setAbstractor(a);
 	}
 	
+	@SuppressWarnings("unused")
 	@Override
 	public Collection<UserEvent> handleEvent(WidgetState w) {
 		ArrayList<UserEvent> events = new ArrayList<UserEvent>();

@@ -24,7 +24,8 @@ public class GuiTreeAbstractor implements Abstractor, FilterHandler {
 	private GuiTree theSession;
 	private StartActivity baseActivity;
 	private HashSet<Filter> filters;
-	private int id;
+	private int eventId=0;
+	private int activityId=0;
 
 	public GuiTreeAbstractor () throws ParserConfigurationException {
 		this (new GuiTree());
@@ -53,6 +54,7 @@ public class GuiTreeAbstractor implements Abstractor, FilterHandler {
 	public ActivityState createActivity (ActivityDescription desc, boolean start) {
 		ActivityState newActivity = (start)?StartActivity.createActivity(getTheSession()):FinalActivity.createActivity(getTheSession());
 		newActivity.setName(desc.getActivityName());
+		newActivity.setId(getUniqueActivityId());
 		for (Filter f: this.filters) {
 			f.clear();
 		}
@@ -154,8 +156,13 @@ public class GuiTreeAbstractor implements Abstractor, FilterHandler {
 	}
 	
 	public String getUniqueEventId () {
-		this.id++;
-		return "e"+this.id;
+		this.eventId++;
+		return "e" + this.eventId;
+	}
+
+	public String getUniqueActivityId () {
+		this.activityId++;
+		return "a" + this.activityId;
 	}
 
 }

@@ -35,10 +35,11 @@ public class SimpleStrategy implements Strategy {
 		for (ActivityState stored: guiNodes) {
 			Log.d("nofatclips", "Comparing against activity " + stored.getName());
 			if (getComparator().compare(theActivity, stored)) {
+				theActivity.setId(stored.getId());
 				return true;
 			}
 		}
-		Log.i("nofatclips", "Registering activity " + name + " as a new found state");
+		Log.i("nofatclips", "Registering activity " + name + " (id: " + theActivity.getId() + ") as a new found state");
 		addState (theActivity);
 		return false;
 	}

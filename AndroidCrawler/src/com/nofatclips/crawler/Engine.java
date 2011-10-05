@@ -43,8 +43,8 @@ public abstract class Engine extends ActivityInstrumentationTestCase2 {
 			getRobot().process(theTask);
 			ActivityDescription d = getExtractor().describeActivity();
 			ActivityState theActivity = getAbstractor().createActivity(d);
-			theTask.setFinalActivity (theActivity);
 			if (!getStrategy().checkForTransition(theActivity)) continue;
+			theTask.setFinalActivity (theActivity);
 			getSession().addTrace(theTask);
 			if (!getStrategy().compareState(theActivity)) {
 				planTests(theTask, theActivity);

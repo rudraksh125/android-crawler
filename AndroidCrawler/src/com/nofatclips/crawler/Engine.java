@@ -33,7 +33,7 @@ public abstract class Engine extends ActivityInstrumentationTestCase2 {
 		getExtractor().extractState();
 		ActivityDescription d = getExtractor().describeActivity();
 		getAbstractor().setBaseActivity(d);
-		planTests(null, getAbstractor().getBaseActivity());
+		planFirstTests(getAbstractor().getBaseActivity());
 		getStrategy().addState(getAbstractor().getBaseActivity());
 		getPersistence().setFileName(FILE_NAME);
 	}
@@ -60,9 +60,18 @@ public abstract class Engine extends ActivityInstrumentationTestCase2 {
 		super.tearDown();
 	}
 
-	private void planTests(Trace theTask, ActivityState theActivity) {
-		int numTabs = (theTask == null)?getExtractor().getNumTabs():1;
-		Plan thePlan = getPlanner().getPlanForActivity(theActivity,numTabs);
+	private void planFirstTests (ActivityState theActivity) {
+		int numTabs = getExtractor().getNumTabs(); // Explore TabHost
+		Plan thePlan = getPlanner().getPlanForBaseActivity(theActivity, numTabs);
+		planTests (null, thePlan);
+	}
+	
+	private void planTests (Trace theTask, ActivityState theActivity) {
+		Plan thePlan = getPlanner().getPlanForActivity(theActivity, 1); // numTabs=1 => Ignore TabHost
+		planTests (theTask, thePlan);
+	}
+	
+	private void planTests (Trace theTask, Plan thePlan) {
 		for (Transition t: thePlan) {
 			Trace newTrace = getAbstractor().createTrace(theTask, t);
 			newTrace.setId(nextId());

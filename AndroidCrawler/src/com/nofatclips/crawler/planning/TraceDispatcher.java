@@ -5,6 +5,8 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
+import android.util.Log;
+
 import com.nofatclips.androidtesting.model.Trace;
 import com.nofatclips.crawler.model.TaskScheduler;
 
@@ -74,6 +76,7 @@ public class TraceDispatcher implements Iterable<Trace> {
 		
 		@Override
 		public Trace nextTask() {
+			Log.d("nofatclips", "Dispatching new task. " + tasks.size() + " more tasks remaining.");
 			return (hasMore())?tasks.get(0):null;
 		}
 

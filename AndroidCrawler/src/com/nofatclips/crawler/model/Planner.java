@@ -6,5 +6,6 @@ public interface Planner {
 	
 	public Plan getPlanForActivity (ActivityState a);
 	public Plan getPlanForActivity (ActivityState a, int numberOfTabs);
+	public Plan getPlanForBaseActivity (ActivityState a, int numberOfTabs);
 
 }

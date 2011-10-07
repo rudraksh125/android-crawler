@@ -5,22 +5,24 @@ import java.util.HashSet;
 
 import android.util.Log;
 
-import com.nofatclips.androidtesting.model.ActivityState;
-import com.nofatclips.androidtesting.model.Transition;
-import com.nofatclips.androidtesting.model.UserEvent;
-import com.nofatclips.androidtesting.model.UserInput;
-import com.nofatclips.androidtesting.model.WidgetState;
-import com.nofatclips.crawler.model.Abstractor;
-import com.nofatclips.crawler.model.EventHandler;
-import com.nofatclips.crawler.model.Filter;
-import com.nofatclips.crawler.model.InputHandler;
-import com.nofatclips.crawler.model.Plan;
-import com.nofatclips.crawler.model.Planner;
+import com.nofatclips.androidtesting.model.*;
+import com.nofatclips.crawler.model.*;
+
+import static com.nofatclips.crawler.Resources.*;
 
 public class SimplePlanner implements Planner {
 
 	@Override
 	public Plan getPlanForActivity (ActivityState a, int numberOfTabs) {
+		return getPlanForActivity(a, numberOfTabs, true);
+	}
+
+	@Override
+	public Plan getPlanForBaseActivity (ActivityState a, int numberOfTabs) {
+		return getPlanForActivity(a, numberOfTabs, false);
+	}
+
+	public Plan getPlanForActivity (ActivityState a, int numberOfTabs, boolean allowGoBack) {
 		Plan p = new Plan();
 		Log.i("nofatclips", "Planning for new Activity " + a.getName());
 		WidgetState tabs = null;
@@ -41,17 +43,31 @@ public class SimplePlanner implements Planner {
 				p.addTask(t);
 			}
 		}
+
+		UserEvent evt;
+		Transition t;
+		
+		// Special handling for pressing back button
+		if (BACK_BUTTON_EVENT && allowGoBack) {
+			evt = getAbstractor().createEvent(null, "back");
+			t = getAbstractor().createStep(a, new HashSet<UserInput>(), evt);
+			Log.i("nofatclips", "Created trace to press the back button");
+			p.addTask(t);
+		}
+
+		// Special handling for tab switch
 		if (tabs!=null && numberOfTabs>1) {
 			int tabNum = 2;
 			do {
-				UserEvent evt = getAbstractor().createEvent(tabs, "swapTab");
+				evt = getAbstractor().createEvent(tabs, "swapTab");
 				evt.setValue(String.valueOf(tabNum));
-				Transition t = getAbstractor().createStep(a, new HashSet<UserInput>(), evt);
-				Log.i("nofatclips", "Creating trace to explore tab #" + tabNum);
+				t = getAbstractor().createStep(a, new HashSet<UserInput>(), evt);
+				Log.i("nofatclips", "Created trace to explore tab #" + tabNum);
 				p.addTask(t);
 				tabNum++;
 			} while (tabNum<=numberOfTabs);
 		}
+		
 		return p;
 	}
 	

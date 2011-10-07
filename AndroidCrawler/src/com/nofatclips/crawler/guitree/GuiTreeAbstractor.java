@@ -97,9 +97,15 @@ public class GuiTreeAbstractor implements Abstractor, FilterHandler {
 
 	@Override
 	public UserEvent createEvent(WidgetState target, String type) {
-		// TODO Auto-generated method stub
 		TestCaseEvent newEvent = TestCaseEvent.createEvent(getTheSession());
-		newEvent.setWidget(target.clone());
+		if (target == null) {
+			target = TestCaseWidget.createWidget(getTheSession());
+			target.setType("null");
+			target.setId("-1");
+			newEvent.setWidget (target);
+		} else {
+			newEvent.setWidget (target.clone());
+		}
 		newEvent.setType(type);
 		newEvent.setId(getUniqueEventId());
 		return newEvent;

@@ -57,12 +57,12 @@ public class Automation implements Robot, Extractor, TaskProcessor {
 	
 	// Initializations
 	@SuppressWarnings("rawtypes")
-	public void bind (ActivityInstrumentationTestCase2 test) {		
+	public void bind (ActivityInstrumentationTestCase2 test) {
 		this.test = test;
 //		this.theActivity = this.test.getActivity();
-		this.solo = new Solo (this.test.getInstrumentation(), test.getActivity());
+		this.solo = new Solo (test.getInstrumentation(), test.getActivity());
 		afterRestart();
-		this.theActivity = solo.getCurrentActivity();
+		refreshCurrentActivity();
 		Log.w ("nofatclips","--->" + theActivity.getLocalClassName());
 	}
 	
@@ -98,15 +98,16 @@ public class Automation implements Robot, Extractor, TaskProcessor {
 
 	@Override
 	public void fireEvent(UserEvent e) {
-		if (e.getWidgetId().equals("-1")) {
+		if (e.getType().equals("back")) {
+			Log.d("nofatclips", "Firing event: type= back button");
+			fireEventOnView(null, "back", null);
+		} else if (e.getWidgetId().equals("-1")) {
 			Log.d("nofatclips", "Firing event: type= " + e.getType() + " name=" + e.getWidgetName() + " widget="+ e.getWidgetType());
 			fireEvent (e.getWidgetName(), e.getWidgetType(), e.getType(), e.getValue());			
 		} else {
 			Log.d("nofatclips", "Firing event: type= " + e.getType() + " id=" + e.getWidgetId() + " widget="+ e.getWidgetType());
 			fireEvent (Integer.parseInt(e.getWidgetId()), e.getWidgetType(), e.getType(), e.getValue());
 		}
-		solo.sleep(SLEEP_AFTER_EVENT);
-		extractState();
 	}
 
 	@Override
@@ -132,7 +133,7 @@ public class Automation implements Robot, Extractor, TaskProcessor {
 		if (v == null) {
 			v = theActivity.findViewById(widgetId);
 		}
-		fireEvent(v, eventType, value);
+		fireEventOnView(v, eventType, value);
 	}
 
 	private void fireEvent (String widgetName, String widgetType, String eventType, String value) {
@@ -151,12 +152,14 @@ public class Automation implements Robot, Extractor, TaskProcessor {
 				if (v!=null) break;
 			}
 		}
-		fireEvent(v, eventType, value);
+		fireEventOnView(v, eventType, value);
 	}
 	
-	private void fireEvent (View v, String eventType, String value) {
+	private void fireEventOnView (View v, String eventType, String value) {
 		if (eventType == "click") {
 			TouchUtils.clickView(test, v);
+		} else if (eventType == "back") {
+			solo.goBack();
 		} else if (eventType == "swapTab" && value!=null) {
 			if (v instanceof TabHost) {
 				swapTab ((TabHost)v, value);
@@ -166,7 +169,14 @@ public class Automation implements Robot, Extractor, TaskProcessor {
 		} else {
 			return;
 		}
-		this.theActivity = solo.getCurrentActivity();		
+		refreshCurrentActivity();
+		solo.sleep(SLEEP_AFTER_EVENT);
+		extractState();
+	}
+
+	private void refreshCurrentActivity() {
+		this.theActivity = solo.getCurrentActivity();
+		Log.i("nofatclips", "Current activity is " + getActivity().getLocalClassName());
 	}
 
 	private void setInput (int widgetId, String inputType, String value) {

@@ -1,5 +1,7 @@
 package com.nofatclips.crawler.strategy;
 
+import java.util.HashSet;
+
 import android.util.Log;
 
 import com.nofatclips.androidtesting.model.ActivityState;
@@ -28,7 +30,12 @@ public class CustomWidgetsComparator extends NameComparator {
 	}
 
 	public boolean compare(ActivityState current, ActivityState stored) {
-		if (!super.compare(current,stored)) return false; // Different name, different activity
+		if (!super.compare(current,stored)) return false; // Different name, different activity, early return
+		
+		HashSet<String> checkedAlready = new HashSet<String>();
+	
+		// Check if current has at least one widget that stored ain't got
+		Log.d("nofatclips","Looking for additional widgets");
 		for (WidgetState campo: current) {
 			int id = Integer.valueOf(campo.getId());
 			String type = campo.getSimpleType();
@@ -44,9 +51,31 @@ public class CustomWidgetsComparator extends NameComparator {
 					}
 				}
 				if (!trovato) return false;
+				checkedAlready.add(campo.getId()); // store widgets checked in this step to skip them in the next step
 			}
 		}
-		return true;
+		
+		// Check if stored has at least one widget that current ain't got. Skip if already checked.
+		Log.d("nofatclips","Looking for missing widgets");
+		for (WidgetState campo: stored) {
+			int id = Integer.valueOf(campo.getId());
+			String type = campo.getSimpleType();
+			Log.d("nofatclips","Comparator found widget " + id + " (type = " + type + ")");
+			
+			if ( matchClass(campo.getSimpleType()) && (id>0) && (!checkedAlready.contains(campo.getId())) ) {
+				Log.v("nofatclips","Comparing " + type + " #" + id);
+				boolean trovato = false;
+				for (WidgetState altroCampo: current) {
+					if (altroCampo.getId().equals(campo.getId())) {
+						trovato = true;
+						break;
+					}
+				}
+				if (!trovato) return false;
+			}
+		}
+		
+		return true; // All tests failed, can't found a difference between current and stored!
 	}
 	
 	String[] widgetClasses;

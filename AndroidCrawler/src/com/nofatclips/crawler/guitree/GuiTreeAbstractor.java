@@ -58,7 +58,9 @@ public class GuiTreeAbstractor implements Abstractor, FilterHandler {
 		for (Filter f: this.filters) {
 			f.clear();
 		}
+		boolean noDescription = true;
 		for (View v: desc) {
+			noDescription = false;
 			TestCaseWidget w = TestCaseWidget.createWidget(getTheSession());
 			String id = String.valueOf(v.getId());
 			String text = (v instanceof TextView)?((TextView)v).getText().toString():"";
@@ -74,6 +76,7 @@ public class GuiTreeAbstractor implements Abstractor, FilterHandler {
 				f.loadItem(v, w);
 			}
 		}
+		if (noDescription) newActivity.setId("exit");
 		return newActivity;
 	}
 	

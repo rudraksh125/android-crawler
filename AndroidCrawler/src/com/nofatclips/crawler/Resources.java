@@ -22,13 +22,13 @@ public class Resources {
 //	public final static int SLEEP_AFTER_RESTART = 2000;
 //	public final static boolean EVENT_WHEN_NO_ID = false; // Whether to inject events on widgets without ID or not
 
-//	public final static String PACKAGE_NAME = "com.evancharlton.mileage";
-//	public final static String CLASS_NAME = "com.evancharlton.mileage.Mileage";
-//	public final static String FILE_NAME = "mileage.xml"; // Output
-//	public final static Comparator COMPARATOR = new EditTextComparator();
-//	public final static int SLEEP_AFTER_EVENT = 2000;
-//	public final static int SLEEP_AFTER_RESTART = 2000;
-//	public final static boolean EVENT_WHEN_NO_ID = false; // Whether to inject events on widgets without ID or not
+	public final static String PACKAGE_NAME = "com.evancharlton.mileage";
+	public final static String CLASS_NAME = "com.evancharlton.mileage.Mileage";
+	public final static String FILE_NAME = "mileage.xml"; // Output
+	public final static Comparator COMPARATOR = new EditTextComparator();
+	public final static int SLEEP_AFTER_EVENT = 2000;
+	public final static int SLEEP_AFTER_RESTART = 2000;
+	public final static boolean EVENT_WHEN_NO_ID = false; // Whether to inject events on widgets without ID or not
 
 //	public final static String PACKAGE_NAME = "net.sf.andbatdog.batterydog";
 //	public final static String CLASS_NAME = "net.sf.andbatdog.batterydog.BatteryDog";
@@ -38,13 +38,13 @@ public class Resources {
 //	public final static int SLEEP_AFTER_RESTART = 2000;
 //	public final static boolean EVENT_WHEN_NO_ID = false; // Whether to inject events on widgets without ID or not
 
-	public final static String PACKAGE_NAME = "org.wordpress.android";
-	public final static String CLASS_NAME = "org.wordpress.android.splashScreen";
-	public final static String FILE_NAME = "wordpress.xml"; // Output
-	public final static Comparator COMPARATOR = new CustomWidgetsComparator("button", "editText");
-	public final static int SLEEP_AFTER_EVENT = 4000;
-	public final static int SLEEP_AFTER_RESTART = 6000;
-	public final static boolean EVENT_WHEN_NO_ID = false; // Whether to inject events on widgets without ID or not
+//	public final static String PACKAGE_NAME = "org.wordpress.android";
+//	public final static String CLASS_NAME = "org.wordpress.android.splashScreen";
+//	public final static String FILE_NAME = "wordpress.xml"; // Output
+//	public final static Comparator COMPARATOR = new CustomWidgetsComparator("button", "editText");
+//	public final static int SLEEP_AFTER_EVENT = 4000;
+//	public final static int SLEEP_AFTER_RESTART = 6000;
+//	public final static boolean EVENT_WHEN_NO_ID = false; // Whether to inject events on widgets without ID or not
 
 //	public final static String PACKAGE_NAME = "com.bwx.bequick";
 //	public final static String CLASS_NAME = "com.bwx.bequick.ShowSettingsActivity";

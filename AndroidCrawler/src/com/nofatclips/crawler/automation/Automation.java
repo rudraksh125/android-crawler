@@ -224,6 +224,9 @@ public class Automation implements Robot, Extractor, TaskProcessor {
 //		solo.clickInList(3);
 //		this.test.getInstrumentation().waitForIdleSync();
 //		solo.sleep(1000);
+//		solo.clickInList(22);
+//		this.test.getInstrumentation().waitForIdleSync();
+//		solo.sleep(1000);
 //		solo.sendKey(Solo.DOWN);
 //		solo.sendKey(Solo.DOWN);
 //		solo.sendKey(Solo.DOWN);

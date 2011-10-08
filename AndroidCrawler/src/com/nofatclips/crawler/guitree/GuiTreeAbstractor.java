@@ -64,7 +64,7 @@ public class GuiTreeAbstractor implements Abstractor, FilterHandler {
 			TestCaseWidget w = TestCaseWidget.createWidget(getTheSession());
 			String id = String.valueOf(v.getId());
 			String text = (v instanceof TextView)?((TextView)v).getText().toString():"";
-			w.setIdNameType(id, text, v.toString());
+			w.setIdNameType(id, text, v.getClass().getName());
 			if (v instanceof TextView) {
 				int type = ((TextView)v).getInputType();
 				if (type!=0) {

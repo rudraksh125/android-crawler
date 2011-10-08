@@ -67,7 +67,15 @@ public class SimplePlanner implements Planner {
 				tabNum++;
 			} while (tabNum<=numberOfTabs);
 		}
-		
+
+		// Special handling for scrolling down
+		if (SCROLL_DOWN_EVENT) {
+			evt = getAbstractor().createEvent(null, "scrollDown");
+			t = getAbstractor().createStep(a, new HashSet<UserInput>(), evt);
+			Log.i("nofatclips", "Created trace to perform scrolling down");
+			p.addTask(t);
+		}
+
 		return p;
 	}
 	

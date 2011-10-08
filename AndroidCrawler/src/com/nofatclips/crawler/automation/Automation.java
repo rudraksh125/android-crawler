@@ -15,7 +15,11 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListAdapter;
+import android.widget.ListView;
 import android.widget.TabHost;
+import android.widget.TextView;
+
 import com.jayway.android.robotium.solo.Solo;
 import com.nofatclips.androidtesting.model.Trace;
 import com.nofatclips.androidtesting.model.Transition;
@@ -98,9 +102,10 @@ public class Automation implements Robot, Extractor, TaskProcessor {
 
 	@Override
 	public void fireEvent(UserEvent e) {
-		if (e.getType().equals("back")) {
-			Log.d("nofatclips", "Firing event: type= back button");
-			fireEventOnView(null, "back", null);
+		String eventType = e.getType();
+		if (eventType.equals("back") || eventType.equals("scrollDown")) { // Special events
+			Log.d("nofatclips", "Firing event: type= " + eventType);
+			fireEventOnView(null, eventType, null);
 		} else if (e.getWidgetId().equals("-1")) {
 			Log.d("nofatclips", "Firing event: type= " + e.getType() + " name=" + e.getWidgetName() + " widget="+ e.getWidgetType());
 			fireEvent (e.getWidgetName(), e.getWidgetType(), e.getType(), e.getValue());			
@@ -160,6 +165,8 @@ public class Automation implements Robot, Extractor, TaskProcessor {
 			TouchUtils.clickView(test, v);
 		} else if (eventType == "back") {
 			solo.goBack();
+		} else if (eventType == "scrollDown") {
+			solo.scrollDown();
 		} else if (eventType == "swapTab" && value!=null) {
 			if (v instanceof TabHost) {
 				swapTab ((TabHost)v, value);
@@ -214,8 +221,33 @@ public class Automation implements Robot, Extractor, TaskProcessor {
 	public void retrieveWidgets () {
 		clearWidgetList();
 		Log.i("nofatclips", "Retrieving widgets");
+//		solo.clickInList(3);
+//		this.test.getInstrumentation().waitForIdleSync();
+//		solo.sleep(1000);
+//		solo.sendKey(Solo.DOWN);
+//		solo.sendKey(Solo.DOWN);
+//		solo.sendKey(Solo.DOWN);
+//		solo.sendKey(Solo.DOWN);
+//		solo.sendKey(Solo.DOWN);
+//		solo.sendKey(Solo.DOWN);
+//		solo.sendKey(Solo.DOWN);
+//		solo.sendKey(Solo.ENTER);
+//		this.test.getInstrumentation().waitForIdleSync();
+//		solo.sleep(1000);
 		for (View w: solo.getCurrentViews()) {
-			Log.d("nofatclips", "Found widget: id=" + w.getId() + " ("+ w.toString() + ")");
+			String text = (w instanceof TextView)?": "+((TextView)w).getText().toString():"";
+			Log.d("nofatclips", "Found widget: id=" + w.getId() + " ("+ w.toString() + ")" + text);
+//			if (w.getId() == 16908298) {
+//				ListView l = (ListView)w;
+//				ListAdapter a = l.getAdapter();
+//				Log.w("nofatclips","count=" + l.getCount() + " childCount=" + l.getChildCount());
+//				for (int i = 0;i<l.getCount();i++) {
+////					TextView view = (TextView)a.getView (i,new TextView(this.test.getInstrumentation().getContext()), l);
+////					Log.i("nofatclips", "Found item #" + i + ": " + view.getText() + "(" + view.toString() + ")");
+//					Object o = a.getItem(i);
+//					Log.i("nofatclips", "Found item #" + i + ": (" + o.toString() + ")");
+//				}
+//			}
 			if (!theViews.containsKey(w.getId())) {
 				allViews.add(w);
 			}

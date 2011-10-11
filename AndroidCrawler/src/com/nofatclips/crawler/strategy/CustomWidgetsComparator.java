@@ -17,9 +17,17 @@ import com.nofatclips.androidtesting.model.WidgetState;
 
 public class CustomWidgetsComparator extends NameComparator {
 	
+	public final static boolean IGNORE_ACTIVITY_NAME = true;
+	private boolean byName = true;
+	
 	public CustomWidgetsComparator (String... widgets) {
 		super ();
 		this.widgetClasses = widgets; 
+	}
+	
+	public CustomWidgetsComparator (boolean ignore, String... widgets) {
+		this(widgets);
+		this.byName = !ignore;
 	}
 	
 	public boolean matchClass (String type) {
@@ -30,7 +38,7 @@ public class CustomWidgetsComparator extends NameComparator {
 	}
 
 	public boolean compare(ActivityState current, ActivityState stored) {
-		if (!super.compare(current,stored)) return false; // Different name, different activity, early return
+		if (byName && !super.compare(current,stored)) return false; // Different name, different activity, early return
 		
 		HashSet<String> checkedAlready = new HashSet<String>();
 	

@@ -22,13 +22,13 @@ public class Resources {
 //	public final static int SLEEP_AFTER_RESTART = 2000;
 //	public final static boolean EVENT_WHEN_NO_ID = false; // Whether to inject events on widgets without ID or not
 
-//	public final static String PACKAGE_NAME = "com.evancharlton.mileage";
-//	public final static String CLASS_NAME = "com.evancharlton.mileage.Mileage";
-//	public final static String FILE_NAME = "mileage.xml"; // Output
-//	public final static Comparator COMPARATOR = new EditTextComparator();
-//	public final static int SLEEP_AFTER_EVENT = 2000;
-//	public final static int SLEEP_AFTER_RESTART = 2000;
-//	public final static boolean EVENT_WHEN_NO_ID = false; // Whether to inject events on widgets without ID or not
+	public final static String PACKAGE_NAME = "com.evancharlton.mileage";
+	public final static String CLASS_NAME = "com.evancharlton.mileage.Mileage";
+	public final static String FILE_NAME = "mileage.xml"; // Output
+	public final static Comparator COMPARATOR = new CustomWidgetsComparator(CustomWidgetsComparator.IGNORE_ACTIVITY_NAME, "editText", "button");
+	public final static int SLEEP_AFTER_EVENT = 2000;
+	public final static int SLEEP_AFTER_RESTART = 2000;
+	public final static boolean EVENT_WHEN_NO_ID = false; // Whether to inject events on widgets without ID or not
 
 //	public final static String PACKAGE_NAME = "net.sf.andbatdog.batterydog";
 //	public final static String CLASS_NAME = "net.sf.andbatdog.batterydog.BatteryDog";
@@ -78,17 +78,17 @@ public class Resources {
 //	public final static int SLEEP_AFTER_RESTART = 2000;
 //	public final static boolean EVENT_WHEN_NO_ID = true; // Whether to inject events on widgets without ID or not 
 
-	public final static String PACKAGE_NAME = "com.googlecode.andoku";
-	public final static String CLASS_NAME = "com.googlecode.andoku.MainActivity";
-	public final static String FILE_NAME = "andoku.xml"; // Output
-	public final static Comparator COMPARATOR = new EditTextComparator();
-	public final static int SLEEP_AFTER_EVENT = 200;
-	public final static int SLEEP_AFTER_RESTART = 2000;
-	public final static boolean EVENT_WHEN_NO_ID = true; // Whether to inject events on widgets without ID or not
+//	public final static String PACKAGE_NAME = "com.googlecode.andoku";
+//	public final static String CLASS_NAME = "com.googlecode.andoku.MainActivity";
+//	public final static String FILE_NAME = "andoku.xml"; // Output
+//	public final static Comparator COMPARATOR = new CustomWidgetsComparator("button", "editText");
+//	public final static int SLEEP_AFTER_EVENT = 200;
+//	public final static int SLEEP_AFTER_RESTART = 2000;
+//	public final static boolean EVENT_WHEN_NO_ID = true; // Whether to inject events on widgets without ID or not
 
 	public final static int MAX_NUM_TRACES = 100;
 	public final static boolean BACK_BUTTON_EVENT = true;
-	public final static boolean SCROLL_DOWN_EVENT = true;
+	public final static boolean SCROLL_DOWN_EVENT = false;
 	public final static CrawlerLog LOGGER = new SessionLogger();
 	
 	public static Class<?> theClass;

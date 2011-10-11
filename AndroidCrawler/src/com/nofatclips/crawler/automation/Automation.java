@@ -240,6 +240,10 @@ public class Automation implements Robot, Extractor, TaskProcessor {
 		for (View w: solo.getCurrentViews()) {
 			String text = (w instanceof TextView)?": "+((TextView)w).getText().toString():"";
 			Log.d("nofatclips", "Found widget: id=" + w.getId() + " ("+ w.toString() + ")" + text);
+			if (w.getId() == 2131165206) {
+				w.isShown();
+			}
+
 //			if (w.getId() == 16908298) {
 //				ListView l = (ListView)w;
 //				ListAdapter a = l.getAdapter();

@@ -18,6 +18,7 @@ import com.nofatclips.crawler.model.Abstractor;
 import com.nofatclips.crawler.model.ActivityDescription;
 import com.nofatclips.crawler.model.Filter;
 import com.nofatclips.crawler.model.FilterHandler;
+import com.nofatclips.crawler.model.TypeDetector;
 
 public class GuiTreeAbstractor implements Abstractor, FilterHandler {
 
@@ -26,6 +27,7 @@ public class GuiTreeAbstractor implements Abstractor, FilterHandler {
 	private HashSet<Filter> filters;
 	private int eventId=0;
 	private int activityId=0;
+	private TypeDetector detector;
 
 	public GuiTreeAbstractor () throws ParserConfigurationException {
 		this (new GuiTree());
@@ -44,6 +46,14 @@ public class GuiTreeAbstractor implements Abstractor, FilterHandler {
 	public void setTheSession(GuiTree theSession) {
 		this.theSession = theSession;
 	}
+	
+	public TypeDetector getTypeDetector () {
+		return this.detector;
+	}
+	
+	public void setTypeDetector (TypeDetector t) {
+		this.detector = t;
+	}
 
 	@Override
 	public ActivityState createActivity (ActivityDescription desc) {
@@ -61,16 +71,22 @@ public class GuiTreeAbstractor implements Abstractor, FilterHandler {
 		boolean noDescription = true;
 		for (View v: desc) {
 			noDescription = false;
+			if (!v.isShown()) continue;
 			TestCaseWidget w = TestCaseWidget.createWidget(getTheSession());
 			String id = String.valueOf(v.getId());
-			String text = (v instanceof TextView)?((TextView)v).getText().toString():"";
-			w.setIdNameType(id, text, v.getClass().getName());
+			String text = "";
 			if (v instanceof TextView) {
-				int type = ((TextView)v).getInputType();
+				TextView t = (TextView)v;
+				int type = t.getInputType();
 				if (type!=0) {
 					w.setTextType("" + type);
 				}
+				text = t.getText().toString();
 			}
+			w.setIdNameType(id, text, v.getClass().getName());
+			w.setSimpleType(detector.getSimpleType(v));
+			String ok = (v.isClickable() && v.isEnabled())?"true":"false";
+			w.setAvailable(ok);
 			newActivity.addWidget(w);
 			for (Filter f: this.filters) {
 				f.loadItem(v, w);
@@ -105,6 +121,7 @@ public class GuiTreeAbstractor implements Abstractor, FilterHandler {
 			target = TestCaseWidget.createWidget(getTheSession());
 			target.setType("null");
 			target.setId("-1");
+			target.setSimpleType("null");
 			newEvent.setWidget (target);
 		} else {
 			newEvent.setWidget (target.clone());

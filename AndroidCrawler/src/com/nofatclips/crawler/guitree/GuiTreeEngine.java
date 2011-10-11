@@ -8,6 +8,7 @@ import com.nofatclips.androidtesting.guitree.GuiTree;
 import com.nofatclips.crawler.Engine;
 import com.nofatclips.crawler.automation.Automation;
 import com.nofatclips.crawler.automation.BasicRestarter;
+import com.nofatclips.crawler.automation.SimpleTypeDetector;
 import com.nofatclips.crawler.filters.FormFilter;
 import com.nofatclips.crawler.filters.SimpleEventFilter;
 import com.nofatclips.crawler.model.Filter;
@@ -55,6 +56,7 @@ public class GuiTreeEngine extends Engine {
 		Filter eventFilter = new SimpleEventFilter();
 		p.setEventFilter (eventFilter);
 		this.guiAbstractor.addFilter (eventFilter);
+		this.guiAbstractor.setTypeDetector(new SimpleTypeDetector());
 		
 		this.user = new SimpleUser(this.guiAbstractor);
 		p.setUser(user);

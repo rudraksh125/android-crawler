@@ -16,8 +16,7 @@ public interface Abstractor {
 	public ActivityState getBaseActivity ();
 	
 	public UserEvent createEvent (WidgetState target, String type);
-	public UserInput createInput (WidgetState target, String text);
-	public UserInput createInput (WidgetState target, String text, String type);
+	public UserInput createInput (WidgetState target, String value, String type);
 	public Trace createTrace (Trace prototype, Transition appendix);
 	public Transition createStep (ActivityState start, Collection<UserInput> inputs, UserEvent event);
 	

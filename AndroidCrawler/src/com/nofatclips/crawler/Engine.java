@@ -62,13 +62,12 @@ public abstract class Engine extends ActivityInstrumentationTestCase2 {
 	}
 
 	private void planFirstTests (ActivityState theActivity) {
-		int numTabs = getExtractor().getNumTabs(); // Explore TabHost
-		Plan thePlan = getPlanner().getPlanForBaseActivity(theActivity, numTabs);
+		Plan thePlan = getPlanner().getPlanForBaseActivity(theActivity);
 		planTests (null, thePlan);
 	}
 	
 	private void planTests (Trace theTask, ActivityState theActivity) {
-		Plan thePlan = getPlanner().getPlanForActivity(theActivity, 1); // numTabs=1 => Ignore TabHost
+		Plan thePlan = getPlanner().getPlanForActivity(theActivity); // numTabs=1 => Ignore TabHost
 		planTests (theTask, thePlan);
 	}
 	

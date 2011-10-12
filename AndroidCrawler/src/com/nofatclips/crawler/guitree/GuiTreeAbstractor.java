@@ -11,14 +11,13 @@ import org.w3c.dom.DOMException;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.AdapterView;
+import android.widget.AbsSpinner;
+import android.widget.TabHost;
 
 import com.nofatclips.androidtesting.guitree.*;
 import com.nofatclips.androidtesting.model.*;
-import com.nofatclips.crawler.model.Abstractor;
-import com.nofatclips.crawler.model.ActivityDescription;
-import com.nofatclips.crawler.model.Filter;
-import com.nofatclips.crawler.model.FilterHandler;
-import com.nofatclips.crawler.model.TypeDetector;
+import com.nofatclips.crawler.model.*;
 
 public class GuiTreeAbstractor implements Abstractor, FilterHandler {
 
@@ -61,6 +60,7 @@ public class GuiTreeAbstractor implements Abstractor, FilterHandler {
 	}
 	
 	// If the boolean parameter is omitted, the overloading method will default to a Final Activity
+	@SuppressWarnings("rawtypes")
 	public ActivityState createActivity (ActivityDescription desc, boolean start) {
 		ActivityState newActivity = (start)?StartActivity.createActivity(getTheSession()):FinalActivity.createActivity(getTheSession());
 		newActivity.setName(desc.getActivityName());
@@ -82,6 +82,15 @@ public class GuiTreeAbstractor implements Abstractor, FilterHandler {
 					w.setTextType("" + type);
 				}
 				text = t.getText().toString();
+			}
+			if (v instanceof AdapterView) {
+				w.setCount(((AdapterView)v).getCount());
+			}
+			if (v instanceof AbsSpinner) {
+				w.setCount(((AbsSpinner)v).getCount());
+			}
+			if (v instanceof TabHost) {
+				w.setCount(((TabHost)v).getTabWidget().getTabCount());
 			}
 			w.setIdNameType(id, text, v.getClass().getName());
 			w.setSimpleType(detector.getSimpleType(v));
@@ -132,10 +141,6 @@ public class GuiTreeAbstractor implements Abstractor, FilterHandler {
 	}
 
 	@Override
-	public UserInput createInput(WidgetState target, String text) {
-		return createInput(target, text, "editText");
-	}
-	
 	public UserInput createInput(WidgetState target, String text, String type) {
 		TestCaseInput newInput = TestCaseInput.createInput(getTheSession());
 		newInput.setWidget(target);

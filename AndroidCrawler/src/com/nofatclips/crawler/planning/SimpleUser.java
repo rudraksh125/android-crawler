@@ -14,6 +14,8 @@ import com.nofatclips.crawler.model.EventHandler;
 import com.nofatclips.crawler.model.InputHandler;
 
 import static com.nofatclips.crawler.Resources.*;
+import static com.nofatclips.androidtesting.model.InteractionType.*;
+import static com.nofatclips.androidtesting.model.SimpleType.*;
 
 public class SimpleUser implements EventHandler, InputHandler {
 
@@ -34,7 +36,7 @@ public class SimpleUser implements EventHandler, InputHandler {
 		if (!useForEvent(w)) return events;
 		if ( (w.getId().equals("-1"))  && (!EVENT_WHEN_NO_ID || (w.getName().equals("")) )) return events;
 		Log.d("nofatclips", "Handling event on widget id=" + w.getId() + " type=" + w.getSimpleType() + " name=" + w.getName());
-		UserEvent event = getAbstractor().createEvent(w, "click");
+		UserEvent event = getAbstractor().createEvent(w, CLICK);
 		events.add(event);
 		return events;
 	}
@@ -43,25 +45,25 @@ public class SimpleUser implements EventHandler, InputHandler {
 	public UserInput handleInput(WidgetState w) {
 		if (!useForInput(w)) return null;
 		Log.d("nofatclips", "Handling input on widget id=" + w.getId() + " type=" + w.getSimpleType());
-		if (w.getSimpleType().equals("check")) {
+		if (w.getSimpleType().equals(CHECKBOX)) {
 //			if (randomGenerator.nextBoolean()) return null;
-			UserInput input = getAbstractor().createInput(w, "", "click");
-			return input;			
+			UserInput input = getAbstractor().createInput(w, "", CLICK);
+			return input;
 		} else if (w.getSimpleType().equals("editText")) {
 			int randomInt = randomGenerator.nextInt(this.upperLimit-this.lowerLimit) + this.lowerLimit;  
-			UserInput input = getAbstractor().createInput(w, String.valueOf(randomInt));
+			UserInput input = getAbstractor().createInput(w, String.valueOf(randomInt), TYPE_TEXT);
 			return input;
 		}
 		return null;
 	}
 
 	protected boolean useForEvent (WidgetState w) {
-		return (w.getSimpleType().equals("button"));
+		return (w.getSimpleType().equals(BUTTON));
 	}
 
 	protected boolean useForInput (WidgetState w) {
 		if (useForEvent(w)) return false;
-		return ( (w.getSimpleType().equals("editText") || w.getSimpleType().equals("radio") || w.getSimpleType().equals("check")) && !w.getId().equals("-1"));
+		return ( (w.getSimpleType().equals(EDIT_TEXT) || w.getSimpleType().equals(RADIO) || w.getSimpleType().equals(CHECKBOX)) && !w.getId().equals("-1"));
 	}
 	
 //	protected boolean useForSwapTabs (WidgetState w) {

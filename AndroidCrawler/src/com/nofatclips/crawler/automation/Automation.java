@@ -1,6 +1,8 @@
 package com.nofatclips.crawler.automation;
 
 import static com.nofatclips.crawler.Resources.*;
+import static com.nofatclips.androidtesting.model.InteractionType.*;
+import static com.nofatclips.androidtesting.model.SimpleType.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -13,23 +15,11 @@ import android.test.ActivityInstrumentationTestCase2;
 import android.test.TouchUtils;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ListAdapter;
-import android.widget.ListView;
-import android.widget.TabHost;
-import android.widget.TextView;
+import android.widget.*;
 
 import com.jayway.android.robotium.solo.Solo;
-import com.nofatclips.androidtesting.model.Trace;
-import com.nofatclips.androidtesting.model.Transition;
-import com.nofatclips.androidtesting.model.UserEvent;
-import com.nofatclips.androidtesting.model.UserInput;
-import com.nofatclips.crawler.model.ActivityDescription;
-import com.nofatclips.crawler.model.Extractor;
-import com.nofatclips.crawler.model.Restarter;
-import com.nofatclips.crawler.model.Robot;
-import com.nofatclips.crawler.model.TaskProcessor;
+import com.nofatclips.androidtesting.model.*;
+import com.nofatclips.crawler.model.*;
 
 // Automation implements the methods to interact with the application via the Instrumentation (Robot)
 // and to extract informations from it (Extractor); the Robotium framework is used where possible
@@ -103,15 +93,15 @@ public class Automation implements Robot, Extractor, TaskProcessor {
 	@Override
 	public void fireEvent(UserEvent e) {
 		String eventType = e.getType();
-		if (eventType.equals("back") || eventType.equals("scrollDown")) { // Special events
+		if (eventType.equals(BACK) || eventType.equals(SCROLL_DOWN)) { // Special events
 			Log.d("nofatclips", "Firing event: type= " + eventType);
 			fireEventOnView(null, eventType, null);
 		} else if (e.getWidgetId().equals("-1")) {
 			Log.d("nofatclips", "Firing event: type= " + e.getType() + " name=" + e.getWidgetName() + " widget="+ e.getWidgetType());
-			fireEvent (e.getWidgetName(), e.getWidgetType(), e.getType(), e.getValue());			
+			fireEvent (e.getWidgetName(), e.getWidget().getSimpleType(), e.getType(), e.getValue());			
 		} else {
 			Log.d("nofatclips", "Firing event: type= " + e.getType() + " id=" + e.getWidgetId() + " widget="+ e.getWidgetType());
-			fireEvent (Integer.parseInt(e.getWidgetId()), e.getWidgetType(), e.getType(), e.getValue());
+			fireEvent (Integer.parseInt(e.getWidgetId()), e.getWidget().getSimpleType(), e.getType(), e.getValue());
 		}
 	}
 
@@ -143,7 +133,7 @@ public class Automation implements Robot, Extractor, TaskProcessor {
 
 	private void fireEvent (String widgetName, String widgetType, String eventType, String value) {
 		View v = null;
-		if (widgetType.endsWith("Button")) {
+		if (widgetType.equals(BUTTON)) {
 			v = solo.getButton(widgetName);
 		}
 		if (v == null) {
@@ -161,13 +151,13 @@ public class Automation implements Robot, Extractor, TaskProcessor {
 	}
 	
 	private void fireEventOnView (View v, String eventType, String value) {
-		if (eventType == "click") {
+		if (eventType == CLICK) {
 			TouchUtils.clickView(test, v);
-		} else if (eventType == "back") {
+		} else if (eventType == BACK) {
 			solo.goBack();
-		} else if (eventType == "scrollDown") {
+		} else if (eventType == SCROLL_DOWN) {
 			solo.scrollDown();
-		} else if (eventType == "swapTab" && value!=null) {
+		} else if (eventType == SWAP_TAB && value!=null) {
 			if (v instanceof TabHost) {
 				swapTab ((TabHost)v, value);
 			} else {
@@ -191,9 +181,9 @@ public class Automation implements Robot, Extractor, TaskProcessor {
 		if (v == null) {
 			v = theActivity.findViewById(widgetId);
 		}
-		if (inputType == "editText") {
+		if (inputType == TYPE_TEXT) {
 			solo.enterText((EditText)v, value);
-		} else if (inputType == "click") {
+		} else if (inputType == CLICK) {
 			TouchUtils.clickView(test, v);
 		}
 	}
@@ -240,20 +230,10 @@ public class Automation implements Robot, Extractor, TaskProcessor {
 		for (View w: solo.getCurrentViews()) {
 			String text = (w instanceof TextView)?": "+((TextView)w).getText().toString():"";
 			Log.d("nofatclips", "Found widget: id=" + w.getId() + " ("+ w.toString() + ")" + text);
-			if (w.getId() == 2131165206) {
-				w.isShown();
-			}
-
 //			if (w.getId() == 16908298) {
 //				ListView l = (ListView)w;
 //				ListAdapter a = l.getAdapter();
 //				Log.w("nofatclips","count=" + l.getCount() + " childCount=" + l.getChildCount());
-//				for (int i = 0;i<l.getCount();i++) {
-////					TextView view = (TextView)a.getView (i,new TextView(this.test.getInstrumentation().getContext()), l);
-////					Log.i("nofatclips", "Found item #" + i + ": " + view.getText() + "(" + view.toString() + ")");
-//					Object o = a.getItem(i);
-//					Log.i("nofatclips", "Found item #" + i + ": (" + o.toString() + ")");
-//				}
 //			}
 			if (!theViews.containsKey(w.getId())) {
 				allViews.add(w);
@@ -294,7 +274,7 @@ public class Automation implements Robot, Extractor, TaskProcessor {
 	
 	public void setTabs (TabHost t) {
 		this.tabs = t;
-		this.tabNum = t.getTabWidget().getTabCount();		
+		this.tabNum = t.getTabWidget().getTabCount();
 	}
 
 	public void afterRestart() {
@@ -321,11 +301,6 @@ public class Automation implements Robot, Extractor, TaskProcessor {
 		this.extractor.extractState();
 	}
 	
-	@Override
-	public int getNumTabs() {
-		return extractor.getNumTabs();
-	}
-
 	// The TrivialExtractor uses the same methods available in Automation to create
 	// a description of the Activity, which is basically the name and a list of widgets
 	// in the Activity.
@@ -341,11 +316,6 @@ public class Automation implements Robot, Extractor, TaskProcessor {
 		public View getWidget (int key) {
 			return getWidgets().get(key);
 		}
-		
-		@Override
-		public int getNumTabs () {
-			return tabNum;
-		}
 
 		@Override
 		public ActivityDescription describeActivity() {
@@ -358,7 +328,6 @@ public class Automation implements Robot, Extractor, TaskProcessor {
 
 				@Override
 				public String getActivityName() {
-					// TODO Auto-generated method stub
 //					return getActivity().getLocalClassName();
 					return getActivity().getClass().getSimpleName();
 				}

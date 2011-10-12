@@ -42,7 +42,6 @@ public class TraceDispatcher implements Iterable<Trace> {
 
 	@Override
 	public Iterator<Trace> iterator() {
-		// TODO Auto-generated method stub
 		return new Iterator<Trace> () {
 			
 			Trace lastTask;

@@ -9,9 +9,7 @@ import com.nofatclips.crawler.model.TransitionCriteria;
 public class NullStrategy implements Strategy {
 
 	@Override
-	public void addState(ActivityState newActivity) {
-		return; //do nothing
-	}
+	public void addState(ActivityState newActivity) {}
 
 	@Override
 	public boolean compareState(ActivityState theActivity) {
@@ -24,9 +22,7 @@ public class NullStrategy implements Strategy {
 	}
 
 	@Override
-	public void setComparator(Comparator c) {
-		return;
-	}
+	public void setComparator(Comparator c) {}
 
 	@Override
 	public boolean checkForTermination(ActivityState theActivity) {
@@ -34,20 +30,14 @@ public class NullStrategy implements Strategy {
 	}
 
 	@Override
-	public void addTerminationCriteria(TerminationCriteria t) {
-		return;
-	}
+	public void addTerminationCriteria(TerminationCriteria t) {}
 
 	@Override
 	public boolean checkForTransition(ActivityState theActivity) {
-		// TODO Auto-generated method stub
 		return true;
 	}
 
 	@Override
-	public void addTransitionCriteria(TransitionCriteria theCriteria) {
-		// TODO Auto-generated method stub
-		return;
-	}
+	public void addTransitionCriteria(TransitionCriteria theCriteria) {}
 
 }

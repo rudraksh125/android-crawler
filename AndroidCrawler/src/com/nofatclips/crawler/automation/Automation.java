@@ -229,15 +229,19 @@ public class Automation implements Robot, Extractor, TaskProcessor {
 //		solo.sleep(1000);
 		for (View w: solo.getCurrentViews()) {
 			String text = (w instanceof TextView)?": "+((TextView)w).getText().toString():"";
-			Log.d("nofatclips", "Found widget: id=" + w.getId() + " ("+ w.toString() + ")" + text);
+			int xy[] = new int[2];
+			int xy2[] = new int[2];
+			w.getLocationInWindow(xy);
+			w.getLocationOnScreen(xy2);
+			Log.d("nofatclips", "Found widget: id=" + w.getId() + " ("+ w.toString() + ")" + text + " in window at [" + xy[0] + "," + xy[1] + "] on screen at [" + xy2[0] + "," + xy2[1] +"]");
 //			if (w.getId() == 16908298) {
 //				ListView l = (ListView)w;
 //				ListAdapter a = l.getAdapter();
 //				Log.w("nofatclips","count=" + l.getCount() + " childCount=" + l.getChildCount());
 //			}
-			if (!theViews.containsKey(w.getId())) {
-				allViews.add(w);
-			}
+//			if (!theViews.containsKey(w.getId())) {
+			allViews.add(w);
+//			}
 			if (w.getId()>0) {
 				theViews.put(w.getId(), w); // Add only if the widget has a valid ID
 			}
@@ -291,6 +295,17 @@ public class Automation implements Robot, Extractor, TaskProcessor {
 		return this.extractor.getWidget(id);
 	}
 	
+	public ArrayList<View> getWidgetsById (int id) {
+		ArrayList<View> theList = new ArrayList<View>();
+		for (View theView: getAllWidgets()) {
+			if (theView.getId() == id) {
+				Log.i("nofatclips", "Added to return list id=" + id);
+				theList.add(theView);
+			}
+		}
+		return theList;
+	}
+
 	@Override
 	public ActivityDescription describeActivity() {
 		return this.extractor.describeActivity();

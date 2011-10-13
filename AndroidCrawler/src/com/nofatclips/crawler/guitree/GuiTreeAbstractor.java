@@ -25,6 +25,7 @@ public class GuiTreeAbstractor implements Abstractor, FilterHandler {
 	private StartActivity baseActivity;
 	private HashSet<Filter> filters;
 	private int eventId=0;
+	private int inputId=0;
 	private int activityId=0;
 	private TypeDetector detector;
 
@@ -146,6 +147,7 @@ public class GuiTreeAbstractor implements Abstractor, FilterHandler {
 		newInput.setWidget(target);
 		newInput.setValue(text);
 		newInput.setType(type);
+		newInput.setId(getUniqueInputId());
 		return newInput;
 	}
 
@@ -194,6 +196,11 @@ public class GuiTreeAbstractor implements Abstractor, FilterHandler {
 	public String getUniqueActivityId () {
 		this.activityId++;
 		return "a" + this.activityId;
+	}
+
+	public String getUniqueInputId () {
+		this.inputId++;
+		return "i" + this.inputId;
 	}
 
 }

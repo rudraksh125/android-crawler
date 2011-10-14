@@ -101,7 +101,7 @@ public class Automation implements Robot, Extractor, TaskProcessor {
 			fireEvent (e.getWidgetName(), e.getWidget().getSimpleType(), e.getType(), e.getValue());			
 		} else {
 			Log.d("nofatclips", "Firing event: type= " + e.getType() + " id=" + e.getWidgetId() + " widget="+ e.getWidgetType());
-			fireEvent (Integer.parseInt(e.getWidgetId()), e.getWidget().getSimpleType(), e.getType(), e.getValue());
+			fireEvent (Integer.parseInt(e.getWidgetId()), e.getWidgetName(), e.getWidget().getSimpleType(), e.getType(), e.getValue());
 		}
 	}
 
@@ -119,12 +119,11 @@ public class Automation implements Robot, Extractor, TaskProcessor {
 		swapTab (this.tabs, tab);
 	}
 	
-//	private void fireEvent (int widgetId, String widgetType, String eventType) {
-//		fireEvent(widgetId, widgetType, eventType, null);
-//	}
-	
-	private void fireEvent (int widgetId, String widgetType, String eventType, String value) {
-		View v = getWidget(widgetId);
+	private void fireEvent (int widgetId, String widgetName, String widgetType, String eventType, String value) {
+		View v = getWidget(widgetId, widgetType, widgetName);
+		if (v == null) {
+			v = getWidget(widgetId);
+		}
 		if (v == null) {
 			v = theActivity.findViewById(widgetId);
 		}
@@ -293,6 +292,20 @@ public class Automation implements Robot, Extractor, TaskProcessor {
 	@Override
 	public View getWidget (int id) {
 		return this.extractor.getWidget(id);
+	}
+	
+	public View getWidget (int theId, String theType, String theName) {
+		for (View testee: getWidgetsById(theId)) {
+			Log.i("nofatclips", "Retrieved from return list id=" + testee.getId());
+			String testeeType = testee.getClass().getName();
+			Log.i("nofatclips", "Testing for type (" + testeeType + ") against the original (" + theType);
+			String testeeName = (testee instanceof TextView)?((TextView) testee).getText().toString():"";
+			Log.i("nofatclips", "Testing for name (" + testeeName + ") against the original (" + theName);
+			if ( (theType.equals(testeeType)) && (theName.equals(testeeName)) ) {
+				return testee;
+			}
+		}
+		return null;
 	}
 	
 	public ArrayList<View> getWidgetsById (int id) {

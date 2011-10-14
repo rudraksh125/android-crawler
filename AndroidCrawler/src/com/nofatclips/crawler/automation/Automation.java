@@ -353,6 +353,11 @@ public class Automation implements Robot, Extractor, TaskProcessor {
 				public Iterator<View> iterator() {
 					return getAllWidgets().iterator();
 				}
+				
+				@Override
+				public int getWidgetIndex(View v) {
+					return getAllWidgets().indexOf(v);
+				}
 
 				@Override
 				public String getActivityName() {

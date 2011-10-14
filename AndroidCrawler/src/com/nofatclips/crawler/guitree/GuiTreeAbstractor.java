@@ -97,6 +97,7 @@ public class GuiTreeAbstractor implements Abstractor, FilterHandler {
 			w.setSimpleType(detector.getSimpleType(v));
 			String ok = (v.isClickable() && v.isEnabled())?"true":"false";
 			w.setAvailable(ok);
+			w.setIndex(desc.getWidgetIndex(v));
 			newActivity.addWidget(w);
 			for (Filter f: this.filters) {
 				f.loadItem(v, w);

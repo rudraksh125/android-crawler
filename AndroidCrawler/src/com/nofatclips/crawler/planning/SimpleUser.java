@@ -74,11 +74,13 @@ public class SimpleUser implements EventHandler, InputHandler {
 	}
 
 	protected boolean useForClick (WidgetState w) {
+		if (!w.isAvailable()) return false;
 		return (w.getSimpleType().equals(BUTTON));
 	}
 
 	protected boolean useForInput (WidgetState w) {
 		if (useForClick(w)) return false;
+		if (!w.isAvailable()) return false;
 		return ( (w.getSimpleType().equals(EDIT_TEXT) || w.getSimpleType().equals(RADIO) || w.getSimpleType().equals(CHECKBOX)) && !w.getId().equals("-1"));
 	}
 	

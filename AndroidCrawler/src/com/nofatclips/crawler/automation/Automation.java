@@ -38,7 +38,7 @@ public class Automation implements Robot, Extractor, TaskProcessor {
 	private TabHost	tabs; // Reference to the TabHost widget if present
 	private int tabNum; // Number of tabs used by the Activity
 	private Robot theRobot;
-	
+		
 	// A Trivial Extractor is provided if none is assigned
 	public Automation () {
 		setExtractor (new TrivialExtractor());
@@ -97,15 +97,15 @@ public class Automation implements Robot, Extractor, TaskProcessor {
 			Log.d("nofatclips", "Firing event: type= " + eventType);
 			fireEventOnView(null, eventType, null);
 		} else {
-			View v = getAllWidgets().get(e.getWidget().getIndex());
-			if (checkWidgetEquivalence(v, Integer.parseInt(e.getWidgetId()), e.getWidgetType(), e.getWidgetName())) {
-				Log.d("nofatclips", "Firing event: type= " + e.getType() + " index=" + e.getWidget().getIndex() + " widget="+ e.getWidgetType());
+			View v = getAllWidgets().get(e.getWidget().getIndex()); // Search widget by index
+			if (checkWidgetEquivalence(v, Integer.parseInt(e.getWidgetId()), e.getWidgetType(), e.getWidgetName())) { // Widget found
+				Log.d("nofatclips", "Firing event: type= " + eventType + " index=" + e.getWidget().getIndex() + " widget="+ e.getWidgetType());
 				fireEventOnView (v, eventType, e.getValue());
-			} else if (e.getWidgetId().equals("-1")) {
-				Log.d("nofatclips", "Firing event: type= " + e.getType() + " name=" + e.getWidgetName() + " widget="+ e.getWidgetType());
+			} else if (e.getWidgetId().equals("-1")) { // Widget not found. Search widget by name
+				Log.d("nofatclips", "Firing event: type= " + eventType + " name=" + e.getWidgetName() + " widget="+ e.getWidgetType());
 				fireEvent (e.getWidgetName(), e.getWidget().getSimpleType(), eventType, e.getValue());			
-			} else {
-				Log.d("nofatclips", "Firing event: type= " + e.getType() + " id=" + e.getWidgetId() + " widget="+ e.getWidgetType());
+			} else { // Widget not found. Search widget by id
+				Log.d("nofatclips", "Firing event: type= " + eventType + " id=" + e.getWidgetId() + " widget="+ e.getWidgetType());
 				fireEvent (Integer.parseInt(e.getWidgetId()), e.getWidgetName(), e.getWidget().getSimpleType(), eventType, e.getValue());
 			}
 		}

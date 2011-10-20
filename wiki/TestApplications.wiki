@@ -5,22 +5,22 @@
 
 This open source applications have (more or less) successfully been tested with the crawler.
 
-* Mileage: http://evancharlton.com/projects/mileage/ - [https://code.google.com/p/android-mileage/source/ Source]
+ * Mileage: http://evancharlton.com/projects/mileage/ - [https://code.google.com/p/android-mileage/source/ Source]
 
-* Battery Dog: http://andbatdog.sourceforge.net/
+ * Battery Dog: http://andbatdog.sourceforge.net/
 
-* Wordpress: http://android.wordpress.org/download/ - [http://android.svn.wordpress.org/ Source]
+ * Wordpress: http://android.wordpress.org/download/ - [http://android.svn.wordpress.org/ Source]
 
 = Open Source Applications (Failures) =
 
 These open source applications are not compatible with the current version of the crawler.
 
-* Quick Settings: http://code.google.com/p/quick-settings/ (Uses Activity outside of the target package of the Instrumentation)
+ * Quick Settings: http://code.google.com/p/quick-settings/ (Uses Activity outside of the target package of the Instrumentation)
 
 
 = Other Applications =
 
 This closed source applications have (more or less) successfully been tested with the crawler.
 
-* Mileage Tracker: http://www.softmimo.com/MileageTracker.php
-* Calorie Calculator: http://blog.blazing-skies.com/calorie-calculator-android/ 
+ * Mileage Tracker: http://www.softmimo.com/MileageTracker.php
+ * Calorie Calculator: http://blog.blazing-skies.com/calorie-calculator-android/ 

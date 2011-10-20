@@ -162,7 +162,6 @@ public class Automation implements Robot, Extractor, TaskProcessor {
 			TouchUtils.clickView(test, v);
 		} else if (eventType == BACK) {
 			solo.goBack();
-			home();
 		} else if (eventType == SCROLL_DOWN) {
 			solo.scrollDown();
 		} else if (eventType == SWAP_TAB && value!=null) {
@@ -181,6 +180,7 @@ public class Automation implements Robot, Extractor, TaskProcessor {
 		extractState();
 	}
 
+	// Scroll the view to the top. Only works for ListView. Support for GridView and ScrollView must be added
 	public void home () {
 		final ArrayList<ListView> viewList = solo.getCurrentListViews();
 		if (viewList.size() > 0) {
@@ -248,7 +248,7 @@ public class Automation implements Robot, Extractor, TaskProcessor {
 		}
 		this.test.getInstrumentation().waitForIdleSync();
 		View v = l.getSelectedView();
-		TouchUtils.clickView(test, v);
+		TouchUtils.clickView(this.test, v);
 		if (v instanceof TextView) {
 			this.currentEvent.setDescription(((TextView)v).getText().toString());
 		}
@@ -260,6 +260,7 @@ public class Automation implements Robot, Extractor, TaskProcessor {
 	}
 	
 	public void retrieveWidgets () {
+		home();
 		clearWidgetList();
 		Log.i("nofatclips", "Retrieving widgets");
 		for (View w: solo.getCurrentViews()) {

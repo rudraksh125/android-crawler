@@ -16,6 +16,7 @@ import com.nofatclips.crawler.planning.SimplePlanner;
 import com.nofatclips.crawler.planning.SimpleUser;
 import com.nofatclips.crawler.planning.TraceDispatcher;
 import com.nofatclips.crawler.storage.DiskPersistence;
+import com.nofatclips.crawler.storage.StepDiskPersistence;
 import com.nofatclips.crawler.strategy.MaxStepsTermination;
 import com.nofatclips.crawler.strategy.SimpleStrategy;
 
@@ -69,7 +70,8 @@ public class GuiTreeEngine extends Engine {
 			getStrategy().addTerminationCriteria(new MaxStepsTermination(MAX_NUM_TRACES));
 		}
 		
-		d = new DiskPersistence (this.theGuiTree);
+		d = (MAX_TRACES_IN_RAM>0)?new StepDiskPersistence (MAX_TRACES_IN_RAM):new DiskPersistence();
+		d.setSession(this.theGuiTree);
 		setPersistence (d);
 		
 	}

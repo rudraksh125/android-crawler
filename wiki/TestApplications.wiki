@@ -3,9 +3,11 @@
 
 = Open Source Applications =
 
-Add your content here.
-
 Mileage: http://evancharlton.com/projects/mileage/ - [https://code.google.com/p/android-mileage/source/ Source]
+
+Battery Dog: http://andbatdog.sourceforge.net/
+
+Wordpress: http://android.wordpress.org/download/ - [http://android.svn.wordpress.org/ Source]
 
 = Other Applications =
 

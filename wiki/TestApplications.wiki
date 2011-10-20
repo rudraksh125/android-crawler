@@ -6,7 +6,9 @@
 This open source applications have (more or less) successfully been tested with the crawler.
 
 * Mileage: http://evancharlton.com/projects/mileage/ - [https://code.google.com/p/android-mileage/source/ Source]
+
 * Battery Dog: http://andbatdog.sourceforge.net/
+
 * Wordpress: http://android.wordpress.org/download/ - [http://android.svn.wordpress.org/ Source]
 
 = Open Source Applications (Failures) =

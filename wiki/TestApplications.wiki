@@ -11,6 +11,12 @@ This open source applications have (more or less) successfully been tested with 
 
  * Wordpress: http://android.wordpress.org/download/ - [http://android.svn.wordpress.org/ Source]
 
+ * Andoku: ??? [http://www.freewarelovers.com/android/app/andoku Download]
+
+ * AndBible: http://code.google.com/p/and-bible/
+
+ * API Demos: shipped with Android OS [http://developer.android.com/resources/samples/ApiDemos/src/com/example/android/apis/view/index.html Source]
+
 = Open Source Applications (Failures) =
 
 These open source applications are not compatible with the current version of the crawler.
@@ -23,4 +29,5 @@ These open source applications are not compatible with the current version of th
 This closed source applications have (more or less) successfully been tested with the crawler.
 
  * Mileage Tracker: http://www.softmimo.com/MileageTracker.php
+
  * Calorie Calculator: http://blog.blazing-skies.com/calorie-calculator-android/ 

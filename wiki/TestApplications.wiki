@@ -17,6 +17,8 @@ This open source applications have (more or less) successfully been tested with 
 
  * API Demos: shipped with Android OS [http://developer.android.com/resources/samples/ApiDemos/src/com/example/android/apis/view/index.html Source]
 
+* OpenSudoku: http://code.google.com/p/opensudoku-android/
+
 = Open Source Applications (Failures) =
 
 These open source applications are not compatible with the current version of the crawler.

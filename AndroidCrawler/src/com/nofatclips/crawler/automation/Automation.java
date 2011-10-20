@@ -239,7 +239,7 @@ public class Automation implements Robot, Extractor, TaskProcessor {
 			}
 		});
 		this.test.getInstrumentation().waitForIdleSync();
-		if (num<l.getCount()/2) {
+		if (n<l.getCount()/2) {
 			solo.sendKey(Solo.DOWN);
 			solo.sendKey(Solo.UP);
 		} else {

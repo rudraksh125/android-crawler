@@ -106,7 +106,7 @@ public class Resources {
 
 	public final static int MAX_NUM_TRACES = 200; // After performing this amount of traces, the crawler exits
 	public final static int MAX_TRACES_IN_RAM = 25; // After performing this amount of traces, the crawler saves to disk, empties the session and continues (0 = keep all in RAM)
-	public final static int MAX_EVENTS_PER_WIDGET = 1;
+	public final static int MAX_EVENTS_PER_WIDGET = 40;
 	public final static boolean BACK_BUTTON_EVENT = true;
 	public final static boolean SCROLL_DOWN_EVENT = false;
 	public final static String XML_BODY_BEGIN = "    <TRACE";

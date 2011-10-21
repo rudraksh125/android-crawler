@@ -49,13 +49,17 @@ public class SimpleUser implements EventHandler, InputHandler {
 		
 		// Return empty if don't know how to click
 		if (!useForClick(w)) return events;
-		if ( (w.getId().equals("-1"))  && (!EVENT_WHEN_NO_ID || (w.getName().equals("")) )) return events;
+		if ( (w.getId().equals("-1"))  && (!eventWhenNoId () || (w.getName().equals("")) )) return events;
 
 		// Plan a click on this widget
 		Log.d("nofatclips", "Handling event on widget id=" + w.getId() + " type=" + w.getSimpleType() + " name=" + w.getName());
 		UserEvent event = getAbstractor().createEvent(w, CLICK);
 		events.add(event);
 		return events;
+	}
+	
+	public boolean eventWhenNoId () {
+		return EVENT_WHEN_NO_ID;
 	}
 	
 	@Override
@@ -66,6 +70,8 @@ public class SimpleUser implements EventHandler, InputHandler {
 //			if (randomGenerator.nextBoolean()) return null;
 			UserInput input = getAbstractor().createInput(w, "", CLICK);
 			return input;
+		} else if (w.getSimpleType().equals(RADIO)) {
+			return getAbstractor().createInput(w, "", CLICK);
 		} else if (w.getSimpleType().equals("editText")) {
 			int randomInt = randomGenerator.nextInt(this.upperLimit-this.lowerLimit) + this.lowerLimit;  
 			UserInput input = getAbstractor().createInput(w, String.valueOf(randomInt), TYPE_TEXT);

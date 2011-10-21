@@ -52,11 +52,11 @@ public abstract class Engine extends ActivityInstrumentationTestCase2 {
 			}
 			if (getStrategy().checkForTermination(theActivity)) break;
 		}
-		getPersistence().save();
 	}
 	
 	@Override
 	protected void tearDown() throws Exception {
+		getPersistence().save();
 		getRobot().finalize();
 		super.tearDown();
 	}

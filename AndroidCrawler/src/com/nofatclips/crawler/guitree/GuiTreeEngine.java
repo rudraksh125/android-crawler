@@ -70,7 +70,7 @@ public class GuiTreeEngine extends Engine {
 			getStrategy().addTerminationCriteria(new MaxStepsTermination(MAX_NUM_TRACES));
 		}
 		
-		d = (MAX_TRACES_IN_RAM>0)?new StepDiskPersistence (MAX_TRACES_IN_RAM):new DiskPersistence();
+		d = (stepPersistence())?new StepDiskPersistence (MAX_TRACES_IN_RAM):new DiskPersistence();
 		d.setSession(this.theGuiTree);
 		setPersistence (d);
 		
@@ -86,8 +86,14 @@ public class GuiTreeEngine extends Engine {
 		d.setContext(theAutomation.getActivity());
 		theRestarter.setRestartPoint(theAutomation.getActivity());
 		theGuiTree.setAppName(theAutomation.getAppName());
+		theGuiTree.setSleepAfterEvent(SLEEP_AFTER_EVENT);
+		theGuiTree.setSleepAfterRestart(SLEEP_AFTER_RESTART);
 		theGuiTree.setClassName(CLASS_NAME);
 		theGuiTree.setPackageName(PACKAGE_NAME);
+	}
+	
+	public boolean stepPersistence () {
+		return (MAX_TRACES_IN_RAM>0);
 	}
 	
 	private Automation theAutomation;

@@ -40,14 +40,16 @@ public abstract class Engine extends ActivityInstrumentationTestCase2 {
 	
 	public void testAndCrawl() {
 		for (Trace theTask: getScheduler()) {
+			getStrategy().setTask(theTask);
 			getRobot().process(theTask);
 			ActivityDescription d = getExtractor().describeActivity();
 			ActivityState theActivity = getAbstractor().createActivity(d);
-			if (!getStrategy().checkForTransition(theActivity)) continue;
+			getStrategy().compareState(theActivity);
+			if (!getStrategy().checkForTransition()) continue;
 			theTask.setFinalActivity (theActivity);
 			getPersistence().addTrace(theTask);
 			if (theActivity.getId() == "exit") continue;
-			if (!getStrategy().compareState(theActivity)) {
+			if (getStrategy().checkForExploration()) {
 				planTests(theTask, theActivity);
 			}
 			if (getStrategy().checkForTermination(theActivity)) break;

@@ -17,8 +17,7 @@ import com.nofatclips.crawler.planning.SimpleUser;
 import com.nofatclips.crawler.planning.TraceDispatcher;
 import com.nofatclips.crawler.storage.DiskPersistence;
 import com.nofatclips.crawler.storage.StepDiskPersistence;
-import com.nofatclips.crawler.strategy.MaxStepsTermination;
-import com.nofatclips.crawler.strategy.SimpleStrategy;
+import com.nofatclips.crawler.strategy.*;
 
 import static com.nofatclips.crawler.Resources.*;
 
@@ -65,16 +64,54 @@ public class GuiTreeEngine extends Engine {
 		p.setAbstractor(this.guiAbstractor);
 		setPlanner (p);
 		
-		setStrategy(new SimpleStrategy (COMPARATOR));
-		if (MAX_NUM_TRACES>0) {
-			getStrategy().addTerminationCriteria(new MaxStepsTermination(MAX_NUM_TRACES));
-		}
+		StrategyFactory sf = new StrategyFactory(COMPARATOR, ADDITIONAL_CRITERIAS);
+		sf.setDepth(TRACE_MAX_DEPTH);
+		sf.setMaxTraces(MAX_NUM_TRACES);
+		sf.setMaxSeconds(MAX_TIME_CRAWLING);
+		sf.setCheckTransitions(CHECK_FOR_TRANSITION);
+		setStrategy (sf.getStrategy());
+		
+//		if (useCustomStrategy ()) {
+//			CustomStrategy s = new CustomStrategy(COMPARATOR, new NewActivityExplorer());
+//			if (checkMaxTraces()) {
+//				s.addTerminationCriteria(new MaxStepsTermination(MAX_NUM_TRACES));
+//			}
+//			if (checkForDepth()) {
+//				s.addExplorationCriteria(new DepthExplorer(TRACE_MAX_DEPTH));
+//			}
+//			if (checkTransition()) {
+//				s.addTransitionCriteria(new NewActivityTransitioner());				
+//			}
+//			setStrategy(s);
+//		} else {
+//			SimpleStrategy s = new SimpleStrategy (COMPARATOR);
+//			if (checkMaxTraces()) {
+//				s.addTerminationCriteria(new MaxStepsTermination(MAX_NUM_TRACES));
+//			}
+//			setStrategy(s);
+//		}
 		
 		d = (stepPersistence())?new StepDiskPersistence (MAX_TRACES_IN_RAM):new DiskPersistence();
 		d.setSession(this.theGuiTree);
 		setPersistence (d);
 		
 	}
+	
+//	public boolean useCustomStrategy () {
+//		return (checkTransition() || checkForDepth());
+//	}
+//	
+//	public boolean checkForDepth() {
+//		return (TRACE_MAX_DEPTH>0);
+//	}
+//	
+//	public boolean checkMaxTraces() {
+//		return (MAX_NUM_TRACES>0);
+//	}
+//	
+//	public boolean checkTransition() {
+//		return CHECK_FOR_TRANSITION;
+//	}
 	
 	protected void setUp () {
 		try {

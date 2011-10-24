@@ -61,7 +61,6 @@ public class GuiTreeAbstractor implements Abstractor, FilterHandler {
 	}
 	
 	// If the boolean parameter is omitted, the overloading method will default to a Final Activity
-	@SuppressWarnings("rawtypes")
 	public ActivityState createActivity (ActivityDescription desc, boolean start) {
 		ActivityState newActivity = (start)?StartActivity.createActivity(getTheSession()):FinalActivity.createActivity(getTheSession());
 		newActivity.setName(desc.getActivityName());
@@ -69,9 +68,53 @@ public class GuiTreeAbstractor implements Abstractor, FilterHandler {
 		for (Filter f: this.filters) {
 			f.clear();
 		}
-		boolean noDescription = true;
+		boolean hasDescription = updateDescription(newActivity, desc, false);
+//		for (View v: desc) {
+//			noDescription = false;
+//			if (!v.isShown()) continue;
+//			TestCaseWidget w = TestCaseWidget.createWidget(getTheSession());
+//			String id = String.valueOf(v.getId());
+//			String text = "";
+//			if (v instanceof TextView) {
+//				TextView t = (TextView)v;
+//				int type = t.getInputType();
+//				if (type!=0) {
+//					w.setTextType("" + type);
+//				}
+//				text = t.getText().toString();
+//			}
+//			if (v instanceof AdapterView) {
+//				w.setCount(((AdapterView)v).getCount());
+//			}
+//			if (v instanceof AbsSpinner) {
+//				w.setCount(((AbsSpinner)v).getCount());
+//			}
+//			if (v instanceof TabHost) {
+//				w.setCount(((TabHost)v).getTabWidget().getTabCount());
+//			}
+//			w.setIdNameType(id, text, v.getClass().getName());
+//			w.setSimpleType(detector.getSimpleType(v));
+//			String ok = (v.isClickable() && v.isEnabled())?"true":"false";
+//			w.setAvailable(ok);
+//			w.setIndex(desc.getWidgetIndex(v));
+//			newActivity.addWidget(w);
+//			for (Filter f: this.filters) {
+//				f.loadItem(v, w);
+//			}
+//		}
+		if (!hasDescription) newActivity.setId("exit");
+		return newActivity;
+	}
+
+	@Override
+	public boolean updateDescription (ActivityState newActivity, ActivityDescription desc) {
+		return updateDescription  (newActivity, desc, true);
+	}
+
+	public boolean updateDescription (ActivityState newActivity, ActivityDescription desc, boolean detectDuplicates) {
+		boolean hasDescription = false;
 		for (View v: desc) {
-			noDescription = false;
+			hasDescription = true;
 			if (!v.isShown()) continue;
 			TestCaseWidget w = TestCaseWidget.createWidget(getTheSession());
 			String id = String.valueOf(v.getId());
@@ -84,27 +127,41 @@ public class GuiTreeAbstractor implements Abstractor, FilterHandler {
 				}
 				text = t.getText().toString();
 			}
-			if (v instanceof AdapterView) {
-				w.setCount(((AdapterView)v).getCount());
-			}
-			if (v instanceof AbsSpinner) {
-				w.setCount(((AbsSpinner)v).getCount());
-			}
-			if (v instanceof TabHost) {
-				w.setCount(((TabHost)v).getTabWidget().getTabCount());
-			}
+//			if (v instanceof AdapterView) {
+//				w.setCount(((AdapterView)v).getCount());
+//			}
+//			if (v instanceof AbsSpinner) {
+//				w.setCount(((AbsSpinner)v).getCount());
+//			}
+//			if (v instanceof TabHost) {
+//				w.setCount(((TabHost)v).getTabWidget().getTabCount());
+//			}
 			w.setIdNameType(id, text, v.getClass().getName());
-			w.setSimpleType(detector.getSimpleType(v));
+			w.setSimpleType(getTypeDetector().getSimpleType(v));
+			setCount (v,w);
 			String ok = (v.isClickable() && v.isEnabled())?"true":"false";
 			w.setAvailable(ok);
 			w.setIndex(desc.getWidgetIndex(v));
+			if (detectDuplicates && newActivity.hasWidget(w)) continue;
 			newActivity.addWidget(w);
 			for (Filter f: this.filters) {
 				f.loadItem(v, w);
 			}
 		}
-		if (noDescription) newActivity.setId("exit");
-		return newActivity;
+		return hasDescription;
+	}
+	
+	@SuppressWarnings("rawtypes")
+	private void setCount (View v, WidgetState w) {
+		if (v instanceof AdapterView) {
+			w.setCount(((AdapterView)v).getCount());
+		}
+		if (v instanceof AbsSpinner) {
+			w.setCount(((AbsSpinner)v).getCount());
+		}
+		if (v instanceof TabHost) {
+			w.setCount(((TabHost)v).getTabWidget().getTabCount());
+		}
 	}
 	
 	public void setBaseActivity (ActivityDescription desc) {
@@ -166,26 +223,16 @@ public class GuiTreeAbstractor implements Abstractor, FilterHandler {
 	
 	public Transition createStep (ActivityState start, Collection<UserInput> inputs, UserEvent event) {
 		Transition t = TestCaseTransition.createTransition(start.getElement().getOwnerDocument());
-//		Log.i("nofatclips",StartActivity.createActivity(start).getElement().getNodeName());
 		try {
 			t.setStartActivity(StartActivity.createActivity(start));
+			for (UserInput inPut: inputs) {
+				t.addInput(inPut);
+			}
+			t.setEvent (event);
 		}
 		catch (DOMException e) {
 			Log.i("nofatclips", "Abstractor->createStep(activity): " + ((e.code==DOMException.HIERARCHY_REQUEST_ERR)?"HIERARCHY_REQUEST_ERR":String.valueOf(e.code)));
 		}
-		for (UserInput inPut: inputs) {
-			t.addInput(inPut);
-		}
-//		Log.i("nofatclips",t.getElement().getNodeName());
-//		Log.i("nofatclips",t.getEvent().getElement().getNodeName());
-//		Log.i("nofatclips",event.getElement().getNodeName());
-		try {
-			t.setEvent (event);
-		}
-		catch (DOMException e) {
-			Log.i("nofatclips", "Abstractor->createStep(event): " + ((e.code==DOMException.HIERARCHY_REQUEST_ERR)?"HIERARCHY_REQUEST_ERR":String.valueOf(e.code)));
-		}
-
 		return t;
 	}
 	

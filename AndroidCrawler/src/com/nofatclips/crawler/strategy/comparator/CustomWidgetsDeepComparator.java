@@ -1,4 +1,4 @@
-package com.nofatclips.crawler.strategy;
+package com.nofatclips.crawler.strategy.comparator;
 
 import com.nofatclips.androidtesting.model.WidgetState;
 

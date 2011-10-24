@@ -1,6 +1,7 @@
-package com.nofatclips.crawler.strategy;
+package com.nofatclips.crawler.strategy.comparator;
 
 import static com.nofatclips.androidtesting.model.SimpleType.*;
+
 
 public class ButtonComparator extends CustomWidgetsComparator {
 

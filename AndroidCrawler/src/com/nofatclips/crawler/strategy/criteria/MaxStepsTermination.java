@@ -1,11 +1,13 @@
-package com.nofatclips.crawler.strategy;
+package com.nofatclips.crawler.strategy.criteria;
+
+import com.nofatclips.crawler.model.Strategy;
 
 import android.util.Log;
 
-import com.nofatclips.androidtesting.model.ActivityState;
-import com.nofatclips.crawler.model.TerminationCriteria;
-
 public class MaxStepsTermination implements TerminationCriteria {
+	
+	private int max;
+	private int current;
 
 	public MaxStepsTermination () {
 		this(1000);
@@ -17,7 +19,7 @@ public class MaxStepsTermination implements TerminationCriteria {
 	}
 
 	@Override
-	public boolean termination (ActivityState currentActivity) {
+	public boolean termination () {
 		this.current--;
 		Log.i("nofatclips", "Check for termination: " + current + " steps left of " + max);
 		return (this.current==0);
@@ -27,7 +29,7 @@ public class MaxStepsTermination implements TerminationCriteria {
 		this.current=max;
 	}
 	
-	private int max;
-	private int current;
+	@Override
+	public void setStrategy(Strategy theStrategy) {}
 	
 }

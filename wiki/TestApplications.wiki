@@ -7,8 +7,6 @@ This open source applications have (more or less) successfully been tested with 
 
  * Mileage: http://evancharlton.com/projects/mileage/ - [https://code.google.com/p/android-mileage/source/ Source]
 
- * Battery Dog: http://andbatdog.sourceforge.net/
-
  * Wordpress: http://android.wordpress.org/download/ - [http://android.svn.wordpress.org/ Source]
 
  * Andoku: ??? [http://www.freewarelovers.com/android/app/andoku Download]
@@ -26,6 +24,8 @@ This open source applications have (more or less) successfully been tested with 
 These open source applications are not compatible with the current version of the crawler.
 
  * Quick Settings: http://code.google.com/p/quick-settings/ (Uses Activity outside of the target package of the Instrumentation)
+
+ * Battery Dog: http://andbatdog.sourceforge.net/ (Clicking on Graph via Instrumentation or via Robotium, nothing happens!)
 
 
 = Other Applications =

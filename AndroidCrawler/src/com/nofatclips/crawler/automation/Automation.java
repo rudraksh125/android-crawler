@@ -14,6 +14,7 @@ import android.app.Activity;
 import android.test.ActivityInstrumentationTestCase2;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.*;
 
 import com.jayway.android.robotium.solo.Solo;
@@ -248,14 +249,42 @@ public class Automation implements Robot, Extractor, TaskProcessor {
 		this.test.getInstrumentation().waitForIdleSync();
 		View v = l.getSelectedView();
 		click (v);
-		if (v instanceof TextView) {
-			this.currentEvent.setDescription(((TextView)v).getText().toString());
-		}
+//		if (v instanceof TextView) {
+//			this.currentEvent.setDescription(((TextView)v).getText().toString());
+//		} else if (v instanceof ViewGroup) {
+//			int childNum = ((ViewGroup)v).getChildCount();
+//			for (int i = 0; i<childNum; i++) {
+//				View child =  ((ViewGroup)v).getChildAt(i);
+//				if (child instanceof TextView) {
+//					this.currentEvent.setDescription(((TextView)child).getText().toString());
+//					break;
+//				}
+//			}
+//		}
+		describeCurrentEvent(v);
 	}
 	
 	protected void click (View v) {
 //		TouchUtils.clickView(this.test, v);
 		solo.clickOnView(v);
+	}
+	
+	private boolean describeCurrentEvent (View v) {
+		if (v instanceof TextView) {
+			this.currentEvent.setDescription(((TextView)v).getText().toString());
+			return true;
+		} else if (v instanceof ViewGroup) {
+			int childNum = ((ViewGroup)v).getChildCount();
+			for (int i = 0; i<childNum; i++) {
+				View child =  ((ViewGroup)v).getChildAt(i);
+//				if (child instanceof TextView) {
+//					this.currentEvent.setDescription(((TextView)child).getText().toString());
+//					return true;
+//				}
+				if (describeCurrentEvent(child)) return true;
+			}
+		}
+		return false;
 	}
 
 	public void clearWidgetList() {

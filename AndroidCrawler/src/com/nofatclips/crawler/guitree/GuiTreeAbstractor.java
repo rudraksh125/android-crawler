@@ -10,6 +10,7 @@ import org.w3c.dom.DOMException;
 
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.AdapterView;
 import android.widget.AbsSpinner;
@@ -155,12 +156,18 @@ public class GuiTreeAbstractor implements Abstractor, FilterHandler {
 	private void setCount (View v, WidgetState w) {
 		if (v instanceof AdapterView) {
 			w.setCount(((AdapterView)v).getCount());
+			return;
 		}
 		if (v instanceof AbsSpinner) {
 			w.setCount(((AbsSpinner)v).getCount());
+			return;
 		}
 		if (v instanceof TabHost) {
 			w.setCount(((TabHost)v).getTabWidget().getTabCount());
+			return;
+		}
+		if (v instanceof ViewGroup) {
+			w.setCount(((ViewGroup)v).getChildCount());
 		}
 	}
 	

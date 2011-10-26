@@ -41,7 +41,11 @@ public class SimpleStrategy implements Strategy {
 		this.afterEvent = theActivity;
 		this.positiveComparation = true;
 		String name = theActivity.getName();
-		Log.i("nofatclips", "Checking strategy for activity " + name);
+		if (theActivity.getId() == "exit") {
+			Log.i("nofatclips", "Exit state. Not performing comparation for activity " + name);
+			return false;
+		}
+		Log.i("nofatclips", "Performing comparation for activity " + name);
 		for (ActivityState stored: guiNodes) {
 			Log.d("nofatclips", "Comparing against activity " + stored.getName());
 			if (getComparator().compare(theActivity, stored)) {

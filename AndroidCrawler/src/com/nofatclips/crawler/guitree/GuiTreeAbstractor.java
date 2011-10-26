@@ -70,39 +70,6 @@ public class GuiTreeAbstractor implements Abstractor, FilterHandler {
 			f.clear();
 		}
 		boolean hasDescription = updateDescription(newActivity, desc, false);
-//		for (View v: desc) {
-//			noDescription = false;
-//			if (!v.isShown()) continue;
-//			TestCaseWidget w = TestCaseWidget.createWidget(getTheSession());
-//			String id = String.valueOf(v.getId());
-//			String text = "";
-//			if (v instanceof TextView) {
-//				TextView t = (TextView)v;
-//				int type = t.getInputType();
-//				if (type!=0) {
-//					w.setTextType("" + type);
-//				}
-//				text = t.getText().toString();
-//			}
-//			if (v instanceof AdapterView) {
-//				w.setCount(((AdapterView)v).getCount());
-//			}
-//			if (v instanceof AbsSpinner) {
-//				w.setCount(((AbsSpinner)v).getCount());
-//			}
-//			if (v instanceof TabHost) {
-//				w.setCount(((TabHost)v).getTabWidget().getTabCount());
-//			}
-//			w.setIdNameType(id, text, v.getClass().getName());
-//			w.setSimpleType(detector.getSimpleType(v));
-//			String ok = (v.isClickable() && v.isEnabled())?"true":"false";
-//			w.setAvailable(ok);
-//			w.setIndex(desc.getWidgetIndex(v));
-//			newActivity.addWidget(w);
-//			for (Filter f: this.filters) {
-//				f.loadItem(v, w);
-//			}
-//		}
 		if (!hasDescription) newActivity.setId("exit");
 		return newActivity;
 	}
@@ -128,20 +95,11 @@ public class GuiTreeAbstractor implements Abstractor, FilterHandler {
 				}
 				text = t.getText().toString();
 			}
-//			if (v instanceof AdapterView) {
-//				w.setCount(((AdapterView)v).getCount());
-//			}
-//			if (v instanceof AbsSpinner) {
-//				w.setCount(((AbsSpinner)v).getCount());
-//			}
-//			if (v instanceof TabHost) {
-//				w.setCount(((TabHost)v).getTabWidget().getTabCount());
-//			}
 			w.setIdNameType(id, text, v.getClass().getName());
 			w.setSimpleType(getTypeDetector().getSimpleType(v));
 			setCount (v,w);
-			String ok = (v.isClickable() && v.isEnabled())?"true":"false";
-			w.setAvailable(ok);
+			w.setAvailable((v.isEnabled())?"true":"false");
+			w.setClickable((v.isClickable())?"true":"false");
 			w.setIndex(desc.getWidgetIndex(v));
 			if (detectDuplicates && newActivity.hasWidget(w)) continue;
 			newActivity.addWidget(w);

@@ -48,9 +48,10 @@ public abstract class Engine extends ActivityInstrumentationTestCase2 {
 			if (!getStrategy().checkForTransition()) continue;
 			theTask.setFinalActivity (theActivity);
 			getPersistence().addTrace(theTask);
-			if (theActivity.getId() == "exit") continue;
-			if (getStrategy().checkForExploration()) {
-				planTests(theTask, theActivity);
+			if (theActivity.getId() != "exit") {
+				if (getStrategy().checkForExploration()) {
+					planTests(theTask, theActivity);
+				}
 			}
 			if (getStrategy().checkForTermination(theActivity)) break;
 		}

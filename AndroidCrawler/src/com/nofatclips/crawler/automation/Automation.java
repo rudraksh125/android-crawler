@@ -99,8 +99,11 @@ public class Automation implements Robot, Extractor, TaskProcessor {
 			Log.d("nofatclips", "Firing event: type= " + eventType);
 			fireEventOnView(null, eventType, null);
 		} else {
-			View v = getAllWidgets().get(e.getWidget().getIndex()); // Search widget by index
-			if (checkWidgetEquivalence(v, Integer.parseInt(e.getWidgetId()), e.getWidgetType(), e.getWidgetName())) { // Widget found
+			View v = null;
+			if (e.getWidget().getIndex()<getAllWidgets().size()) {
+				v = getAllWidgets().get(e.getWidget().getIndex()); // Search widget by index
+			}
+			if ((v!=null) && checkWidgetEquivalence(v, Integer.parseInt(e.getWidgetId()), e.getWidgetType(), e.getWidgetName())) { // Widget found
 				Log.d("nofatclips", "Firing event: type= " + eventType + " index=" + e.getWidget().getIndex() + " widget="+ e.getWidgetType());
 				fireEventOnView (v, eventType, e.getValue());
 			} else if (e.getWidgetId().equals("-1")) { // Widget not found. Search widget by name
@@ -160,6 +163,8 @@ public class Automation implements Robot, Extractor, TaskProcessor {
 	private void fireEventOnView (View v, String eventType, String value) {
 		if (eventType == CLICK) {
 			click (v);
+		} else if (eventType == LONG_CLICK) {
+			longClick(v);
 		} else if (eventType == BACK) {
 			solo.goBack();
 		} else if (eventType == SCROLL_DOWN) {
@@ -172,11 +177,13 @@ public class Automation implements Robot, Extractor, TaskProcessor {
 			}
 		} else if (eventType == LIST_SELECT) {
 			selectListItem((ListView)v, value);
+		} else if (eventType == LIST_LONG_SELECT) {
+			selectListItem((ListView)v, value, true);
 		} else {
 			return;
 		}
-		refreshCurrentActivity();
 		solo.sleep(SLEEP_AFTER_EVENT);
+		refreshCurrentActivity();
 		extractState();
 	}
 
@@ -225,10 +232,14 @@ public class Automation implements Robot, Extractor, TaskProcessor {
 	}
 
 	private void selectListItem (ListView l, String item) {
-		selectListItem (l, Integer.valueOf(item));
+		selectListItem (l, item, false);
 	}
 
-	private void selectListItem (final ListView l, int num) {
+	private void selectListItem (ListView l, String item, boolean longClick) {
+		selectListItem (l, Integer.valueOf(item), longClick);
+	}
+
+	private void selectListItem (final ListView l, int num, boolean longClick) {
 		final int n = Math.min(l.getCount(), Math.max(1,num))-1;
 		l.requestFocus();
 		Log.i("nofatclips", "Swapping to listview item " + num);
@@ -248,19 +259,11 @@ public class Automation implements Robot, Extractor, TaskProcessor {
 		}
 		this.test.getInstrumentation().waitForIdleSync();
 		View v = l.getSelectedView();
-		click (v);
-//		if (v instanceof TextView) {
-//			this.currentEvent.setDescription(((TextView)v).getText().toString());
-//		} else if (v instanceof ViewGroup) {
-//			int childNum = ((ViewGroup)v).getChildCount();
-//			for (int i = 0; i<childNum; i++) {
-//				View child =  ((ViewGroup)v).getChildAt(i);
-//				if (child instanceof TextView) {
-//					this.currentEvent.setDescription(((TextView)child).getText().toString());
-//					break;
-//				}
-//			}
-//		}
+		if (longClick) {
+			longClick(v);
+		} else {
+			click (v);
+		}
 		describeCurrentEvent(v);
 	}
 	
@@ -269,6 +272,10 @@ public class Automation implements Robot, Extractor, TaskProcessor {
 		solo.clickOnView(v);
 	}
 	
+	protected void longClick (View v) {
+		solo.clickLongOnView(v);
+	}
+
 	private boolean describeCurrentEvent (View v) {
 		if (v instanceof TextView) {
 			this.currentEvent.setDescription(((TextView)v).getText().toString());
@@ -277,10 +284,6 @@ public class Automation implements Robot, Extractor, TaskProcessor {
 			int childNum = ((ViewGroup)v).getChildCount();
 			for (int i = 0; i<childNum; i++) {
 				View child =  ((ViewGroup)v).getChildAt(i);
-//				if (child instanceof TextView) {
-//					this.currentEvent.setDescription(((TextView)child).getText().toString());
-//					return true;
-//				}
 				if (describeCurrentEvent(child)) return true;
 			}
 		}

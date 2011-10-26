@@ -9,7 +9,7 @@ This open source applications have (more or less) successfully been tested with 
 
  * Wordpress: http://android.wordpress.org/download/ - [http://android.svn.wordpress.org/ Source]
 
- * Andoku: ??? [http://www.freewarelovers.com/android/app/andoku Download]
+ * Andoku: ??? [https://github.com/spicysquid/andoku Source] [http://www.freewarelovers.com/android/app/andoku Download]
 
  * AndBible: http://code.google.com/p/and-bible/
 

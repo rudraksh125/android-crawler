@@ -167,6 +167,8 @@ public class Automation implements Robot, Extractor, TaskProcessor {
 			longClick(v);
 		} else if (eventType == BACK) {
 			solo.goBack();
+		} else if (eventType == OPEN_MENU) {
+			solo.sendKey(Solo.MENU);
 		} else if (eventType == SCROLL_DOWN) {
 			solo.scrollDown();
 		} else if (eventType == SWAP_TAB && value!=null) {
@@ -268,7 +270,7 @@ public class Automation implements Robot, Extractor, TaskProcessor {
 	}
 	
 	protected void click (View v) {
-//		TouchUtils.clickView(this.test, v);
+//		android.test.TouchUtils.clickView(this.test, v);
 		solo.clickOnView(v);
 	}
 	

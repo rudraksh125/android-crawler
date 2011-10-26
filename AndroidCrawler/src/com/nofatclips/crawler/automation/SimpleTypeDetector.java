@@ -20,6 +20,8 @@ public class SimpleTypeDetector implements TypeDetector {
 			return RADIO;
 		if (type.endsWith("CheckBox") || type.endsWith("CheckedTextView"))
 			return CHECKBOX;
+		if (type.endsWith("IconMenuItemView"))
+			return BUTTON;
 		if (type.endsWith("Button"))
 			return BUTTON;
 		if (type.endsWith("EditText"))

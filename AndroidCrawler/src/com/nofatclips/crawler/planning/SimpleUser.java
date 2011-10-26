@@ -80,11 +80,11 @@ public class SimpleUser implements EventHandler, InputHandler {
 	public UserInput handleInput(WidgetState w) {
 		if (!useForInput(w)) return null;
 		Log.d("nofatclips", "Handling input on widget id=" + w.getId() + " type=" + w.getSimpleType());
-		if (w.getSimpleType().equals(CHECKBOX)) {
+		if (w.getSimpleType().equals(CHECKBOX) && w.isClickable()) {
 //			if (randomGenerator.nextBoolean()) return null;
 			UserInput input = getAbstractor().createInput(w, "", CLICK);
 			return input;
-		} else if (w.getSimpleType().equals(RADIO)) {
+		} else if (w.getSimpleType().equals(RADIO) && w.isClickable()) {
 			return getAbstractor().createInput(w, "", CLICK);
 		} else if (w.getSimpleType().equals("editText")) {
 			int randomInt = randomGenerator.nextInt(this.upperLimit-this.lowerLimit) + this.lowerLimit;  

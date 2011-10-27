@@ -1,37 +1,4 @@
 #summary Applications used to test the crawler.
 #labels Phase-QA
 
-= Open Source Applications (Usable) =
-
-This open source applications have (more or less) successfully been tested with the crawler.
-
- * Mileage: http://evancharlton.com/projects/mileage/ - [https://code.google.com/p/android-mileage/source/ Source]
-
- * Wordpress: http://android.wordpress.org/download/ - [http://android.svn.wordpress.org/ Source]
-
- * Andoku: ??? [https://github.com/spicysquid/andoku Source] [http://www.freewarelovers.com/android/app/andoku Download]
-
- * AndBible: http://code.google.com/p/and-bible/
-
- * API Demos: shipped with Android OS [http://developer.android.com/resources/samples/ApiDemos/src/com/example/android/apis/view/index.html Source]
-
- * OpenSudoku: http://code.google.com/p/opensudoku-android/
-
- * DealDroid: http://code.google.com/p/dealdroid/
-
-= Open Source Applications (Failures) =
-
-These open source applications are not compatible with the current version of the crawler.
-
- * Quick Settings: http://code.google.com/p/quick-settings/ (Uses Activity outside of the target package of the Instrumentation)
-
- * Battery Dog: http://andbatdog.sourceforge.net/ (Clicking on Graph via Instrumentation or via Robotium, nothing happens!)
-
-
-= Other Applications =
-
-This closed source applications have (more or less) successfully been tested with the crawler.
-
- * Mileage Tracker: http://www.softmimo.com/MileageTracker.php
-
- * Calorie Calculator: http://blog.blazing-skies.com/calorie-calculator-android/ 
+Moved to https://code.google.com/p/gui2efg2junit/wiki/TestApplications

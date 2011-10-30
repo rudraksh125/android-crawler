@@ -439,7 +439,12 @@ public class Automation implements Robot, Extractor, TaskProcessor {
 //					return getActivity().getLocalClassName();
 					return getActivity().getClass().getSimpleName();
 				}
-				
+
+				@Override
+				public String getActivityTitle() {
+					return getActivity().getTitle().toString();
+				}
+
 				@Override
 				public String toString() {
 					return getActivityName();

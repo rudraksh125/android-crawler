@@ -225,12 +225,14 @@ public class Automation implements Robot, Extractor, TaskProcessor {
 	private void swapTab (final TabHost t, int num) {
 		final int n = Math.min(this.tabNum, Math.max(1,num))-1;
 		Log.i("nofatclips", "Swapping to tab " + num);
+		Log.w("nofatclips",t.getTabWidget().getChildAt(n).toString());
 		getActivity().runOnUiThread(new Runnable() {
 			public void run() {
 				t.setCurrentTab(n);
 			}
 		});
 		this.test.getInstrumentation().waitForIdleSync();
+		describeCurrentEvent(t.getTabWidget().getChildAt(n));
 	}
 
 	private void selectListItem (ListView l, String item) {
@@ -282,6 +284,8 @@ public class Automation implements Robot, Extractor, TaskProcessor {
 		if (v instanceof TextView) {
 			this.currentEvent.setDescription(((TextView)v).getText().toString());
 			return true;
+		} else if (v instanceof TabHost) {
+			this.currentEvent.setDescription(((TabHost)v).getCurrentTabTag());
 		} else if (v instanceof ViewGroup) {
 			int childNum = ((ViewGroup)v).getChildCount();
 			for (int i = 0; i<childNum; i++) {

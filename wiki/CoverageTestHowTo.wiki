@@ -5,10 +5,10 @@
 
 This howto assumes that:
 
- * ant is installed and its _bin_ subdirectory is in the System Path
- * the Android SDK is installed and its _tools_ and _platform-tools_ subdirs are in the System Path
- * the crawler source code is ready to compile under the %CRAWLER_DIR% directory (you might eventually work on a copy of the original dir)
- * the application under test is %APP_NAME%
+ * *ant* is installed and its _bin_ subdirectory is in the System Path
+ * the *Android SDK r15* is installed and its _tools_ and _platform-tools_ subdirs are in the System Path
+ * the *crawler* source code is ready to compile under the %CRAWLER_DIR% directory (you might eventually work on a copy of the original dir)
+ * the *application under test* is %APP_NAME%
  * the source for the application under test is under %APP_DIR%
  * a virtual device (AVD) is running or a physical device is connected to the computer
 
@@ -16,9 +16,10 @@ This howto assumes that:
 
 The following steps are required in order to run the test:
 
- * the file Resources.java has the application specific parameters
- * the Android Manifest is updated with the correct target package for the instrumentation %APP_PACKAGE%
- * the androidtest.jar has been updated to the last version and copied in the /libs directory of the crawler
+ * the file `Resources.java` has the application specific parameters
+ * the `Android Manifest` is updated with the correct target package for the instrumentation %APP_PACKAGE%
+ * a version of *Robotium* JAR is in the _libs_ subdir of the crawler
+ * the `androidtest.jar` has been updated to the last version and copied in the _libs_ subdir of the crawler
 
 = Build =
 

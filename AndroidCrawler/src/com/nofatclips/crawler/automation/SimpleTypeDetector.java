@@ -30,6 +30,10 @@ public class SimpleTypeDetector implements TypeDetector {
 			return BUTTON;
 		if (type.endsWith("EditText"))
 			return EDIT_TEXT;
+		if (type.endsWith("Spinner"))
+			return SPINNER;
+		if (type.endsWith("SeekBar"))
+			return SEEK_BAR;
 		if (type.endsWith("TabHost"))
 			return TAB_HOST;
 		if (type.endsWith("ListView") || type.endsWith("ExpandedMenuView"))

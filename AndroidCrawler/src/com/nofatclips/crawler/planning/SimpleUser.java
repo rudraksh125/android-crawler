@@ -86,7 +86,11 @@ public class SimpleUser implements EventHandler, InputHandler {
 			return input;
 		} else if (w.getSimpleType().equals(RADIO) && w.isClickable()) {
 			return getAbstractor().createInput(w, "", CLICK);
-		} else if (w.getSimpleType().equals("editText")) {
+		} else if (w.getSimpleType().equals(SEEK_BAR)) {
+			int randomInt = randomGenerator.nextInt(w.getCount());
+			UserInput input = getAbstractor().createInput(w, String.valueOf(randomInt), SET_BAR);
+			return input;			
+		} else if (w.getSimpleType().equals(EDIT_TEXT)) {
 			int randomInt = randomGenerator.nextInt(this.upperLimit-this.lowerLimit) + this.lowerLimit;  
 			UserInput input = getAbstractor().createInput(w, String.valueOf(randomInt), TYPE_TEXT);
 			return input;
@@ -102,7 +106,7 @@ public class SimpleUser implements EventHandler, InputHandler {
 	protected boolean useForInput (WidgetState w) {
 		if (useForClick(w)) return false;
 		if (!w.isAvailable()) return false;
-		return ( (w.getSimpleType().equals(EDIT_TEXT) || w.getSimpleType().equals(RADIO) || w.getSimpleType().equals(CHECKBOX)) && !w.getId().equals("-1"));
+		return ( (w.getSimpleType().equals(EDIT_TEXT) || w.getSimpleType().equals(RADIO) || w.getSimpleType().equals(CHECKBOX) || w.getSimpleType().equals(SEEK_BAR)) && !w.getId().equals("-1"));
 	}
 	
 //	protected boolean useForSwapTabs (WidgetState w) {

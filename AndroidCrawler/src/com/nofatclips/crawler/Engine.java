@@ -63,6 +63,15 @@ public abstract class Engine extends ActivityInstrumentationTestCase2 {
 		getRobot().finalize();
 		super.tearDown();
 	}
+	
+//	@Override
+//	protected void finalize() throws Throwable {
+//	    try {
+//			getPersistence().save();
+//	    } finally {
+//	        super.finalize();
+//	    }
+//	}
 
 	private void planFirstTests (ActivityState theActivity) {
 		Plan thePlan = getPlanner().getPlanForBaseActivity(theActivity);

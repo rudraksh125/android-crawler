@@ -24,6 +24,8 @@ public class SimpleTypeDetector implements TypeDetector {
 			return MENU_VIEW;
 		if (type.endsWith("IconMenuItemView"))
 			return BUTTON;
+		if (type.endsWith("DialogTitle"))
+			return DIALOG_VIEW;
 		if (type.endsWith("Button"))
 			return BUTTON;
 		if (type.endsWith("EditText"))

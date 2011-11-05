@@ -45,16 +45,16 @@ public class Resources {
 //	public final static int SLEEP_AFTER_RESTART = 2000;
 //	public final static boolean EVENT_WHEN_NO_ID = false; // Whether to inject events on widgets without ID or not
 
-	public final static String PACKAGE_NAME = "org.wordpress.android";
-	public final static String CLASS_NAME = "org.wordpress.android.splashScreen";
-	public final static String FILE_NAME = "wordpress.xml"; // Output
-	public final static Comparator COMPARATOR = new CustomWidgetsComparator(EDIT_TEXT, BUTTON);
-	public final static int SLEEP_AFTER_EVENT = 4000;
-	public final static int SLEEP_AFTER_RESTART = 6000;
-	public final static boolean EVENT_WHEN_NO_ID = false; // Whether to inject events on widgets without ID or not
-	public final static StrategyCriteria[] ADDITIONAL_CRITERIAS = new StrategyCriteria[] {
-		new AfterEventDontExplore("Remove Blog", "Add"),
-	};
+//	public final static String PACKAGE_NAME = "org.wordpress.android";
+//	public final static String CLASS_NAME = "org.wordpress.android.splashScreen";
+//	public final static String FILE_NAME = "wordpress.xml"; // Output
+//	public final static Comparator COMPARATOR = new CustomWidgetsComparator(EDIT_TEXT, BUTTON);
+//	public final static int SLEEP_AFTER_EVENT = 4000;
+//	public final static int SLEEP_AFTER_RESTART = 6000;
+//	public final static boolean EVENT_WHEN_NO_ID = false; // Whether to inject events on widgets without ID or not
+//	public final static StrategyCriteria[] ADDITIONAL_CRITERIAS = new StrategyCriteria[] {
+//		new AfterEventDontExplore("Remove Blog", "Add"),
+//	};
 
 //	public final static String PACKAGE_NAME = "com.bwx.bequick";
 //	public final static String CLASS_NAME = "com.bwx.bequick.ShowSettingsActivity";
@@ -158,21 +158,29 @@ public class Resources {
 ////		new AfterEventDontExplore("Reset All Puzzles"),
 //	};
 
+	public final static String PACKAGE_NAME = "com.google.android.diskusage";
+	public final static String CLASS_NAME = "com.google.android.diskusage.SelectActivity";
+	public final static String FILE_NAME = "diskusage.xml"; // Output
+	public final static Comparator COMPARATOR = new CustomWidgetsDeepComparator(DIALOG_VIEW, BUTTON);
+	public final static int SLEEP_AFTER_EVENT = 4000;
+	public final static int SLEEP_AFTER_RESTART = 1000;
+	public final static boolean EVENT_WHEN_NO_ID = false; // Whether to inject events on widgets without ID or not
+
 	// Strategy Parameters
 	public final static int MAX_NUM_TRACES = 600; // After performing this amount of traces, the crawler exits (0 = no length limit)
 	public final static int MAX_TRACES_IN_RAM = 20; // After performing this amount of traces, the crawler saves to disk, empties the session and continues (0 = keep all in RAM)
 	public final static long MAX_TIME_CRAWLING = 0; // In seconds (0 = no time limit)
 	public final static int TRACE_MAX_DEPTH = 0; // Max number of transitions in a trace (0 = no depth limit)
 	public final static boolean CHECK_FOR_TRANSITION = false;
-//	public final static StrategyCriteria[] ADDITIONAL_CRITERIAS = new StrategyCriteria[] {
-//	};
+	public final static StrategyCriteria[] ADDITIONAL_CRITERIAS = new StrategyCriteria[] {
+	};
 	
 	// More Parameters
 	public final static int MAX_EVENTS_PER_WIDGET = 40; // For GroupViews (0 = try all items in the group)
 	public final static boolean BACK_BUTTON_EVENT = true;
 	public final static boolean MENU_EVENTS = true;
 	public final static boolean TAB_EVENTS_START_ONLY = false; // true -> click on tabs only on the start activity
-	public final static boolean LONG_CLICK_LIST_EVENT = true;
+	public final static boolean LONG_CLICK_LIST_EVENT = false;
 	public final static boolean LONG_CLICK_EVENT = false;
 	public final static boolean SCROLL_DOWN_EVENT = false;
 	public final static String XML_BODY_BEGIN = "    <TRACE";

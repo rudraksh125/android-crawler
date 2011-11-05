@@ -11,6 +11,7 @@ import org.w3c.dom.DOMException;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.AdapterView;
 import android.widget.AbsSpinner;
@@ -113,21 +114,36 @@ public class GuiTreeAbstractor implements Abstractor, FilterHandler {
 	
 	@SuppressWarnings("rawtypes")
 	private void setCount (View v, WidgetState w) {
+		// For lists, the count is set to the number of rows in the list (inactive rows count as well)
 		if (v instanceof AdapterView) {
 			w.setCount(((AdapterView)v).getCount());
 			return;
 		}
+		
+		// For Spinners, the count is set to the number of options
 		if (v instanceof AbsSpinner) {
 			w.setCount(((AbsSpinner)v).getCount());
 			return;
 		}
+		
+		// For the tab layout host, the count is set to the number of tabs
 		if (v instanceof TabHost) {
 			w.setCount(((TabHost)v).getTabWidget().getTabCount());
 			return;
 		}
+		
+		// For grids, the count is set to the number of icons
 		if (v instanceof ViewGroup) {
 			w.setCount(((ViewGroup)v).getChildCount());
+			return;
 		}
+		
+		// For progress bars, seek bars and rating bars, the count is set to the maximum value allowed
+		if (v instanceof ProgressBar) {
+			w.setCount(((ProgressBar)v).getMax());
+			return;
+		}
+		
 	}
 	
 	public void setBaseActivity (ActivityDescription desc) {

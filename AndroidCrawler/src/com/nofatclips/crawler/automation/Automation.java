@@ -211,10 +211,12 @@ public class Automation implements Robot, Extractor, TaskProcessor {
 		if (v == null) {
 			v = theActivity.findViewById(widgetId);
 		}
-		if (inputType == TYPE_TEXT) {
+		if (inputType.equals(TYPE_TEXT)) {
 			solo.enterText((EditText)v, value);
-		} else if (inputType == CLICK) {
+		} else if (inputType.equals(CLICK)) {
 			click (v);
+		} else if (inputType.equals(SET_BAR)) {
+			solo.setProgressBar((ProgressBar)v, Integer.parseInt(value));
 		}
 	}
 

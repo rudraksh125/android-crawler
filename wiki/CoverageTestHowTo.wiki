@@ -56,10 +56,11 @@ Then, run the test with the coverage flag on true:
 adb shell am instrument -w -e coverage true com.nofatclips.crawler/android.test.InstrumentationTestRunner
 }}}
 
-Open another shell and run
+Open another shell and run one of the following:
 
 {{{
 adb logcat *:I
+adb logcat nofatclips:I *:E
 }}}
 
 to read the log. (Remove the filter for the whole thing!)

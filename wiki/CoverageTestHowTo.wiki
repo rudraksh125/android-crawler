@@ -12,6 +12,14 @@ This howto assumes that:
  * the source for the application under test is under %APP_DIR%
  * a virtual device (AVD) is running or a physical device is connected to the computer
 
+If you need more internal storage (the Gui Tree and the coverage data will be saved there), you must run the emulator from command line:
+
+{{{
+emulator @VirtualDeviceName -partition-size XXXX
+}}}
+
+where XXXX is the size of the storage in MB.
+
 = Preparation =
 
 The following steps are required in order to run the test:

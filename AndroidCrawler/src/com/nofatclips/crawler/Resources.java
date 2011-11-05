@@ -158,9 +158,17 @@ public class Resources {
 ////		new AfterEventDontExplore("Reset All Puzzles"),
 //	};
 
-	public final static String PACKAGE_NAME = "com.google.android.diskusage";
-	public final static String CLASS_NAME = "com.google.android.diskusage.SelectActivity";
-	public final static String FILE_NAME = "diskusage.xml"; // Output
+//	public final static String PACKAGE_NAME = "com.google.android.diskusage";
+//	public final static String CLASS_NAME = "com.google.android.diskusage.SelectActivity";
+//	public final static String FILE_NAME = "diskusage.xml"; // Output
+//	public final static Comparator COMPARATOR = new CustomWidgetsDeepComparator(DIALOG_VIEW, BUTTON);
+//	public final static int SLEEP_AFTER_EVENT = 4000;
+//	public final static int SLEEP_AFTER_RESTART = 1000;
+//	public final static boolean EVENT_WHEN_NO_ID = false; // Whether to inject events on widgets without ID or not
+
+	public final static String PACKAGE_NAME = "net.mandaria.tippytipper";
+	public final static String CLASS_NAME = "net.mandaria.tippytipper.activities.TippyTipper";
+	public final static String FILE_NAME = "tippytipper.xml"; // Output
 	public final static Comparator COMPARATOR = new CustomWidgetsDeepComparator(DIALOG_VIEW, BUTTON);
 	public final static int SLEEP_AFTER_EVENT = 4000;
 	public final static int SLEEP_AFTER_RESTART = 1000;

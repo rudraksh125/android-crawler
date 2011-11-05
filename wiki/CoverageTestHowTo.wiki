@@ -76,7 +76,7 @@ Pull it from the device into the crawler directory:
 adb pull /data/data/%APP_PACKAGE%/files/coverage.ec %CRAWLER_DIR%
 }}}
 
- then use the following command to generate an HTML report:
+then use the following command to generate an HTML report:
 
 {{{
 java -cp lib\emma_device.jar emma report -r html -in %CRAWLER_DIR%\coverage.em,%CRAWLER_DIR%\coverage.ec

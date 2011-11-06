@@ -246,7 +246,7 @@ public class Automation implements Robot, Extractor, TaskProcessor {
 
 	private void selectListItem (final ListView l, int num, boolean longClick) {
 		final int n = Math.min(l.getCount(), Math.max(1,num))-1;
-		l.requestFocus();
+		requestFocus(l);
 		Log.i("nofatclips", "Swapping to listview item " + num);
 		solo.sendKey(Solo.DOWN);
 		getActivity().runOnUiThread(new Runnable() {
@@ -270,6 +270,14 @@ public class Automation implements Robot, Extractor, TaskProcessor {
 			click (v);
 		}
 		describeCurrentEvent(v);
+	}
+	
+	protected void requestFocus (final View v) {
+		getActivity().runOnUiThread(new Runnable() {
+			public void run() {
+				v.requestFocus();		
+			}
+		});
 	}
 	
 	protected void click (View v) {

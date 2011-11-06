@@ -166,13 +166,22 @@ public class Resources {
 //	public final static int SLEEP_AFTER_RESTART = 1000;
 //	public final static boolean EVENT_WHEN_NO_ID = false; // Whether to inject events on widgets without ID or not
 
-	public final static String PACKAGE_NAME = "net.mandaria.tippytipper";
-	public final static String CLASS_NAME = "net.mandaria.tippytipper.activities.TippyTipper";
-	public final static String FILE_NAME = "tippytipper.xml"; // Output
-	public final static Comparator COMPARATOR = new CustomWidgetsDeepComparator(DIALOG_VIEW, BUTTON);
-	public final static int SLEEP_AFTER_EVENT = 4000;
-	public final static int SLEEP_AFTER_RESTART = 1000;
+//	public final static String PACKAGE_NAME = "net.mandaria.tippytipper";
+//	public final static String CLASS_NAME = "net.mandaria.tippytipper.activities.TippyTipper";
+//	public final static String FILE_NAME = "tippytipper.xml"; // Output
+//	public final static Comparator COMPARATOR = new CustomWidgetsDeepComparator(DIALOG_VIEW, BUTTON);
+//	public final static int SLEEP_AFTER_EVENT = 2000;
+//	public final static int SLEEP_AFTER_RESTART = 1000;
+//	public final static boolean EVENT_WHEN_NO_ID = true; // Whether to inject events on widgets without ID or not
+
+	public final static String PACKAGE_NAME = "com.FireFart.Permissions";
+	public final static String CLASS_NAME = "com.FireFart.Permissions.Permissions";
+	public final static String FILE_NAME = "permissions.xml"; // Output
+	public final static Comparator COMPARATOR = new CustomWidgetsDeepComparator(TEXT_VIEW);
+	public final static int SLEEP_AFTER_EVENT = 3400;
+	public final static int SLEEP_AFTER_RESTART = 3400;
 	public final static boolean EVENT_WHEN_NO_ID = false; // Whether to inject events on widgets without ID or not
+	public final static int MAX_EVENTS_PER_WIDGET = 4; // For GroupViews (0 = try all items in the group)
 
 	// Strategy Parameters
 	public final static int MAX_NUM_TRACES = 600; // After performing this amount of traces, the crawler exits (0 = no length limit)
@@ -184,7 +193,7 @@ public class Resources {
 	};
 	
 	// More Parameters
-	public final static int MAX_EVENTS_PER_WIDGET = 40; // For GroupViews (0 = try all items in the group)
+//	public final static int MAX_EVENTS_PER_WIDGET = 40; // For GroupViews (0 = try all items in the group)
 	public final static boolean BACK_BUTTON_EVENT = true;
 	public final static boolean MENU_EVENTS = true;
 	public final static boolean TAB_EVENTS_START_ONLY = false; // true -> click on tabs only on the start activity

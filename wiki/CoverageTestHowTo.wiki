@@ -6,7 +6,7 @@
 This howto assumes that:
 
  * *ant* is installed and its _bin_ subdirectory is in the System Path
- * the *Android SDK r15* is installed and its _tools_ and _platform-tools_ subdirs are in the System Path
+ * the *Android SDK r-15* is installed and its _tools_ and _platform-tools_ subdirs are in the System Path
  * the *crawler* source code is ready to compile under the %CRAWLER_DIR% directory (you might eventually work on a copy of the original dir)
  * the *application under test* is %APP_NAME%
  * the source for the application under test is under %APP_DIR%

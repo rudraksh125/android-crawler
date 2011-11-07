@@ -79,7 +79,7 @@ public abstract class Engine extends ActivityInstrumentationTestCase2 {
 	}
 	
 	private void planTests (Trace theTask, ActivityState theActivity) {
-		Plan thePlan = getPlanner().getPlanForActivity(theActivity); // numTabs=1 => Ignore TabHost
+		Plan thePlan = getPlanner().getPlanForActivity(theActivity);
 		planTests (theTask, thePlan);
 	}
 	

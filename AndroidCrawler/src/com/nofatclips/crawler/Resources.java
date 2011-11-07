@@ -43,18 +43,16 @@ public class Resources {
 //	public final static Comparator COMPARATOR = new NameComparator();
 //	public final static int SLEEP_AFTER_EVENT = 5000;
 //	public final static int SLEEP_AFTER_RESTART = 2000;
-//	public final static boolean EVENT_WHEN_NO_ID = false; // Whether to inject events on widgets without ID or not
 
-//	public final static String PACKAGE_NAME = "org.wordpress.android";
-//	public final static String CLASS_NAME = "org.wordpress.android.splashScreen";
-//	public final static String FILE_NAME = "wordpress.xml"; // Output
-//	public final static Comparator COMPARATOR = new CustomWidgetsComparator(EDIT_TEXT, BUTTON);
-//	public final static int SLEEP_AFTER_EVENT = 4000;
-//	public final static int SLEEP_AFTER_RESTART = 6000;
-//	public final static boolean EVENT_WHEN_NO_ID = false; // Whether to inject events on widgets without ID or not
-//	public final static StrategyCriteria[] ADDITIONAL_CRITERIAS = new StrategyCriteria[] {
-//		new AfterEventDontExplore("Remove Blog", "Add"),
-//	};
+	public final static String PACKAGE_NAME = "org.wordpress.android";
+	public final static String CLASS_NAME = "org.wordpress.android.splashScreen";
+	public final static String FILE_NAME = "wordpress.xml"; // Output
+	public final static Comparator COMPARATOR = new CustomWidgetsComparator(EDIT_TEXT, BUTTON);
+	public final static int SLEEP_AFTER_EVENT = 4000;
+	public final static int SLEEP_AFTER_RESTART = 6000;
+	public final static StrategyCriteria[] ADDITIONAL_CRITERIAS = new StrategyCriteria[] {
+		new AfterEventDontExplore("Remove Blog", "Add"),
+	};
 
 //	public final static String PACKAGE_NAME = "com.bwx.bequick";
 //	public final static String CLASS_NAME = "com.bwx.bequick.ShowSettingsActivity";
@@ -62,7 +60,6 @@ public class Resources {
 //	public final static Comparator COMPARATOR = new EditTextComparator();
 //	public final static int SLEEP_AFTER_EVENT = 200;
 //	public final static int SLEEP_AFTER_RESTART = 0;
-//	public final static boolean EVENT_WHEN_NO_ID = false; // Whether to inject events on widgets without ID or not
 
 //	public final static String PACKAGE_NAME = "net.bible.android.activity";
 //	public final static String CLASS_NAME = "net.bible.android.activity.StartupActivity";
@@ -84,7 +81,7 @@ public class Resources {
 //	public final static String CLASS_NAME = "com.example.android.apis.ApiDemos";
 //	public final static String FILE_NAME = "apidemos.xml"; // Output
 //	public final static Comparator COMPARATOR = new CustomWidgetsDeepComparator(TEXT_VIEW);
-//	public final static int SLEEP_AFTER_EVENT = 200;
+//	public final static int SLEEP_AFTER_EVENT = 2000;
 //	public final static int SLEEP_AFTER_RESTART = 500;
 //	public final static boolean EVENT_WHEN_NO_ID = true; // Whether to inject events on widgets without ID or not 
 //	public final static StrategyCriteria[] ADDITIONAL_CRITERIAS = new StrategyCriteria[] {
@@ -118,7 +115,6 @@ public class Resources {
 //	public final static int SLEEP_AFTER_EVENT = 2000;
 //	public final static int SLEEP_AFTER_RESTART = 2000;
 //	public final static int MAX_EVENTS_PER_WIDGET = 5; // For GroupViews (0 = try all items in the group)
-//	public final static boolean EVENT_WHEN_NO_ID = true; // Whether to inject events on widgets without ID or not
 //	public final static StrategyCriteria[] ADDITIONAL_CRITERIAS = new StrategyCriteria[] {
 //		new AfterEventDontExplore("Delete folder", "Delete puzzle"),
 //	};
@@ -129,7 +125,6 @@ public class Resources {
 //	public final static Comparator COMPARATOR = new CustomWidgetsComparator(EDIT_TEXT, BUTTON);
 //	public final static int SLEEP_AFTER_EVENT = 1000;
 //	public final static int SLEEP_AFTER_RESTART = 1000;
-//	public final static boolean EVENT_WHEN_NO_ID = false; // Whether to inject events on widgets without ID or not
 
 //	public final static String PACKAGE_NAME = "com.kiwifruitmobile.sudoku";
 //	public final static String CLASS_NAME = "com.kiwifruitmobile.sudoku.MainActivity";
@@ -137,7 +132,6 @@ public class Resources {
 //	public final static Comparator COMPARATOR = new CustomWidgetsComparator(CustomWidgetsComparator.IGNORE_ACTIVITY_NAME, EDIT_TEXT, BUTTON);
 //	public final static int SLEEP_AFTER_EVENT = 200;
 //	public final static int SLEEP_AFTER_RESTART = 2000;
-//	public final static boolean EVENT_WHEN_NO_ID = false; // Whether to inject events on widgets without ID or not
 
 //	public final static String PACKAGE_NAME = "com.saatcioglu.android.guessthenumber";
 //	public final static String CLASS_NAME = "com.saatcioglu.android.guessthenumber.GfxMain";
@@ -145,7 +139,6 @@ public class Resources {
 //	public final static Comparator COMPARATOR = new CustomWidgetsComparator(BUTTON);
 //	public final static int SLEEP_AFTER_EVENT = 1000;
 //	public final static int SLEEP_AFTER_RESTART = 1000;
-//	public final static boolean EVENT_WHEN_NO_ID = false; // Whether to inject events on widgets without ID or not
 
 //	public final static String PACKAGE_NAME = "org.connectbot";
 //	public final static String CLASS_NAME = "org.connectbot.HostListActivity";
@@ -153,7 +146,6 @@ public class Resources {
 //	public final static Comparator COMPARATOR = new CustomWidgetsDeepComparator(EDIT_TEXT, BUTTON);
 //	public final static int SLEEP_AFTER_EVENT = 2000;
 //	public final static int SLEEP_AFTER_RESTART = 2000;
-//	public final static boolean EVENT_WHEN_NO_ID = false; // Whether to inject events on widgets without ID or not
 //	public final static StrategyCriteria[] ADDITIONAL_CRITERIAS = new StrategyCriteria[] {
 ////		new AfterEventDontExplore("Reset All Puzzles"),
 //	};
@@ -164,7 +156,6 @@ public class Resources {
 //	public final static Comparator COMPARATOR = new CustomWidgetsDeepComparator(DIALOG_VIEW, BUTTON);
 //	public final static int SLEEP_AFTER_EVENT = 4000;
 //	public final static int SLEEP_AFTER_RESTART = 1000;
-//	public final static boolean EVENT_WHEN_NO_ID = false; // Whether to inject events on widgets without ID or not
 
 //	public final static String PACKAGE_NAME = "net.mandaria.tippytipper";
 //	public final static String CLASS_NAME = "net.mandaria.tippytipper.activities.TippyTipper";
@@ -174,14 +165,13 @@ public class Resources {
 //	public final static int SLEEP_AFTER_RESTART = 1000;
 //	public final static boolean EVENT_WHEN_NO_ID = true; // Whether to inject events on widgets without ID or not
 
-	public final static String PACKAGE_NAME = "com.FireFart.Permissions";
-	public final static String CLASS_NAME = "com.FireFart.Permissions.Permissions";
-	public final static String FILE_NAME = "permissions.xml"; // Output
-	public final static Comparator COMPARATOR = new CustomWidgetsDeepComparator(TEXT_VIEW);
-	public final static int SLEEP_AFTER_EVENT = 3400;
-	public final static int SLEEP_AFTER_RESTART = 3400;
-	public final static boolean EVENT_WHEN_NO_ID = false; // Whether to inject events on widgets without ID or not
-	public final static int MAX_EVENTS_PER_WIDGET = 4; // For GroupViews (0 = try all items in the group)
+//	public final static String PACKAGE_NAME = "com.FireFart.Permissions";
+//	public final static String CLASS_NAME = "com.FireFart.Permissions.Permissions";
+//	public final static String FILE_NAME = "permissions.xml"; // Output
+//	public final static Comparator COMPARATOR = new CustomWidgetsDeepComparator(TEXT_VIEW);
+//	public final static int SLEEP_AFTER_EVENT = 3400;
+//	public final static int SLEEP_AFTER_RESTART = 3400;
+//	public final static int MAX_EVENTS_PER_WIDGET = 4; // For GroupViews (0 = try all items in the group)
 
 	// Strategy Parameters
 	public final static int MAX_NUM_TRACES = 600; // After performing this amount of traces, the crawler exits (0 = no length limit)
@@ -189,11 +179,12 @@ public class Resources {
 	public final static long MAX_TIME_CRAWLING = 0; // In seconds (0 = no time limit)
 	public final static int TRACE_MAX_DEPTH = 0; // Max number of transitions in a trace (0 = no depth limit)
 	public final static boolean CHECK_FOR_TRANSITION = false;
-	public final static StrategyCriteria[] ADDITIONAL_CRITERIAS = new StrategyCriteria[] {
-	};
+//	public final static StrategyCriteria[] ADDITIONAL_CRITERIAS = new StrategyCriteria[] {
+//	};
 	
 	// More Parameters
-//	public final static int MAX_EVENTS_PER_WIDGET = 40; // For GroupViews (0 = try all items in the group)
+	public final static int MAX_EVENTS_PER_WIDGET = 40; // For GroupViews (0 = try all items in the group)
+	public final static boolean EVENT_WHEN_NO_ID = false; // Whether to inject events on widgets without ID or not
 	public final static boolean BACK_BUTTON_EVENT = true;
 	public final static boolean MENU_EVENTS = true;
 	public final static boolean TAB_EVENTS_START_ONLY = false; // true -> click on tabs only on the start activity

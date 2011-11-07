@@ -189,13 +189,25 @@ public class Automation implements Robot, Extractor, TaskProcessor {
 		extractState();
 	}
 
-	// Scroll the view to the top. Only works for ListView. Support for GridView and ScrollView must be added
+	// Scroll the view to the top. Only works for ListView and ScrollView. Support for GridView and others must be added
 	public void home () {
+		
+		// Scroll listviews up
 		final ArrayList<ListView> viewList = solo.getCurrentListViews();
 		if (viewList.size() > 0) {
 			getActivity().runOnUiThread(new Runnable() {
 				public void run() {
 					viewList.get(0).setSelection(0);
+				}
+			});
+		}
+		
+		// Scroll scrollviews up
+		final ArrayList<ScrollView> viewScroll = solo.getCurrentScrollViews();
+		if (viewScroll.size() > 0) {
+			getActivity().runOnUiThread(new Runnable() {
+				public void run() {
+					viewScroll.get(0).fullScroll(ScrollView.FOCUS_UP);
 				}
 			});
 		}

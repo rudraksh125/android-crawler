@@ -48,7 +48,7 @@ public class Resources {
 	public final static String CLASS_NAME = "org.wordpress.android.splashScreen";
 	public final static String FILE_NAME = "wordpress.xml"; // Output
 	public final static Comparator COMPARATOR = new CustomWidgetsComparator(EDIT_TEXT, BUTTON);
-	public final static int SLEEP_AFTER_EVENT = 4000;
+	public final static int SLEEP_AFTER_EVENT = 500;
 	public final static int SLEEP_AFTER_RESTART = 6000;
 	public final static StrategyCriteria[] ADDITIONAL_CRITERIAS = new StrategyCriteria[] {
 		new AfterEventDontExplore("Remove Blog", "Add"),

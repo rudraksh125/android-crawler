@@ -185,6 +185,7 @@ public class Automation implements Robot, Extractor, TaskProcessor {
 			return;
 		}
 		solo.sleep(SLEEP_AFTER_EVENT);
+		waitOnThrobber();
 		refreshCurrentActivity();
 		extractState();
 	}
@@ -375,7 +376,23 @@ public class Automation implements Robot, Extractor, TaskProcessor {
 
 	public void afterRestart() {
 		solo.sleep(SLEEP_AFTER_RESTART);
+		waitOnThrobber();
 		Log.d("nofatclips", "Ready to operate after restarting...");
+	}
+	
+	public void waitOnThrobber() {
+		boolean flag;
+		do {
+			flag = false;
+			ArrayList<ProgressBar> bars = solo.getCurrentProgressBars();
+			for (ProgressBar b: bars) {
+				if (b.isShown() && b.isIndeterminate()) {
+					Log.d("nofatclips", "Waiting on Progress Bar #" + b.getId());
+					flag = true;
+					solo.sleep(500);
+				}
+			}
+		} while (flag);
 	}
 	
 	public String getAppName () {

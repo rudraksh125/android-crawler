@@ -10,8 +10,16 @@ public class ListLongClicker extends ListSelector {
 		super (simpleTypes);
 	}
 	
+	public ListLongClicker (Abstractor theAbstractor) {
+		super (theAbstractor);
+	}
+	
 	public ListLongClicker (Abstractor theAbstractor, String ... simpleTypes) {
 		super (theAbstractor, simpleTypes);
+	}
+	
+	public ListLongClicker (Abstractor theAbstractor, int maxItems) {
+		super (theAbstractor, maxItems);
 	}
 	
 	public ListLongClicker (Abstractor theAbstractor, int maxItems, String ... simpleTypes) {

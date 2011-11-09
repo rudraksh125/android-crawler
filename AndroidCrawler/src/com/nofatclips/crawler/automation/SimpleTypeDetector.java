@@ -42,6 +42,8 @@ public class SimpleTypeDetector implements TypeDetector {
 			return TEXT_VIEW;
 		if (type.endsWith("ImageView"))
 			return IMAGE_VIEW;
+		if (type.endsWith("LinearLayout"))
+			return LINEAR_LAYOUT;
 		return "";
 	}
 

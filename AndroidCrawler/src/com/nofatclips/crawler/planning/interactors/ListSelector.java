@@ -1,6 +1,7 @@
 package com.nofatclips.crawler.planning.interactors;
 
-import static com.nofatclips.androidtesting.model.InteractionType.*;
+import static com.nofatclips.androidtesting.model.InteractionType.LIST_SELECT;
+import static com.nofatclips.androidtesting.model.SimpleType.LIST_VIEW;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,8 +21,16 @@ public class ListSelector extends InteractorAdapter {
 		super (simpleTypes);
 	}
 	
+	public ListSelector (Abstractor theAbstractor) {
+		this (theAbstractor, LIST_VIEW);
+	}
+	
 	public ListSelector (Abstractor theAbstractor, String ... simpleTypes) {
 		super (theAbstractor, simpleTypes);
+	}
+
+	public ListSelector (Abstractor theAbstractor, int maxItems) {
+		this (theAbstractor, maxItems, LIST_VIEW);
 	}
 
 	public ListSelector (Abstractor theAbstractor, int maxItems, String ... simpleTypes) {
@@ -33,23 +42,11 @@ public class ListSelector extends InteractorAdapter {
 	public List<UserEvent> getEvents (WidgetState w) {
 		ArrayList<UserEvent> events = new ArrayList<UserEvent>();
 		if (canUseWidget(w)) {
-//			Log.d("nofatclips", "Handling event '" + getEventType() + "' on widget id=" + w.getId() + " type=" + w.getSimpleType() + " name=" + w.getName());
-//			UserEvent event = getAbstractor().createEvent(w, getEventType());
-//			events.add(event);
 			final int fromItem = 1; // int fromItem = Math.min(6,w.getCount());
-			final int toItem = Math.min (fromItem + getMaxEventsPerWidget() - 1, w.getCount());
-			
+			final int toItem = getMax(fromItem, w.getCount()); //Math.min (fromItem + getMaxEventsPerWidget() - 1, w.getCount());
 			Log.d("nofatclips", "Handling events [" + fromItem + "," + toItem + "] on List #" + w.getId() + " count=" + w.getCount() + " name=" + w.getName());
-//			UserEvent event;
 			for (int i=fromItem; i<=toItem; i++) {
-//				event = getAbstractor().createEvent(w, LIST_SELECT);
-//				event.setValue(String.valueOf(i));
 				events.add(generateEvent(w, String.valueOf(i)));
-//				if (longClickListEvent()) {
-//					event = getAbstractor().createEvent(w, LIST_LONG_SELECT);
-//					event.setValue(String.valueOf(i));
-//					events.add(event);
-//				}
 			}
 		}
 		return events;
@@ -62,6 +59,10 @@ public class ListSelector extends InteractorAdapter {
 
 	public int getMaxEventsPerWidget() {
 		return maxEventsPerWidget;
+	}
+	
+	public int getMax(int min, int max) {
+		return (getMaxEventsPerWidget()>0)?Math.min (min + getMaxEventsPerWidget() - 1, max):max;
 	}
 
 	public void setMaxEventsPerWidget(int maxEventsPerWidget) {

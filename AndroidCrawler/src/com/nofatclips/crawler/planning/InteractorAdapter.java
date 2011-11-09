@@ -7,6 +7,7 @@ import java.util.List;
 import android.util.Log;
 
 import com.nofatclips.androidtesting.model.UserEvent;
+import com.nofatclips.androidtesting.model.UserInput;
 import com.nofatclips.androidtesting.model.WidgetState;
 import com.nofatclips.crawler.model.Abstractor;
 
@@ -38,24 +39,56 @@ public abstract class InteractorAdapter {
 		}
 		return events;
 	}
-	
-	public List<UserEvent> getEvents (WidgetState w, String value) {
+
+	public List<UserInput> getInputs (WidgetState w) {
+		ArrayList<UserInput> inputs = new ArrayList<UserInput>();
+		if (canUseWidget(w)) {
+			Log.d("nofatclips", "Handling input '" + getEventType() + "' on widget id=" + w.getId() + " type=" + w.getSimpleType() + " name=" + w.getName());
+			inputs.add(generateInput(w));
+		}
+		return inputs;
+	}
+
+	public List<UserEvent> getEvents (WidgetState w, String ... values) {
 		ArrayList<UserEvent> events = new ArrayList<UserEvent>();
 		if (canUseWidget(w)) {
-			Log.d("nofatclips", "Handling event '" + getEventType() + "' on widget id=" + w.getId() + "value=" + value + " type=" + w.getSimpleType() + " name=" + w.getName());
-			events.add(generateEvent(w, value));
+			Log.d("nofatclips", "Handling event '" + getEventType() + "' on widget id=" + w.getId() + " type=" + w.getSimpleType() + " name=" + w.getName());
+			for (String value: values) {
+				Log.v ("nofatclips", "Using value: " + value);
+				events.add(generateEvent(w, value));
+			}
 		}
 		return events;
+	}
+
+	public List<UserInput> getInputs (WidgetState w, String ... values) {
+		ArrayList<UserInput> inputs = new ArrayList<UserInput>();
+		if (canUseWidget(w)) {
+			Log.d("nofatclips", "Handling input '" + getEventType() + "' on widget id=" + w.getId() + " type=" + w.getSimpleType() + " name=" + w.getName());
+			for (String value: values) {
+				Log.v ("nofatclips", "Using value: " + value);
+				inputs.add(generateInput(w, value));	
+			}
+		}
+		return inputs;
 	}
 
 	protected UserEvent generateEvent (WidgetState w) {
 		return getAbstractor().createEvent(w, getEventType());
 	}
 
+	protected UserInput generateInput (WidgetState w) {
+		return generateInput (w,"");
+	}
+
 	protected UserEvent generateEvent (WidgetState w, String value) {
 		UserEvent event = generateEvent(w);
 		event.setValue(value);
 		return event;
+	}
+
+	protected UserInput generateInput (WidgetState w, String value) {
+		return getAbstractor().createInput(w, value, getEventType());
 	}
 
 	public Abstractor getAbstractor() {

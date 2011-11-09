@@ -393,6 +393,7 @@ public class Automation implements Robot, Extractor, TaskProcessor {
 				}
 			}
 		} while (flag);
+		this.test.getInstrumentation().waitForIdleSync();
 	}
 	
 	public String getAppName () {

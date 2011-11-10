@@ -62,7 +62,7 @@ public class Resources {
 	public final static String CLASS_NAME = "org.wordpress.android.Dashboard";
 	public final static String FILE_NAME = "wordpress2.xml"; // Output
 	public final static Comparator COMPARATOR = new CustomWidgetsDeepComparator(CustomWidgetsComparator.IGNORE_ACTIVITY_NAME, EDIT_TEXT, BUTTON, MENU_VIEW, DIALOG_VIEW, LIST_VIEW);
-	public final static int SLEEP_AFTER_EVENT = 500;
+	public final static int SLEEP_AFTER_EVENT = 1000;
 	public final static int SLEEP_AFTER_RESTART = 1000;
 	public final static StrategyCriteria[] ADDITIONAL_CRITERIAS = new StrategyCriteria[] {
 		new AfterEventDontExplore("Remove Blog"),

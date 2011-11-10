@@ -68,7 +68,7 @@ public class Resources {
 		new AfterEventDontExplore("Remove Blog"),
 	};
 	static {
-		UserFactory.addInteraction(CLICK, BUTTON, LINEAR_LAYOUT);
+		UserFactory.addEvent(CLICK, BUTTON, LINEAR_LAYOUT);
 	}
 
 //	public final static String PACKAGE_NAME = "com.bwx.bequick";
@@ -84,7 +84,7 @@ public class Resources {
 //	public final static Comparator COMPARATOR = new CustomWidgetsComparator(EDIT_TEXT, BUTTON);
 //	public final static int SLEEP_AFTER_EVENT = 2000;
 //	public final static int SLEEP_AFTER_RESTART = 20000;
-//	public final static boolean EVENT_WHEN_NO_ID = true; // Whether to inject events on widgets without ID or not 
+//	public final static boolean EVENT_WHEN_NO_ID = false; // Whether to inject events on widgets without ID or not 
 
 //	public final static String PACKAGE_NAME = "com.ichi2.anki";
 //	public final static String CLASS_NAME = "com.ichi2.anki.StudyOptions";

@@ -1,6 +1,6 @@
 package com.nofatclips.crawler.planning.interactors;
 
-import static com.nofatclips.androidtesting.model.InteractionType.*;
+import static com.nofatclips.androidtesting.model.InteractionType.LONG_CLICK;
 
 import com.nofatclips.crawler.model.Abstractor;
 

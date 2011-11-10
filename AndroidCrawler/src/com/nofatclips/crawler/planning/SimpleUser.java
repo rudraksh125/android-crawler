@@ -2,6 +2,7 @@ package com.nofatclips.crawler.planning;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.Random;
 
 import android.util.Log;
@@ -12,7 +13,7 @@ import com.nofatclips.androidtesting.model.WidgetState;
 import com.nofatclips.crawler.model.Abstractor;
 import com.nofatclips.crawler.model.UserAdapter;
 
-import static com.nofatclips.crawler.Resources.*;
+//import static com.nofatclips.crawler.Resources.*;
 import static com.nofatclips.androidtesting.model.InteractionType.*;
 import static com.nofatclips.androidtesting.model.SimpleType.*;
 
@@ -20,6 +21,7 @@ public class SimpleUser implements UserAdapter {
 
 	public SimpleUser () {
 		this.randomGenerator = new Random();
+		this.eventTypes = new ArrayList<InteractorAdapter>();
 	}
 	
 //	public SimpleUser (Abstractor a) {
@@ -38,33 +40,36 @@ public class SimpleUser implements UserAdapter {
 	@Override
 	public Collection<UserEvent> handleEvent(WidgetState w) {
 		ArrayList<UserEvent> events = new ArrayList<UserEvent>();
+		for (InteractorAdapter eventAdapter: getEventTypes()) {
+			events.addAll(eventAdapter.getEvents(w));
+		}
 		
 		// Code to handle ListViews
-		events.addAll(getListSelector().getEvents(w));
-		if (getListLongClicker() != null) {
-			events.addAll(getListLongClicker().getEvents(w));
-		}
+//		events.addAll(getListSelector().getEvents(w));
+//		if (getListLongClicker() != null) {
+//			events.addAll(getListLongClicker().getEvents(w));
+//		}
 
 		// Return empty if don't know how to click
 //		if (!useForClick(w)) return events;
-		if ( (w.getId().equals("-1"))  && (!eventWhenNoId() || (w.getName().equals("")) )) return events;
+//		if ( (w.getId().equals("-1"))  && (!eventWhenNoId() || (w.getName().equals("")) )) return events;
 
 		// Plan a click on this widget
-		events.addAll (getEventClicker().getEvents(w));
+//		events.addAll (getEventClicker().getEvents(w));
 //		UserEvent event = getAbstractor().createEvent(w, CLICK);
 //		events.add(event);
 		
-		if (getEventLongClicker() != null) {
-			events.addAll(getEventLongClicker().getEvents(w));
+//		if (getEventLongClicker() != null) {
+//			events.addAll(getEventLongClicker().getEvents(w));
 //			event = getAbstractor().createEvent(w, LONG_CLICK);
 //			events.add(event);
-		}
+//		}
 		return events;
 	}
 	
-	public boolean eventWhenNoId () {
-		return EVENT_WHEN_NO_ID;
-	}
+//	public boolean eventWhenNoId () {
+//		return EVENT_WHEN_NO_ID;
+//	}
 	
 //	public boolean longClickEvent () {
 //		return LONG_CLICK_EVENT;
@@ -125,45 +130,54 @@ public class SimpleUser implements UserAdapter {
 		this.upperLimit = upper;
 	}
 	
-	public void setEventClicker (InteractorAdapter c) {
-		this.eventClicker = c;
+//	public void setEventClicker (InteractorAdapter c) {
+//		this.eventClicker = c;
+//	}
+//	
+//	public InteractorAdapter getEventClicker () {
+//		return this.eventClicker;
+//	}
+//	
+//	public void setEventLongClicker (InteractorAdapter c) {
+//		this.eventLongClicker = c;
+//	}
+//	
+//	public InteractorAdapter getEventLongClicker () {
+//		return this.eventLongClicker;
+//	}
+//	
+//	public void setListSelector (InteractorAdapter c) {
+//		this.listSelector = c;
+//	}
+//	
+//	public InteractorAdapter getListSelector () {
+//		return this.listSelector;
+//	}
+//
+//	public void setListLongClicker (InteractorAdapter c) {
+//		this.listLongClicker = c;
+//	}
+//	
+//	public InteractorAdapter getListLongClicker () {
+//		return this.listLongClicker;
+//	}
+	
+	public void addEvent (InteractorAdapter e) {
+		eventTypes.add(e);
 	}
 	
-	public InteractorAdapter getEventClicker () {
-		return this.eventClicker;
-	}
-	
-	public void setEventLongClicker (InteractorAdapter c) {
-		this.eventLongClicker = c;
-	}
-	
-	public InteractorAdapter getEventLongClicker () {
-		return this.eventLongClicker;
-	}
-	
-	public void setListSelector (InteractorAdapter c) {
-		this.listSelector = c;
-	}
-	
-	public InteractorAdapter getListSelector () {
-		return this.listSelector;
-	}
-
-	public void setListLongClicker (InteractorAdapter c) {
-		this.listLongClicker = c;
-	}
-	
-	public InteractorAdapter getListLongClicker () {
-		return this.listLongClicker;
+	public Iterable<InteractorAdapter> getEventTypes () {
+		return this.eventTypes;
 	}
 
 	private Abstractor abs;
 	private Random randomGenerator;
 	private int lowerLimit = 0;
 	private int upperLimit = 100;
-	private InteractorAdapter eventClicker = null;
-	private InteractorAdapter eventLongClicker = null;
-	private InteractorAdapter listSelector = null;
-	private InteractorAdapter listLongClicker = null;
+	private List<InteractorAdapter> eventTypes;
+//	private InteractorAdapter eventClicker = null;
+//	private InteractorAdapter eventLongClicker = null;
+//	private InteractorAdapter listSelector = null;
+//	private InteractorAdapter listLongClicker = null;
 
 }

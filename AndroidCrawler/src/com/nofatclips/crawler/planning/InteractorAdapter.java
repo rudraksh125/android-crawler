@@ -15,6 +15,7 @@ public abstract class InteractorAdapter {
 	
 	protected HashSet<String> widgetClasses = new HashSet<String>();
 	private Abstractor theAbstractor;
+	private boolean eventWhenNoId = false;
 
 	public InteractorAdapter (String ... simpleTypes) {
 		for (String s: simpleTypes) {
@@ -28,6 +29,7 @@ public abstract class InteractorAdapter {
 	}
 	
 	public boolean canUseWidget (WidgetState w) {
+		if ( (w.getId().equals("-1"))  && (!doEventWhenNoId() || (w.getName().equals("")) )) return false;
 		return (w.isAvailable() && matchClass(w.getSimpleType()));
 	}
 	
@@ -102,6 +104,14 @@ public abstract class InteractorAdapter {
 			if (storedType.equals(type)) return true;
 		}
 		return false;
+	}
+
+	public boolean doEventWhenNoId() {
+		return eventWhenNoId;
+	}
+
+	public void setEventWhenNoId(boolean eventWhenNoId) {
+		this.eventWhenNoId = eventWhenNoId;
 	}
 
 }

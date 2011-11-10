@@ -295,10 +295,18 @@ public class Automation implements Robot, Extractor, TaskProcessor {
 	
 	protected void click (View v) {
 //		android.test.TouchUtils.clickView(this.test, v);
+		describeCurrentEvent(v);
+		
+		// Workaround Wordpress crash
+//		if (this.currentEvent.getDescription().equals("Stats")) return;
+//		if (this.currentEvent.getDescription().equals("Quick Photo")) return;
+//		if (this.currentEvent.getDescription().equals("Quick Video")) return;
+		
 		solo.clickOnView(v);
 	}
 	
 	protected void longClick (View v) {
+		describeCurrentEvent(v);
 		solo.clickLongOnView(v);
 	}
 

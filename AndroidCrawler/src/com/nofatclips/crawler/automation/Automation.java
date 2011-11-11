@@ -312,7 +312,9 @@ public class Automation implements Robot, Extractor, TaskProcessor {
 
 	private boolean describeCurrentEvent (View v) {
 		if (v instanceof TextView) {
-			this.currentEvent.setDescription(((TextView)v).getText().toString());
+			String s = ((TextView)v).getText().toString();
+			this.currentEvent.setDescription(s);
+			Log.d ("nofatclips", "Event description: " + s);
 			return true;
 		} else if (v instanceof TabHost) {
 			this.currentEvent.setDescription(((TabHost)v).getCurrentTabTag());

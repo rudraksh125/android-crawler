@@ -29,19 +29,40 @@ The following steps are required in order to run the test:
  * a version of *Robotium* JAR is in the _libs_ subdir of the crawler
  * the `androidtest.jar` has been updated to the last version and copied in the _libs_ subdir of the crawler
 
-= Build =
+= Update Project =
 
-In order to build the .apk for both the app and the crawler, open the system shell and run the following commands:
+To create the project build and properties file, open the system shell and run the following commands::
 
 {{{
 cd %APP_DIR%
 android update project --path .
 cd %CRAWLER_DIR%
 android update test-project -p %CRAWLER_DIR% --main %APP_DIR%
+}}}
+
+= Build and Run =
+
+In order to build the .apk for both the app and the crawler, install them on the device and run the test, open the system shell and run the following command:
+
+{{{
+ant emma debug install test
+}}}
+
+The coverage report should be automatically generated.
+
+= Troubleshooting =
+
+When the install and/or the test target fails, follow these steps.
+
+== Build ==
+
+In order to build the .apk for both the app and the crawler, open the system shell and run the following commands:
+
+{{{
 ant emma debug
 }}}
 
-= Run =
+== Run ==
 
 In order to install both packages on the device, just use the following:
 
@@ -65,7 +86,7 @@ adb logcat nofatclips:I *:E
 
 to read the log. (Remove the filter for the whole thing!)
 
-= Report Generation =
+== Report Generation ==
 
 Emma will generate the coverage.ec file on the device under `/data/data/%APP_PACKAGE%/files/coverage.ec`
 

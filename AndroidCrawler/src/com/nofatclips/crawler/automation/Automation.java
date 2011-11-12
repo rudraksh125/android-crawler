@@ -298,9 +298,8 @@ public class Automation implements Robot, Extractor, TaskProcessor {
 		describeCurrentEvent(v);
 		
 		// Workaround Wordpress crash
-//		if (this.currentEvent.getDescription().equals("Stats")) return;
-//		if (this.currentEvent.getDescription().equals("Quick Photo")) return;
-//		if (this.currentEvent.getDescription().equals("Quick Video")) return;
+		if (this.currentEvent.getDescription().equals("Quick Photo")) return;
+		if (this.currentEvent.getDescription().equals("Quick Video")) return;
 		
 		solo.clickOnView(v);
 	}
@@ -391,6 +390,9 @@ public class Automation implements Robot, Extractor, TaskProcessor {
 	}
 	
 	public void waitOnThrobber() {
+		int sleepTime = SLEEP_ON_THROBBER;
+		if (sleepTime==0) return;
+		
 		boolean flag;
 		do {
 			flag = false;
@@ -400,9 +402,10 @@ public class Automation implements Robot, Extractor, TaskProcessor {
 					Log.d("nofatclips", "Waiting on Progress Bar #" + b.getId());
 					flag = true;
 					solo.sleep(500);
+					sleepTime-=500;
 				}
 			}
-		} while (flag);
+		} while (flag && (sleepTime>0));
 		this.test.getInstrumentation().waitForIdleSync();
 	}
 	

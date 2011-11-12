@@ -298,8 +298,8 @@ public class Automation implements Robot, Extractor, TaskProcessor {
 		describeCurrentEvent(v);
 		
 		// Workaround Wordpress crash
-		if (this.currentEvent.getDescription().equals("Quick Photo")) return;
-		if (this.currentEvent.getDescription().equals("Quick Video")) return;
+//		if (this.currentEvent.getDescription().equals("Quick Photo")) return;
+//		if (this.currentEvent.getDescription().equals("Quick Video")) return;
 		
 		solo.clickOnView(v);
 	}

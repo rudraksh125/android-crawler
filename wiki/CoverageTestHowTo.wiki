@@ -48,7 +48,7 @@ In order to build the .apk for both the app and the crawler, install them on the
 ant emma debug install test
 }}}
 
-The coverage report should be automatically generated.
+The coverage report will be automatically generated in the current directory.
 
 = Troubleshooting =
 

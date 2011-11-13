@@ -31,10 +31,6 @@ public class SimpleUser implements UserAdapter {
 	public SimpleUser (Abstractor a) {
 		this();
 		setAbstractor(a);
-//		setEventClicker(c);
-//		setEventLongClicker (new LongClicker (a, BUTTON));
-//		setListSelector (new ListSelector (a, MAX_EVENTS_PER_WIDGET));
-//		setListLongClicker (new ListLongClicker (a, MAX_EVENTS_PER_WIDGET));
 	}
 	
 	@Override
@@ -43,47 +39,14 @@ public class SimpleUser implements UserAdapter {
 		for (InteractorAdapter eventAdapter: getEventTypes()) {
 			events.addAll(eventAdapter.getEvents(w));
 		}
-		
-		// Code to handle ListViews
-//		events.addAll(getListSelector().getEvents(w));
-//		if (getListLongClicker() != null) {
-//			events.addAll(getListLongClicker().getEvents(w));
-//		}
-
-		// Return empty if don't know how to click
-//		if (!useForClick(w)) return events;
-//		if ( (w.getId().equals("-1"))  && (!eventWhenNoId() || (w.getName().equals("")) )) return events;
-
-		// Plan a click on this widget
-//		events.addAll (getEventClicker().getEvents(w));
-//		UserEvent event = getAbstractor().createEvent(w, CLICK);
-//		events.add(event);
-		
-//		if (getEventLongClicker() != null) {
-//			events.addAll(getEventLongClicker().getEvents(w));
-//			event = getAbstractor().createEvent(w, LONG_CLICK);
-//			events.add(event);
-//		}
 		return events;
 	}
 	
-//	public boolean eventWhenNoId () {
-//		return EVENT_WHEN_NO_ID;
-//	}
-	
-//	public boolean longClickEvent () {
-//		return LONG_CLICK_EVENT;
-//	}
-//
-//	public boolean longClickListEvent () {
-//		return LONG_CLICK_LIST_EVENT;
-//	}
-
 	@Override
 	public UserInput handleInput(WidgetState w) {
 		if (!useForInput(w)) return null;
 		UserInput input = null;
-		if (w.getSimpleType().equals(CHECKBOX) && w.isClickable()) {
+		if ( (w.getSimpleType().equals(CHECKBOX) || w.getSimpleType().equals(TOGGLE_BUTTON)) && w.isClickable()) {
 //			if (randomGenerator.nextBoolean()) return null;
 			input = getAbstractor().createInput(w, "", CLICK);
 		} else if (w.getSimpleType().equals(RADIO) && w.isClickable()) {
@@ -130,38 +93,6 @@ public class SimpleUser implements UserAdapter {
 		this.upperLimit = upper;
 	}
 	
-//	public void setEventClicker (InteractorAdapter c) {
-//		this.eventClicker = c;
-//	}
-//	
-//	public InteractorAdapter getEventClicker () {
-//		return this.eventClicker;
-//	}
-//	
-//	public void setEventLongClicker (InteractorAdapter c) {
-//		this.eventLongClicker = c;
-//	}
-//	
-//	public InteractorAdapter getEventLongClicker () {
-//		return this.eventLongClicker;
-//	}
-//	
-//	public void setListSelector (InteractorAdapter c) {
-//		this.listSelector = c;
-//	}
-//	
-//	public InteractorAdapter getListSelector () {
-//		return this.listSelector;
-//	}
-//
-//	public void setListLongClicker (InteractorAdapter c) {
-//		this.listLongClicker = c;
-//	}
-//	
-//	public InteractorAdapter getListLongClicker () {
-//		return this.listLongClicker;
-//	}
-	
 	public void addEvent (InteractorAdapter e) {
 		eventTypes.add(e);
 	}
@@ -175,9 +106,5 @@ public class SimpleUser implements UserAdapter {
 	private int lowerLimit = 0;
 	private int upperLimit = 100;
 	private List<InteractorAdapter> eventTypes;
-//	private InteractorAdapter eventClicker = null;
-//	private InteractorAdapter eventLongClicker = null;
-//	private InteractorAdapter listSelector = null;
-//	private InteractorAdapter listLongClicker = null;
 
 }

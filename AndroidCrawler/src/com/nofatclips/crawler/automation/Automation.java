@@ -310,6 +310,7 @@ public class Automation implements Robot, Extractor, TaskProcessor {
 	}
 
 	private boolean describeCurrentEvent (View v) {
+		if (this.currentEvent == null) return false; // This is probably an input, not an event
 		if (v instanceof TextView) {
 			String s = ((TextView)v).getText().toString();
 			this.currentEvent.setDescription(s);

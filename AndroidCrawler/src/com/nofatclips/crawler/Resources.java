@@ -79,13 +79,13 @@ public class Resources {
 //	public final static int SLEEP_AFTER_EVENT = 200;
 //	public final static int SLEEP_AFTER_RESTART = 0;
 
-//	public final static String PACKAGE_NAME = "net.bible.android.activity";
-//	public final static String CLASS_NAME = "net.bible.android.activity.StartupActivity";
-//	public final static String FILE_NAME = "bible.xml"; // Output
-//	public final static Comparator COMPARATOR = new CustomWidgetsComparator(EDIT_TEXT, BUTTON);
-//	public final static int SLEEP_AFTER_EVENT = 2000;
-//	public final static int SLEEP_AFTER_RESTART = 20000;
-//	public final static boolean EVENT_WHEN_NO_ID = false; // Whether to inject events on widgets without ID or not 
+	public final static String PACKAGE_NAME = "net.bible.android.activity";
+	public final static String CLASS_NAME = "net.bible.android.activity.StartupActivity";
+	public final static String FILE_NAME = "bible.xml"; // Output
+	public final static Comparator COMPARATOR = new CustomWidgetsComparator(EDIT_TEXT, BUTTON, MENU_VIEW, DIALOG_VIEW, LIST_VIEW);
+	public final static int SLEEP_AFTER_EVENT = 2000;
+	public final static int SLEEP_AFTER_RESTART = 10000;
+	public final static boolean EVENT_WHEN_NO_ID = true; // Whether to inject events on widgets without ID or not 
 
 //	public final static String PACKAGE_NAME = "com.ichi2.anki";
 //	public final static String CLASS_NAME = "com.ichi2.anki.StudyOptions";
@@ -95,16 +95,16 @@ public class Resources {
 //	public final static int SLEEP_AFTER_RESTART = 4000;
 //	public final static boolean EVENT_WHEN_NO_ID = false; // Whether to inject events on widgets without ID or not 
 
-	public final static String PACKAGE_NAME = "com.example.android.apis";
-	public final static String CLASS_NAME = "com.example.android.apis.ApiDemos";
-	public final static String FILE_NAME = "apidemos.xml"; // Output
-	public final static Comparator COMPARATOR = new CustomWidgetsDeepComparator(TEXT_VIEW, DIALOG_VIEW, MENU_VIEW, BUTTON);
-	public final static int SLEEP_AFTER_EVENT = 2000;
-	public final static int SLEEP_AFTER_RESTART = 500;
-	public final static boolean EVENT_WHEN_NO_ID = true; // Whether to inject events on widgets without ID or not 
-	public final static StrategyCriteria[] ADDITIONAL_CRITERIAS = new StrategyCriteria[] {
-		new AfterEventDontExplore("PurgeableBitmap"),
-	};
+//	public final static String PACKAGE_NAME = "com.example.android.apis";
+//	public final static String CLASS_NAME = "com.example.android.apis.ApiDemos";
+//	public final static String FILE_NAME = "apidemos.xml"; // Output
+//	public final static Comparator COMPARATOR = new CustomWidgetsDeepComparator(TEXT_VIEW, DIALOG_VIEW, MENU_VIEW, BUTTON);
+//	public final static int SLEEP_AFTER_EVENT = 2000;
+//	public final static int SLEEP_AFTER_RESTART = 500;
+//	public final static boolean EVENT_WHEN_NO_ID = true; // Whether to inject events on widgets without ID or not 
+//	public final static StrategyCriteria[] ADDITIONAL_CRITERIAS = new StrategyCriteria[] {
+//		new AfterEventDontExplore("PurgeableBitmap", "1. Array", "13. Slow Adapter", "14. Efficient Adapter", "4. ListAdapter", "9. Array (Overlay)"),
+//	};
 
 //	public final static String PACKAGE_NAME = "com.googlecode.andoku";
 //	public final static String CLASS_NAME = "com.googlecode.andoku.MainActivity";
@@ -196,12 +196,12 @@ public class Resources {
 	public final static long MAX_TIME_CRAWLING = 0; // In seconds (0 = no time limit)
 	public final static int TRACE_MAX_DEPTH = 0; // Max number of transitions in a trace (0 = no depth limit)
 	public final static boolean CHECK_FOR_TRANSITION = false;
-//	public final static StrategyCriteria[] ADDITIONAL_CRITERIAS = new StrategyCriteria[] {
-//	};
+	public final static StrategyCriteria[] ADDITIONAL_CRITERIAS = new StrategyCriteria[] {
+	};
 	
 	// More Parameters
 	public final static int SLEEP_ON_THROBBER = 10000; // How long to wait on spinning wheels (in ms/ 0 = don't wait)
-	public final static int MAX_EVENTS_PER_WIDGET = 40; // For GroupViews (0 = try all items in the group)
+	public final static int MAX_EVENTS_PER_WIDGET = 12; // For GroupViews (0 = try all items in the group)
 //	public final static boolean EVENT_WHEN_NO_ID = false; // Whether to inject events on widgets without ID or not
 	public final static boolean BACK_BUTTON_EVENT = true;
 	public final static boolean MENU_EVENTS = true;

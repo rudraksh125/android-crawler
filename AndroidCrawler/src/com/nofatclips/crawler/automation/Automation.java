@@ -282,7 +282,7 @@ public class Automation implements Robot, Extractor, TaskProcessor {
 		} else {
 			click (v);
 		}
-		describeCurrentEvent(v);
+//		describeCurrentEvent(v);
 	}
 	
 	protected void requestFocus (final View v) {

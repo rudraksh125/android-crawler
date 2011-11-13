@@ -83,10 +83,13 @@ public class Resources {
 	public final static String CLASS_NAME = "net.bible.android.activity.StartupActivity";
 	public final static String FILE_NAME = "bible.xml"; // Output
 	public final static Comparator COMPARATOR = new CustomWidgetsComparator(EDIT_TEXT, BUTTON, MENU_VIEW, DIALOG_VIEW, LIST_VIEW);
-	public final static int SLEEP_AFTER_EVENT = 2000;
+	public final static int SLEEP_AFTER_EVENT = 1500;
 	public final static int SLEEP_AFTER_RESTART = 10000;
 	public final static boolean EVENT_WHEN_NO_ID = true; // Whether to inject events on widgets without ID or not 
-
+	static {
+		UserFactory.addEvent(CLICK, BUTTON, SPINNER);
+	}
+	
 //	public final static String PACKAGE_NAME = "com.ichi2.anki";
 //	public final static String CLASS_NAME = "com.ichi2.anki.StudyOptions";
 //	public final static String FILE_NAME = "anki_guitree.xml"; // Output
@@ -200,7 +203,7 @@ public class Resources {
 	};
 	
 	// More Parameters
-	public final static int SLEEP_ON_THROBBER = 10000; // How long to wait on spinning wheels (in ms/ 0 = don't wait)
+	public final static int SLEEP_ON_THROBBER = 30000; // How long to wait on spinning wheels (in ms -- 0 = don't wait)
 	public final static int MAX_EVENTS_PER_WIDGET = 12; // For GroupViews (0 = try all items in the group)
 //	public final static boolean EVENT_WHEN_NO_ID = false; // Whether to inject events on widgets without ID or not
 	public final static boolean BACK_BUTTON_EVENT = true;

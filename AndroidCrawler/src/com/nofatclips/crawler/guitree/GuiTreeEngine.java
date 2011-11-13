@@ -11,7 +11,6 @@ import com.nofatclips.crawler.automation.BasicRestarter;
 import com.nofatclips.crawler.automation.SimpleTypeDetector;
 import com.nofatclips.crawler.filters.AllPassFilter;
 import com.nofatclips.crawler.filters.FormFilter;
-import com.nofatclips.crawler.filters.SimpleEventFilter;
 import com.nofatclips.crawler.model.Filter;
 import com.nofatclips.crawler.model.UserAdapter;
 import com.nofatclips.crawler.planning.SimplePlanner;
@@ -92,6 +91,7 @@ public class GuiTreeEngine extends Engine {
 		theGuiTree.setAppName(theAutomation.getAppName());
 		theGuiTree.setSleepAfterEvent(SLEEP_AFTER_EVENT);
 		theGuiTree.setSleepAfterRestart(SLEEP_AFTER_RESTART);
+		theGuiTree.setSleepOnThrobber(SLEEP_ON_THROBBER);
 		theGuiTree.setClassName(CLASS_NAME);
 		theGuiTree.setPackageName(PACKAGE_NAME);
 	}

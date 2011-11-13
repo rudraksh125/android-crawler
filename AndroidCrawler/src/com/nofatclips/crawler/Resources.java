@@ -88,6 +88,7 @@ public class Resources {
 	public final static boolean EVENT_WHEN_NO_ID = true; // Whether to inject events on widgets without ID or not 
 	static {
 		UserFactory.addEvent(CLICK, BUTTON, SPINNER);
+		UserFactory.addEvent(LONG_CLICK, WEB_VIEW);
 	}
 	
 //	public final static String PACKAGE_NAME = "com.ichi2.anki";
@@ -210,7 +211,7 @@ public class Resources {
 	public final static boolean MENU_EVENTS = true;
 	public final static boolean TAB_EVENTS_START_ONLY = false; // true -> click on tabs only on the start activity
 	public final static boolean LONG_CLICK_LIST_EVENT = false;
-	public final static boolean LONG_CLICK_EVENT = false;
+	public final static boolean LONG_CLICK_EVENT = true;
 	public final static boolean SCROLL_DOWN_EVENT = false;
 	public final static String XML_BODY_BEGIN = "    <TRACE";
 	public final static String XML_BODY_END = "/TRACE>";

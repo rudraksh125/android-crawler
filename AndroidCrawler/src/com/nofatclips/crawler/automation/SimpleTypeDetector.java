@@ -1,6 +1,7 @@
 package com.nofatclips.crawler.automation;
 
 import android.view.View;
+import android.webkit.WebView;
 
 import com.nofatclips.crawler.model.TypeDetector;
 
@@ -44,6 +45,8 @@ public class SimpleTypeDetector implements TypeDetector {
 			return IMAGE_VIEW;
 		if (type.endsWith("LinearLayout"))
 			return LINEAR_LAYOUT;
+		if ((v instanceof WebView) || type.endsWith("WebView"))
+			return WEB_VIEW;
 		return "";
 	}
 

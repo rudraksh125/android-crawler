@@ -63,7 +63,7 @@ ant emma debug install
 from the crawler directory, open the app, perform the preliminary tasks, and then run:
 
 {{{
-ant test
+ant emma test
 }}}
 
 == Target Failure ==

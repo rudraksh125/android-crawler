@@ -296,11 +296,6 @@ public class Automation implements Robot, Extractor, TaskProcessor {
 	protected void click (View v) {
 //		android.test.TouchUtils.clickView(this.test, v);
 		describeCurrentEvent(v);
-		
-		// Workaround Wordpress crash
-//		if (this.currentEvent.getDescription().equals("Quick Photo")) return;
-//		if (this.currentEvent.getDescription().equals("Quick Video")) return;
-		
 		solo.clickOnView(v);
 	}
 	
@@ -385,6 +380,7 @@ public class Automation implements Robot, Extractor, TaskProcessor {
 	}
 
 	public void afterRestart() {
+		solo.setActivityOrientation(Solo.PORTRAIT);
 		solo.sleep(SLEEP_AFTER_RESTART);
 		waitOnThrobber();
 		Log.d("nofatclips", "Ready to operate after restarting...");

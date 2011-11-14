@@ -4,7 +4,7 @@ import static com.nofatclips.androidtesting.model.InteractionType.CLICK;
 
 import com.nofatclips.androidtesting.model.WidgetState;
 import com.nofatclips.crawler.model.Abstractor;
-import com.nofatclips.crawler.planning.InteractorAdapter;
+import com.nofatclips.crawler.planning.adapters.InteractorAdapter;
 
 public class Clicker extends InteractorAdapter {
 

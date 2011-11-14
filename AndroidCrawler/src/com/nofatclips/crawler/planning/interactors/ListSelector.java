@@ -11,20 +11,33 @@ import android.util.Log;
 import com.nofatclips.androidtesting.model.UserEvent;
 import com.nofatclips.androidtesting.model.WidgetState;
 import com.nofatclips.crawler.model.Abstractor;
-import com.nofatclips.crawler.planning.InteractorAdapter;
+import com.nofatclips.crawler.planning.adapters.InteractorAdapter;
 
 public class ListSelector extends InteractorAdapter {
 	
 	private int maxEventsPerWidget;
 
+	public ListSelector () {
+		this (LIST_VIEW);
+	}
+	
 	public ListSelector (String ... simpleTypes) {
 		super (simpleTypes);
+	}
+	
+	public ListSelector (int maxItems) {
+		setMaxEventsPerWidget(maxItems);
 	}
 	
 	public ListSelector (Abstractor theAbstractor) {
 		this (theAbstractor, LIST_VIEW);
 	}
-	
+
+	public ListSelector (int maxItems, String ... simpleTypes) {
+		super (simpleTypes);
+		setMaxEventsPerWidget(maxItems);
+	}
+
 	public ListSelector (Abstractor theAbstractor, String ... simpleTypes) {
 		super (theAbstractor, simpleTypes);
 	}
@@ -44,6 +57,7 @@ public class ListSelector extends InteractorAdapter {
 		if (canUseWidget(w)) {
 			final int fromItem = 1; // int fromItem = Math.min(6,w.getCount());
 			final int toItem = getMax(fromItem, w.getCount()); //Math.min (fromItem + getMaxEventsPerWidget() - 1, w.getCount());
+			if (toItem<fromItem) return events;
 			Log.d("nofatclips", "Handling events [" + fromItem + "," + toItem + "] on List #" + w.getId() + " count=" + w.getCount() + " name=" + w.getName());
 			for (int i=fromItem; i<=toItem; i++) {
 				events.add(generateEvent(w, String.valueOf(i)));

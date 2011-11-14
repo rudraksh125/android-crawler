@@ -26,11 +26,11 @@ public class UserFactory {
 		inputToTypeMap.put(inputType, widgetTypes);
 	}
 
-	public static boolean requiredEvent (String interaction) {
+	public static boolean customizeEvent (String interaction) {
 		return isRequired (Category.EVENT, interaction);
 	}
 
-	public static boolean requiredInput (String interaction) {
+	public static boolean customizeInput (String interaction) {
 		return isRequired (Category.INPUT, interaction);
 	}
 
@@ -63,28 +63,46 @@ public class UserFactory {
 
 	public static UserAdapter getUser (Abstractor a) {
 		SimpleUser u = new SimpleUser (a);
+//		u.setAbstractor(a);
 
-		Clicker c = (requiredEvent(CLICK))?new Clicker (a, typesForEvent(CLICK)):new Clicker (a, BUTTON);
+		// Events - Click
+		Clicker c = (customizeEvent(CLICK))?new Clicker (typesForEvent(CLICK)):new Clicker (BUTTON);
 		c.setEventWhenNoId(EVENT_WHEN_NO_ID);
 		u.addEvent(c);
 
+		// Events - Long Click
 		if (doLongClick()) {
-			LongClicker l = (requiredEvent(LONG_CLICK))?new LongClicker (a, typesForEvent(LONG_CLICK)):new LongClicker (a, BUTTON);
+			LongClicker l = (customizeEvent(LONG_CLICK))?new LongClicker (typesForEvent(LONG_CLICK)):new LongClicker (BUTTON);
 			l.setEventWhenNoId(EVENT_WHEN_NO_ID);
 			u.addEvent(l);
 		}
 		
-		ListSelector ls = (requiredEvent(LIST_SELECT))?
-				new ListSelector (a, MAX_EVENTS_PER_WIDGET, typesForEvent(LIST_SELECT)):new ListSelector(a, MAX_EVENTS_PER_WIDGET);
+		// Events - Select List Item
+		ListSelector ls = (customizeEvent(LIST_SELECT))?
+				new ListSelector (MAX_EVENTS_PER_WIDGET, typesForEvent(LIST_SELECT)):new ListSelector(MAX_EVENTS_PER_WIDGET);
 		ls.setEventWhenNoId(true);
 		u.addEvent(ls);
 		
+		// Events - Long Click List Item
 		if (doLongClickOnLists()) {
-			ListLongClicker llc = (requiredEvent(LIST_LONG_SELECT))?
-					new ListLongClicker (a, MAX_EVENTS_PER_WIDGET, typesForEvent(LIST_LONG_SELECT)):new ListLongClicker(a, MAX_EVENTS_PER_WIDGET);
+			ListLongClicker llc = (customizeEvent(LIST_LONG_SELECT))?
+					new ListLongClicker (MAX_EVENTS_PER_WIDGET, typesForEvent(LIST_LONG_SELECT)):new ListLongClicker(MAX_EVENTS_PER_WIDGET);
 			llc.setEventWhenNoId(true);
 			u.addEvent(llc);
 		}
+		
+		// Inputs - Click
+		Clicker c2 = (customizeInput(CLICK))?new Clicker (typesForInput(CLICK)):new Clicker (TOGGLE_BUTTON, CHECKBOX, RADIO);
+		c2.setEventWhenNoId(false);
+
+		// Inputs - Slider
+		Slider sl = (customizeInput(SET_BAR))?new Slider (typesForInput(SET_BAR)):new Slider();
+		sl.setEventWhenNoId(false);
+		
+		// Inputs - Edit Text
+		RandomEditor re = (customizeInput(TYPE_TEXT))?new RandomEditor(typesForInput(TYPE_TEXT)):new RandomEditor();
+		re.setEventWhenNoId(false);
+		u.addInput (c2, sl, re);
 		
 		return u;
 	}

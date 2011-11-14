@@ -64,7 +64,7 @@ public class SimpleUser implements UserAdapter {
 		for (InteractorAdapter inputAdapter: getInputTypes()) {
 			inputs.addAll(inputAdapter.getInputs(w));
 		}
-		return ((inputs.size()>0)?inputs.get(0):null);
+		return ((inputs.size()>0)?inputs.get(inputs.size()-1):null);
 	}
 
 //	protected boolean useForClick (WidgetState w) {

@@ -1,4 +1,4 @@
-package com.nofatclips.crawler.planning;
+package com.nofatclips.crawler.planning.adapters;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -25,11 +25,11 @@ public abstract class InteractorAdapter {
 	
 	public InteractorAdapter (Abstractor theAbstractor, String ... simpleTypes) {
 		this (simpleTypes);
-		this.theAbstractor = theAbstractor;
+		setAbstractor (theAbstractor);
 	}
 	
 	public boolean canUseWidget (WidgetState w) {
-		if ( (w.getId().equals("-1"))  && (!doEventWhenNoId() || (w.getName().equals("")) )) return false;
+		if ( (w.getId().equals("-1"))  && (!doEventWhenNoId() || (w.getName().equals(""))) ) return false;
 		return (w.isAvailable() && matchClass(w.getSimpleType()));
 	}
 	
@@ -95,6 +95,10 @@ public abstract class InteractorAdapter {
 
 	public Abstractor getAbstractor() {
 		return this.theAbstractor;
+	}
+	
+	public void setAbstractor (Abstractor a) {
+		this.theAbstractor = a;
 	}
 	
 	public abstract String getEventType ();

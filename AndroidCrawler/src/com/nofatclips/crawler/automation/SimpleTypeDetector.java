@@ -2,13 +2,14 @@ package com.nofatclips.crawler.automation;
 
 import android.view.View;
 import android.webkit.WebView;
+import android.widget.RatingBar;
 
 import com.nofatclips.crawler.model.TypeDetector;
 
 import static com.nofatclips.androidtesting.model.SimpleType.*;
 
 // Detect the simple type of the widget based on the name of the class. Faster but won't work always.
-// A more reliable implementation should use instanceof.
+// A more reliable implementation should use instanceof, though it won't work with internal (not public) classes.
 
 public class SimpleTypeDetector implements TypeDetector {
 
@@ -25,6 +26,10 @@ public class SimpleTypeDetector implements TypeDetector {
 			return TOGGLE_BUTTON;
 		if (type.endsWith("IconMenuView"))
 			return MENU_VIEW;
+		if (type.endsWith("DatePicker"))
+			return DATE_PICKER;
+		if (type.endsWith("TimePicker"))
+			return TIME_PICKER;
 		if (type.endsWith("IconMenuItemView"))
 			return BUTTON;
 		if (type.endsWith("DialogTitle"))
@@ -37,6 +42,8 @@ public class SimpleTypeDetector implements TypeDetector {
 			return SPINNER;
 		if (type.endsWith("SeekBar"))
 			return SEEK_BAR;
+		if (v instanceof RatingBar && (!((RatingBar)v).isIndicator()))
+			return RATING_BAR;
 		if (type.endsWith("TabHost"))
 			return TAB_HOST;
 		if (type.endsWith("ListView") || type.endsWith("ExpandedMenuView"))

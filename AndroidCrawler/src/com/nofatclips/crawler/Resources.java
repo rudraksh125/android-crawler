@@ -63,13 +63,14 @@ public class Resources {
 	public final static String CLASS_NAME = "org.wordpress.android.Dashboard";
 	public final static String FILE_NAME = "wordpress2.xml"; // Output
 	public final static Comparator COMPARATOR = new CustomWidgetsDeepComparator(CustomWidgetsComparator.IGNORE_ACTIVITY_NAME, EDIT_TEXT, BUTTON, MENU_VIEW, DIALOG_VIEW, LIST_VIEW);
-	public final static int SLEEP_AFTER_EVENT = 1500;
+	public final static int SLEEP_AFTER_EVENT = 3000;
 	public final static int SLEEP_AFTER_RESTART = 1000;
 	public final static StrategyCriteria[] ADDITIONAL_CRITERIAS = new StrategyCriteria[] {
 		new AfterEventDontExplore("Remove Blog"),
+		new AfterWidgetDontExplore (2131165200),
 	};
 	static {
-		UserFactory.addEvent(CLICK, BUTTON, LINEAR_LAYOUT);
+		UserFactory.addEvent(CLICK, BUTTON, LINEAR_LAYOUT, SPINNER);
 	}
 
 //	public final static String PACKAGE_NAME = "com.bwx.bequick";
@@ -209,8 +210,8 @@ public class Resources {
 	public final static boolean EVENT_WHEN_NO_ID = false; // Whether to inject events on widgets without ID or not
 	public final static boolean BACK_BUTTON_EVENT = true;
 	public final static boolean MENU_EVENTS = true;
-	public final static boolean TAB_EVENTS_START_ONLY = false; // true -> click on tabs only on the start activity
-	public final static boolean LONG_CLICK_LIST_EVENT = false;
+	public final static boolean TAB_EVENTS_START_ONLY = true; // true -> click on tabs only on the start activity
+	public final static boolean LONG_CLICK_LIST_EVENT = true;
 	public final static boolean LONG_CLICK_EVENT = true;
 	public final static boolean SCROLL_DOWN_EVENT = false;
 	public final static String XML_BODY_BEGIN = "    <TRACE";

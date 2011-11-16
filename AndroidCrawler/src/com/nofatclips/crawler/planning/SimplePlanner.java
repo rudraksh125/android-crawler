@@ -2,6 +2,7 @@ package com.nofatclips.crawler.planning;
 
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 
 import android.util.Log;
 
@@ -10,7 +11,7 @@ import com.nofatclips.crawler.model.*;
 
 import static com.nofatclips.crawler.Resources.*;
 import static com.nofatclips.androidtesting.model.InteractionType.*;
-import static com.nofatclips.androidtesting.model.SimpleType.*;
+//import static com.nofatclips.androidtesting.model.SimpleType.*;
 
 public class SimplePlanner implements Planner {
 
@@ -32,19 +33,20 @@ public class SimplePlanner implements Planner {
 	public Plan getPlanForActivity (ActivityState a, boolean allowSwapTabs, boolean allowGoBack) {
 		Plan p = new Plan();
 		Log.i("nofatclips", "Planning for new Activity " + a.getName());
-		WidgetState tabs = null;
-		int numberOfTabs = 0;
+//		WidgetState tabs = null;
+//		int numberOfTabs = 0;
 		for (WidgetState w: getEventFilter()) {
-			if (w.getSimpleType().equals(TAB_HOST)) {
-				tabs = w;
-				numberOfTabs = w.getCount();
-			}
+//			if (w.getSimpleType().equals(TAB_HOST)) {
+//				tabs = w;
+//				numberOfTabs = w.getCount();
+//			}
 			Collection<UserEvent> events = getUser().handleEvent(w);
 			for (UserEvent evt: events) {
 				if (evt == null) continue;
 				Collection<UserInput> inputs = new HashSet<UserInput>();
 				for (WidgetState formWidget: getInputFilter()) {
-					UserInput inp = getFormFiller().handleInput(formWidget);
+					List<UserInput> alternatives = getFormFiller().handleInput(formWidget); 
+					UserInput inp = ((alternatives.size()>0)?alternatives.get(alternatives.size()-1):null);
 					if (inp != null) {
 						inputs.add(inp);
 					}
@@ -72,18 +74,18 @@ public class SimplePlanner implements Planner {
 			p.addTask(t);
 		}
 
-		// Special handling for tab switch
-		if ( (tabs!=null) && allowSwapTabs && (numberOfTabs>1) ) {
-			int tabNum = 2;
-			do {
-				evt = getAbstractor().createEvent(tabs, SWAP_TAB);
-				evt.setValue(String.valueOf(tabNum));
-				t = getAbstractor().createStep(a, new HashSet<UserInput>(), evt);
-				Log.i("nofatclips", "Created trace to explore tab #" + tabNum);
-				p.addTask(t);
-				tabNum++;
-			} while (tabNum<=numberOfTabs);
-		}
+//		// Special handling for tab switch
+//		if ( (tabs!=null) && allowSwapTabs && (numberOfTabs>1) ) {
+//			int tabNum = 2;
+//			do {
+//				evt = getAbstractor().createEvent(tabs, SWAP_TAB);
+//				evt.setValue(String.valueOf(tabNum));
+//				t = getAbstractor().createStep(a, new HashSet<UserInput>(), evt);
+//				Log.i("nofatclips", "Created trace to explore tab #" + tabNum);
+//				p.addTask(t);
+//				tabNum++;
+//			} while (tabNum<=numberOfTabs);
+//		}
 
 		// Special handling for scrolling down
 		if (SCROLL_DOWN_EVENT) {

@@ -102,6 +102,7 @@ public class GuiTreeAbstractor implements Abstractor, FilterHandler {
 			setCount (v,w);
 			w.setAvailable((v.isEnabled())?"true":"false");
 			w.setClickable((v.isClickable())?"true":"false");
+			w.setLongClickable((v.isLongClickable())?"true":"false");
 			w.setIndex(desc.getWidgetIndex(v));
 			if (detectDuplicates && newActivity.hasWidget(w)) continue;
 			newActivity.addWidget(w);

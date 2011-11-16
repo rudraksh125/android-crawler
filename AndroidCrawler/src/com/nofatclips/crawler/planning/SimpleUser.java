@@ -1,7 +1,6 @@
 package com.nofatclips.crawler.planning;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.Random;
 
@@ -16,22 +15,27 @@ import com.nofatclips.crawler.planning.adapters.RandomInteractor;
 public class SimpleUser implements UserAdapter {
 
 	public SimpleUser () {
-		this.randomGenerator = new Random();
-		this.eventTypes = new ArrayList<InteractorAdapter>();
-		this.inputTypes = new ArrayList<InteractorAdapter>();
+		this(new Random());
 	}
-	
-//	public SimpleUser (Abstractor a) {
-//		this (a, new Clicker (a, BUTTON));
-//	}
 	
 	public SimpleUser (Abstractor a) {
 		this();
 		setAbstractor(a);
 	}
 	
+	public SimpleUser (Random r) {
+		this.eventTypes = new ArrayList<InteractorAdapter>();
+		this.inputTypes = new ArrayList<InteractorAdapter>();		
+		setRandomGenerator(r);		
+	}
+	
+	public SimpleUser (Abstractor a, Random r) {
+		this (r);
+		setAbstractor(a);
+	}
+	
 	@Override
-	public Collection<UserEvent> handleEvent(WidgetState w) {
+	public List<UserEvent> handleEvent(WidgetState w) {
 		ArrayList<UserEvent> events = new ArrayList<UserEvent>();
 		for (InteractorAdapter eventAdapter: getEventTypes()) {
 			events.addAll(eventAdapter.getEvents(w));
@@ -40,7 +44,7 @@ public class SimpleUser implements UserAdapter {
 	}
 	
 	@Override
-	public UserInput handleInput(WidgetState w) {
+	public List<UserInput> handleInput(WidgetState w) {
 //		if (!useForInput(w)) return null;
 //		UserInput input = null;
 //		if ( (w.getSimpleType().equals(CHECKBOX) || w.getSimpleType().equals(TOGGLE_BUTTON)) && w.isClickable()) {
@@ -64,7 +68,8 @@ public class SimpleUser implements UserAdapter {
 		for (InteractorAdapter inputAdapter: getInputTypes()) {
 			inputs.addAll(inputAdapter.getInputs(w));
 		}
-		return ((inputs.size()>0)?inputs.get(inputs.size()-1):null);
+//		return ((inputs.size()>0)?inputs.get(inputs.size()-1):null);
+		return inputs;
 	}
 
 //	protected boolean useForClick (WidgetState w) {

@@ -40,36 +40,9 @@ public class ListSelector extends IterativeInteractorAdapter {
 		super (theAbstractor, maxItems, simpleTypes);
 	}
 
-//	@Override
-//	public List<UserEvent> getEvents (WidgetState w) {
-//		ArrayList<UserEvent> events = new ArrayList<UserEvent>();
-//		if (canUseWidget(w)) {
-//			final int fromItem = 1; // int fromItem = Math.min(6,w.getCount());
-//			final int toItem = getMax(fromItem, w.getCount()); //Math.min (fromItem + getMaxEventsPerWidget() - 1, w.getCount());
-//			if (toItem<fromItem) return events;
-//			Log.d("nofatclips", "Handling events [" + fromItem + "," + toItem + "] on List #" + w.getId() + " count=" + w.getCount() + " name=" + w.getName());
-//			for (int i=fromItem; i<=toItem; i++) {
-//				events.add(generateEvent(w, String.valueOf(i)));
-//			}
-//		}
-//		return events;
-//	}
-
 	@Override
 	public String getEventType () {
 		return LIST_SELECT;
 	}
-
-//	public int getMaxEventsPerWidget() {
-//		return maxEventsPerWidget;
-//	}
-//	
-//	public int getMax(int min, int max) {
-//		return (getMaxEventsPerWidget()>0)?Math.min (min + getMaxEventsPerWidget() - 1, max):max;
-//	}
-//
-//	public void setMaxEventsPerWidget(int maxEventsPerWidget) {
-//		this.maxEventsPerWidget = maxEventsPerWidget;
-//	}
 
 }

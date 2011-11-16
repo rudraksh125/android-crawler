@@ -1,6 +1,8 @@
 package com.nofatclips.crawler.planning;
 
 import java.util.HashMap;
+import java.util.Random;
+
 import static com.nofatclips.androidtesting.model.InteractionType.*;
 import static com.nofatclips.androidtesting.model.SimpleType.*;
 import static com.nofatclips.crawler.Resources.*;
@@ -61,9 +63,26 @@ public class UserFactory {
 		return LONG_CLICK_LIST_EVENT;
 	}
 
+	public static boolean doForceSeed () {
+		return (RANDOM_SEED==0);
+	}
+	
+	public static boolean isUserSimple () {
+		int m = MAX_TASKS_PER_EVENT;
+		return (m == 1);
+	}
+	
 	public static UserAdapter getUser (Abstractor a) {
-		SimpleUser u = new SimpleUser (a);
-//		u.setAbstractor(a);
+		
+		UserAdapter u;
+
+		if (isUserSimple()) {
+			u = (doForceSeed())?new SimpleUser (a):new SimpleUser(a,new Random(RANDOM_SEED));
+		} else {
+			u = (doForceSeed())?new AlternativeUser (a):new AlternativeUser(a,new Random(RANDOM_SEED));
+		}
+
+			//		u.setAbstractor(a);
 
 		// Events - Click
 		Clicker c = (customizeEvent(CLICK))?new Clicker (typesForEvent(CLICK)):new Clicker (BUTTON);
@@ -90,6 +109,13 @@ public class UserFactory {
 			llc.setEventWhenNoId(true);
 			u.addEvent(llc);
 		}
+		
+		// Events - Swap Tab
+		TabSwapper ts = (customizeEvent(SWAP_TAB))?new TabSwapper (typesForEvent(SWAP_TAB)):new TabSwapper ();
+		if (TAB_EVENTS_START_ONLY) {
+			ts.setOnlyOnce(true);
+		}
+		u.addEvent(ts);
 		
 		// Inputs - Click
 		Clicker c2 = (customizeInput(CLICK))?new Clicker (typesForInput(CLICK)):new Clicker (TOGGLE_BUTTON, CHECKBOX, RADIO);

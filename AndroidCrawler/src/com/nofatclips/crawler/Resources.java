@@ -35,9 +35,7 @@ public class Resources {
 //	public final static Comparator COMPARATOR = new CustomWidgetsDeepComparator(CustomWidgetsComparator.IGNORE_ACTIVITY_NAME, BUTTON, LIST_VIEW, MENU_VIEW, IMAGE_VIEW);
 //	public final static int SLEEP_AFTER_EVENT = 4000;
 //	public final static int SLEEP_AFTER_RESTART = 4000;
-//	public final static boolean EVENT_WHEN_NO_ID = false; // Whether to inject events on widgets without ID or not
 //	public final static int MAX_EVENTS_PER_WIDGET = 7;
-//	public final static boolean LONG_CLICK_LIST_EVENT = true;
 	
 //	public final static String PACKAGE_NAME = "net.sf.andbatdog.batterydog";
 //	public final static String CLASS_NAME = "net.sf.andbatdog.batterydog.BatteryDog";
@@ -57,7 +55,7 @@ public class Resources {
 //		new AfterEventDontExplore("Remove Blog", "Add"),
 //	};
 
-	// Wordpress 2 (Alpha)
+//	// Wordpress 2 (Alpha)
 	public final static String PACKAGE_NAME = "org.wordpress.android";
 	public final static String CLASS_NAME = "org.wordpress.android.Dashboard";
 	public final static String FILE_NAME = "wordpress2.xml"; // Output
@@ -65,7 +63,7 @@ public class Resources {
 	public final static int SLEEP_AFTER_EVENT = 6000;
 	public final static int SLEEP_AFTER_RESTART = 1000;
 	public final static StrategyCriteria[] ADDITIONAL_CRITERIAS = new StrategyCriteria[] {
-		new AfterEventDontExplore("Remove Blog"),
+		new AfterEventDontExplore("Remove Blog", "Settings"),
 		new AfterWidgetDontExplore (2131165200),
 	};
 	static {
@@ -200,12 +198,12 @@ public class Resources {
 	public final static long MAX_TIME_CRAWLING = 0; // In seconds (0 = no time limit)
 	public final static int TRACE_MAX_DEPTH = 0; // Max number of transitions in a trace (0 = no depth limit)
 	public final static boolean CHECK_FOR_TRANSITION = false;
-//	public final static StrategyCriteria[] ADDITIONAL_CRITERIAS = new StrategyCriteria[] {
-//	};
+//	public final static StrategyCriteria[] ADDITIONAL_CRITERIAS = new StrategyCriteria[] {};
 	
 	// More Parameters
 	public final static int SLEEP_ON_THROBBER = 30000; // How long to wait on spinning wheels (in ms -- 0 = don't wait)
 	public final static int MAX_EVENTS_PER_WIDGET = 12; // For GroupViews (0 = try all items in the group)
+	public final static int MAX_TASKS_PER_EVENT = 1; // How many input sequences to generate for each event on a widget; 0 = no limit
 	public final static boolean EVENT_WHEN_NO_ID = false; // Whether to inject events on widgets without ID or not
 	public final static boolean BACK_BUTTON_EVENT = true;
 	public final static boolean MENU_EVENTS = true;
@@ -213,6 +211,7 @@ public class Resources {
 	public final static boolean LONG_CLICK_LIST_EVENT = true;
 	public final static boolean LONG_CLICK_EVENT = false;
 	public final static boolean SCROLL_DOWN_EVENT = false;
+	public final static long RANDOM_SEED = 93874383493L; // 0 = Random
 	public final static String XML_BODY_BEGIN = "    <TRACE";
 	public final static String XML_BODY_END = "/TRACE>";
 	public final static CrawlerLog LOGGER = new SessionLogger();

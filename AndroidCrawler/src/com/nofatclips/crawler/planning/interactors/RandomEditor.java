@@ -48,7 +48,7 @@ public class RandomEditor extends RandomInteractorAdapter {
 	}
 
 	@Override
-	public String getEventType() {
+	public String getInteractionType() {
 		return TYPE_TEXT;
 	}
 	

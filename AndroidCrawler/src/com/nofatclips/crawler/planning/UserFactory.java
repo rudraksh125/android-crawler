@@ -82,8 +82,6 @@ public class UserFactory {
 			u = (doForceSeed())?new AlternativeUser (a):new AlternativeUser(a,new Random(RANDOM_SEED));
 		}
 
-			//		u.setAbstractor(a);
-
 		// Events - Click
 		Clicker c = (customizeEvent(CLICK))?new Clicker (typesForEvent(CLICK)):new Clicker (BUTTON);
 		c.setEventWhenNoId(EVENT_WHEN_NO_ID);

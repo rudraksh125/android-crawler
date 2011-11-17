@@ -52,7 +52,7 @@ public abstract class IterativeInteractorAdapter extends InteractorAdapter {
 			final int fromItem = 1; // int fromItem = Math.min(6,w.getCount());
 			final int toItem = getToItem(fromItem, w.getCount()); //Math.min (fromItem + getMaxEventsPerWidget() - 1, w.getCount());
 			if (toItem<fromItem) return events;
-			Log.d("nofatclips", "Handling event " + getEventType() + " for items [" + fromItem + "," + toItem + "] on " + w.getSimpleType() + " #" + w.getId() + " count=" + w.getCount());
+			Log.d("nofatclips", "Handling event " + getInteractionType() + " for items [" + fromItem + "," + toItem + "] on " + w.getSimpleType() + " #" + w.getId() + " count=" + w.getCount());
 			for (int i=fromItem; i<=toItem; i++) {
 				events.add(generateEvent(w, String.valueOf(i)));
 			}

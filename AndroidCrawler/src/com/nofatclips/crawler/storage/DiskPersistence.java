@@ -94,9 +94,13 @@ public class DiskPersistence implements Persistence {
 	}
 	
 	public void writeOnFile (String graph) throws IOException {
-		this.osw.write(graph);
+		writeOnFile (this.osw, graph);
 	}
-	
+
+	public void writeOnFile (OutputStreamWriter output, String graph) throws IOException {
+		output.write(graph);
+	}
+
 	public void openFile (String fileName) {
 		try{
 			this.fOut = w.openFileOutput(fileName, this.mode);
@@ -106,16 +110,24 @@ public class DiskPersistence implements Persistence {
 			e.printStackTrace();
 		}
 	}
-	
+
+	public boolean delete (String fileName) {
+		return w.deleteFile(fileName);
+	}
+
 	public void closeFile () {
+		closeFile (this.fOut, this.osw);
+	}
+	
+	public void closeFile (FileOutputStream theFile, OutputStreamWriter theStream) {
 		try {
-			this.osw.flush();
+			theStream.flush();
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			try {
-				this.osw.close();
-				this.fOut.close();
+				theStream.close();
+				theFile.close();
 			} catch (IOException e) {
 				e.printStackTrace();
 			}

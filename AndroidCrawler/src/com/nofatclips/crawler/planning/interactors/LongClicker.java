@@ -15,7 +15,7 @@ public class LongClicker extends Clicker {
 	}
 
 	@Override
-	public String getEventType () {
+	public String getInteractionType () {
 		return LONG_CLICK;
 	}
 

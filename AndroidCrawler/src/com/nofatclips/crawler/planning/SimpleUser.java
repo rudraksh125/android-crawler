@@ -45,40 +45,12 @@ public class SimpleUser implements UserAdapter {
 	
 	@Override
 	public List<UserInput> handleInput(WidgetState w) {
-//		if (!useForInput(w)) return null;
-//		UserInput input = null;
-//		if ( (w.getSimpleType().equals(CHECKBOX) || w.getSimpleType().equals(TOGGLE_BUTTON)) && w.isClickable()) {
-////			if (randomGenerator.nextBoolean()) return null;
-//			input = getAbstractor().createInput(w, "", CLICK);
-//		} else if (w.getSimpleType().equals(RADIO) && w.isClickable()) {
-//			input = getAbstractor().createInput(w, "", CLICK);
-//		} else if (w.getSimpleType().equals(SEEK_BAR)) {
-//			int randomInt = randomGenerator.nextInt(w.getCount());
-//			input = getAbstractor().createInput(w, String.valueOf(randomInt), SET_BAR);
-//		} else if (w.getSimpleType().equals(EDIT_TEXT)) {
-//			int randomInt = randomGenerator.nextInt(this.upperLimit-this.lowerLimit) + this.lowerLimit;  
-//			input = getAbstractor().createInput(w, String.valueOf(randomInt), TYPE_TEXT);
-//		} else {
-//			return null;
-//		}
-//		Log.d("nofatclips", "Handling input on widget id=" + w.getId() + " type=" + w.getSimpleType());
-//		return input;
-		
 		ArrayList<UserInput> inputs = new ArrayList<UserInput>();
 		for (InteractorAdapter inputAdapter: getInputTypes()) {
 			inputs.addAll(inputAdapter.getInputs(w));
 		}
-//		return ((inputs.size()>0)?inputs.get(inputs.size()-1):null);
 		return inputs;
 	}
-
-//	protected boolean useForClick (WidgetState w) {
-//		return eventClicker.canUseWidget(w);
-//	}
-
-//	protected boolean useForInput (WidgetState w) {
-//		return (w.isAvailable() && !w.getId().equals("-1"));
-//	}
 	
 	public Abstractor getAbstractor() {
 		return this.abs;
@@ -95,11 +67,6 @@ public class SimpleUser implements UserAdapter {
 	public void setRandomGenerator(Random randomGenerator) {
 		this.randomGenerator = randomGenerator;
 	}
-	
-//	public void setLimits (int lower, int upper) {
-//		this.lowerLimit = lower;
-//		this.upperLimit = upper;
-//	}
 	
 	public void addEvent (InteractorAdapter ... events) {
 		for (InteractorAdapter e: events) {
@@ -128,8 +95,6 @@ public class SimpleUser implements UserAdapter {
 
 	private Abstractor abs;
 	private Random randomGenerator;
-//	private int lowerLimit = 0;
-//	private int upperLimit = 100;
 	private List<InteractorAdapter> eventTypes;
 	private List<InteractorAdapter> inputTypes;
 

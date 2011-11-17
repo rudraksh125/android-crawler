@@ -1,5 +1,7 @@
 package com.nofatclips.crawler.strategy;
 
+import java.util.Collection;
+
 import com.nofatclips.androidtesting.model.ActivityState;
 import com.nofatclips.androidtesting.model.Trace;
 import com.nofatclips.crawler.model.Comparator;

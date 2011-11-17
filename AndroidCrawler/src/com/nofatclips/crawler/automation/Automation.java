@@ -473,6 +473,10 @@ public class Automation implements Robot, Extractor, TaskProcessor {
 			return getWidgets().get(key);
 		}
 
+		public Activity getActivity() {
+			return theActivity;
+		}
+
 		@Override
 		public ActivityDescription describeActivity() {
 			return new ActivityDescription() {

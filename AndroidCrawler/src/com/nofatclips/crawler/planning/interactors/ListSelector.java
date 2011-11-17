@@ -41,7 +41,7 @@ public class ListSelector extends IterativeInteractorAdapter {
 	}
 
 	@Override
-	public String getEventType () {
+	public String getInteractionType () {
 		return LIST_SELECT;
 	}
 

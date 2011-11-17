@@ -45,7 +45,7 @@ public class TabSwapper extends IterativeInteractorAdapter {
 	}
 
 	@Override
-	public String getEventType () {
+	public String getInteractionType () {
 		this.first = false;
 		return SWAP_TAB;
 	}

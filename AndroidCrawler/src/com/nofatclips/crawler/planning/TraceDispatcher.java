@@ -8,11 +8,13 @@ import java.util.List;
 import android.util.Log;
 
 import com.nofatclips.androidtesting.model.Trace;
+import com.nofatclips.crawler.model.DispatchListener;
 import com.nofatclips.crawler.model.TaskScheduler;
 
 public class TraceDispatcher implements Iterable<Trace> {
 
 	private TaskScheduler scheduler;
+	private List<DispatchListener> theListeners = new ArrayList<DispatchListener>();
 	
 	public TraceDispatcher () {
 		setScheduler(getTrivialScheduler());
@@ -27,17 +29,26 @@ public class TraceDispatcher implements Iterable<Trace> {
 	}
 	
 	public void addTasks (Collection<Trace> t) {
-		this.scheduler.addTasks(t);
+		getScheduler().addTasks(t);
 	}
 	
 	public void addTasks (Trace t) {
-		this.scheduler.addTasks(t);
+		getScheduler().addTasks(t);
 	}
 	
 	public TaskScheduler getTrivialScheduler() {
 		TaskScheduler s = new TrivialScheduler();
 		s.setTaskList(new ArrayList<Trace>());
 		return s;
+	}
+	
+	public TaskScheduler getScheduler() {
+		return this.scheduler;
+	}
+
+	public void registerListener(DispatchListener theListener) {
+//		throw new Error();
+		this.theListeners.add(theListener);
 	}
 
 	@Override
@@ -54,6 +65,9 @@ public class TraceDispatcher implements Iterable<Trace> {
 			@Override
 			public Trace next() {
 				this.lastTask = scheduler.nextTask();
+				for (DispatchListener theListener: theListeners) {
+					theListener.onNewTaskDispatched(this.lastTask);
+				}
 				remove();
 				return this.lastTask;
 			}
@@ -76,7 +90,8 @@ public class TraceDispatcher implements Iterable<Trace> {
 		@Override
 		public Trace nextTask() {
 			Log.i("nofatclips", "Dispatching new task. " + tasks.size() + " more tasks remaining.");
-			return (hasMore())?tasks.get(0):null;
+			Trace t = (hasMore())?tasks.get(0):null;
+			return t;
 		}
 
 		@Override
@@ -89,6 +104,11 @@ public class TraceDispatcher implements Iterable<Trace> {
 		@Override
 		public void setTaskList(List<Trace> theList) {
 			this.tasks = theList;
+		}
+
+		@Override
+		public List<Trace> getTaskList() {
+			return this.tasks;
 		}
 
 		@Override
@@ -105,6 +125,7 @@ public class TraceDispatcher implements Iterable<Trace> {
 		public void addTasks(Trace t) {
 			this.tasks.add(t);
 		}
+		
 	}
 
 }

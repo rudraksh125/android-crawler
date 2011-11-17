@@ -38,7 +38,7 @@ public class ListLongClicker extends ListSelector {
 	}
 
 	@Override
-	public String getEventType () {
+	public String getInteractionType () {
 		return LIST_LONG_SELECT;
 	}
 

@@ -14,6 +14,7 @@ import com.nofatclips.crawler.model.Robot;
 import com.nofatclips.crawler.model.Strategy;
 import com.nofatclips.crawler.planning.TraceDispatcher;
 
+import android.app.Activity;
 import android.test.ActivityInstrumentationTestCase2;
 
 import static com.nofatclips.crawler.Resources.*;
@@ -31,11 +32,13 @@ public abstract class Engine extends ActivityInstrumentationTestCase2 {
 		super.setUp();
 		getRobot().bind(this);
 		getExtractor().extractState();
+		Activity a = getExtractor().getActivity();
+		getPersistence().setFileName(FILE_NAME);
+		getPersistence().setContext(a);
 		ActivityDescription d = getExtractor().describeActivity();
 		getAbstractor().setBaseActivity(d);
-		planFirstTests(getAbstractor().getBaseActivity());
 		getStrategy().addState(getAbstractor().getBaseActivity());
-		getPersistence().setFileName(FILE_NAME);
+		planFirstTests(getAbstractor().getBaseActivity());
 	}
 	
 	public void testAndCrawl() {
@@ -59,6 +62,9 @@ public abstract class Engine extends ActivityInstrumentationTestCase2 {
 	
 	@Override
 	protected void tearDown() throws Exception {
+		if (getStrategy().getTask().isFailed()) {
+			getSession().addFailedTrace(getStrategy().getTask());
+		}
 		getPersistence().save();
 		getRobot().finalize();
 		super.tearDown();

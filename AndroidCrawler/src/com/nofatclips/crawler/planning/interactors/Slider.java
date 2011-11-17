@@ -38,7 +38,7 @@ public class Slider extends RandomInteractorAdapter {
 	}
 
 	@Override
-	public String getEventType() {
+	public String getInteractionType() {
 		return SET_BAR;
 	}
 	

@@ -22,7 +22,7 @@ public class Clicker extends InteractorAdapter {
 	}
 	
 	@Override
-	public String getEventType () {
+	public String getInteractionType () {
 		return CLICK;
 	}
 

@@ -36,7 +36,7 @@ public abstract class InteractorAdapter {
 	public List<UserEvent> getEvents (WidgetState w) {
 		ArrayList<UserEvent> events = new ArrayList<UserEvent>();
 		if (canUseWidget(w)) {
-			Log.d("nofatclips", "Handling event '" + getEventType() + "' on widget id=" + w.getId() + " type=" + w.getSimpleType() + " name=" + w.getName());
+			Log.d("nofatclips", "Handling event '" + getInteractionType() + "' on widget id=" + w.getId() + " type=" + w.getSimpleType() + " name=" + w.getName());
 			events.add(generateEvent(w));
 		}
 		return events;
@@ -45,7 +45,7 @@ public abstract class InteractorAdapter {
 	public List<UserInput> getInputs (WidgetState w) {
 		ArrayList<UserInput> inputs = new ArrayList<UserInput>();
 		if (canUseWidget(w)) {
-			Log.d("nofatclips", "Handling input '" + getEventType() + "' on widget id=" + w.getId() + " type=" + w.getSimpleType() + " name=" + w.getName());
+			Log.d("nofatclips", "Handling input '" + getInteractionType() + "' on widget id=" + w.getId() + " type=" + w.getSimpleType() + " name=" + w.getName());
 			inputs.add(generateInput(w));
 		}
 		return inputs;
@@ -54,7 +54,7 @@ public abstract class InteractorAdapter {
 	public List<UserEvent> getEvents (WidgetState w, String ... values) {
 		ArrayList<UserEvent> events = new ArrayList<UserEvent>();
 		if (canUseWidget(w)) {
-			Log.d("nofatclips", "Handling event '" + getEventType() + "' on widget id=" + w.getId() + " type=" + w.getSimpleType() + " name=" + w.getName());
+			Log.d("nofatclips", "Handling event '" + getInteractionType() + "' on widget id=" + w.getId() + " type=" + w.getSimpleType() + " name=" + w.getName());
 			for (String value: values) {
 				Log.v ("nofatclips", "Using value: " + value);
 				events.add(generateEvent(w, value));
@@ -66,7 +66,7 @@ public abstract class InteractorAdapter {
 	public List<UserInput> getInputs (WidgetState w, String ... values) {
 		ArrayList<UserInput> inputs = new ArrayList<UserInput>();
 		if (canUseWidget(w)) {
-			Log.d("nofatclips", "Handling input '" + getEventType() + "' on widget id=" + w.getId() + " type=" + w.getSimpleType() + " name=" + w.getName());
+			Log.d("nofatclips", "Handling input '" + getInteractionType() + "' on widget id=" + w.getId() + " type=" + w.getSimpleType() + " name=" + w.getName());
 			for (String value: values) {
 				Log.v ("nofatclips", "Using value: " + value);
 				inputs.add(generateInput(w, value));	
@@ -76,7 +76,7 @@ public abstract class InteractorAdapter {
 	}
 
 	protected UserEvent generateEvent (WidgetState w) {
-		return getAbstractor().createEvent(w, getEventType());
+		return getAbstractor().createEvent(w, getInteractionType());
 	}
 
 	protected UserInput generateInput (WidgetState w) {
@@ -90,7 +90,7 @@ public abstract class InteractorAdapter {
 	}
 
 	protected UserInput generateInput (WidgetState w, String value) {
-		return getAbstractor().createInput(w, value, getEventType());
+		return getAbstractor().createInput(w, value, getInteractionType());
 	}
 
 	public Abstractor getAbstractor() {
@@ -101,7 +101,7 @@ public abstract class InteractorAdapter {
 		this.theAbstractor = a;
 	}
 	
-	public abstract String getEventType ();
+	public abstract String getInteractionType ();
 	
 	protected boolean matchClass (String type) {
 		for (String storedType: this.widgetClasses) {

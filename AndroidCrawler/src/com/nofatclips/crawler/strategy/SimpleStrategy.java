@@ -3,12 +3,13 @@ package com.nofatclips.crawler.strategy;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 
 import android.util.Log;
-
 import com.nofatclips.androidtesting.model.ActivityState;
 import com.nofatclips.androidtesting.model.Trace;
 import com.nofatclips.crawler.model.Comparator;
+import com.nofatclips.crawler.model.StateDiscoveryListener;
 import com.nofatclips.crawler.model.Strategy;
 import com.nofatclips.crawler.strategy.criteria.TerminationCriteria;
 
@@ -21,6 +22,7 @@ public class SimpleStrategy implements Strategy {
 	private Trace theTask;
 	private ActivityState beforeEvent;
 	private ActivityState afterEvent;
+	private List<StateDiscoveryListener> theListeners = new ArrayList<StateDiscoveryListener>();
 
 	public SimpleStrategy () {
 		super();
@@ -33,6 +35,9 @@ public class SimpleStrategy implements Strategy {
 	
 	@Override
 	public void addState(ActivityState newActivity) {
+		for (StateDiscoveryListener listener: getListeners()) {
+			listener.onNewState(newActivity);
+		}
 		this.guiNodes.add(newActivity);
 	}
 
@@ -111,6 +116,14 @@ public class SimpleStrategy implements Strategy {
 
 	public ActivityState getStateAfterEvent () {
 		return this.afterEvent;
-	}	
+	}
+
+	public List<StateDiscoveryListener> getListeners() {
+		return this.theListeners;
+	}
+
+	public void registerListener(StateDiscoveryListener theListener) {
+		this.theListeners.add(theListener);
+	}
 
 }

@@ -27,5 +27,5 @@ public interface Strategy {
 	
 	public ActivityState getStateBeforeEvent();
 	public ActivityState getStateAfterEvent ();
-	
+
 }

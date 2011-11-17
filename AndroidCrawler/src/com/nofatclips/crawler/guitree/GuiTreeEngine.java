@@ -16,8 +16,7 @@ import com.nofatclips.crawler.model.UserAdapter;
 import com.nofatclips.crawler.planning.SimplePlanner;
 import com.nofatclips.crawler.planning.TraceDispatcher;
 import com.nofatclips.crawler.planning.UserFactory;
-import com.nofatclips.crawler.storage.DiskPersistence;
-import com.nofatclips.crawler.storage.StepDiskPersistence;
+import com.nofatclips.crawler.storage.PersistenceFactory;
 import com.nofatclips.crawler.strategy.*;
 
 import static com.nofatclips.crawler.Resources.*;
@@ -26,7 +25,9 @@ public class GuiTreeEngine extends Engine {
 
 	public GuiTreeEngine () {
 		super ();
-				
+		
+//		TraceDispatcher scheduler = new TraceDispatcher(); 
+//		setScheduler(scheduler);
 		setScheduler(new TraceDispatcher());
 		
 		this.theAutomation = new Automation();
@@ -72,10 +73,11 @@ public class GuiTreeEngine extends Engine {
 		sf.setMaxSeconds(MAX_TIME_CRAWLING);
 		sf.setCheckTransitions(CHECK_FOR_TRANSITION);
 		setStrategy (sf.getStrategy());
-		
-		d = (stepPersistence())?new StepDiskPersistence (MAX_TRACES_IN_RAM):new DiskPersistence();
-		d.setSession(this.theGuiTree);
-		setPersistence (d);
+
+		PersistenceFactory pf = new PersistenceFactory (this.theGuiTree, getScheduler(), getStrategy());
+		setPersistence (pf.getPersistence());
+//		d = (stepPersistence())?new StepDiskPersistence (MAX_TRACES_IN_RAM):new DiskPersistence();
+//		d.setSession(this.theGuiTree);
 		
 	}
 	
@@ -86,7 +88,6 @@ public class GuiTreeEngine extends Engine {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		d.setContext(theAutomation.getActivity());
 		theRestarter.setRestartPoint(theAutomation.getActivity());
 		theGuiTree.setAppName(theAutomation.getAppName());
 		theGuiTree.setSleepAfterEvent(SLEEP_AFTER_EVENT);
@@ -105,6 +106,6 @@ public class GuiTreeEngine extends Engine {
 	private UserAdapter user;
 	private BasicRestarter theRestarter;
 	private GuiTree theGuiTree;
-	private DiskPersistence d;
+//	private Persistence diskWriter;
 	
 }

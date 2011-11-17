@@ -206,7 +206,7 @@ public class Resources {
 	
 	// Persistence Parameters
 	public final static int MAX_TRACES_IN_RAM = 20; // After performing this amount of traces, the crawler saves to disk, empties the session and continues (0 = keep all in RAM)
-	public final static boolean ENABLE_RESUME = false;
+	public final static boolean ENABLE_RESUME = true;
 	public final static String TASK_LIST_FILE_NAME = "tasklist.xml"; // Save state for resume
 	public final static String ACTIVITY_LIST_FILE_NAME = "activities.xml"; // Save state for resume
 //	public final static String FILE_NAME = "guitree.xml"; // Output

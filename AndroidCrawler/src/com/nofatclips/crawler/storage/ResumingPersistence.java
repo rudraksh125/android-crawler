@@ -79,13 +79,6 @@ public class ResumingPersistence extends StepDiskPersistence implements Dispatch
 	
 	@Override
 	public void onNewState(ActivityState newState) {
-		// Delete file when crawling is over
-//		if (completedCrawling()) {
-//			Log.e("nofatclips", "Crawling completed successfully. Deleting activity list from disk.");
-//			delete (getActivityFileName());
-//			return;
-//		}
-
 		try {
 			Log.d("nofatclips", "Saving new found state '" + newState.getId() + "' on disk");
 			openStateFile();
@@ -108,6 +101,12 @@ public class ResumingPersistence extends StepDiskPersistence implements Dispatch
 	public void save() {
 		super.save();
 		saveTaskList();
+		// Delete file when crawling is over
+		if (noTasks()) {
+			Log.e("nofatclips", "Task list is empty: no resume needed. Deleting activity list from disk.");
+			delete (getActivityFileName());
+			return;
+		}
 	}
 
 	public void openTaskFile () {

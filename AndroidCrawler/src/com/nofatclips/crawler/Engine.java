@@ -1,21 +1,22 @@
 package com.nofatclips.crawler;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.w3c.dom.Element;
+
 import com.nofatclips.androidtesting.model.ActivityState;
 import com.nofatclips.androidtesting.model.Session;
 import com.nofatclips.androidtesting.model.Trace;
 import com.nofatclips.androidtesting.model.Transition;
-import com.nofatclips.crawler.model.Abstractor;
-import com.nofatclips.crawler.model.ActivityDescription;
-import com.nofatclips.crawler.model.Extractor;
-import com.nofatclips.crawler.model.Persistence;
-import com.nofatclips.crawler.model.Plan;
-import com.nofatclips.crawler.model.Planner;
-import com.nofatclips.crawler.model.Robot;
-import com.nofatclips.crawler.model.Strategy;
+import com.nofatclips.androidtesting.xml.XmlGraph;
+import com.nofatclips.crawler.model.*;
 import com.nofatclips.crawler.planning.TraceDispatcher;
+import com.nofatclips.crawler.storage.ResumingPersistence;
 
 import android.app.Activity;
 import android.test.ActivityInstrumentationTestCase2;
+import android.util.Log;
 
 import static com.nofatclips.crawler.Resources.*;
 
@@ -26,6 +27,8 @@ public abstract class Engine extends ActivityInstrumentationTestCase2 {
 	public Engine() {
 		super(PACKAGE_NAME,theClass);
 	}
+	
+	public abstract Session getNewSession();
 
 	@Override
 	protected void setUp() throws Exception {
@@ -37,8 +40,10 @@ public abstract class Engine extends ActivityInstrumentationTestCase2 {
 		getPersistence().setContext(a);
 		ActivityDescription d = getExtractor().describeActivity();
 		getAbstractor().setBaseActivity(d);
-		getStrategy().addState(getAbstractor().getBaseActivity());
-		planFirstTests(getAbstractor().getBaseActivity());
+		if (!resume()) {
+			getStrategy().addState(getAbstractor().getBaseActivity());
+			planFirstTests(getAbstractor().getBaseActivity());
+		}
 	}
 	
 	public void testAndCrawl() {
@@ -70,15 +75,58 @@ public abstract class Engine extends ActivityInstrumentationTestCase2 {
 		super.tearDown();
 	}
 	
-//	@Override
-//	protected void finalize() throws Throwable {
-//	    try {
-//			getPersistence().save();
-//	    } finally {
-//	        super.finalize();
-//	    }
-//	}
+	public boolean resume() {
+		Log.e("nofatclips", "Checking for resume");
+		boolean flag = ENABLE_RESUME;
+		if (!flag) return false;
+		if (!(getPersistence() instanceof ResumingPersistence)) return false;
+		if (!getPersistence().exists(TASK_LIST_FILE_NAME)) return false;
+		if (!getPersistence().exists(FILE_NAME)) return false;
+		if (!getPersistence().exists(ACTIVITY_LIST_FILE_NAME)) throw new Error("Cannot resume previous session: state list not found.");
+		
+		ResumingPersistence r = (ResumingPersistence)getPersistence();
+		List<String> entries;
+		Session sandboxSession = getNewSession();
+		Element e;
+		
+		// Importing task list
+		entries = r.readTaskFile();
+		List<Trace> taskList = new ArrayList<Trace>();
+		Trace t;
+		for (String trace: entries) {
+			sandboxSession.parse(trace);
+			e = ((XmlGraph)sandboxSession).getDom().getDocumentElement();
+			t = getAbstractor().importTask (e);
+			if (t.isFailed()) {
+				Log.e("nofatclips", "Importing crashed trace #" + t.getId() + " from disk");
+				getSession().addCrashedTrace(t);
+			} else {
+				Log.e("nofatclips", "Importing trace #" + t.getId() + " from disk");
+				taskList.add(t);
+			}
+		}
+		getScheduler().addTasks(taskList);
+		
+		// Importing activity list
+		entries = r.readStateFile();
+		List<ActivityState> stateList = new ArrayList<ActivityState>();
+		ActivityState s;
+		for (String state: entries) {
+			sandboxSession.parse(state);
+			e = ((XmlGraph)sandboxSession).getDom().getDocumentElement();
+			s = getAbstractor().importState (e);
+			stateList.add(s);
+			Log.e("nofatclips", "Imported activity state " + s.getId() + " from disk");
+		}
+		for (ActivityState state: stateList) {
+			getStrategy().addState(state);
+		}
 
+		r.setNotFirst();
+
+		return true;
+	}
+	
 	private void planFirstTests (ActivityState theActivity) {
 		Plan thePlan = getPlanner().getPlanForBaseActivity(theActivity);
 		planTests (null, thePlan);

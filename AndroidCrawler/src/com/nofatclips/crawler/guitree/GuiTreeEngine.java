@@ -5,6 +5,7 @@ import java.util.GregorianCalendar;
 import javax.xml.parsers.ParserConfigurationException;
 
 import com.nofatclips.androidtesting.guitree.GuiTree;
+import com.nofatclips.androidtesting.model.Session;
 import com.nofatclips.crawler.Engine;
 import com.nofatclips.crawler.automation.Automation;
 import com.nofatclips.crawler.automation.BasicRestarter;
@@ -95,6 +96,16 @@ public class GuiTreeEngine extends Engine {
 		theGuiTree.setSleepOnThrobber(SLEEP_ON_THROBBER);
 		theGuiTree.setClassName(CLASS_NAME);
 		theGuiTree.setPackageName(PACKAGE_NAME);
+	}
+	
+	public Session getNewSession() {
+		try {
+			return new GuiTree();
+		} catch (ParserConfigurationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
 	}
 	
 	public boolean stepPersistence () {

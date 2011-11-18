@@ -7,6 +7,7 @@ import java.util.Iterator;
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.w3c.dom.DOMException;
+import org.w3c.dom.Element;
 
 import android.util.Log;
 import android.view.View;
@@ -204,6 +205,32 @@ public class GuiTreeAbstractor implements Abstractor, FilterHandler {
 		return t;
 	}
 	
+	@Override
+	public Trace importTask (Element fromXml) {
+		TestCaseTrace imported = new TestCaseTrace (getTheSession());
+		Element task = (Element)getTheSession().getDom().adoptNode(fromXml);
+		imported.setElement(task);
+//		Log.e("nofatclips",String.valueOf(fromXml.getNodeType())); =1 = ELEMENT_TYPE
+//		try {
+//			Element task = (Element)getTheSession().getDom().adoptNode(fromXml);
+////			Log.e("nofatclips", task.getNodeName());
+//			t.setElement(task);
+//		} catch (DOMException e) {
+//			e.printStackTrace();
+//		}
+//		Log.e("nofatclips", "Created trace #" + t.getId());
+		return imported;
+	}
+
+	@Override
+	public ActivityState importState (Element fromXml) {
+		Element state = (Element)getTheSession().getDom().adoptNode(fromXml);
+		Log.e("nofatclips", state.getNodeName() + " - " + FinalActivity.getTag());
+		ActivityState imported = (state.getNodeName()==FinalActivity.getTag())?FinalActivity.createActivity(getTheSession()):StartActivity.createActivity(getTheSession());
+		imported.setElement(state);
+		return imported;
+	}
+
 	public Transition createStep (ActivityState start, Collection<UserInput> inputs, UserEvent event) {
 		Transition t = TestCaseTransition.createTransition(start.getElement().getOwnerDocument());
 		try {

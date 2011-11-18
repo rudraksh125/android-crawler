@@ -1,5 +1,6 @@
 package com.nofatclips.crawler.storage;
 
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
@@ -113,6 +114,11 @@ public class DiskPersistence implements Persistence {
 
 	public boolean delete (String fileName) {
 		return w.deleteFile(fileName);
+	}
+	
+	public boolean exists (String filename) {
+		File file = w.getFileStreamPath(filename);
+		return file.exists();
 	}
 
 	public void closeFile () {

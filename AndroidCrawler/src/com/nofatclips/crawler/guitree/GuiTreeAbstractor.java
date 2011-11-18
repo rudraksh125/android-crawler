@@ -225,9 +225,14 @@ public class GuiTreeAbstractor implements Abstractor, FilterHandler {
 	@Override
 	public ActivityState importState (Element fromXml) {
 		Element state = (Element)getTheSession().getDom().adoptNode(fromXml);
-		Log.e("nofatclips", state.getNodeName() + " - " + FinalActivity.getTag());
-		ActivityState imported = (state.getNodeName()==FinalActivity.getTag())?FinalActivity.createActivity(getTheSession()):StartActivity.createActivity(getTheSession());
+//		Log.e("nofatclips", state.getNodeName() + " - " + FinalActivity.getTag());
+		ActivityState imported = (state.getNodeName().equals(FinalActivity.getTag()))?FinalActivity.createActivity(getTheSession()):StartActivity.createActivity(getTheSession());
 		imported.setElement(state);
+		if (imported.getId().startsWith("a")) {
+			String n = imported.getId().substring(1);
+			this.activityId = Math.max(this.activityId, Integer.parseInt(n)+1);
+			Log.v("nofatclips","Next activity id is " + this.activityId);
+		}
 		return imported;
 	}
 

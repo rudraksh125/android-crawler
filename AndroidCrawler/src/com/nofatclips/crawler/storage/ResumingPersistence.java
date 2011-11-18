@@ -53,6 +53,11 @@ public class ResumingPersistence extends StepDiskPersistence implements Dispatch
 		saveTaskList();
 	}
 	
+	@Override
+	public String generate () {
+		return super.generate() + System.getProperty("line.separator");
+	}
+	
 	public void saveTaskList() {
 		// No tasks to save
 		if (noTasks()) {
@@ -114,6 +119,11 @@ public class ResumingPersistence extends StepDiskPersistence implements Dispatch
 		}
 	}
 	
+	@Override
+	public boolean isLast() {
+		return ( (super.isLast()) && noTasks() );
+	}
+	
 	public List<String> readTaskFile () {
 		FileInputStream theFile;
 		BufferedReader theStream = null;
@@ -123,7 +133,7 @@ public class ResumingPersistence extends StepDiskPersistence implements Dispatch
 //		DocumentBuilder builder;
 //		Document temp;
 //		ElementWrapper trace; = new Trace();
-		Log.e("nofatclips", "Reading task file");
+		Log.i("nofatclips", "Reading task file");
 		try{
 //			builder = factory.newDocumentBuilder();
 			theFile = w.openFileInput (getTaskListFileName());
@@ -150,7 +160,7 @@ public class ResumingPersistence extends StepDiskPersistence implements Dispatch
 		BufferedReader theStream = null;
 		String line;
 		List<String> output = new ArrayList<String>();
-		Log.e("nofatclips", "Reading state file");
+		Log.i("nofatclips", "Reading state file");
 		try{
 			theFile = w.openFileInput (getActivityFileName());
 			theStream = new BufferedReader (new FileReader (theFile.getFD()));
@@ -179,6 +189,7 @@ public class ResumingPersistence extends StepDiskPersistence implements Dispatch
 
 	public void openStateFile (boolean append) {
 		try{
+			Log.v("nofatclips", "Opening state file in " + ((append)?"append":"overwrite") + " mode.");
 			this.stateFile = w.openFileOutput(getActivityFileName(), (append)?ContextWrapper.MODE_APPEND:ContextWrapper.MODE_PRIVATE);
 			this.stateStream = new OutputStreamWriter(this.stateFile);
 		}

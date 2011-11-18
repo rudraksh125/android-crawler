@@ -76,7 +76,7 @@ public abstract class Engine extends ActivityInstrumentationTestCase2 {
 	}
 	
 	public boolean resume() {
-		Log.e("nofatclips", "Checking for resume");
+		Log.i("nofatclips", "Checking for resume");
 		boolean flag = ENABLE_RESUME;
 		if (!flag) return false;
 		if (!(getPersistence() instanceof ResumingPersistence)) return false;
@@ -98,12 +98,14 @@ public abstract class Engine extends ActivityInstrumentationTestCase2 {
 			e = ((XmlGraph)sandboxSession).getDom().getDocumentElement();
 			t = getAbstractor().importTask (e);
 			if (t.isFailed()) {
-				Log.e("nofatclips", "Importing crashed trace #" + t.getId() + " from disk");
+				Log.i("nofatclips", "Importing crashed trace #" + t.getId() + " from disk");
 				getSession().addCrashedTrace(t);
 			} else {
-				Log.e("nofatclips", "Importing trace #" + t.getId() + " from disk");
+				Log.i("nofatclips", "Importing trace #" + t.getId() + " from disk");
 				taskList.add(t);
 			}
+			this.id = Math.max(this.id,Integer.parseInt(t.getId())+1);				
+			Log.v("nofatclips","Next trace id is " + this.id);
 		}
 		getScheduler().addTasks(taskList);
 		
@@ -116,7 +118,7 @@ public abstract class Engine extends ActivityInstrumentationTestCase2 {
 			e = ((XmlGraph)sandboxSession).getDom().getDocumentElement();
 			s = getAbstractor().importState (e);
 			stateList.add(s);
-			Log.e("nofatclips", "Imported activity state " + s.getId() + " from disk");
+			Log.i("nofatclips", "Imported activity state " + s.getId() + " from disk");
 		}
 		for (ActivityState state: stateList) {
 			getStrategy().addState(state);

@@ -161,25 +161,25 @@ public class Automation implements Robot, Extractor, TaskProcessor {
 	}
 	
 	private void fireEventOnView (View v, String eventType, String value) {
-		if (eventType == CLICK) {
+		if (eventType.equals(CLICK)) {
 			click (v);
-		} else if (eventType == LONG_CLICK) {
+		} else if (eventType.equals(LONG_CLICK)) {
 			longClick(v);
-		} else if (eventType == BACK) {
+		} else if (eventType.equals(BACK)) {
 			solo.goBack();
-		} else if (eventType == OPEN_MENU) {
+		} else if (eventType.equals(OPEN_MENU)) {
 			solo.sendKey(Solo.MENU);
-		} else if (eventType == SCROLL_DOWN) {
+		} else if (eventType.equals(SCROLL_DOWN)) {
 			solo.scrollDown();
-		} else if (eventType == SWAP_TAB && value!=null) {
+		} else if (eventType.equals(SWAP_TAB) && (value!=null)) {
 			if (v instanceof TabHost) {
 				swapTab ((TabHost)v, value);
 			} else {
 				swapTab (value);
 			}
-		} else if (eventType == LIST_SELECT) {
+		} else if (eventType.equals(LIST_SELECT)) {
 			selectListItem((ListView)v, value);
-		} else if (eventType == LIST_LONG_SELECT) {
+		} else if (eventType.equals(LIST_LONG_SELECT)) {
 			selectListItem((ListView)v, value, true);
 		} else {
 			return;

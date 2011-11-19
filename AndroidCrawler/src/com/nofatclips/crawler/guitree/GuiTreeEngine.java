@@ -75,6 +75,7 @@ public class GuiTreeEngine extends Engine {
 		sf.setCheckTransitions(CHECK_FOR_TRANSITION);
 		setStrategy (sf.getStrategy());
 
+		// Last object to instantiate: the other components register as listeners on the factory class
 		PersistenceFactory pf = new PersistenceFactory (this.theGuiTree, getScheduler(), getStrategy());
 		setPersistence (pf.getPersistence());
 //		d = (stepPersistence())?new StepDiskPersistence (MAX_TRACES_IN_RAM):new DiskPersistence();

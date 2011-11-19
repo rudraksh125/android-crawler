@@ -66,7 +66,7 @@ public class TraceDispatcher implements Iterable<Trace> {
 			public Trace next() {
 				this.lastTask = scheduler.nextTask();
 				for (DispatchListener theListener: theListeners) {
-					theListener.onNewTaskDispatched(this.lastTask);
+					theListener.onTaskDispatched(this.lastTask);
 				}
 				remove();
 				return this.lastTask;
@@ -98,6 +98,9 @@ public class TraceDispatcher implements Iterable<Trace> {
 		public void addTasks(Collection<Trace> newTasks) {
 			for (Trace t: newTasks) {
 				tasks.add(t);
+				for (DispatchListener theListener: theListeners) {
+					theListener.onNewTaskAdded(t);
+				}
 			}				
 		}
 

@@ -2,19 +2,24 @@ package com.nofatclips.crawler.storage;
 
 import static com.nofatclips.crawler.Resources.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import android.util.Log;
 
 import com.nofatclips.androidtesting.model.Session;
 import com.nofatclips.crawler.model.Persistence;
+import com.nofatclips.crawler.model.SaveStateListener;
 import com.nofatclips.crawler.model.Strategy;
 import com.nofatclips.crawler.planning.TraceDispatcher;
 import com.nofatclips.crawler.strategy.SimpleStrategy;
 
 public class PersistenceFactory {
 
-	Session theSession;
-	TraceDispatcher scheduler;
-	Strategy theStrategy;
+	private Session theSession;
+	private TraceDispatcher scheduler;
+	private Strategy theStrategy;
+	static List<SaveStateListener> stateSavers = new ArrayList<SaveStateListener>();
 
 	public PersistenceFactory() {
 		super();
@@ -44,6 +49,11 @@ public class PersistenceFactory {
 			rp.setTaskList(getDispatcher().getScheduler().getTaskList());
 			rp.setTaskListFile(TASK_LIST_FILE_NAME);
 			rp.setActivityFile(ACTIVITY_LIST_FILE_NAME);
+			rp.setParametersFile(PARAMETERS_FILE_NAME);
+			
+			for (SaveStateListener saver: stateSavers) {
+				rp.registerListener(saver);
+			}
 
 			getDispatcher().registerListener(rp);
 			if (getStrategy() instanceof SimpleStrategy) {
@@ -91,6 +101,10 @@ public class PersistenceFactory {
 
 	public void setStrategy(Strategy theStrategy) {
 		this.theStrategy = theStrategy;
+	}
+	
+	public static void registerForSavingState (SaveStateListener s) {
+		stateSavers.add(s);
 	}
 
 }

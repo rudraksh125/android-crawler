@@ -2,12 +2,18 @@ package com.nofatclips.crawler.storage;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.OutputStreamWriter;
 import java.util.ArrayList;
+import java.util.Hashtable;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactoryConfigurationError;
@@ -21,6 +27,8 @@ import com.nofatclips.androidtesting.model.Session;
 import com.nofatclips.androidtesting.model.Trace;
 import com.nofatclips.androidtesting.xml.ElementWrapper;
 import com.nofatclips.crawler.model.DispatchListener;
+import com.nofatclips.crawler.model.SaveStateListener;
+import com.nofatclips.crawler.model.SessionParams;
 import com.nofatclips.crawler.model.StateDiscoveryListener;
 
 public class ResumingPersistence extends StepDiskPersistence implements DispatchListener, StateDiscoveryListener {
@@ -28,10 +36,13 @@ public class ResumingPersistence extends StepDiskPersistence implements Dispatch
 	private List<Trace> taskList;
 	private String activityFile;
 	private String taskListFile;
+	private String parametersFile;
 	private FileOutputStream taskFile;
 	private OutputStreamWriter taskStream;
 	private FileOutputStream stateFile;
 	private OutputStreamWriter stateStream;
+	private Map<String, SessionParams> parameters = new Hashtable<String, SessionParams>();
+	private Hashtable<String,SaveStateListener> theListeners = new Hashtable<String,SaveStateListener>();
 	
 	public ResumingPersistence () {
 		super(1);
@@ -48,9 +59,13 @@ public class ResumingPersistence extends StepDiskPersistence implements Dispatch
 	}
 	
 	@Override
-	public void onNewTaskDispatched(Trace t) {
+	public void onNewTaskAdded (Trace t) { /* do nothing */ }
+	
+	@Override
+	public void onTaskDispatched(Trace t) {
 		t.setFailed(true);
 		saveTaskList();
+		saveParameters();
 	}
 	
 	@Override
@@ -87,6 +102,57 @@ public class ResumingPersistence extends StepDiskPersistence implements Dispatch
 		}
 	}
 	
+	public void saveParameters() {
+		parameters.clear();
+		FileOutputStream theFile = null;
+		ObjectOutputStream theStream = null;
+		
+		for (Entry<String, SaveStateListener> listener: this.theListeners.entrySet()) {
+			parameters.put(listener.getKey(), listener.getValue().onSavingState());
+		}
+		
+		try {
+			theFile = w.openFileOutput(getParametersFileName(), ContextWrapper.MODE_PRIVATE);
+			theStream = new ObjectOutputStream(theFile);
+			theStream.writeObject(this.parameters);
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			if (theFile!=null && theStream!=null) {
+				closeFile(theFile, theStream);
+			}
+		}
+	}
+	
+	@SuppressWarnings("unchecked")
+	public void loadParameters() {
+		FileInputStream theFile = null;
+		ObjectInputStream theStream = null;
+		
+		try {
+			theFile = w.openFileInput(getParametersFileName());
+			theStream = new ObjectInputStream(theFile);
+			this.parameters = (Map<String, SessionParams>) theStream.readObject();
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		for (Entry<String, SaveStateListener> listener: this.theListeners.entrySet()) {
+			listener.getValue().onLoadingState(this.parameters.get(listener.getKey()));
+		}
+	}
+	
 	@Override
 	public void onNewState(ActivityState newState) {
 		try {
@@ -113,14 +179,17 @@ public class ResumingPersistence extends StepDiskPersistence implements Dispatch
 		saveTaskList();
 		// Delete file when crawling is over
 		if (noTasks()) {
-			Log.d("nofatclips", "Task list is empty: no resume needed. Deleting activity list from disk.");
+			Log.d("nofatclips", "Task list is empty: no resume needed. Deleting parameters and activity list from disk.");
 			delete (getActivityFileName());
+			delete (getParametersFileName());
 			return;
 		}
 	}
 	
 	@Override
 	public boolean isLast() {
+//		Log.e ("nofatclips", "super.isLast() = " + (super.isLast()?"true":"false"));
+//		Log.e ("nofatclips", "noTasks() = " + (noTasks()?"true":"false"));
 		return ( (super.isLast()) && noTasks() );
 	}
 	
@@ -129,25 +198,12 @@ public class ResumingPersistence extends StepDiskPersistence implements Dispatch
 		BufferedReader theStream = null;
 		String line;
 		List<String> output = new ArrayList<String>();
-//		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-//		DocumentBuilder builder;
-//		Document temp;
-//		ElementWrapper trace; = new Trace();
 		Log.i("nofatclips", "Reading task file");
 		try{
-//			builder = factory.newDocumentBuilder();
 			theFile = w.openFileInput (getTaskListFileName());
-//			Log.e("nofatclips", "Opening task file");
 			theStream = new BufferedReader (new FileReader (theFile.getFD()));
-//			Log.e("nofatclips", "Browsing task file");
 			while ( (line = theStream.readLine()) != null) {
-//				line = line.replace("<?xml version=\"1.0\" encoding=\"UTF-8\"?>", "<?xml version=\"1.0\" encoding=\"UTF-8\"?><!DOCTYPE SESSION PUBLIC \"SESSION\" \"guitree.dtd\"><SESSION>");
-//				line = line + "</SESSION>";
-				//getSession().parse(line);
 				output.add(line);
-//				trace.setElement(((Element)temp.getDocumentElement().getChildNodes().item(0)));	
-//				this.taskList.add((trace);
-				
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -230,12 +286,25 @@ public class ResumingPersistence extends StepDiskPersistence implements Dispatch
 		this.activityFile = activityFile;
 	}
 
+	public String getParametersFileName() {
+		return parametersFile;
+	}
+
+	public void setParametersFile(String name) {
+		this.parametersFile = name;
+	}
+
 	public String getTaskListFileName() {
 		return taskListFile;
 	}
 
 	public void setTaskListFile(String taskListFile) {
 		this.taskListFile = taskListFile;
+	}
+	
+	@Override
+	public void registerListener (SaveStateListener listener) {
+		theListeners.put(listener.getListenerName(), listener);
 	}
 
 }

@@ -1,8 +1,10 @@
 package com.nofatclips.crawler.guitree;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
 
 import javax.xml.parsers.ParserConfigurationException;
 
@@ -21,8 +23,9 @@ import android.widget.TabHost;
 import com.nofatclips.androidtesting.guitree.*;
 import com.nofatclips.androidtesting.model.*;
 import com.nofatclips.crawler.model.*;
+import com.nofatclips.crawler.storage.PersistenceFactory;
 
-public class GuiTreeAbstractor implements Abstractor, FilterHandler {
+public class GuiTreeAbstractor implements Abstractor, FilterHandler, SaveStateListener {
 
 	private GuiTree theSession;
 	private StartActivity baseActivity;
@@ -31,6 +34,11 @@ public class GuiTreeAbstractor implements Abstractor, FilterHandler {
 	private int inputId=0;
 	private int activityId=0;
 	private TypeDetector detector;
+	private List<AbstractorListener> theListeners = new ArrayList<AbstractorListener>();
+	public final static String ACTOR_NAME = "GuiTreeAbstractor";
+	private static final String EVENT_PARAM_NAME = "eventId";
+	private static final String INPUT_PARAM_NAME = "inputId";
+	private static final String ACTIVITY_PARAM_NAME = "activityId";
 
 	public GuiTreeAbstractor () throws ParserConfigurationException {
 		this (new GuiTree());
@@ -40,6 +48,7 @@ public class GuiTreeAbstractor implements Abstractor, FilterHandler {
 		super();
 		this.filters = new HashSet<Filter>();
 		setTheSession(s);
+		PersistenceFactory.registerForSavingState(this);
 	}
 
 	public GuiTree getTheSession() {
@@ -74,6 +83,9 @@ public class GuiTreeAbstractor implements Abstractor, FilterHandler {
 		}
 		boolean hasDescription = updateDescription(newActivity, desc, false);
 		if (!hasDescription) newActivity.setId("exit");
+		for (AbstractorListener listener: this.theListeners) {
+			listener.onNewActivity(newActivity);
+		}
 		return newActivity;
 	}
 
@@ -180,6 +192,9 @@ public class GuiTreeAbstractor implements Abstractor, FilterHandler {
 		}
 		newEvent.setType(type);
 		newEvent.setId(getUniqueEventId());
+		for (AbstractorListener listener: this.theListeners) {
+			listener.onNewEvent(newEvent);
+		}
 		return newEvent;
 	}
 
@@ -190,6 +205,9 @@ public class GuiTreeAbstractor implements Abstractor, FilterHandler {
 		newInput.setValue(text);
 		newInput.setType(type);
 		newInput.setId(getUniqueInputId());
+		for (AbstractorListener listener: this.theListeners) {
+			listener.onNewInput(newInput);
+		}
 		return newInput;
 	}
 
@@ -210,15 +228,6 @@ public class GuiTreeAbstractor implements Abstractor, FilterHandler {
 		TestCaseTrace imported = new TestCaseTrace (getTheSession());
 		Element task = (Element)getTheSession().getDom().adoptNode(fromXml);
 		imported.setElement(task);
-//		Log.e("nofatclips",String.valueOf(fromXml.getNodeType())); =1 = ELEMENT_TYPE
-//		try {
-//			Element task = (Element)getTheSession().getDom().adoptNode(fromXml);
-////			Log.e("nofatclips", task.getNodeName());
-//			t.setElement(task);
-//		} catch (DOMException e) {
-//			e.printStackTrace();
-//		}
-//		Log.e("nofatclips", "Created trace #" + t.getId());
 		return imported;
 	}
 
@@ -228,11 +237,11 @@ public class GuiTreeAbstractor implements Abstractor, FilterHandler {
 //		Log.e("nofatclips", state.getNodeName() + " - " + FinalActivity.getTag());
 		ActivityState imported = (state.getNodeName().equals(FinalActivity.getTag()))?FinalActivity.createActivity(getTheSession()):StartActivity.createActivity(getTheSession());
 		imported.setElement(state);
-		if (imported.getId().startsWith("a")) {
-			String n = imported.getId().substring(1);
-			this.activityId = Math.max(this.activityId, Integer.parseInt(n)+1);
-			Log.v("nofatclips","Next activity id is " + this.activityId);
-		}
+//		if (imported.getId().startsWith("a")) {
+//			String n = imported.getId().substring(1);
+//			this.activityId = Math.max(this.activityId, Integer.parseInt(n)+1);
+//			Log.v("nofatclips","Next activity id is " + this.activityId);
+//		}
 		return imported;
 	}
 
@@ -251,6 +260,10 @@ public class GuiTreeAbstractor implements Abstractor, FilterHandler {
 		return t;
 	}
 	
+	public void registerListener(AbstractorListener theListener) {
+		this.theListeners.add(theListener);
+	}
+	
 	public String getUniqueEventId () {
 		this.eventId++;
 		return "e" + this.eventId;
@@ -264,6 +277,28 @@ public class GuiTreeAbstractor implements Abstractor, FilterHandler {
 	public String getUniqueInputId () {
 		this.inputId++;
 		return "i" + this.inputId;
+	}
+
+	@Override
+	public SessionParams onSavingState() {
+		SessionParams state = new SessionParams();
+		state.store(EVENT_PARAM_NAME, String.valueOf(this.eventId));
+		state.store(INPUT_PARAM_NAME, String.valueOf(this.inputId));
+		state.store(ACTIVITY_PARAM_NAME, String.valueOf(this.activityId));
+		return state;
+	}
+	
+	@Override
+	public void onLoadingState(SessionParams sessionParams) {
+		this.eventId = sessionParams.getInt(EVENT_PARAM_NAME);
+		this.inputId = sessionParams.getInt(INPUT_PARAM_NAME);
+		this.activityId = sessionParams.getInt(ACTIVITY_PARAM_NAME);
+		Log.d("nofatclips", "Restored abstractor counters to: event = " + eventId + " - input = " + inputId + " - activity = " + activityId);
+	}
+
+	@Override
+	public String getListenerName() {
+		return ACTOR_NAME;
 	}
 
 }

@@ -4,6 +4,7 @@ import com.nofatclips.androidtesting.model.Trace;
 
 public interface DispatchListener {
 	
-	public void onNewTaskDispatched (Trace t);
+	public void onTaskDispatched (Trace t);
+	public void onNewTaskAdded (Trace t);
 
 }

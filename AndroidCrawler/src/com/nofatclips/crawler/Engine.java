@@ -12,6 +12,7 @@ import com.nofatclips.androidtesting.model.Transition;
 import com.nofatclips.androidtesting.xml.XmlGraph;
 import com.nofatclips.crawler.model.*;
 import com.nofatclips.crawler.planning.TraceDispatcher;
+import com.nofatclips.crawler.storage.PersistenceFactory;
 import com.nofatclips.crawler.storage.ResumingPersistence;
 
 import android.app.Activity;
@@ -21,11 +22,12 @@ import android.util.Log;
 import static com.nofatclips.crawler.Resources.*;
 
 @SuppressWarnings("rawtypes")
-public abstract class Engine extends ActivityInstrumentationTestCase2 {
+public abstract class Engine extends ActivityInstrumentationTestCase2 implements SaveStateListener {
 	
 	@SuppressWarnings("unchecked")
 	public Engine() {
 		super(PACKAGE_NAME,theClass);
+		PersistenceFactory.registerForSavingState(this);
 	}
 	
 	public abstract Session getNewSession();
@@ -41,6 +43,7 @@ public abstract class Engine extends ActivityInstrumentationTestCase2 {
 		ActivityDescription d = getExtractor().describeActivity();
 		getAbstractor().setBaseActivity(d);
 		if (!resume()) {
+			Log.i("nofatclips", "Starting a new session");
 			getStrategy().addState(getAbstractor().getBaseActivity());
 			planFirstTests(getAbstractor().getBaseActivity());
 		}
@@ -76,7 +79,6 @@ public abstract class Engine extends ActivityInstrumentationTestCase2 {
 	}
 	
 	public boolean resume() {
-		Log.i("nofatclips", "Checking for resume");
 		boolean flag = ENABLE_RESUME;
 		if (!flag) return false;
 		if (!(getPersistence() instanceof ResumingPersistence)) return false;
@@ -84,6 +86,7 @@ public abstract class Engine extends ActivityInstrumentationTestCase2 {
 		if (!getPersistence().exists(FILE_NAME)) return false;
 		if (!getPersistence().exists(ACTIVITY_LIST_FILE_NAME)) throw new Error("Cannot resume previous session: state list not found.");
 		
+		Log.i("nofatclips", "Attempting to resume previous session");
 		ResumingPersistence r = (ResumingPersistence)getPersistence();
 		List<String> entries;
 		Session sandboxSession = getNewSession();
@@ -104,8 +107,8 @@ public abstract class Engine extends ActivityInstrumentationTestCase2 {
 				Log.i("nofatclips", "Importing trace #" + t.getId() + " from disk");
 				taskList.add(t);
 			}
-			this.id = Math.max(this.id,Integer.parseInt(t.getId())+1);				
-			Log.v("nofatclips","Next trace id is " + this.id);
+//			this.id = Math.max(this.id,Integer.parseInt(t.getId())+1);				
+//			Log.v("nofatclips","Next trace id is " + this.id);
 		}
 		getScheduler().addTasks(taskList);
 		
@@ -124,6 +127,7 @@ public abstract class Engine extends ActivityInstrumentationTestCase2 {
 			getStrategy().addState(state);
 		}
 
+		r.loadParameters();
 		r.setNotFirst();
 
 		return true;
@@ -145,6 +149,16 @@ public abstract class Engine extends ActivityInstrumentationTestCase2 {
 			newTrace.setId(nextId());
 			getScheduler().addTasks(newTrace);
 		}		
+	}
+	
+	public SessionParams onSavingState () {
+		return new SessionParams (PARAM_NAME, this.id);
+	}
+	
+	@Override
+	public void onLoadingState(SessionParams sessionParams) {
+		this.id = sessionParams.getInt(PARAM_NAME);
+		Log.d("nofatclips","Restored trace count to " + this.id);
 	}
 	
 	public Robot getRobot() {
@@ -216,7 +230,13 @@ public abstract class Engine extends ActivityInstrumentationTestCase2 {
 		id++;
 		return String.valueOf(num);
 	}
+	
+	public String getListenerName () {
+		return ACTOR_NAME;
+	}
 
+	public final static String ACTOR_NAME = "Engine";
+	
 	private Robot theRobot;
 	private Extractor theExtractor;
 	private Abstractor theAbstractor;
@@ -225,6 +245,8 @@ public abstract class Engine extends ActivityInstrumentationTestCase2 {
 	private Strategy theStrategy;
 	private Persistence thePersistence;
 	private Session theSession;
+	
+	private final static String PARAM_NAME = "taskId";
 	private int id = 0;
 
 }

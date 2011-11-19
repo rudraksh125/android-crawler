@@ -3,8 +3,8 @@ package com.nofatclips.crawler.storage;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.io.OutputStreamWriter;
-
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactoryConfigurationError;
 
@@ -15,6 +15,7 @@ import com.nofatclips.androidtesting.model.Session;
 import com.nofatclips.androidtesting.model.Trace;
 import com.nofatclips.androidtesting.xml.XmlGraph;
 import com.nofatclips.crawler.model.Persistence;
+import com.nofatclips.crawler.model.SaveStateListener;
 
 public class DiskPersistence implements Persistence {
 	
@@ -139,6 +140,24 @@ public class DiskPersistence implements Persistence {
 			}
 		}
 	}
+	
+	public void closeFile (OutputStream theFile, OutputStream theStream) {
+		try {
+			theStream.flush();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				theStream.close();
+				theFile.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
+	@Override
+	public void registerListener(SaveStateListener listener) { /* do nothing */ }
 
 	FileOutputStream fOut = null; 
     OutputStreamWriter osw = null;

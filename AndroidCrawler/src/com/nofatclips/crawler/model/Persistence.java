@@ -13,5 +13,6 @@ public interface Persistence {
 	public void addTrace (Trace t);
 	public void setContext(Activity activity); // Set the context in which the disk operations will be performed
 	public boolean exists (String fileName);
+	public void registerListener (SaveStateListener listener);
 
 }

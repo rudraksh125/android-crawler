@@ -24,7 +24,6 @@ public class MaxStepsTermination implements TerminationCriteria, SaveStateListen
 		PersistenceFactory.registerForSavingState(this);
 	}
 
-	@Override
 	public boolean termination () {
 		this.current--;
 		Log.i("nofatclips", "Check for termination: " + current + " steps left of " + max);
@@ -35,21 +34,17 @@ public class MaxStepsTermination implements TerminationCriteria, SaveStateListen
 		this.current=max;
 	}
 	
-	@Override
 	public void setStrategy(Strategy theStrategy) {}
 
-	@Override
 	public SessionParams onSavingState() {
 		return new SessionParams(PARAM_NAME, this.current);
 	}
 
-	@Override
 	public void onLoadingState(SessionParams sessionParams) {
 		this.current = sessionParams.getInt(PARAM_NAME);
 		Log.d("nofatclips", "Current step countdown restored to " + this.current);
 	}
 
-	@Override
 	public String getListenerName() {
 		return ACTOR_NAME;
 	}

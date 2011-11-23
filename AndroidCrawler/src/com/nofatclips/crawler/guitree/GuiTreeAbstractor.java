@@ -69,7 +69,6 @@ public class GuiTreeAbstractor implements Abstractor, FilterHandler, SaveStateLi
 		this.detector = t;
 	}
 
-	@Override
 	public ActivityState createActivity (ActivityDescription desc) {
 		return createActivity (desc,false);
 	}
@@ -91,7 +90,6 @@ public class GuiTreeAbstractor implements Abstractor, FilterHandler, SaveStateLi
 		return newActivity;
 	}
 
-	@Override
 	public boolean updateDescription (ActivityState newActivity, ActivityDescription desc) {
 		return updateDescription  (newActivity, desc, true);
 	}
@@ -192,17 +190,14 @@ public class GuiTreeAbstractor implements Abstractor, FilterHandler, SaveStateLi
 		return this.baseActivity;
 	}
 
-	@Override
 	public Iterator<Filter> iterator() {
 		return this.filters.iterator();
 	}
 
-	@Override
 	public void addFilter(Filter f) {
 		this.filters.add(f);
 	}
 
-	@Override
 	public UserEvent createEvent(WidgetState target, String type) {
 		TestCaseEvent newEvent = TestCaseEvent.createEvent(getTheSession());
 		if (target == null) {
@@ -222,7 +217,6 @@ public class GuiTreeAbstractor implements Abstractor, FilterHandler, SaveStateLi
 		return newEvent;
 	}
 
-	@Override
 	public UserInput createInput(WidgetState target, String text, String type) {
 		TestCaseInput newInput = TestCaseInput.createInput(getTheSession());
 		newInput.setWidget(target);
@@ -235,7 +229,6 @@ public class GuiTreeAbstractor implements Abstractor, FilterHandler, SaveStateLi
 		return newInput;
 	}
 
-	@Override
 	public Trace createTrace(Trace head, Transition tail) {
 		TestCaseTrace t;
 		if (head!= null) {
@@ -247,7 +240,6 @@ public class GuiTreeAbstractor implements Abstractor, FilterHandler, SaveStateLi
 		return t;
 	}
 	
-	@Override
 	public Trace importTask (Element fromXml) {
 		TestCaseTrace imported = new TestCaseTrace (getTheSession());
 		Element task = (Element)getTheSession().getDom().adoptNode(fromXml);
@@ -255,17 +247,10 @@ public class GuiTreeAbstractor implements Abstractor, FilterHandler, SaveStateLi
 		return imported;
 	}
 
-	@Override
 	public ActivityState importState (Element fromXml) {
 		Element state = (Element)getTheSession().getDom().adoptNode(fromXml);
-//		Log.e("nofatclips", state.getNodeName() + " - " + FinalActivity.getTag());
 		ActivityState imported = (state.getNodeName().equals(FinalActivity.getTag()))?FinalActivity.createActivity(getTheSession()):StartActivity.createActivity(getTheSession());
 		imported.setElement(state);
-//		if (imported.getId().startsWith("a")) {
-//			String n = imported.getId().substring(1);
-//			this.activityId = Math.max(this.activityId, Integer.parseInt(n)+1);
-//			Log.v("nofatclips","Next activity id is " + this.activityId);
-//		}
 		return imported;
 	}
 
@@ -303,7 +288,6 @@ public class GuiTreeAbstractor implements Abstractor, FilterHandler, SaveStateLi
 		return "i" + this.inputId;
 	}
 
-	@Override
 	public SessionParams onSavingState() {
 		SessionParams state = new SessionParams();
 		state.store(EVENT_PARAM_NAME, String.valueOf(this.eventId));
@@ -312,7 +296,6 @@ public class GuiTreeAbstractor implements Abstractor, FilterHandler, SaveStateLi
 		return state;
 	}
 	
-	@Override
 	public void onLoadingState(SessionParams sessionParams) {
 		this.eventId = sessionParams.getInt(EVENT_PARAM_NAME);
 		this.inputId = sessionParams.getInt(INPUT_PARAM_NAME);
@@ -320,7 +303,6 @@ public class GuiTreeAbstractor implements Abstractor, FilterHandler, SaveStateLi
 		Log.d("nofatclips", "Restored abstractor counters to: event = " + eventId + " - input = " + inputId + " - activity = " + activityId);
 	}
 
-	@Override
 	public String getListenerName() {
 		return ACTOR_NAME;
 	}

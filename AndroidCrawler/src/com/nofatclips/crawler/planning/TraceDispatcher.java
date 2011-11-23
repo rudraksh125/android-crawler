@@ -51,18 +51,15 @@ public class TraceDispatcher implements Iterable<Trace> {
 		this.theListeners.add(theListener);
 	}
 
-	@Override
 	public Iterator<Trace> iterator() {
 		return new Iterator<Trace> () {
 			
 			Trace lastTask;
 
-			@Override
 			public boolean hasNext() {
 				return scheduler.hasMore();
 			}
 
-			@Override
 			public Trace next() {
 				this.lastTask = scheduler.nextTask();
 				for (DispatchListener theListener: theListeners) {
@@ -72,7 +69,6 @@ public class TraceDispatcher implements Iterable<Trace> {
 				return this.lastTask;
 			}
 
-			@Override
 			public void remove() {
 				scheduler.remove(this.lastTask);
 			}
@@ -87,14 +83,12 @@ public class TraceDispatcher implements Iterable<Trace> {
 		public TrivialScheduler () {
 		}
 		
-		@Override
 		public Trace nextTask() {
 			Log.i("nofatclips", "Dispatching new task. " + tasks.size() + " more tasks remaining.");
 			Trace t = (hasMore())?tasks.get(0):null;
 			return t;
 		}
 
-		@Override
 		public void addTasks(Collection<Trace> newTasks) {
 			for (Trace t: newTasks) {
 				tasks.add(t);
@@ -104,27 +98,22 @@ public class TraceDispatcher implements Iterable<Trace> {
 			}				
 		}
 
-		@Override
 		public void setTaskList(List<Trace> theList) {
 			this.tasks = theList;
 		}
 
-		@Override
 		public List<Trace> getTaskList() {
 			return this.tasks;
 		}
 
-		@Override
 		public boolean hasMore() {
 			return (!tasks.isEmpty());
 		}
 
-		@Override
 		public void remove(Trace t) {
 			tasks.remove(t);
 		}
 
-		@Override
 		public void addTasks(Trace t) {
 			this.tasks.add(t);
 		}

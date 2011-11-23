@@ -13,7 +13,6 @@ import static com.nofatclips.androidtesting.model.SimpleType.*;
 
 public class SimpleTypeDetector implements TypeDetector {
 
-	@Override
 	public String getSimpleType(View v) {
 		String type = v.getClass().getName(); 
 		if (type.endsWith("null"))

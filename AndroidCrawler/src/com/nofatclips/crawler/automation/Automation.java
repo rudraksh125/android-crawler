@@ -61,12 +61,10 @@ public class Automation implements Robot, Extractor, TaskProcessor {
 		Log.w ("nofatclips","--->" + theActivity.getLocalClassName());
 	}
 	
-	@Override
 	public void execute (Trace t) {
 		this.theRobot.process (t);
 	}
 	
-	@Override
 	public void process (Trace t) {
 		Log.i ("nofatclips", "Restarting");
 		this.restarter.restart();
@@ -81,7 +79,6 @@ public class Automation implements Robot, Extractor, TaskProcessor {
 		}
 	}
 
-	@Override
 	public void finalize() {
 		try {
 			solo.finalize();
@@ -91,7 +88,6 @@ public class Automation implements Robot, Extractor, TaskProcessor {
 		theActivity.finish();
 	}
 
-	@Override
 	public void fireEvent(UserEvent e) {
 		this.currentEvent = e;
 		String eventType = e.getType();
@@ -230,13 +226,6 @@ public class Automation implements Robot, Extractor, TaskProcessor {
 			v = theActivity.findViewById(widgetId);
 		}
 		fireEventOnView(v, inputType, value);
-//		if (inputType.equals(TYPE_TEXT)) {
-//			solo.enterText((EditText)v, value);
-//		} else if (inputType.equals(CLICK)) {
-//			click (v);
-//		} else if (inputType.equals(SET_BAR)) {
-//			solo.setProgressBar((ProgressBar)v, Integer.parseInt(value));
-//		}
 	}
 
 	private void swapTab (TabHost t, String tab) {
@@ -416,7 +405,6 @@ public class Automation implements Robot, Extractor, TaskProcessor {
 		return solo.getCurrentActivity().getApplicationInfo().toString();
 	}
 
-	@Override
 	public View getWidget (int id) {
 		return this.extractor.getWidget(id);
 	}
@@ -453,12 +441,10 @@ public class Automation implements Robot, Extractor, TaskProcessor {
 		return theList;
 	}
 
-	@Override
 	public ActivityDescription describeActivity() {
 		return this.extractor.describeActivity();
 	}
 
-	@Override
 	public void extractState() {
 		this.extractor.extractState();
 	}
@@ -469,12 +455,10 @@ public class Automation implements Robot, Extractor, TaskProcessor {
 	
 	public class TrivialExtractor implements Extractor {
 
-		@Override
 		public void extractState() {
 			retrieveWidgets();
 		}
 
-		@Override
 		public View getWidget (int key) {
 			return getWidgets().get(key);
 		}
@@ -483,32 +467,26 @@ public class Automation implements Robot, Extractor, TaskProcessor {
 			return theActivity;
 		}
 
-		@Override
 		public ActivityDescription describeActivity() {
 			return new ActivityDescription() {
 				
-				@Override
 				public Iterator<View> iterator() {
 					return getAllWidgets().iterator();
 				}
 				
-				@Override
 				public int getWidgetIndex(View v) {
 					return getAllWidgets().indexOf(v);
 				}
 
-				@Override
 				public String getActivityName() {
 //					return getActivity().getLocalClassName();
 					return getActivity().getClass().getSimpleName();
 				}
 
-				@Override
 				public String getActivityTitle() {
 					return getActivity().getTitle().toString();
 				}
 
-				@Override
 				public String toString() {
 					return getActivityName();
 				}

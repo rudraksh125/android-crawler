@@ -16,7 +16,6 @@ public class Clicker extends InteractorAdapter {
 		super (theAbstractor, simpleTypes);
 	}
 	
-	@Override
 	public boolean canUseWidget (WidgetState w) {
 		return (w.isClickable() && super.canUseWidget(w));
 	}

@@ -1,6 +1,7 @@
 package com.nofatclips.crawler;
 
 import java.util.ArrayList;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import org.w3c.dom.Element;
@@ -51,6 +52,8 @@ public abstract class Engine extends ActivityInstrumentationTestCase2 implements
 	
 	public void testAndCrawl() {
 		for (Trace theTask: getScheduler()) {
+			GregorianCalendar c=new GregorianCalendar();
+			theTask.setDateTime(c.getTime().toString());
 			getStrategy().setTask(theTask);
 			getRobot().process(theTask);
 			ActivityDescription d = getExtractor().describeActivity();
@@ -107,8 +110,6 @@ public abstract class Engine extends ActivityInstrumentationTestCase2 implements
 				Log.i("nofatclips", "Importing trace #" + t.getId() + " from disk");
 				taskList.add(t);
 			}
-//			this.id = Math.max(this.id,Integer.parseInt(t.getId())+1);				
-//			Log.v("nofatclips","Next trace id is " + this.id);
 		}
 		getScheduler().addTasks(taskList);
 		
@@ -155,7 +156,6 @@ public abstract class Engine extends ActivityInstrumentationTestCase2 implements
 		return new SessionParams (PARAM_NAME, this.id);
 	}
 	
-	@Override
 	public void onLoadingState(SessionParams sessionParams) {
 		this.id = sessionParams.getInt(PARAM_NAME);
 		Log.d("nofatclips","Restored trace count to " + this.id);

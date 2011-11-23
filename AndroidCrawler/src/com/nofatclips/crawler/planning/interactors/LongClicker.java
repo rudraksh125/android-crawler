@@ -16,7 +16,6 @@ public class LongClicker extends InteractorAdapter {
 		super (theAbstractor, simpleTypes);
 	}
 
-	@Override
 	public boolean canUseWidget (WidgetState w) {
 		return (w.isLongClickable() && super.canUseWidget(w));
 	}

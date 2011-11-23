@@ -89,7 +89,7 @@ public class UserFactory {
 
 		// Events - Long Click
 		if (doLongClick()) {
-			LongClicker l = (customizeEvent(LONG_CLICK))?new LongClicker (typesForEvent(LONG_CLICK)):new LongClicker (BUTTON);
+			LongClicker l = (customizeEvent(LONG_CLICK))?new LongClicker (typesForEvent(LONG_CLICK)):new LongClicker (BUTTON, WEB_VIEW);
 			l.setEventWhenNoId(EVENT_WHEN_NO_ID);
 			u.addEvent(l);
 		}

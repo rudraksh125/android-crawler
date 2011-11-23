@@ -14,6 +14,8 @@ import org.w3c.dom.Element;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Checkable;
+import android.widget.CompoundButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.AdapterView;
@@ -113,6 +115,7 @@ public class GuiTreeAbstractor implements Abstractor, FilterHandler, SaveStateLi
 			w.setIdNameType(id, text, v.getClass().getName());
 			w.setSimpleType(getTypeDetector().getSimpleType(v));
 			setCount (v,w);
+			setValue (v,w);
 			w.setAvailable((v.isEnabled())?"true":"false");
 			w.setClickable((v.isClickable())?"true":"false");
 			w.setLongClickable((v.isLongClickable())?"true":"false");
@@ -158,6 +161,27 @@ public class GuiTreeAbstractor implements Abstractor, FilterHandler, SaveStateLi
 			return;
 		}
 		
+	}
+	
+	private void setValue (View v, WidgetState w) {
+		
+		// Checkboxes, radio buttons and toggle buttons -> the value is the checked state (true or false)
+		if (v instanceof Checkable) {
+			w.setValue(String.valueOf(((CompoundButton) v).isChecked()));
+		}
+
+		// Textview, Editview et al. -> the value is the displayed text
+		if (v instanceof TextView) {
+			w.setValue(((TextView) v).getText().toString());
+//			Log.e("nofatclips", "Hint for " + (((TextView) v).getText().toString()) + " = " + (((TextView) v).getHint()));
+			return;
+		}
+		
+		// Progress bars, seek bars and rating bars -> the value is the current progress
+		if (v instanceof ProgressBar) {
+			w.setValue(String.valueOf(((ProgressBar) v).getProgress()));
+		}
+				
 	}
 	
 	public void setBaseActivity (ActivityDescription desc) {

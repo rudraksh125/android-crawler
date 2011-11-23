@@ -143,10 +143,7 @@ public class ResumingPersistence extends StepDiskPersistence implements Dispatch
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		} catch (ClassNotFoundException ignore) {}
 		
 		for (Entry<String, SaveStateListener> listener: this.theListeners.entrySet()) {
 			listener.getValue().onLoadingState(this.parameters.get(listener.getKey()));

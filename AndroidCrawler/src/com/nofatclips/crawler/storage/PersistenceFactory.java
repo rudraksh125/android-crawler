@@ -43,21 +43,21 @@ public class PersistenceFactory {
 		Persistence thePersistence;
 		if (resumingPersistence()) {
 			Log.d("nofatclips", "Generated Resuming Persistence");
-			ResumingPersistence rp = new ResumingPersistence();
-			thePersistence = rp;
+			ResumingPersistence resumer = new ResumingPersistence();
+			thePersistence = resumer;
 			
-			rp.setTaskList(getDispatcher().getScheduler().getTaskList());
-			rp.setTaskListFile(TASK_LIST_FILE_NAME);
-			rp.setActivityFile(ACTIVITY_LIST_FILE_NAME);
-			rp.setParametersFile(PARAMETERS_FILE_NAME);
+			resumer.setTaskList(getDispatcher().getScheduler().getTaskList());
+			resumer.setTaskListFile(TASK_LIST_FILE_NAME);
+			resumer.setActivityFile(ACTIVITY_LIST_FILE_NAME);
+			resumer.setParametersFile(PARAMETERS_FILE_NAME);
 			
 			for (SaveStateListener saver: stateSavers) {
-				rp.registerListener(saver);
+				resumer.registerListener(saver);
 			}
 
-			getDispatcher().registerListener(rp);
+			getDispatcher().registerListener(resumer);
 			if (getStrategy() instanceof SimpleStrategy) {
-				((SimpleStrategy)getStrategy()).registerListener(rp);				
+				((SimpleStrategy)getStrategy()).registerListener(resumer);				
 			}
 		} else if (stepPersistence()) {
 			Log.d("nofatclips", "Generated Step Persistence with step = " + MAX_TRACES_IN_RAM);

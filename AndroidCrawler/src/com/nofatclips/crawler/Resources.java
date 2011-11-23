@@ -63,7 +63,7 @@ public class Resources {
 	public final static int SLEEP_AFTER_EVENT = 6000;
 	public final static int SLEEP_AFTER_RESTART = 1000;
 	public final static StrategyCriteria[] ADDITIONAL_CRITERIAS = new StrategyCriteria[] {
-//		new AfterEventDontExplore("Remove Blog", "Settings"),
+		new AfterEventDontExplore("Remove Blog"),
 		new AfterWidgetDontExplore (2131165200),
 	};
 	static {

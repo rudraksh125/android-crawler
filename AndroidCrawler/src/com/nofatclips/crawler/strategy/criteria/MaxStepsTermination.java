@@ -46,7 +46,7 @@ public class MaxStepsTermination implements TerminationCriteria, SaveStateListen
 	@Override
 	public void onLoadingState(SessionParams sessionParams) {
 		this.current = sessionParams.getInt(PARAM_NAME);
-		Log.d("nofatclips", "Current step count restored to " + this.current);
+		Log.d("nofatclips", "Current step countdown restored to " + this.current);
 	}
 
 	@Override

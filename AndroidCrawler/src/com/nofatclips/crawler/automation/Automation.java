@@ -181,9 +181,14 @@ public class Automation implements Robot, Extractor, TaskProcessor {
 			selectListItem((ListView)v, value);
 		} else if (eventType.equals(LIST_LONG_SELECT)) {
 			selectListItem((ListView)v, value, true);
+		} else if (eventType.equals(TYPE_TEXT)) {
+			solo.enterText((EditText)v, value);
+		} else if (eventType.equals(SET_BAR)) {
+			solo.setProgressBar((ProgressBar)v, Integer.parseInt(value));
 		} else {
 			return;
 		}
+
 		solo.sleep(SLEEP_AFTER_EVENT);
 		waitOnThrobber();
 		refreshCurrentActivity();
@@ -224,13 +229,14 @@ public class Automation implements Robot, Extractor, TaskProcessor {
 		if (v == null) {
 			v = theActivity.findViewById(widgetId);
 		}
-		if (inputType.equals(TYPE_TEXT)) {
-			solo.enterText((EditText)v, value);
-		} else if (inputType.equals(CLICK)) {
-			click (v);
-		} else if (inputType.equals(SET_BAR)) {
-			solo.setProgressBar((ProgressBar)v, Integer.parseInt(value));
-		}
+		fireEventOnView(v, inputType, value);
+//		if (inputType.equals(TYPE_TEXT)) {
+//			solo.enterText((EditText)v, value);
+//		} else if (inputType.equals(CLICK)) {
+//			click (v);
+//		} else if (inputType.equals(SET_BAR)) {
+//			solo.setProgressBar((ProgressBar)v, Integer.parseInt(value));
+//		}
 	}
 
 	private void swapTab (TabHost t, String tab) {

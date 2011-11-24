@@ -3,6 +3,8 @@ package com.nofatclips.crawler;
 import com.nofatclips.crawler.model.Comparator;
 import com.nofatclips.crawler.model.StrategyCriteria;
 import com.nofatclips.crawler.planning.UserFactory;
+import com.nofatclips.crawler.planning.adapters.InteractorAdapter;
+import com.nofatclips.crawler.planning.interactors.FixedValueEditor;
 import com.nofatclips.crawler.storage.*;
 import com.nofatclips.crawler.strategy.comparator.*;
 import com.nofatclips.crawler.strategy.criteria.*;
@@ -55,7 +57,7 @@ public class Resources {
 //		new AfterEventDontExplore("Remove Blog", "Add"),
 //	};
 
-//	// Wordpress 2 (Alpha)
+//	// Wordpress 2 (Beta)
 	public final static String PACKAGE_NAME = "org.wordpress.android";
 	public final static String CLASS_NAME = "org.wordpress.android.Dashboard";
 	public final static String FILE_NAME = "wordpress2.xml"; // Output
@@ -65,6 +67,9 @@ public class Resources {
 	public final static StrategyCriteria[] ADDITIONAL_CRITERIAS = new StrategyCriteria[] {
 		new AfterEventDontExplore("Remove Blog"),
 		new AfterWidgetDontExplore (2131165200),
+	};
+	public final static InteractorAdapter[] ADDITIONAL_INPUTS = new InteractorAdapter[] { // Username and password
+		new FixedValueEditor().addIdValuePair(2131165215, "").addIdValuePair(2131165217, ""),
 	};
 	static {
 		UserFactory.addEvent(CLICK, BUTTON, LINEAR_LAYOUT);
@@ -223,6 +228,8 @@ public class Resources {
 	public final static boolean LONG_CLICK_EVENT = false;
 	public final static boolean SCROLL_DOWN_EVENT = false;
 	public final static long RANDOM_SEED = 93874383493L; // 0 = Random
+	public final static InteractorAdapter[] ADDITIONAL_EVENTS = new InteractorAdapter[] {};
+//	public final static InteractorAdapter[] ADDITIONAL_INPUTS = new InteractorAdapter[] {};
 	
 	// More Parameters
 	public final static int SLEEP_ON_THROBBER = 30000; // How long to wait on spinning wheels (in ms -- 0 = don't wait)

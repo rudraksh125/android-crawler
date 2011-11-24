@@ -115,6 +115,9 @@ public class UserFactory {
 		}
 		u.addEvent(ts);
 		
+		// Additional Events
+		u.addEvent(ADDITIONAL_EVENTS);
+		
 		// Inputs - Click
 		Clicker c2 = (customizeInput(CLICK))?new Clicker (typesForInput(CLICK)):new Clicker (TOGGLE_BUTTON, CHECKBOX, RADIO);
 		c2.setEventWhenNoId(false);
@@ -127,6 +130,9 @@ public class UserFactory {
 		RandomEditor re = (customizeInput(TYPE_TEXT))?new RandomEditor(typesForInput(TYPE_TEXT)):new RandomEditor();
 		re.setEventWhenNoId(false);
 		u.addInput (c2, sl, re);
+		
+		// Addiotional Inputs
+		u.addInput(ADDITIONAL_INPUTS);
 		
 		return u;
 	}

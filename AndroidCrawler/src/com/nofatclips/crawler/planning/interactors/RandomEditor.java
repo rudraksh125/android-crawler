@@ -47,7 +47,6 @@ public class RandomEditor extends RandomInteractorAdapter {
 		setMax(maxValue);
 	}
 
-	@Override
 	public String getInteractionType() {
 		return TYPE_TEXT;
 	}

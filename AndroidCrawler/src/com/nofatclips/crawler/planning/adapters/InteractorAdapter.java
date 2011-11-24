@@ -1,6 +1,7 @@
 package com.nofatclips.crawler.planning.adapters;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 
@@ -16,6 +17,7 @@ public abstract class InteractorAdapter {
 	protected HashSet<String> widgetClasses = new HashSet<String>();
 	private Abstractor theAbstractor;
 	private boolean eventWhenNoId = false;
+	private List<String> vetoId;
 
 	public InteractorAdapter (String ... simpleTypes) {
 		for (String s: simpleTypes) {
@@ -30,6 +32,12 @@ public abstract class InteractorAdapter {
 	
 	public boolean canUseWidget (WidgetState w) {
 		if ( (w.getId().equals("-1"))  && (!doEventWhenNoId() || (w.getName().equals(""))) ) return false;
+		for (String id: getVetoedIds()) {
+			if (w.getId().equals(id)) {
+				Log.d("nofatclips", "Event denied for widget #" + id);
+				return false;
+			}
+		}
 		return (w.isAvailable() && matchClass(w.getSimpleType()));
 	}
 	
@@ -116,6 +124,25 @@ public abstract class InteractorAdapter {
 
 	public void setEventWhenNoId(boolean eventWhenNoId) {
 		this.eventWhenNoId = eventWhenNoId;
+	}
+	
+	public List<String> getVetoedIds () {
+		if (this.vetoId instanceof List) {
+			return this.vetoId;
+		}
+		this.vetoId = new ArrayList<String>();
+		return this.vetoId;
+	}
+	
+	public void denyIds (String ... ids) {
+		for (String id: ids) {
+			getVetoedIds().add(id);
+		}
+	}
+
+	public void denyIds (Collection<String> ids) {
+		Log.v("nofatclips", "Added vetoes for " + this.toString());
+		getVetoedIds().addAll(ids);
 	}
 
 }

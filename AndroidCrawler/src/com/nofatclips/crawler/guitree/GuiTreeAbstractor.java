@@ -15,7 +15,6 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Checkable;
-import android.widget.CompoundButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.AdapterView;
@@ -165,7 +164,7 @@ public class GuiTreeAbstractor implements Abstractor, FilterHandler, SaveStateLi
 		
 		// Checkboxes, radio buttons and toggle buttons -> the value is the checked state (true or false)
 		if (v instanceof Checkable) {
-			w.setValue(String.valueOf(((CompoundButton) v).isChecked()));
+			w.setValue(String.valueOf(((Checkable) v).isChecked()));
 		}
 
 		// Textview, Editview et al. -> the value is the displayed text

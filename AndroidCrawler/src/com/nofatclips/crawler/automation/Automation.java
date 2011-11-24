@@ -157,38 +157,41 @@ public class Automation implements Robot, Extractor, TaskProcessor {
 	}
 	
 	private void fireEventOnView (View v, String eventType, String value) {
-		if (eventType.equals(CLICK)) {
+		injectInteraction(v, eventType, value);
+		solo.sleep(SLEEP_AFTER_EVENT);
+		waitOnThrobber();
+		refreshCurrentActivity();
+		extractState();
+	}
+	
+	private void injectInteraction (View v, String interactionType, String value) {
+		if (interactionType.equals(CLICK)) {
 			click (v);
-		} else if (eventType.equals(LONG_CLICK)) {
+		} else if (interactionType.equals(LONG_CLICK)) {
 			longClick(v);
-		} else if (eventType.equals(BACK)) {
+		} else if (interactionType.equals(BACK)) {
 			solo.goBack();
-		} else if (eventType.equals(OPEN_MENU)) {
+		} else if (interactionType.equals(OPEN_MENU)) {
 			solo.sendKey(Solo.MENU);
-		} else if (eventType.equals(SCROLL_DOWN)) {
+		} else if (interactionType.equals(SCROLL_DOWN)) {
 			solo.scrollDown();
-		} else if (eventType.equals(SWAP_TAB) && (value!=null)) {
+		} else if (interactionType.equals(SWAP_TAB) && (value!=null)) {
 			if (v instanceof TabHost) {
 				swapTab ((TabHost)v, value);
 			} else {
 				swapTab (value);
 			}
-		} else if (eventType.equals(LIST_SELECT)) {
+		} else if (interactionType.equals(LIST_SELECT)) {
 			selectListItem((ListView)v, value);
-		} else if (eventType.equals(LIST_LONG_SELECT)) {
+		} else if (interactionType.equals(LIST_LONG_SELECT)) {
 			selectListItem((ListView)v, value, true);
-		} else if (eventType.equals(TYPE_TEXT)) {
+		} else if (interactionType.equals(TYPE_TEXT)) {
 			solo.enterText((EditText)v, value);
-		} else if (eventType.equals(SET_BAR)) {
+		} else if (interactionType.equals(SET_BAR)) {
 			solo.setProgressBar((ProgressBar)v, Integer.parseInt(value));
 		} else {
 			return;
-		}
-
-		solo.sleep(SLEEP_AFTER_EVENT);
-		waitOnThrobber();
-		refreshCurrentActivity();
-		extractState();
+		}		
 	}
 
 	// Scroll the view to the top. Only works for ListView and ScrollView. Support for GridView and others must be added
@@ -225,7 +228,7 @@ public class Automation implements Robot, Extractor, TaskProcessor {
 		if (v == null) {
 			v = theActivity.findViewById(widgetId);
 		}
-		fireEventOnView(v, inputType, value);
+		injectInteraction(v, inputType, value);
 	}
 
 	private void swapTab (TabHost t, String tab) {

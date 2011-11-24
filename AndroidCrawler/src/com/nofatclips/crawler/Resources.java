@@ -4,9 +4,9 @@ import com.nofatclips.crawler.model.Comparator;
 import com.nofatclips.crawler.model.StrategyCriteria;
 import com.nofatclips.crawler.planning.UserFactory;
 import com.nofatclips.crawler.planning.adapters.InteractorAdapter;
-import com.nofatclips.crawler.planning.interactors.FixedValueEditor;
 import com.nofatclips.crawler.storage.*;
 import com.nofatclips.crawler.strategy.comparator.*;
+import com.nofatclips.crawler.planning.interactors.*;
 import com.nofatclips.crawler.strategy.criteria.*;
 
 import static com.nofatclips.androidtesting.model.SimpleType.*;
@@ -68,12 +68,14 @@ public class Resources {
 		new AfterEventDontExplore("Remove Blog"),
 		new AfterWidgetDontExplore (2131165200),
 	};
-	public final static InteractorAdapter[] ADDITIONAL_INPUTS = new InteractorAdapter[] { // Username and password
-		new FixedValueEditor().addIdValuePair(2131165215, "").addIdValuePair(2131165217, ""),
-	};
 	static {
 		UserFactory.addEvent(CLICK, BUTTON, LINEAR_LAYOUT);
+		UserFactory.denyInteractionOnIds(TYPE_TEXT, 2131165215, 2131165217); // Don't change user and password
+		UserFactory.denyInteractionOnIds(CLICK, 2131165204); // Don't click Linear Layout container
 	}
+//	public final static InteractorAdapter[] ADDITIONAL_INPUTS = new InteractorAdapter[] { // Username and password
+//	new FixedValueEditor().addIdValuePair(2131165215, "").addIdValuePair(2131165217, ""),
+//};
 
 //	public final static String PACKAGE_NAME = "com.bwx.bequick";
 //	public final static String CLASS_NAME = "com.bwx.bequick.ShowSettingsActivity";
@@ -229,7 +231,7 @@ public class Resources {
 	public final static boolean SCROLL_DOWN_EVENT = false;
 	public final static long RANDOM_SEED = 93874383493L; // 0 = Random
 	public final static InteractorAdapter[] ADDITIONAL_EVENTS = new InteractorAdapter[] {};
-//	public final static InteractorAdapter[] ADDITIONAL_INPUTS = new InteractorAdapter[] {};
+	public final static InteractorAdapter[] ADDITIONAL_INPUTS = new InteractorAdapter[] {};
 	
 	// More Parameters
 	public final static int SLEEP_ON_THROBBER = 30000; // How long to wait on spinning wheels (in ms -- 0 = don't wait)

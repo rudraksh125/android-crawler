@@ -71,7 +71,7 @@ public class Resources {
 	static {
 		UserFactory.addEvent(CLICK, BUTTON, LINEAR_LAYOUT);
 		UserFactory.denyInteractionOnIds(TYPE_TEXT, 2131165215, 2131165217); // Don't change user and password
-		UserFactory.denyInteractionOnIds(CLICK, 2131165204); // Don't click Linear Layout container
+		UserFactory.denyInteractionOnIds(CLICK, 2131165204, 2131165351); // Don't click Linear Layout container, don't check Geotag Posts
 	}
 //	public final static InteractorAdapter[] ADDITIONAL_INPUTS = new InteractorAdapter[] { // Username and password
 //	new FixedValueEditor().addIdValuePair(2131165215, "").addIdValuePair(2131165217, ""),

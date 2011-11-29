@@ -101,15 +101,16 @@ public class GuiTreeAbstractor implements Abstractor, FilterHandler, SaveStateLi
 			TestCaseWidget w = TestCaseWidget.createWidget(getTheSession());
 			String id = String.valueOf(v.getId());
 			String text = "";
+			int type = 0;
 			if (v instanceof TextView) {
 				TextView t = (TextView)v;
-				int type = t.getInputType();
-				if (type!=0) {
-					w.setTextType("" + type);
-				}
+				type = t.getInputType();
 				text = t.getText().toString();
 			}
 			w.setIdNameType(id, text, v.getClass().getName());
+			if (type!=0) {
+				w.setTextType("" + type);
+			}
 			w.setSimpleType(getTypeDetector().getSimpleType(v));
 			setCount (v,w);
 			setValue (v,w);

@@ -1,6 +1,8 @@
 #summary How to run a coverage test with Android SDK r15
 #labels Phase-Support
 
+This page gives basic information on how to run an Android test project with code coverage evaluated via emma.
+
 <wiki:toc max_depth="2" />
 
 = Preconditions =

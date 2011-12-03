@@ -1,6 +1,8 @@
 #summary How to run a coverage test with Android SDK r15
 #labels Phase-Support
 
+<wiki:toc max_depth="2" />
+
 = Preconditions =
 
 This howto assumes that:

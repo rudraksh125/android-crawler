@@ -85,12 +85,13 @@ public abstract class Engine extends ActivityInstrumentationTestCase2 implements
 		boolean flag = ENABLE_RESUME;
 		if (!flag) return false;
 		if (!(getPersistence() instanceof ResumingPersistence)) return false;
-		if (!getPersistence().exists(TASK_LIST_FILE_NAME)) return false;
-		if (!getPersistence().exists(FILE_NAME)) return false;
-		if (!getPersistence().exists(ACTIVITY_LIST_FILE_NAME)) throw new Error("Cannot resume previous session: state list not found.");
+//		if (!getPersistence().exists(TASK_LIST_FILE_NAME)) return false;
+//		if (!getPersistence().exists(FILE_NAME)) return false;
+//		if (!getPersistence().exists(ACTIVITY_LIST_FILE_NAME)) throw new Error("Cannot resume previous session: state list not found.");
 		
-		Log.i("nofatclips", "Attempting to resume previous session");
 		ResumingPersistence r = (ResumingPersistence)getPersistence();
+		if (!r.canHasResume()) return false;
+		Log.i("nofatclips", "Attempting to resume previous session");
 		List<String> entries;
 		Session sandboxSession = getNewSession();
 		Element e;

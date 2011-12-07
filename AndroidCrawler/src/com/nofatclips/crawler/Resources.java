@@ -57,7 +57,7 @@ public class Resources {
 //		new AfterEventDontExplore("Remove Blog", "Add"),
 //	};
 
-//	// Wordpress 2 (Beta)
+	// Wordpress 2 (Beta)
 	public final static String PACKAGE_NAME = "org.wordpress.android";
 	public final static String CLASS_NAME = "org.wordpress.android.Dashboard";
 	public final static String FILE_NAME = "wordpress2.xml"; // Output
@@ -73,9 +73,9 @@ public class Resources {
 		UserFactory.denyInteractionOnIds(TYPE_TEXT, 2131165215, 2131165217); // Don't change user and password
 		UserFactory.denyInteractionOnIds(CLICK, 2131165204, 2131165351); // Don't click Linear Layout container, don't check Geotag Posts
 	}
-//	public final static InteractorAdapter[] ADDITIONAL_INPUTS = new InteractorAdapter[] { // Username and password
-//	new FixedValueEditor().addIdValuePair(2131165215, "").addIdValuePair(2131165217, ""),
-//};
+	//	public final static InteractorAdapter[] ADDITIONAL_INPUTS = new InteractorAdapter[] { // Username and password
+	//	new FixedValueEditor().addIdValuePair(2131165215, "").addIdValuePair(2131165217, ""),
+	//};
 
 //	public final static String PACKAGE_NAME = "com.bwx.bequick";
 //	public final static String CLASS_NAME = "com.bwx.bequick.ShowSettingsActivity";
@@ -104,6 +104,8 @@ public class Resources {
 //	public final static int SLEEP_AFTER_RESTART = 4000;
 //	public final static boolean EVENT_WHEN_NO_ID = false; // Whether to inject events on widgets without ID or not 
 
+//	// API Demos
+//	
 //	public final static String PACKAGE_NAME = "com.example.android.apis";
 //	public final static String CLASS_NAME = "com.example.android.apis.ApiDemos";
 //	public final static String FILE_NAME = "apidemos.xml"; // Output
@@ -112,7 +114,7 @@ public class Resources {
 //	public final static int SLEEP_AFTER_RESTART = 500;
 //	public final static boolean EVENT_WHEN_NO_ID = true; // Whether to inject events on widgets without ID or not 
 //	public final static StrategyCriteria[] ADDITIONAL_CRITERIAS = new StrategyCriteria[] {
-//		new AfterEventDontExplore("PurgeableBitmap", "1. Array", "13. Slow Adapter", "14. Efficient Adapter", "4. ListAdapter", "9. Array (Overlay)"),
+//		new AfterEventDontExplore("1. Array", "13. Slow Adapter", "14. Efficient Adapter", "4. ListAdapter", "9. Array (Overlay)"),
 //	};
 
 //	public final static String PACKAGE_NAME = "com.googlecode.andoku";
@@ -199,12 +201,19 @@ public class Resources {
 //	public final static int SLEEP_AFTER_RESTART = 3400;
 //	public final static int MAX_EVENTS_PER_WIDGET = 4; // For GroupViews (0 = try all items in the group)
 
+//	public final static String PACKAGE_NAME = "ee.smkv.calc.loan";
+//	public final static String CLASS_NAME = "ee.smkv.calc.loan.MainActivity";
+//	public final static String FILE_NAME = "loan.xml"; // Output
+//	public final static Comparator COMPARATOR = new CustomWidgetsComparator(TEXT_VIEW, DIALOG_VIEW, MENU_VIEW, BUTTON);
+//	public final static int SLEEP_AFTER_EVENT = 2000;
+//	public final static int SLEEP_AFTER_RESTART = 0;
+
 	/*
 	 * 				Default Parameters
 	 */
 	
 	// Strategy Parameters
-	public final static int MAX_NUM_TRACES = 800; // After performing this amount of traces, the crawler exits (0 = no length limit)
+	public final static int MAX_NUM_TRACES = 0; // After performing this amount of traces, the crawler exits (0 = no length limit)
 	public final static long MAX_TIME_CRAWLING = 0; // In seconds (0 = no time limit)
 	public final static int TRACE_MAX_DEPTH = 0; // Max number of transitions in a trace (0 = no depth limit)
 	public final static boolean CHECK_FOR_TRANSITION = false;

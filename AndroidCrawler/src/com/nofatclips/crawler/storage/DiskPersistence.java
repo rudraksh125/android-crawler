@@ -1,10 +1,6 @@
 package com.nofatclips.crawler.storage;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
+import java.io.*;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactoryConfigurationError;
 
@@ -27,12 +23,10 @@ public class DiskPersistence implements Persistence {
 		setSession(theSession);
 	}
 
-	@Override
 	public void setFileName(String name) {
 		this.fileName = name;
 	}
 
-	@Override
 	public void setSession(Session s) {
 		this.theSession = s;
 	}
@@ -49,12 +43,10 @@ public class DiskPersistence implements Persistence {
 		this.w = new ContextWrapper(a);
 	}
 
-	@Override
 	public void addTrace(Trace t) {
 		this.theSession.addTrace(t);
 	}
 
-	@Override
 	public void save() {
 		save (this.fileName);
 	}
@@ -122,6 +114,28 @@ public class DiskPersistence implements Persistence {
 		return file.exists();
 	}
 
+	public void copy (String from, String to) {
+		FileInputStream in;
+		FileOutputStream out;
+		byte[] buffer = new byte[4096];
+		
+		try {
+			in = w.openFileInput(from);
+			out = w.openFileOutput(to, ContextWrapper.MODE_PRIVATE);
+			int n = 0;
+			
+			while ((n = in.read(buffer)) != -1) {
+				out.write(buffer, 0, n);
+			}
+
+			in.close();
+			out.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
 	public void closeFile () {
 		closeFile (this.fOut, this.osw);
 	}
@@ -156,7 +170,6 @@ public class DiskPersistence implements Persistence {
 		}
 	}
 
-	@Override
 	public void registerListener(SaveStateListener listener) { /* do nothing */ }
 
 	FileOutputStream fOut = null; 

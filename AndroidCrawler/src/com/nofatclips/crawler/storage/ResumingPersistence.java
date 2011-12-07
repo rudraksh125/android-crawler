@@ -1,14 +1,6 @@
 package com.nofatclips.crawler.storage;
 
-import java.io.BufferedReader;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.OutputStreamWriter;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
@@ -81,11 +73,22 @@ public class ResumingPersistence extends StepDiskPersistence implements Dispatch
 			return;
 		}
 		
+		// Creating a copy of the backup file
+		if (exists(getTaskListFileName())) {
+			Log.d("nofatclips", "Performing backup of the old task list on disk");
+			backupFile (getTaskListFileName());
+		}
+//		if (exists(this.parametersFile)) {
+//			Log.d("nofatclips", "Performing backup of the old parameter list on disk");
+//			copy (this.parametersFile, backup(this.parametersFile));			
+//		}
+		
 		// Saving tasks in XML format - the old content of tasklist.xml is deleted
 		try {
 			Log.d("nofatclips", "Saving task list on disk");
 			openTaskFile();
 			for (Trace task: this.taskList) {
+				Log.v("nofatclips", "Backing up trace #" + task.getId() + " to disk.");
 				String xml = ((ElementWrapper)task).toXml() + System.getProperty("line.separator");
 				writeOnTaskFile(xml);
 			}
@@ -100,6 +103,47 @@ public class ResumingPersistence extends StepDiskPersistence implements Dispatch
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+
+		// Deleting backup copies
+		if (exists(backup(this.taskListFile))) {
+			Log.d("nofatclips", "Deleting backup of the old task list from disk");
+			delete (backup(this.taskListFile));
+		}
+		if (exists(backup(this.activityFile))) {
+			Log.d("nofatclips", "Deleting backup of the old activity list from disk");
+			delete (backup(this.activityFile));
+		}
+//		if (exists(backup(this.parametersFile))) {
+//			Log.d("nofatclips", "Deleting backup of the old parameter list from disk");
+//			delete (backup(this.parametersFile));
+//		}
+
+	}
+	
+	public boolean canHasResume () {
+		if (!exists(getFileName())) return false; // GUI Tree not found
+		if (!exists(getActivityFileName())) throw new Error("Cannot resume previous session: state list not found.");
+		if (exists(backup(getTaskListFileName()))) {
+			restoreFile(getTaskListFileName());
+			if (exists(backup(getActivityFileName()))) {
+				restoreFile(getActivityFileName());
+			}
+		}
+		if (!exists(getTaskListFileName())) return false;
+		return true;
+	}
+	
+	public void backupFile (String fileName) {
+		copy(fileName,backup(fileName));
+	}
+	
+	public void restoreFile (String fileName) {
+		copy(backup(fileName),fileName);
+	}
+	
+	
+	public String backup (String original) {
+		return original + ".bak";
 	}
 	
 	public void saveParameters() {
@@ -150,8 +194,15 @@ public class ResumingPersistence extends StepDiskPersistence implements Dispatch
 		}
 	}
 	
-	@Override
 	public void onNewState(ActivityState newState) {
+
+		// Creating a copy of the state file
+		if (exists(getActivityFileName())) {
+			Log.d("nofatclips", "Performing backup of the old activity list on disk");
+			backupFile (getActivityFileName());
+		}
+		
+		// Updating the file
 		try {
 			Log.d("nofatclips", "Saving new found state '" + newState.getId() + "' on disk");
 			openStateFile(newState instanceof FinalActivity); // append if final activity - write from scratch if start activity
@@ -299,7 +350,6 @@ public class ResumingPersistence extends StepDiskPersistence implements Dispatch
 		this.taskListFile = taskListFile;
 	}
 	
-	@Override
 	public void registerListener (SaveStateListener listener) {
 		theListeners.put(listener.getListenerName(), listener);
 	}

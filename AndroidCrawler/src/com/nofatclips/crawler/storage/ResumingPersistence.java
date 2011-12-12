@@ -22,8 +22,9 @@ import com.nofatclips.crawler.model.DispatchListener;
 import com.nofatclips.crawler.model.SaveStateListener;
 import com.nofatclips.crawler.model.SessionParams;
 import com.nofatclips.crawler.model.StateDiscoveryListener;
+import com.nofatclips.crawler.model.TerminationListener;
 
-public class ResumingPersistence extends StepDiskPersistence implements DispatchListener, StateDiscoveryListener {
+public class ResumingPersistence extends StepDiskPersistence implements DispatchListener, StateDiscoveryListener, TerminationListener {
 
 	private List<Trace> taskList;
 	private String activityFile;
@@ -240,6 +241,11 @@ public class ResumingPersistence extends StepDiskPersistence implements Dispatch
 //		Log.e ("nofatclips", "noTasks() = " + (noTasks()?"true":"false"));
 		return ( (super.isLast()) && noTasks() );
 	}
+	
+	public void onTerminate() {
+		this.taskList.clear();
+	}
+
 	
 	public List<String> readTaskFile () {
 		FileInputStream theFile;

@@ -11,6 +11,8 @@ import com.nofatclips.androidtesting.model.Trace;
 import com.nofatclips.crawler.model.Comparator;
 import com.nofatclips.crawler.model.StateDiscoveryListener;
 import com.nofatclips.crawler.model.Strategy;
+import com.nofatclips.crawler.model.TerminationListener;
+import com.nofatclips.crawler.strategy.criteria.PauseCriteria;
 import com.nofatclips.crawler.strategy.criteria.TerminationCriteria;
 
 public class SimpleStrategy implements Strategy {
@@ -18,11 +20,13 @@ public class SimpleStrategy implements Strategy {
 	private HashSet<ActivityState> guiNodes = new HashSet<ActivityState> ();
 	private Comparator c;
 	protected Collection<TerminationCriteria> terminators = new ArrayList<TerminationCriteria>();
+	protected Collection<PauseCriteria> pausers = new ArrayList<PauseCriteria>();
 	protected boolean positiveComparation = true;
 	private Trace theTask;
 	private ActivityState beforeEvent;
 	private ActivityState afterEvent;
 	private List<StateDiscoveryListener> theListeners = new ArrayList<StateDiscoveryListener>();
+	private List<TerminationListener> endListeners = new ArrayList<TerminationListener>();
 
 	public SimpleStrategy () {
 		super();
@@ -33,7 +37,6 @@ public class SimpleStrategy implements Strategy {
 		setComparator(c);
 	}
 	
-	@Override
 	public void addState(ActivityState newActivity) {
 		for (StateDiscoveryListener listener: getListeners()) {
 			listener.onNewState(newActivity);
@@ -41,7 +44,6 @@ public class SimpleStrategy implements Strategy {
 		this.guiNodes.add(newActivity);
 	}
 
-	@Override
 	public boolean compareState(ActivityState theActivity) {
 		this.afterEvent = theActivity;
 		this.positiveComparation = true;
@@ -64,14 +66,25 @@ public class SimpleStrategy implements Strategy {
 		return false;
 	}
 	
-	@Override
-	public boolean checkForTermination (ActivityState a) { // Logic OR of the criterias
+	public boolean checkForTermination () { // Logic OR of the criterias
 		for (TerminationCriteria t: this.terminators) {
-			if (t.termination()) return true;
+			if (t.termination()) {
+				for (TerminationListener tl: getEndListeners()) {
+					tl.onTerminate();
+				}
+				return true;
+			}
 		}
 		return false;
 	}
-	
+
+	public boolean checkForPause () { // Logic OR of the criterias
+		for (PauseCriteria p: this.pausers) {
+			if (p.pause()) return true;
+		}
+		return false;
+	}
+
 	public boolean checkForTransition () { // Assume that there is always a transition
 		return true;
 	}
@@ -80,27 +93,26 @@ public class SimpleStrategy implements Strategy {
 		this.terminators.add(t);
 	}
 
-	@Override
+	public void addPauseCriteria (PauseCriteria p) {
+		this.pausers.add(p);
+	}
+
 	public Comparator getComparator() {
 		return this.c;
 	}
 
-	@Override
 	public void setComparator(Comparator c) {
 		this.c = c;
 	}
 
-	@Override
 	public boolean checkForExploration() {
 		return !isLastComparationPositive();
 	}
 
-	@Override
 	public boolean isLastComparationPositive() {
 		return positiveComparation;
 	}
 	
-	@Override
 	public void setTask(Trace theTask) {
 		this.theTask = theTask;
 		this.beforeEvent = theTask.getFinalTransition().getStartActivity();
@@ -122,8 +134,16 @@ public class SimpleStrategy implements Strategy {
 		return this.theListeners;
 	}
 
-	public void registerListener(StateDiscoveryListener theListener) {
+	public List<TerminationListener> getEndListeners() {
+		return this.endListeners;
+	}
+
+	public void registerStateListener(StateDiscoveryListener theListener) {
 		this.theListeners.add(theListener);
+	}
+
+	public void registerTerminationListener(TerminationListener theListener) {
+		this.endListeners.add(theListener);
 	}
 
 }

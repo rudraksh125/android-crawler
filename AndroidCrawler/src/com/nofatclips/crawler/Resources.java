@@ -214,7 +214,8 @@ public class Resources {
 	
 	// Strategy Parameters
 	public final static int MAX_NUM_TRACES = 0; // After performing this amount of traces, the crawler exits (0 = no length limit)
-	public final static long MAX_TIME_CRAWLING = 0; // In seconds (0 = no time limit)
+	public final static long MAX_TIME_CRAWLING = 1000; // In seconds (0 = no time limit)
+	public final static long PAUSE_AFTER_TIME = 300; // In seconds (0 = no pause)
 	public final static int TRACE_MAX_DEPTH = 0; // Max number of transitions in a trace (0 = no depth limit)
 	public final static boolean CHECK_FOR_TRANSITION = false;
 //	public final static Comparator COMPARATOR = new CustomWidgetsComparator(EDIT_TEXT, BUTTON);

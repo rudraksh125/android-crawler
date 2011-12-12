@@ -31,20 +31,16 @@ public class TimeElapsedTermination implements TerminationCriteria, SaveStateLis
 		return (current>=max);
 	}
 	
-	@Override
 	public void setStrategy(Strategy theStrategy) {}
 
-	@Override
 	public SessionParams onSavingState() {
 		return new SessionParams(PARAM_NAME, this.start);
 	}
 
-	@Override
 	public void onLoadingState(SessionParams sessionParams) {
 		this.start = sessionParams.getLong(PARAM_NAME);
 	}
 	
-	@Override
 	public String getListenerName() {
 		return ACTOR_NAME;
 	}

@@ -67,7 +67,7 @@ public abstract class Engine extends ActivityInstrumentationTestCase2 implements
 					planTests(theTask, theActivity);
 				}
 			}
-			if (getStrategy().checkForTermination(theActivity)) break;
+			if ( (getStrategy().checkForTermination()) || (getStrategy().checkForPause()) ) break;
 		}
 	}
 	

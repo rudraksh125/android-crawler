@@ -75,7 +75,7 @@ public class TraceDispatcher implements Iterable<Trace> {
 			
 		};
 	}
-
+	
 	private class TrivialScheduler implements TaskScheduler {
 		
 		private List<Trace> tasks;

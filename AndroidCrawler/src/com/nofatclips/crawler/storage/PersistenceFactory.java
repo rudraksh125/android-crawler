@@ -50,6 +50,7 @@ public class PersistenceFactory {
 			resumer.setTaskListFile(TASK_LIST_FILE_NAME);
 			resumer.setActivityFile(ACTIVITY_LIST_FILE_NAME);
 			resumer.setParametersFile(PARAMETERS_FILE_NAME);
+			getStrategy().registerTerminationListener(resumer);
 			
 			for (SaveStateListener saver: stateSavers) {
 				resumer.registerListener(saver);
@@ -57,7 +58,7 @@ public class PersistenceFactory {
 
 			getDispatcher().registerListener(resumer);
 			if (getStrategy() instanceof SimpleStrategy) {
-				((SimpleStrategy)getStrategy()).registerListener(resumer);				
+				((SimpleStrategy)getStrategy()).registerStateListener(resumer);				
 			}
 		} else if (stepPersistence()) {
 			Log.d("nofatclips", "Generated Step Persistence with step = " + MAX_TRACES_IN_RAM);

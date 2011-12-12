@@ -27,8 +27,6 @@ public class GuiTreeEngine extends Engine {
 	public GuiTreeEngine () {
 		super ();
 		
-//		TraceDispatcher scheduler = new TraceDispatcher(); 
-//		setScheduler(scheduler);
 		setScheduler(new TraceDispatcher());
 		
 		this.theAutomation = new Automation();
@@ -61,7 +59,6 @@ public class GuiTreeEngine extends Engine {
 		this.guiAbstractor.addFilter (eventFilter);
 		this.guiAbstractor.setTypeDetector(new SimpleTypeDetector());
 		
-//		this.user = new SimpleUser(this.guiAbstractor);
 		this.user = UserFactory.getUser(this.guiAbstractor);
 		p.setUser(user);
 		p.setFormFiller(user);
@@ -72,14 +69,13 @@ public class GuiTreeEngine extends Engine {
 		sf.setDepth(TRACE_MAX_DEPTH);
 		sf.setMaxTraces(MAX_NUM_TRACES);
 		sf.setMaxSeconds(MAX_TIME_CRAWLING);
+		sf.setPauseSeconds(PAUSE_AFTER_TIME);
 		sf.setCheckTransitions(CHECK_FOR_TRANSITION);
 		setStrategy (sf.getStrategy());
 
 		// Last object to instantiate: the other components register as listeners on the factory class
 		PersistenceFactory pf = new PersistenceFactory (this.theGuiTree, getScheduler(), getStrategy());
 		setPersistence (pf.getPersistence());
-//		d = (stepPersistence())?new StepDiskPersistence (MAX_TRACES_IN_RAM):new DiskPersistence();
-//		d.setSession(this.theGuiTree);
 		
 	}
 	

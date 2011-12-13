@@ -4,6 +4,7 @@ import com.nofatclips.crawler.model.Comparator;
 import com.nofatclips.crawler.model.Strategy;
 import com.nofatclips.crawler.model.StrategyCriteria;
 import com.nofatclips.crawler.strategy.criteria.MaxDepthExplore;
+import com.nofatclips.crawler.strategy.criteria.MaxStepsPause;
 import com.nofatclips.crawler.strategy.criteria.MaxStepsTermination;
 import com.nofatclips.crawler.strategy.criteria.NewActivityExplore;
 import com.nofatclips.crawler.strategy.criteria.NewActivityTransition;
@@ -19,6 +20,7 @@ public class StrategyFactory {
 	private long pauseSeconds = 0;
 	private boolean checkTransistions = false;
 	private StrategyCriteria[] otherCriterias = new StrategyCriteria[] {};
+	private int pauseTraces;
 	
 	public StrategyFactory () {}
 	
@@ -54,6 +56,9 @@ public class StrategyFactory {
 			if (checkSessionTimeForPause()) {
 				s.addCriteria(new TimeElapsedPause(this.pauseSeconds));
 			}
+			if (checkTracesForPause()) {
+				s.addCriteria(new MaxStepsPause(this.pauseTraces));
+			}
 			return s;
 		}
 		SimpleStrategy s = new SimpleStrategy (this.comparator);
@@ -74,6 +79,10 @@ public class StrategyFactory {
 	
 	public boolean checkMaxTraces() {
 		return (this.maxTraces>0);
+	}
+	
+	public boolean checkTracesForPause() {
+		return (this.pauseTraces>0);
 	}
 	
 	public boolean checkTransition() {
@@ -114,6 +123,10 @@ public class StrategyFactory {
 
 	public void setMoreCriterias (StrategyCriteria ... s) {
 		this.otherCriterias = s;
+	}
+
+	public void setPauseTraces(int pauseAfterTraces) {
+		this.pauseTraces = pauseAfterTraces;		
 	}
 	
 }

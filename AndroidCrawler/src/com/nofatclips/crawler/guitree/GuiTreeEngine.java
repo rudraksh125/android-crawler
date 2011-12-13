@@ -71,6 +71,7 @@ public class GuiTreeEngine extends Engine {
 		sf.setMaxSeconds(MAX_TIME_CRAWLING);
 		sf.setPauseSeconds(PAUSE_AFTER_TIME);
 		sf.setCheckTransitions(CHECK_FOR_TRANSITION);
+		sf.setPauseTraces(PAUSE_AFTER_TRACES);
 		setStrategy (sf.getStrategy());
 
 		// Last object to instantiate: the other components register as listeners on the factory class

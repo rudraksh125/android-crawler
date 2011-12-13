@@ -225,6 +225,7 @@ public class ResumingPersistence extends StepDiskPersistence implements Dispatch
 	@Override
 	public void save() {
 		super.save();
+		saveParameters();
 		saveTaskList();
 		// Delete file when crawling is over
 		if (noTasks()) {

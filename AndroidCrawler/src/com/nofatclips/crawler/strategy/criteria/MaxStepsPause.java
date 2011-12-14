@@ -19,7 +19,7 @@ public class MaxStepsPause implements PauseCriteria {
 
 	public boolean pause () {
 		this.current--;
-		Log.i("nofatclips", "Check for termination: " + current + " steps left of " + max);
+		Log.i("nofatclips", "Check for pause: " + current + " steps left of " + max);
 		return (this.current==0);
 	}
 	

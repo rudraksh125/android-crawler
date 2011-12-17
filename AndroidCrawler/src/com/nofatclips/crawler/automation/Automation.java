@@ -110,6 +110,7 @@ public class Automation implements Robot, Extractor, TaskProcessor {
 				fireEvent (Integer.parseInt(e.getWidgetId()), e.getWidgetName(), e.getWidget().getSimpleType(), eventType, e.getValue());
 			}
 		}
+		this.currentEvent = null;
 	}
 
 	@Override

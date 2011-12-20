@@ -82,9 +82,9 @@ public abstract class Engine extends ActivityInstrumentationTestCase2 implements
 	}
 	
 	public boolean resume() {
-		boolean flag = ENABLE_RESUME;
-		if (!flag) return false;
-		if (!(getPersistence() instanceof ResumingPersistence)) return false;
+//		boolean flag = ENABLE_RESUME;
+//		if (!flag) return false;
+		if (!((getPersistence() instanceof ResumingPersistence) && ENABLE_RESUME)) return false;
 //		if (!getPersistence().exists(TASK_LIST_FILE_NAME)) return false;
 //		if (!getPersistence().exists(FILE_NAME)) return false;
 //		if (!getPersistence().exists(ACTIVITY_LIST_FILE_NAME)) throw new Error("Cannot resume previous session: state list not found.");
@@ -235,7 +235,11 @@ public abstract class Engine extends ActivityInstrumentationTestCase2 implements
 	public String getListenerName () {
 		return ACTOR_NAME;
 	}
-
+	
+	public boolean retry() {
+		return RETRY_FAILED_TRACES;
+	}
+	
 	public final static String ACTOR_NAME = "Engine";
 	
 	private Robot theRobot;

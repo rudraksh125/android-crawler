@@ -1,5 +1,6 @@
 package com.nofatclips.crawler.planning;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
@@ -35,7 +36,7 @@ public class SimplePlanner implements Planner {
 			Collection<UserEvent> events = getUser().handleEvent(w);
 			for (UserEvent evt: events) {
 				if (evt == null) continue;
-				Collection<UserInput> inputs = new HashSet<UserInput>();
+				Collection<UserInput> inputs = new ArrayList<UserInput>();
 				for (WidgetState formWidget: getInputFilter()) {
 					List<UserInput> alternatives = getFormFiller().handleInput(formWidget); 
 					UserInput inp = ((alternatives.size()>0)?alternatives.get(alternatives.size()-1):null);

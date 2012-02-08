@@ -222,7 +222,20 @@ public class ResumingPersistence extends StepDiskPersistence implements Dispatch
 		}
 	}
 	
-	@Override
+//	@Override
+//	public void save() {
+//		super.save();
+//		saveParameters();
+//		saveTaskList();
+//		// Delete file when crawling is over
+//		if (noTasks()) {
+//			Log.d("nofatclips", "Task list is empty: no resume needed. Deleting parameters and activity list from disk.");
+//			delete (getActivityFileName());
+//			delete (getParametersFileName());
+//			return;
+//		}
+//	}
+
 	public void save() {
 		super.save();
 		saveParameters();
@@ -231,11 +244,36 @@ public class ResumingPersistence extends StepDiskPersistence implements Dispatch
 		if (noTasks()) {
 			Log.d("nofatclips", "Task list is empty: no resume needed. Deleting parameters and activity list from disk.");
 			delete (getActivityFileName());
+			delete (backup(getActivityFileName()));
 			delete (getParametersFileName());
+			delete (backup(getParametersFileName()));
+			delete (getTaskListFileName());
+			delete (backup(getTaskListFileName()));
+			
+			// Creazione del file closed (AKA pezzottone)
+			
+			FileOutputStream fOut;
+			try {
+				fOut = w.openFileOutput("closed.txt", ContextWrapper.MODE_WORLD_READABLE);
+				OutputStreamWriter osw = new OutputStreamWriter(fOut); 
+				osw.write("the end");
+				osw.flush();
+				osw.close();
+				fOut.close();
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+			// Fine Pezzottone
+			
 			return;
 		}
 	}
-	
+
 	@Override
 	public boolean isLast() {
 //		Log.e ("nofatclips", "super.isLast() = " + (super.isLast()?"true":"false"));

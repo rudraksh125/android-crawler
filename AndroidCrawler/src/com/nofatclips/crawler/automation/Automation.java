@@ -237,6 +237,7 @@ public class Automation implements Robot, Extractor, TaskProcessor {
 	}
 
 	private void swapTab (final TabHost t, int num) {
+		assertNotNull(t);
 		final int n = Math.min(this.tabNum, Math.max(1,num))-1;
 		Log.i("nofatclips", "Swapping to tab " + num);
 		getActivity().runOnUiThread(new Runnable() {
@@ -257,6 +258,7 @@ public class Automation implements Robot, Extractor, TaskProcessor {
 	}
 
 	private void selectListItem (final ListView l, int num, boolean longClick) {
+		assertNotNull(l);
 		final int n = Math.min(l.getCount(), Math.max(1,num))-1;
 		requestFocus(l);
 		Log.i("nofatclips", "Swapping to listview item " + num);
@@ -284,6 +286,11 @@ public class Automation implements Robot, Extractor, TaskProcessor {
 //		describeCurrentEvent(v);
 	}
 	
+	@SuppressWarnings("static-access")
+	protected void assertNotNull (final View v) {
+		ActivityInstrumentationTestCase2.assertNotNull(v);
+	}
+	
 	protected void requestFocus (final View v) {
 		getActivity().runOnUiThread(new Runnable() {
 			public void run() {
@@ -293,12 +300,14 @@ public class Automation implements Robot, Extractor, TaskProcessor {
 	}
 	
 	protected void click (View v) {
+		assertNotNull(v);
 //		android.test.TouchUtils.clickView(this.test, v);
 		describeCurrentEvent(v);
 		solo.clickOnView(v);
 	}
 	
 	protected void longClick (View v) {
+		assertNotNull(v);
 		describeCurrentEvent(v);
 		solo.clickLongOnView(v);
 	}

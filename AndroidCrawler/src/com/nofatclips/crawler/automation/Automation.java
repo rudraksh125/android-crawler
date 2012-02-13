@@ -10,6 +10,7 @@ import java.util.Iterator;
 import java.util.Map;
 
 import android.app.Activity;
+import android.graphics.Bitmap;
 //import android.app.Instrumentation;
 import android.test.ActivityInstrumentationTestCase2;
 import android.util.Log;
@@ -24,7 +25,7 @@ import com.nofatclips.crawler.model.*;
 // Automation implements the methods to interact with the application via the Instrumentation (Robot)
 // and to extract informations from it (Extractor); the Robotium framework is used where possible
 
-public class Automation implements Robot, Extractor, TaskProcessor {
+public class Automation implements Robot, Extractor, TaskProcessor, ImageCaptor {
 	
 //	private Instrumentation inst;
 	@SuppressWarnings("rawtypes")
@@ -39,10 +40,13 @@ public class Automation implements Robot, Extractor, TaskProcessor {
 	private int tabNum; // Number of tabs used by the Activity
 	private Robot theRobot;
 	private UserEvent currentEvent;
+	private ImageCaptor imageCaptor;
 		
 	// A Trivial Extractor is provided if none is assigned
 	public Automation () {
-		setExtractor (new TrivialExtractor());
+		TrivialExtractor te = new TrivialExtractor(); 
+		setExtractor (te);
+		this.imageCaptor = te;
 		setRobot (this);
 	}
 
@@ -159,7 +163,7 @@ public class Automation implements Robot, Extractor, TaskProcessor {
 	
 	private void fireEventOnView (View v, String eventType, String value) {
 		injectInteraction(v, eventType, value);
-		solo.sleep(SLEEP_AFTER_EVENT);
+		wait(SLEEP_AFTER_EVENT);
 		waitOnThrobber();
 		refreshCurrentActivity();
 		extractState();
@@ -237,7 +241,7 @@ public class Automation implements Robot, Extractor, TaskProcessor {
 	}
 
 	private void swapTab (final TabHost t, int num) {
-		assertNotNull(t);
+		assertNotNull(t, "Cannon swap tab: the tab host does not exist");
 		final int n = Math.min(this.tabNum, Math.max(1,num))-1;
 		Log.i("nofatclips", "Swapping to tab " + num);
 		getActivity().runOnUiThread(new Runnable() {
@@ -258,7 +262,7 @@ public class Automation implements Robot, Extractor, TaskProcessor {
 	}
 
 	private void selectListItem (final ListView l, int num, boolean longClick) {
-		assertNotNull(l);
+		assertNotNull(l, "Cannon select list item: the list does not exist");
 		final int n = Math.min(l.getCount(), Math.max(1,num))-1;
 		requestFocus(l);
 		Log.i("nofatclips", "Swapping to listview item " + num);
@@ -286,11 +290,14 @@ public class Automation implements Robot, Extractor, TaskProcessor {
 //		describeCurrentEvent(v);
 	}
 	
-	@SuppressWarnings("static-access")
 	protected void assertNotNull (final View v) {
 		ActivityInstrumentationTestCase2.assertNotNull(v);
 	}
-	
+
+	protected void assertNotNull (final View v, String errorMessage) {
+		ActivityInstrumentationTestCase2.assertNotNull(errorMessage, v);
+	}
+
 	protected void requestFocus (final View v) {
 		getActivity().runOnUiThread(new Runnable() {
 			public void run() {
@@ -300,16 +307,21 @@ public class Automation implements Robot, Extractor, TaskProcessor {
 	}
 	
 	protected void click (View v) {
-		assertNotNull(v);
+		assertNotNull(v,"Cannon click: the widget does not exist");
 //		android.test.TouchUtils.clickView(this.test, v);
 		describeCurrentEvent(v);
 		solo.clickOnView(v);
 	}
 	
 	protected void longClick (View v) {
-		assertNotNull(v);
+		assertNotNull(v, "Cannon longClick: the widget does not exist");
 		describeCurrentEvent(v);
 		solo.clickLongOnView(v);
+	}
+	
+	protected void wait (int milli) {
+		Log.i("nofatclips", "Waiting for " + milli/1000 + " sec.");
+		solo.sleep(milli);
 	}
 
 	private boolean describeCurrentEvent (View v) {
@@ -389,7 +401,7 @@ public class Automation implements Robot, Extractor, TaskProcessor {
 
 	public void afterRestart() {
 		solo.setActivityOrientation(Solo.PORTRAIT);
-		solo.sleep(SLEEP_AFTER_RESTART);
+		wait(SLEEP_AFTER_RESTART);
 		waitOnThrobber();
 		Log.d("nofatclips", "Ready to operate after restarting...");
 	}
@@ -401,12 +413,17 @@ public class Automation implements Robot, Extractor, TaskProcessor {
 		boolean flag;
 		do {
 			flag = false;
+			int oldId = 0;
 			ArrayList<ProgressBar> bars = solo.getCurrentProgressBars();
 			for (ProgressBar b: bars) {
 				if (b.isShown() && b.isIndeterminate()) {
-					Log.d("nofatclips", "Waiting on Progress Bar #" + b.getId());
+					int newId = b.getId();
+					if (newId != oldId) { // Only log if the throbber changed since the last time
+						Log.d("nofatclips", "Waiting on Progress Bar #" + newId);
+						oldId = newId;
+					}
 					flag = true;
-					solo.sleep(500);
+					wait(500);
 					sleepTime-=500;
 				}
 			}
@@ -462,11 +479,15 @@ public class Automation implements Robot, Extractor, TaskProcessor {
 		this.extractor.extractState();
 	}
 	
+	public Bitmap captureImage() {
+		return this.imageCaptor.captureImage();
+	}
+	
 	// The TrivialExtractor uses the same methods available in Automation to create
 	// a description of the Activity, which is basically the name and a list of widgets
 	// in the Activity.
 	
-	public class TrivialExtractor implements Extractor {
+	public class TrivialExtractor implements Extractor, ImageCaptor {
 
 		public void extractState() {
 			retrieveWidgets();
@@ -505,6 +526,21 @@ public class Automation implements Robot, Extractor, TaskProcessor {
 				}
 
 			};
+		}
+		
+		public Bitmap captureImage() {
+			View view = solo.getViews().get(0);
+			boolean flag = view.isDrawingCacheEnabled();
+			if (!flag) {
+				view.setDrawingCacheEnabled(true);
+			}
+            view.buildDrawingCache();
+            Bitmap b = view.getDrawingCache();
+            b = b.copy(b.getConfig(), false);
+			if (!flag) {
+				view.setDrawingCacheEnabled(false);
+			}
+			return b;
 		}
 
 	}

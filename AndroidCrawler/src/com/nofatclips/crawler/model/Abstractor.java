@@ -24,5 +24,6 @@ public interface Abstractor {
 	public Transition createStep (ActivityState start, Collection<UserInput> inputs, UserEvent event);
 	public Trace importTask(Element e);
 	public ActivityState importState (Element fromXml);
+	public void setFinalActivity(Trace theTask, ActivityState theActivity);
 	
 }

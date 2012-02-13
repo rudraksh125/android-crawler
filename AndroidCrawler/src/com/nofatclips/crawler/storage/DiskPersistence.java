@@ -1,11 +1,14 @@
 package com.nofatclips.crawler.storage;
 
 import java.io.*;
+
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactoryConfigurationError;
 
 import android.app.Activity;
 import android.content.ContextWrapper;
+import android.graphics.Bitmap;
+import android.util.Log;
 
 import com.nofatclips.androidtesting.model.Session;
 import com.nofatclips.androidtesting.model.Trace;
@@ -13,7 +16,7 @@ import com.nofatclips.androidtesting.xml.XmlGraph;
 import com.nofatclips.crawler.model.Persistence;
 import com.nofatclips.crawler.model.SaveStateListener;
 
-public class DiskPersistence implements Persistence {
+public class DiskPersistence implements Persistence, ImageStorage {
 	
 	public DiskPersistence () {
 	}
@@ -171,6 +174,28 @@ public class DiskPersistence implements Persistence {
 	}
 
 	public void registerListener(SaveStateListener listener) { /* do nothing */ }
+
+	public void saveImage(Bitmap image, String fileName) throws IOException {
+		FileOutputStream fileOutput = null;
+		OutputStreamWriter streamWriter = null;
+		String name = fileName+".jpg";
+		try {
+			fileOutput = w.openFileOutput(name,ContextWrapper.MODE_WORLD_READABLE);
+			streamWriter = new OutputStreamWriter(fileOutput);
+			if (fileOutput != null) {
+				image.compress(Bitmap.CompressFormat.JPEG, 90, fileOutput);
+				Log.i("nofatclips","Saved image on disk: " + name);
+			}
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			if (fileOutput != null) {
+				streamWriter.close();
+				fileOutput.close();
+			}
+		}
+	}
 
 	FileOutputStream fOut = null; 
     OutputStreamWriter osw = null;

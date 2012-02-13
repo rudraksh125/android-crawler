@@ -26,6 +26,8 @@ import com.nofatclips.androidtesting.model.*;
 import com.nofatclips.crawler.model.*;
 import com.nofatclips.crawler.storage.PersistenceFactory;
 
+import static com.nofatclips.crawler.Resources.*;
+
 public class GuiTreeAbstractor implements Abstractor, FilterHandler, SaveStateListener {
 
 	private GuiTree theSession;
@@ -190,6 +192,37 @@ public class GuiTreeAbstractor implements Abstractor, FilterHandler, SaveStateLi
 		return this.baseActivity;
 	}
 
+	public void setStartActivity (Transition theStep, ActivityState theActivity) {
+		theStep.setStartActivity ((ACTIVITY_DESCRIPTION_IN_SESSION)?theActivity:stubActivity(theActivity));
+//		if (ACTIVITY_DESCRIPTION_IN_SESSION) {
+//			theStep.setStartActivity ((ACTIVITY_DESCRIPTION_IN_SESSION)?theActivity:stubActivity(theActivity));
+//			return;
+//		}
+////		TestCaseActivity theStub = ((TestCaseActivity)theActivity).clone();
+////		theStub.resetDescription();
+////		theStub.setDescriptionId(theActivity.getId());
+//		theStep.setStartActivity (stubActivity(theActivity));
+	}
+
+	public void setFinalActivity (Trace theTask, ActivityState theActivity) {
+		theTask.setFinalActivity ((ACTIVITY_DESCRIPTION_IN_SESSION)?theActivity:stubActivity(theActivity));
+//		if (ACTIVITY_DESCRIPTION_IN_SESSION) {
+//			theTask.setFinalActivity (theActivity);
+//			return;
+//		}
+////		TestCaseActivity theStub = ((TestCaseActivity)theActivity).clone();
+////		theStub.resetDescription();
+////		theStub.setDescriptionId(theActivity.getId());
+//		theTask.setFinalActivity (stubActivity(theActivity));
+	}
+	
+	private TestCaseActivity stubActivity (ActivityState theActivity) {
+		TestCaseActivity theStub = ((TestCaseActivity)theActivity).clone();
+		theStub.resetDescription();
+		theStub.setDescriptionId(theActivity.getId());
+		return theStub;
+	}
+
 	public Iterator<Filter> iterator() {
 		return this.filters.iterator();
 	}
@@ -257,7 +290,7 @@ public class GuiTreeAbstractor implements Abstractor, FilterHandler, SaveStateLi
 	public Transition createStep (ActivityState start, Collection<UserInput> inputs, UserEvent event) {
 		Transition t = TestCaseTransition.createTransition(start.getElement().getOwnerDocument());
 		try {
-			t.setStartActivity(StartActivity.createActivity(start));
+			setStartActivity(t, StartActivity.createActivity(start));
 			for (UserInput inPut: inputs) {
 				t.addInput(inPut);
 			}

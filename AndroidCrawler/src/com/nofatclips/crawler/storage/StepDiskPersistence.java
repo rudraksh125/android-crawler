@@ -48,7 +48,11 @@ public class StepDiskPersistence extends DiskPersistence implements SaveStateLis
 	}
 	
 	@Override
-	public String generate () {
+	public String generate() {
+		return generateXML() + System.getProperty("line.separator");
+	}
+	
+	public String generateXML () {
 		String graph = super.generate();
 		
 		// Session is smaller than the step: fall back to DiskPersistence behavior and save all

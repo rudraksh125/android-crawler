@@ -11,6 +11,7 @@ import com.nofatclips.androidtesting.model.Session;
 import com.nofatclips.androidtesting.model.Trace;
 import com.nofatclips.androidtesting.model.Transition;
 import com.nofatclips.androidtesting.xml.XmlGraph;
+import com.nofatclips.crawler.automation.ScreenshotFactory;
 import com.nofatclips.crawler.model.*;
 import com.nofatclips.crawler.planning.TraceDispatcher;
 import com.nofatclips.crawler.storage.PersistenceFactory;
@@ -36,6 +37,9 @@ public abstract class Engine extends ActivityInstrumentationTestCase2 implements
 	@Override
 	protected void setUp() throws Exception {
 		super.setUp();
+		if (getImageCaptor()!=null) {
+			ScreenshotFactory.setImageCaptor(getImageCaptor());
+		}
 		getRobot().bind(this);
 		getExtractor().extractState();
 		Activity a = getExtractor().getActivity();
@@ -45,8 +49,12 @@ public abstract class Engine extends ActivityInstrumentationTestCase2 implements
 		getAbstractor().setBaseActivity(d);
 		if (!resume()) {
 			Log.i("nofatclips", "Starting a new session");
-			getStrategy().addState(getAbstractor().getBaseActivity());
-			planFirstTests(getAbstractor().getBaseActivity());
+			ActivityState baseActivity = getAbstractor().getBaseActivity(); 
+			getStrategy().addState(baseActivity);
+			if (screenshotEnabled()) {
+				ScreenshotFactory.saveScreenshot(baseActivity.getId());
+			}
+			planFirstTests(baseActivity);
 		}
 	}
 	
@@ -60,9 +68,12 @@ public abstract class Engine extends ActivityInstrumentationTestCase2 implements
 			ActivityState theActivity = getAbstractor().createActivity(d);
 			getStrategy().compareState(theActivity);
 			if (!getStrategy().checkForTransition()) continue;
-			theTask.setFinalActivity (theActivity);
+			getAbstractor().setFinalActivity (theTask, theActivity);
 			getPersistence().addTrace(theTask);
 			if (theActivity.getId() != "exit") {
+				if (screenshotNeeded()) {
+					ScreenshotFactory.saveScreenshot(screenshotName(theActivity.getId(),theTask.getId()));
+				}
 				if (getStrategy().checkForExploration()) {
 					planTests(theTask, theActivity);
 				}
@@ -179,6 +190,14 @@ public abstract class Engine extends ActivityInstrumentationTestCase2 implements
 		this.theExtractor = theExtractor;
 	}
 	
+	public ImageCaptor getImageCaptor() {
+		return this.theImageCaptor;
+	}
+
+	public void setImageCaptor(ImageCaptor theImageCaptor) {
+		this.theImageCaptor = theImageCaptor;
+	}
+
 	public Abstractor getAbstractor() {
 		return this.theAbstractor;
 	}
@@ -241,6 +260,21 @@ public abstract class Engine extends ActivityInstrumentationTestCase2 implements
 		return RETRY_FAILED_TRACES;
 	}
 	
+	public boolean screenshotEnabled() {
+		return SCREENSHOT_FOR_STATES;
+	}
+	
+	public boolean screenshotNeeded() {
+		if (!screenshotEnabled()) return false; // Function disable, always return false
+		if (!SCREENSHOT_ONLY_NEW_STATES) return true; // Function enable for all states, always return true
+		return !(getStrategy().isLastComparationPositive()); // Function enabled for new states only: return true if comparation was false
+	}
+	
+	public String screenshotName (String stateId, String traceId) {
+		String suffix = (SCREENSHOT_ONLY_NEW_STATES)?"":("_t"+traceId);
+		return stateId+suffix;
+	}
+	
 	public final static String ACTOR_NAME = "Engine";
 	
 	private Robot theRobot;
@@ -251,6 +285,7 @@ public abstract class Engine extends ActivityInstrumentationTestCase2 implements
 	private Strategy theStrategy;
 	private Persistence thePersistence;
 	private Session theSession;
+	private ImageCaptor theImageCaptor;
 	
 	private final static String PARAM_NAME = "taskId";
 	private int id = 0;

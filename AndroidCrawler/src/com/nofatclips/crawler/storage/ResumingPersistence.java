@@ -61,11 +61,11 @@ public class ResumingPersistence extends StepDiskPersistence implements Dispatch
 		saveParameters();
 	}
 	
-	@Override
-	public String generate () {
-		return super.generate() + System.getProperty("line.separator");
-	}
-	
+//	@Override
+//	public String generate () {
+//		return super.generate() + System.getProperty("line.separator");
+//	}
+//	
 	public void saveTaskList() {
 		// No tasks to save
 		if (noTasks()) {
@@ -79,11 +79,7 @@ public class ResumingPersistence extends StepDiskPersistence implements Dispatch
 			Log.d("nofatclips", "Performing backup of the old task list on disk");
 			backupFile (getTaskListFileName());
 		}
-//		if (exists(this.parametersFile)) {
-//			Log.d("nofatclips", "Performing backup of the old parameter list on disk");
-//			copy (this.parametersFile, backup(this.parametersFile));			
-//		}
-		
+
 		// Saving tasks in XML format - the old content of tasklist.xml is deleted
 		try {
 			Log.d("nofatclips", "Saving task list on disk");
@@ -114,10 +110,6 @@ public class ResumingPersistence extends StepDiskPersistence implements Dispatch
 			Log.d("nofatclips", "Deleting backup of the old activity list from disk");
 			delete (backup(this.activityFile));
 		}
-//		if (exists(backup(this.parametersFile))) {
-//			Log.d("nofatclips", "Deleting backup of the old parameter list from disk");
-//			delete (backup(this.parametersFile));
-//		}
 
 	}
 	
@@ -221,29 +213,14 @@ public class ResumingPersistence extends StepDiskPersistence implements Dispatch
 			e.printStackTrace();
 		}
 	}
-	
-//	@Override
-//	public void save() {
-//		super.save();
-//		saveParameters();
-//		saveTaskList();
-//		// Delete file when crawling is over
-//		if (noTasks()) {
-//			Log.d("nofatclips", "Task list is empty: no resume needed. Deleting parameters and activity list from disk.");
-//			delete (getActivityFileName());
-//			delete (getParametersFileName());
-//			return;
-//		}
-//	}
 
 	public void save() {
 		super.save();
 		saveParameters();
 		saveTaskList();
-		// Delete file when crawling is over
-		if (noTasks()) {
+		if (noTasks()) { // Deletes file when crawling is over
 			Log.d("nofatclips", "Task list is empty: no resume needed. Deleting parameters and activity list from disk.");
-			delete (getActivityFileName());
+//			delete (getActivityFileName());
 			delete (backup(getActivityFileName()));
 			delete (getParametersFileName());
 			delete (backup(getParametersFileName()));

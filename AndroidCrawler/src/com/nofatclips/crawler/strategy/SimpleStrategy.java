@@ -57,6 +57,7 @@ public class SimpleStrategy implements Strategy {
 			Log.d("nofatclips", "Comparing against activity " + stored.getName());
 			if (getComparator().compare(theActivity, stored)) {
 				theActivity.setId(stored.getId());
+				Log.d("nofatclips", "This activity state is equivalent to " + stored.getId());
 				return true;
 			}
 		}

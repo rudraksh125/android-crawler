@@ -8,6 +8,7 @@ import java.util.List;
 import android.util.Log;
 
 import com.nofatclips.androidtesting.model.Session;
+import com.nofatclips.crawler.automation.ScreenshotFactory;
 import com.nofatclips.crawler.model.Persistence;
 import com.nofatclips.crawler.model.SaveStateListener;
 import com.nofatclips.crawler.model.Strategy;
@@ -69,6 +70,10 @@ public class PersistenceFactory {
 		}
 		
 		thePersistence.setSession(getTheSession());
+		if (thePersistence instanceof ImageStorage) {
+			ScreenshotFactory.setTheImageStorage((ImageStorage)thePersistence);
+		}
+		
 		return thePersistence;
 	}
 
@@ -77,7 +82,7 @@ public class PersistenceFactory {
 	}
 	
 	public boolean resumingPersistence () {
-		return ENABLE_RESUME;
+		return ENABLE_RESUME || (!ACTIVITY_DESCRIPTION_IN_SESSION);
 	}
 
 	public Session getTheSession() {

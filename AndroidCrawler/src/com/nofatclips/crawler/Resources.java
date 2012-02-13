@@ -20,7 +20,6 @@ public class Resources {
 //	public final static Comparator COMPARATOR = new NameComparator();
 //	public final static int SLEEP_AFTER_EVENT = 2000;
 //	public final static int SLEEP_AFTER_RESTART = 2000;
-//	public final static boolean EVENT_WHEN_NO_ID = false; // Whether to inject events on widgets without ID or not
 
 //	public final static String PACKAGE_NAME = "com.blazing_skies.caloriecalculator";
 //	public final static String CLASS_NAME = "com.blazing_skies.caloriecalculator.PreMainActivity";
@@ -28,7 +27,6 @@ public class Resources {
 //	public final static Comparator COMPARATOR = new EditTextComparator();
 //	public final static int SLEEP_AFTER_EVENT = 0;
 //	public final static int SLEEP_AFTER_RESTART = 2000;
-//	public final static boolean EVENT_WHEN_NO_ID = false; // Whether to inject events on widgets without ID or not
 
 //	public final static String PACKAGE_NAME = "com.evancharlton.mileage";
 //	public final static String CLASS_NAME = "com.evancharlton.mileage.Mileage";
@@ -102,7 +100,6 @@ public class Resources {
 //	public final static Comparator COMPARATOR = new ButtonComparator();
 //	public final static int SLEEP_AFTER_EVENT = 10000;
 //	public final static int SLEEP_AFTER_RESTART = 4000;
-//	public final static boolean EVENT_WHEN_NO_ID = false; // Whether to inject events on widgets without ID or not 
 
 //	// API Demos
 //	
@@ -229,7 +226,13 @@ public class Resources {
 	public final static String ACTIVITY_LIST_FILE_NAME = "activities.xml"; // Save state for resume
 	public final static String PARAMETERS_FILE_NAME = "parameters.obj";
 //	public final static String FILE_NAME = "guitree.xml"; // Output
-	
+
+	// Screenshot Parameters
+	public final static boolean SCREENSHOT_FOR_STATES = false; // Performs an image capture of the screen after processing a task
+	public final static boolean SCREENSHOT_ONLY_NEW_STATES = true; // Capture only if comparation was negative - Only relevant if SCREENSHOT_FOR_STATES is true
+//	public final static boolean SCREENSHOT_FOR_TRANSITIONS = false; // Performs an image capture of the screen after firing an event
+//	public final static boolean SCREENSHOT_ONLY_NEW_EVENTS = true; // Capture only for final events - Only relevant if SCREENSHOT_AFTER_EVENTS is true
+
 	// User/Planner Parameters
 	public final static int MAX_EVENTS_PER_WIDGET = 12; // For GroupViews (0 = try all items in the group)
 	public final static int MAX_TASKS_PER_EVENT = 1; // How many input sequences to generate for each event on a widget; 0 = no limit
@@ -245,6 +248,7 @@ public class Resources {
 	public final static InteractorAdapter[] ADDITIONAL_INPUTS = new InteractorAdapter[] {};
 	
 	// More Parameters
+	public final static boolean ACTIVITY_DESCRIPTION_IN_SESSION = true;
 	public final static boolean RETRY_FAILED_TRACES = true; // Crashed and failed traces are retried once in case the failure had an asynchronous cause
 	public final static int SLEEP_ON_THROBBER = 30000; // How long to wait on spinning wheels (in ms -- 0 = don't wait)
 	public final static String XML_BODY_BEGIN = "    <TRACE";

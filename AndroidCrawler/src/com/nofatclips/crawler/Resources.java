@@ -58,7 +58,7 @@ public class Resources {
 	// Wordpress 2 (Beta)
 	public final static String PACKAGE_NAME = "org.wordpress.android";
 	public final static String CLASS_NAME = "org.wordpress.android.Dashboard";
-	public final static String FILE_NAME = "wordpress2.xml"; // Output
+//	public final static String FILE_NAME = "wordpress2.xml"; // Output
 	public final static Comparator COMPARATOR = new CustomWidgetsComparator(EDIT_TEXT, BUTTON, MENU_VIEW, DIALOG_VIEW, LIST_VIEW);
 	public final static int SLEEP_AFTER_EVENT = 6000;
 	public final static int SLEEP_AFTER_RESTART = 1000;
@@ -216,7 +216,8 @@ public class Resources {
 	public final static long PAUSE_AFTER_TIME = 0; // In seconds (0 = no pause)
 	public final static int TRACE_MAX_DEPTH = 0; // Max number of transitions in a trace (0 = no depth limit)
 	public final static boolean CHECK_FOR_TRANSITION = false;
-//	public final static Comparator COMPARATOR = new CustomWidgetsComparator(EDIT_TEXT, BUTTON);
+	public final static boolean EXPLORE_ONLY_NEW_STATES = true;
+//	public final static Comparator COMPARATOR = new NullComparator();
 //	public final static StrategyCriteria[] ADDITIONAL_CRITERIAS = new StrategyCriteria[] {};
 	
 	// Persistence Parameters
@@ -225,7 +226,7 @@ public class Resources {
 	public final static String TASK_LIST_FILE_NAME = "tasklist.xml"; // Save state for resume
 	public final static String ACTIVITY_LIST_FILE_NAME = "activities.xml"; // Save state for resume
 	public final static String PARAMETERS_FILE_NAME = "parameters.obj";
-//	public final static String FILE_NAME = "guitree.xml"; // Output
+	public final static String FILE_NAME = "guitree.xml"; // Output
 
 	// Screenshot Parameters
 	public final static boolean SCREENSHOT_FOR_STATES = false; // Performs an image capture of the screen after processing a task
@@ -248,7 +249,7 @@ public class Resources {
 	public final static InteractorAdapter[] ADDITIONAL_INPUTS = new InteractorAdapter[] {};
 	
 	// More Parameters
-	public final static boolean ACTIVITY_DESCRIPTION_IN_SESSION = true;
+	public final static boolean ACTIVITY_DESCRIPTION_IN_SESSION = false;
 	public final static boolean RETRY_FAILED_TRACES = true; // Crashed and failed traces are retried once in case the failure had an asynchronous cause
 	public final static int SLEEP_ON_THROBBER = 30000; // How long to wait on spinning wheels (in ms -- 0 = don't wait)
 	public final static String XML_BODY_BEGIN = "    <TRACE";

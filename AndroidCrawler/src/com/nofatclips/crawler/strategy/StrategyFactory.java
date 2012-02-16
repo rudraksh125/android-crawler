@@ -19,6 +19,7 @@ public class StrategyFactory {
 	private long maxSeconds = 0;
 	private long pauseSeconds = 0;
 	private boolean checkTransistions = false;
+	private boolean exploreNewStatesOnly = true;
 	private StrategyCriteria[] otherCriterias = new StrategyCriteria[] {};
 	private int pauseTraces;
 	
@@ -40,7 +41,9 @@ public class StrategyFactory {
 	public Strategy getStrategy () {
 		if (useCustomStrategy ()) {
 			CustomStrategy s = new CustomStrategy(this.comparator, this.otherCriterias);
-			s.addCriteria (new NewActivityExplore());
+			if (exploreNewStatesOnly()) {
+				s.addCriteria (new NewActivityExplore());
+			}
 			if (checkMaxTraces()) {
 				s.addCriteria(new MaxStepsTermination(this.maxTraces));
 			}
@@ -70,7 +73,8 @@ public class StrategyFactory {
 	}
 	
 	public boolean useCustomStrategy () {
-		return (checkTransition() || checkForDepth() || checkSessionTime() || hasMoreCriterias() || checkTracesForPause() || checkSessionTimeForPause());
+		return (checkTransition() || checkForDepth() || checkSessionTime() || hasMoreCriterias() 
+				|| checkTracesForPause() || checkSessionTimeForPause() || (!exploreNewStatesOnly()) );
 	}
 	
 	public boolean checkForDepth() {
@@ -88,7 +92,11 @@ public class StrategyFactory {
 	public boolean checkTransition() {
 		return this.checkTransistions;
 	}
-	
+
+	public boolean exploreNewStatesOnly() {
+		return this.exploreNewStatesOnly;
+	}
+
 	public boolean checkSessionTime() {
 		return (this.maxSeconds>0);
 	}
@@ -112,7 +120,11 @@ public class StrategyFactory {
 	public void setCheckTransitions (boolean check) {
 		this.checkTransistions = check;
 	}
-	
+
+	public void setExploreNewOnly (boolean newOnly) {
+		this.exploreNewStatesOnly = newOnly;
+	}
+
 	public void setMaxSeconds (long max) {
 		this.maxSeconds = max;
 	}

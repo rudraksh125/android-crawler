@@ -126,18 +126,22 @@ public abstract class Engine extends ActivityInstrumentationTestCase2 implements
 		getScheduler().addTasks(taskList);
 		
 		// Importing activity list
-		entries = r.readStateFile();
-		List<ActivityState> stateList = new ArrayList<ActivityState>();
-		ActivityState s;
-		for (String state: entries) {
-			sandboxSession.parse(state);
-			e = ((XmlGraph)sandboxSession).getDom().getDocumentElement();
-			s = getAbstractor().importState (e);
-			stateList.add(s);
-			Log.i("nofatclips", "Imported activity state " + s.getId() + " from disk");
-		}
-		for (ActivityState state: stateList) {
-			getStrategy().addState(state);
+		if (getStrategy().getComparator() instanceof StatelessComparator) {
+			Log.i("nofatclips","Stateless comparator: the state file will not be loaded.");
+		} else {
+			entries = r.readStateFile();
+			List<ActivityState> stateList = new ArrayList<ActivityState>();
+			ActivityState s;
+			for (String state: entries) {
+				sandboxSession.parse(state);
+				e = ((XmlGraph)sandboxSession).getDom().getDocumentElement();
+				s = getAbstractor().importState (e);
+				stateList.add(s);
+				Log.i("nofatclips", "Imported activity state " + s.getId() + " from disk");
+			}
+			for (ActivityState state: stateList) {
+				getStrategy().addState(state);
+			}
 		}
 
 		r.loadParameters();

@@ -75,6 +75,13 @@ public class SimplePlanner implements Planner {
 			p.addTask(t);
 		}
 
+		if (ORIENTATION_EVENTS) {
+			evt = getAbstractor().createEvent(null, CHANGE_ORIENTATION);
+			t = getAbstractor().createStep(a, new HashSet<UserInput>(), evt);
+			Log.i("nofatclips", "Created trace to change orientation");
+			p.addTask(t);
+		}
+
 		return p;
 	}
 	

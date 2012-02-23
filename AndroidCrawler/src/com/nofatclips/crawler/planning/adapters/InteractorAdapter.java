@@ -30,14 +30,22 @@ public abstract class InteractorAdapter {
 		setAbstractor (theAbstractor);
 	}
 	
-	public boolean canUseWidget (WidgetState w) {
-		if ( (w.getId().equals("-1"))  && (!doEventWhenNoId() || (w.getName().equals(""))) ) return false;
+	public boolean cannotIdentifyWidget (WidgetState w) {
+		return ( (w.getId().equals("-1"))  && (!doEventWhenNoId() || (w.getName().equals(""))) );
+	}
+	
+	public boolean isVetoedWidget (WidgetState w) {
 		for (String id: getVetoedIds()) {
 			if (w.getId().equals(id)) {
 				Log.d("nofatclips", "Event denied for widget #" + id);
-				return false;
+				return true;
 			}
 		}
+		return false;
+	}
+	
+	public boolean canUseWidget (WidgetState w) {
+		if ( cannotIdentifyWidget(w) || isVetoedWidget(w) ) return false;
 		return (w.isAvailable() && matchClass(w.getSimpleType()));
 	}
 	

@@ -76,7 +76,9 @@ public class Automation implements Robot, Extractor, TaskProcessor, ImageCaptor 
 	
 	public void process (Trace t) {
 		Log.i ("nofatclips", "Restarting");
-		this.restarter.restart();
+		if (FORCE_RESTART) {
+			this.restarter.restart();
+		}
 		afterRestart();
 		extractState();
 		Log.i ("nofatclips", "Playing Trace " + t.getId());

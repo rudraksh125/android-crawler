@@ -270,6 +270,7 @@ public class Resources {
 	public final static InteractorAdapter[] ADDITIONAL_INPUTS = new InteractorAdapter[] {};
 	
 	// More Parameters
+	public final static boolean FORCE_RESTART = false;
 	public final static boolean ACTIVITY_DESCRIPTION_IN_SESSION = true;
 	public final static boolean RETRY_FAILED_TRACES = true; // Crashed and failed traces are retried once in case the failure had an asynchronous cause
 	public final static int SLEEP_ON_THROBBER = 30000; // How long to wait on spinning wheels (in ms -- 0 = don't wait)

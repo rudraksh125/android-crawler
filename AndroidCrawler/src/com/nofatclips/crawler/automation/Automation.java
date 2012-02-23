@@ -14,13 +14,18 @@ import android.graphics.Bitmap;
 //import android.app.Instrumentation;
 import android.test.ActivityInstrumentationTestCase2;
 import android.util.Log;
+import android.view.Display;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.*;
 
 import com.jayway.android.robotium.solo.Solo;
 import com.nofatclips.androidtesting.model.*;
 import com.nofatclips.crawler.model.*;
+
+import static android.content.Context.WINDOW_SERVICE;
+import static android.view.Surface.*;
 
 // Automation implements the methods to interact with the application via the Instrumentation (Robot)
 // and to extract informations from it (Extractor); the Robotium framework is used where possible
@@ -180,6 +185,8 @@ public class Automation implements Robot, Extractor, TaskProcessor, ImageCaptor 
 			solo.sendKey(Solo.MENU);
 		} else if (interactionType.equals(SCROLL_DOWN)) {
 			solo.scrollDown();
+		} else if (interactionType.equals(CHANGE_ORIENTATION)) {
+			changeOrientation();
 		} else if (interactionType.equals(SWAP_TAB) && (value!=null)) {
 			if (v instanceof TabHost) {
 				swapTab ((TabHost)v, value);
@@ -404,6 +411,13 @@ public class Automation implements Robot, Extractor, TaskProcessor, ImageCaptor 
 		wait(SLEEP_AFTER_RESTART);
 		waitOnThrobber();
 		Log.d("nofatclips", "Ready to operate after restarting...");
+	}
+	
+	public void changeOrientation() {
+		Display display = ((WindowManager) this.test.getInstrumentation().getContext().getSystemService(WINDOW_SERVICE)).getDefaultDisplay();
+		int angle = display.getRotation();
+		int newAngle = ((angle==ROTATION_0)||(angle==ROTATION_180))?Solo.LANDSCAPE:Solo.PORTRAIT;
+		solo.setActivityOrientation(newAngle);
 	}
 	
 	public void waitOnThrobber() {

@@ -132,8 +132,7 @@ public class ResumingPersistence extends StepDiskPersistence implements Dispatch
 	
 	public void restoreFile (String fileName) {
 		copy(backup(fileName),fileName);
-	}
-	
+	}	
 	
 	public String backup (String original) {
 		return original + ".bak";

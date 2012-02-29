@@ -84,7 +84,7 @@ public abstract class Engine extends ActivityInstrumentationTestCase2 implements
 	
 	@Override
 	protected void tearDown() throws Exception {
-		if (getStrategy().getTask().isFailed()) {
+		if ((getStrategy().getTask() != null) && (getStrategy().getTask().isFailed())) {
 			getSession().addFailedTrace(getStrategy().getTask());
 		}
 		getPersistence().save();

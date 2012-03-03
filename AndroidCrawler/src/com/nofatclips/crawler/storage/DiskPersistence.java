@@ -175,10 +175,9 @@ public class DiskPersistence implements Persistence, ImageStorage {
 
 	public void registerListener(SaveStateListener listener) { /* do nothing */ }
 
-	public void saveImage(Bitmap image, String fileName) throws IOException {
+	public void saveImage(Bitmap image, String name) throws IOException {
 		FileOutputStream fileOutput = null;
 		OutputStreamWriter streamWriter = null;
-		String name = fileName+".jpg";
 		try {
 			fileOutput = w.openFileOutput(name,ContextWrapper.MODE_WORLD_READABLE);
 			streamWriter = new OutputStreamWriter(fileOutput);
@@ -196,7 +195,11 @@ public class DiskPersistence implements Persistence, ImageStorage {
 			}
 		}
 	}
-
+	
+	public String imageFormat() {
+		return "jpg";
+	}
+ 
 	FileOutputStream fOut = null; 
     OutputStreamWriter osw = null;
     ContextWrapper w = null;

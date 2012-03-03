@@ -52,12 +52,16 @@ public abstract class Engine extends ActivityInstrumentationTestCase2 implements
 			ActivityState baseActivity = getAbstractor().getBaseActivity(); 
 			getStrategy().addState(baseActivity);
 			if (screenshotEnabled()) {
-				ScreenshotFactory.saveScreenshot(baseActivity.getId());
+				takeScreenshot (baseActivity);
+//				String fileName = screenshotName(baseActivity.getUniqueId());
+//				if (ScreenshotFactory.saveScreenshot(fileName)) {
+//					baseActivity.setScreenshot(fileName);
+//				}
 			}
 			planFirstTests(baseActivity);
 		}
 	}
-	
+
 	public void testAndCrawl() {
 		for (Trace theTask: getScheduler()) {
 			GregorianCalendar c=new GregorianCalendar();
@@ -72,7 +76,11 @@ public abstract class Engine extends ActivityInstrumentationTestCase2 implements
 			getPersistence().addTrace(theTask);
 			if (theActivity.getId() != "exit") {
 				if (screenshotNeeded()) {
-					ScreenshotFactory.saveScreenshot(screenshotName(theActivity.getId(),theTask.getId()));
+					takeScreenshot(theActivity);
+//					String fileName = screenshotName(theActivity.getUniqueId());
+//					if (ScreenshotFactory.saveScreenshot(fileName)) {
+//						theActivity.setScreenshot(fileName);
+//					}
 				}
 				if (getStrategy().checkForExploration()) {
 					planTests(theTask, theActivity);
@@ -93,12 +101,8 @@ public abstract class Engine extends ActivityInstrumentationTestCase2 implements
 	}
 	
 	public boolean resume() {
-//		boolean flag = ENABLE_RESUME;
-//		if (!flag) return false;
-		if (!((getPersistence() instanceof ResumingPersistence) && ENABLE_RESUME)) return false;
-//		if (!getPersistence().exists(TASK_LIST_FILE_NAME)) return false;
-//		if (!getPersistence().exists(FILE_NAME)) return false;
-//		if (!getPersistence().exists(ACTIVITY_LIST_FILE_NAME)) throw new Error("Cannot resume previous session: state list not found.");
+		boolean flag = ENABLE_RESUME;
+		if (!((getPersistence() instanceof ResumingPersistence) && flag)) return false;
 		
 		ResumingPersistence r = (ResumingPersistence)getPersistence();
 		if (!r.canHasResume()) return false;
@@ -274,11 +278,19 @@ public abstract class Engine extends ActivityInstrumentationTestCase2 implements
 		return !(getStrategy().isLastComparationPositive()); // Function enabled for new states only: return true if comparation was false
 	}
 	
-	public String screenshotName (String stateId, String traceId) {
-		String suffix = (SCREENSHOT_ONLY_NEW_STATES)?"":("_t"+traceId);
-		return stateId+suffix;
+	public String screenshotName (String stateId) {
+//		String suffix = (SCREENSHOT_ONLY_NEW_STATES)?"":("_t"+traceId);
+//		return stateId+suffix;
+		return stateId + "." + ScreenshotFactory.getFileExtension();
 	}
 	
+	private void takeScreenshot(ActivityState theActivity) {
+		String fileName = screenshotName(theActivity.getUniqueId());
+		if (ScreenshotFactory.saveScreenshot(fileName)) {
+			theActivity.setScreenshot(fileName);
+		}
+	}
+
 	public final static String ACTOR_NAME = "Engine";
 	
 	private Robot theRobot;

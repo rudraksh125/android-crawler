@@ -28,7 +28,7 @@ public class ScreenshotFactory {
 		theImageCaptor = theCaptor;
 	}
 
-	public static void saveScreenshot(String id) {
+	public static boolean saveScreenshot(String id) {
 		Bitmap b = theImageCaptor.captureImage();
 		try {
 			theImageStorage.saveImage(b, id);
@@ -36,7 +36,12 @@ public class ScreenshotFactory {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		return true;
 		
+	}
+	
+	public static String getFileExtension() {
+		return theImageStorage.imageFormat();
 	}
 	
 }

@@ -79,7 +79,8 @@ public class GuiTreeAbstractor implements Abstractor, FilterHandler, SaveStateLi
 		ActivityState newActivity = (start)?StartActivity.createActivity(getTheSession()):FinalActivity.createActivity(getTheSession());
 		newActivity.setName(desc.getActivityName());
 		newActivity.setTitle(desc.getActivityTitle());
-		newActivity.setId(getUniqueActivityId());
+		newActivity.setUniqueId(getUniqueActivityId());
+		newActivity.setId(newActivity.getUniqueId());
 		for (Filter f: this.filters) {
 			f.clear();
 		}
@@ -194,26 +195,10 @@ public class GuiTreeAbstractor implements Abstractor, FilterHandler, SaveStateLi
 
 	public void setStartActivity (Transition theStep, ActivityState theActivity) {
 		theStep.setStartActivity ((ACTIVITY_DESCRIPTION_IN_SESSION)?theActivity:stubActivity(theActivity));
-//		if (ACTIVITY_DESCRIPTION_IN_SESSION) {
-//			theStep.setStartActivity ((ACTIVITY_DESCRIPTION_IN_SESSION)?theActivity:stubActivity(theActivity));
-//			return;
-//		}
-////		TestCaseActivity theStub = ((TestCaseActivity)theActivity).clone();
-////		theStub.resetDescription();
-////		theStub.setDescriptionId(theActivity.getId());
-//		theStep.setStartActivity (stubActivity(theActivity));
 	}
 
 	public void setFinalActivity (Trace theTask, ActivityState theActivity) {
 		theTask.setFinalActivity ((ACTIVITY_DESCRIPTION_IN_SESSION)?theActivity:stubActivity(theActivity));
-//		if (ACTIVITY_DESCRIPTION_IN_SESSION) {
-//			theTask.setFinalActivity (theActivity);
-//			return;
-//		}
-////		TestCaseActivity theStub = ((TestCaseActivity)theActivity).clone();
-////		theStub.resetDescription();
-////		theStub.setDescriptionId(theActivity.getId());
-//		theTask.setFinalActivity (stubActivity(theActivity));
 	}
 	
 	private TestCaseActivity stubActivity (ActivityState theActivity) {

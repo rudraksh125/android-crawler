@@ -124,7 +124,6 @@ public class Automation implements Robot, Extractor, TaskProcessor, ImageCaptor 
 		this.currentEvent = null;
 	}
 
-	@Override
 	public void setInput(UserInput i) {
 		Log.d("nofatclips", "Setting input: type= " + i.getType() + " id=" + i.getWidgetId() + " value="+ i.getValue());
 		setInput (Integer.parseInt(i.getWidgetId()), i.getType(), i.getValue());
@@ -363,10 +362,6 @@ public class Automation implements Robot, Extractor, TaskProcessor, ImageCaptor 
 		Log.i("nofatclips", "Retrieving widgets");
 		for (View w: solo.getCurrentViews()) {
 			String text = (w instanceof TextView)?": "+((TextView)w).getText().toString():"";
-//			int xy[] = new int[2];
-//			int xy2[] = new int[2];
-//			w.getLocationInWindow(xy);
-//			w.getLocationOnScreen(xy2);
 			Log.d("nofatclips", "Found widget: id=" + w.getId() + " ("+ w.toString() + ")" + text); // + " in window at [" + xy[0] + "," + xy[1] + "] on screen at [" + xy2[0] + "," + xy2[1] +"]");
 			allViews.add(w);
 			if (w.getId()>0) {
@@ -545,17 +540,26 @@ public class Automation implements Robot, Extractor, TaskProcessor, ImageCaptor 
 		}
 		
 		public Bitmap captureImage() {
-			View view = solo.getViews().get(0);
-			boolean flag = view.isDrawingCacheEnabled();
-			if (!flag) {
-				view.setDrawingCacheEnabled(true);
-			}
-            view.buildDrawingCache();
-            Bitmap b = view.getDrawingCache();
+			final View view = solo.getViews().get(0);
+			final boolean flag = view.isDrawingCacheEnabled();
+			getActivity().runOnUiThread(new Runnable() {
+				public void run() {
+					if (!flag) {
+						view.setDrawingCacheEnabled(true);
+					}
+		            view.buildDrawingCache();
+				}
+			});
+			test.getInstrumentation().waitForIdleSync();
+			Bitmap b = view.getDrawingCache();
             b = b.copy(b.getConfig(), false);
-			if (!flag) {
-				view.setDrawingCacheEnabled(false);
-			}
+			getActivity().runOnUiThread(new Runnable() {
+				public void run() {
+					if (!flag) {
+						view.setDrawingCacheEnabled(false);
+					}
+				}
+			});
 			return b;
 		}
 

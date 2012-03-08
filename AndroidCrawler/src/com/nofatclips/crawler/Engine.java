@@ -53,10 +53,6 @@ public abstract class Engine extends ActivityInstrumentationTestCase2 implements
 			getStrategy().addState(baseActivity);
 			if (screenshotEnabled()) {
 				takeScreenshot (baseActivity);
-//				String fileName = screenshotName(baseActivity.getUniqueId());
-//				if (ScreenshotFactory.saveScreenshot(fileName)) {
-//					baseActivity.setScreenshot(fileName);
-//				}
 			}
 			planFirstTests(baseActivity);
 		}
@@ -73,19 +69,15 @@ public abstract class Engine extends ActivityInstrumentationTestCase2 implements
 			getStrategy().compareState(theActivity);
 			if (!getStrategy().checkForTransition()) continue;
 			getAbstractor().setFinalActivity (theTask, theActivity);
-			getPersistence().addTrace(theTask);
 			if (theActivity.getId() != "exit") {
 				if (screenshotNeeded()) {
 					takeScreenshot(theActivity);
-//					String fileName = screenshotName(theActivity.getUniqueId());
-//					if (ScreenshotFactory.saveScreenshot(fileName)) {
-//						theActivity.setScreenshot(fileName);
-//					}
 				}
 				if (getStrategy().checkForExploration()) {
 					planTests(theTask, theActivity);
 				}
 			}
+			getPersistence().addTrace(theTask);
 			if ( (getStrategy().checkForTermination()) || (getStrategy().checkForPause()) ) break;
 		}
 	}
@@ -279,8 +271,6 @@ public abstract class Engine extends ActivityInstrumentationTestCase2 implements
 	}
 	
 	public String screenshotName (String stateId) {
-//		String suffix = (SCREENSHOT_ONLY_NEW_STATES)?"":("_t"+traceId);
-//		return stateId+suffix;
 		return stateId + "." + ScreenshotFactory.getFileExtension();
 	}
 	

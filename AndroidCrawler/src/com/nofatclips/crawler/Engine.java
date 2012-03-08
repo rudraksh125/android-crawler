@@ -67,12 +67,12 @@ public abstract class Engine extends ActivityInstrumentationTestCase2 implements
 			ActivityDescription d = getExtractor().describeActivity();
 			ActivityState theActivity = getAbstractor().createActivity(d);
 			getStrategy().compareState(theActivity);
+			if (screenshotNeeded()) {
+				takeScreenshot(theActivity);
+			}
 			if (!getStrategy().checkForTransition()) continue;
 			getAbstractor().setFinalActivity (theTask, theActivity);
 			if (theActivity.getId() != "exit") {
-				if (screenshotNeeded()) {
-					takeScreenshot(theActivity);
-				}
 				if (getStrategy().checkForExploration()) {
 					planTests(theTask, theActivity);
 				}
@@ -275,6 +275,7 @@ public abstract class Engine extends ActivityInstrumentationTestCase2 implements
 	}
 	
 	private void takeScreenshot(ActivityState theActivity) {
+		if (theActivity.getId().equals("exit")) return;
 		String fileName = screenshotName(theActivity.getUniqueId());
 		if (ScreenshotFactory.saveScreenshot(fileName)) {
 			theActivity.setScreenshot(fileName);

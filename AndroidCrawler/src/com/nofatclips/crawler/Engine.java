@@ -6,10 +6,7 @@ import java.util.List;
 
 import org.w3c.dom.Element;
 
-import com.nofatclips.androidtesting.model.ActivityState;
-import com.nofatclips.androidtesting.model.Session;
-import com.nofatclips.androidtesting.model.Trace;
-import com.nofatclips.androidtesting.model.Transition;
+import com.nofatclips.androidtesting.model.*;
 import com.nofatclips.androidtesting.xml.XmlGraph;
 import com.nofatclips.crawler.automation.ScreenshotFactory;
 import com.nofatclips.crawler.model.*;
@@ -72,12 +69,10 @@ public abstract class Engine extends ActivityInstrumentationTestCase2 implements
 			}
 			if (!getStrategy().checkForTransition()) continue;
 			getAbstractor().setFinalActivity (theTask, theActivity);
-			if (theActivity.getId() != "exit") {
-				if (getStrategy().checkForExploration()) {
-					planTests(theTask, theActivity);
-				}
-			}
 			getPersistence().addTrace(theTask);
+			if (!(theActivity.isExit()) && getStrategy().checkForExploration()) {
+				planTests(theTask, theActivity);
+			}
 			if ( (getStrategy().checkForTermination()) || (getStrategy().checkForPause()) ) break;
 		}
 	}
@@ -275,7 +270,7 @@ public abstract class Engine extends ActivityInstrumentationTestCase2 implements
 	}
 	
 	private void takeScreenshot(ActivityState theActivity) {
-		if (theActivity.getId().equals("exit")) return;
+		if (theActivity.isExit()) return;
 		String fileName = screenshotName(theActivity.getUniqueId());
 		if (ScreenshotFactory.saveScreenshot(fileName)) {
 			theActivity.setScreenshot(fileName);

@@ -14,15 +14,9 @@ import android.content.ContextWrapper;
 import android.util.Log;
 
 import com.nofatclips.androidtesting.guitree.FinalActivity;
-import com.nofatclips.androidtesting.model.ActivityState;
-import com.nofatclips.androidtesting.model.Session;
-import com.nofatclips.androidtesting.model.Trace;
+import com.nofatclips.androidtesting.model.*;
 import com.nofatclips.androidtesting.xml.ElementWrapper;
-import com.nofatclips.crawler.model.DispatchListener;
-import com.nofatclips.crawler.model.SaveStateListener;
-import com.nofatclips.crawler.model.SessionParams;
-import com.nofatclips.crawler.model.StateDiscoveryListener;
-import com.nofatclips.crawler.model.TerminationListener;
+import com.nofatclips.crawler.model.*;
 
 public class ResumingPersistence extends StepDiskPersistence implements DispatchListener, StateDiscoveryListener, TerminationListener {
 
@@ -51,21 +45,14 @@ public class ResumingPersistence extends StepDiskPersistence implements Dispatch
 		super.addTrace(t);
 	}
 	
-	@Override
 	public void onNewTaskAdded (Trace t) { /* do nothing */ }
 	
-	@Override
 	public void onTaskDispatched(Trace t) {
 		t.setFailed(true);
 		saveTaskList();
 		saveParameters();
 	}
 	
-//	@Override
-//	public String generate () {
-//		return super.generate() + System.getProperty("line.separator");
-//	}
-//	
 	public void saveTaskList() {
 		// No tasks to save
 		if (noTasks()) {
@@ -252,8 +239,6 @@ public class ResumingPersistence extends StepDiskPersistence implements Dispatch
 
 	@Override
 	public boolean isLast() {
-//		Log.e ("nofatclips", "super.isLast() = " + (super.isLast()?"true":"false"));
-//		Log.e ("nofatclips", "noTasks() = " + (noTasks()?"true":"false"));
 		return ( (super.isLast()) && noTasks() );
 	}
 	

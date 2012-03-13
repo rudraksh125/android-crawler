@@ -85,7 +85,7 @@ public class GuiTreeAbstractor implements Abstractor, FilterHandler, SaveStateLi
 			f.clear();
 		}
 		boolean hasDescription = updateDescription(newActivity, desc, false);
-		if (!hasDescription) newActivity.setId("exit");
+		if (!hasDescription) newActivity.markAsExit();
 		for (AbstractorListener listener: this.theListeners) {
 			listener.onNewActivity(newActivity);
 		}

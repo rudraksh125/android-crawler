@@ -3,9 +3,7 @@ package com.nofatclips.crawler.planning.adapters;
 import java.util.List;
 import java.util.Random;
 
-import com.nofatclips.androidtesting.model.UserEvent;
-import com.nofatclips.androidtesting.model.UserInput;
-import com.nofatclips.androidtesting.model.WidgetState;
+import com.nofatclips.androidtesting.model.*;
 import com.nofatclips.crawler.model.Abstractor;
 
 public abstract class RandomInteractorAdapter extends InteractorAdapter implements RandomInteractor {
@@ -68,7 +66,9 @@ public abstract class RandomInteractorAdapter extends InteractorAdapter implemen
 	}
 	
 	public int getValue (WidgetState w) {
-		return getRandomGenerator().nextInt(getMax(w)-getMin(w)) + getMin(w);
+//		Log.e("nofatclips","getValue: #" + w.getId() + " (" + w.getSimpleType() + ") has " + w.getCount());
+		int delta = getMax(w)-getMin(w);
+		return (delta>0)?(getRandomGenerator().nextInt(delta) + getMin(w)):getMin(w);
 	}
 
 	@Override

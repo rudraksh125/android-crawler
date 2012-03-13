@@ -198,6 +198,8 @@ public class Automation implements Robot, Extractor, TaskProcessor, ImageCaptor 
 			selectListItem((ListView)v, value);
 		} else if (interactionType.equals(LIST_LONG_SELECT)) {
 			selectListItem((ListView)v, value, true);
+		} else if (interactionType.equals(SPINNER_SELECT)) {
+			selectSpinnerItem((Spinner)v, value);
 		} else if (interactionType.equals(TYPE_TEXT)) {
 			solo.enterText((EditText)v, value);
 		} else if (interactionType.equals(SET_BAR)) {
@@ -257,7 +259,7 @@ public class Automation implements Robot, Extractor, TaskProcessor, ImageCaptor 
 				t.setCurrentTab(n);
 			}
 		});
-		this.test.getInstrumentation().waitForIdleSync();
+		sync();
 		describeCurrentEvent(t.getTabWidget().getChildAt(n));
 	}
 
@@ -280,7 +282,7 @@ public class Automation implements Robot, Extractor, TaskProcessor, ImageCaptor 
 				l.setSelection(n);
 			}
 		});
-		this.test.getInstrumentation().waitForIdleSync();
+		sync();
 		if (n<l.getCount()/2) {
 			solo.sendKey(Solo.DOWN);
 			solo.sendKey(Solo.UP);
@@ -288,7 +290,7 @@ public class Automation implements Robot, Extractor, TaskProcessor, ImageCaptor 
 			solo.sendKey(Solo.UP);			
 			solo.sendKey(Solo.DOWN);
 		}
-		this.test.getInstrumentation().waitForIdleSync();
+		sync();
 		View v = l.getSelectedView();
 		if (longClick) {
 			longClick(v);
@@ -297,7 +299,50 @@ public class Automation implements Robot, Extractor, TaskProcessor, ImageCaptor 
 		}
 //		describeCurrentEvent(v);
 	}
-	
+
+	private void selectSpinnerItem (Spinner l, String item) {
+		selectSpinnerItem (l, Integer.valueOf(item));
+	}
+
+	private void selectSpinnerItem (final Spinner s, int num) {
+		assertNotNull(s, "Cannon press spinner item: the spinner does not exist");
+//		final int n = Math.min(s.getCount(), Math.max(1,num))-1;
+		requestFocus(s);
+		Log.i("nofatclips", "Clicking the spinner view");
+		click(s);
+		sync();
+//		wait(2000);
+//		extractState();
+//		Log.i("nofatclips", solo.getCurrentListViews().get(0).getId()+" = 16908823");
+//		Log.i("nofatclips",((ListView)getWidget(16908823)).getCount()+" - " + s.getCount());
+		selectListItem(solo.getCurrentListViews().get(0), num, false);
+//		Log.i("nofatclips", "Swapping to spinner item " + num);
+//		solo.sendKey(Solo.DOWN);
+//		getActivity().runOnUiThread(new Runnable() {
+//			public void run() {
+//				s.setSelection(n,true);
+//			}
+//		});
+//		sync();
+//		if (n<s.getCount()/2) {
+//			solo.sendKey(Solo.DOWN);
+//			solo.sendKey(Solo.UP);
+//		} else {
+//			solo.sendKey(Solo.UP);			
+//			solo.sendKey(Solo.DOWN);
+//		}
+//		sync();
+//		Log.i("nofatclips", "Clicking on spinner item " + num);
+//		View v = s.getSelectedView();
+//		click(v);
+//		if (longClick) {
+//			longClick(v);
+//		} else {
+//			click (v);
+//		}
+//		describeCurrentEvent(v);
+	}
+
 	protected void assertNotNull (final View v) {
 		ActivityInstrumentationTestCase2.assertNotNull(v);
 	}
@@ -312,17 +357,18 @@ public class Automation implements Robot, Extractor, TaskProcessor, ImageCaptor 
 				v.requestFocus();		
 			}
 		});
+		sync();
 	}
 	
 	protected void click (View v) {
-		assertNotNull(v,"Cannon click: the widget does not exist");
+		assertNotNull(v,"Cannot click: the widget does not exist");
 //		android.test.TouchUtils.clickView(this.test, v);
 		describeCurrentEvent(v);
 		solo.clickOnView(v);
 	}
 	
 	protected void longClick (View v) {
-		assertNotNull(v, "Cannon longClick: the widget does not exist");
+		assertNotNull(v, "Cannot longClick: the widget does not exist");
 		describeCurrentEvent(v);
 		solo.clickLongOnView(v);
 	}
@@ -408,6 +454,8 @@ public class Automation implements Robot, Extractor, TaskProcessor, ImageCaptor 
 		wait(SLEEP_AFTER_RESTART);
 		waitOnThrobber();
 		Log.d("nofatclips", "Ready to operate after restarting...");
+		solo.clickOnText("Graphics");
+		wait (SLEEP_AFTER_EVENT);
 	}
 	
 	public void changeOrientation() {
@@ -439,7 +487,7 @@ public class Automation implements Robot, Extractor, TaskProcessor, ImageCaptor 
 				}
 			}
 		} while (flag && (sleepTime>0));
-		this.test.getInstrumentation().waitForIdleSync();
+		sync();
 	}
 	
 	public String getAppName () {
@@ -492,6 +540,10 @@ public class Automation implements Robot, Extractor, TaskProcessor, ImageCaptor 
 	
 	public Bitmap captureImage() {
 		return this.imageCaptor.captureImage();
+	}
+	
+	public void sync() {
+		this.test.getInstrumentation().waitForIdleSync();
 	}
 	
 	// The TrivialExtractor uses the same methods available in Automation to create
@@ -550,7 +602,7 @@ public class Automation implements Robot, Extractor, TaskProcessor, ImageCaptor 
 		            view.buildDrawingCache();
 				}
 			});
-			test.getInstrumentation().waitForIdleSync();
+			sync();
 			Bitmap b = view.getDrawingCache();
             b = b.copy(b.getConfig(), false);
 			getActivity().runOnUiThread(new Runnable() {

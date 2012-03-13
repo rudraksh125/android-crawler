@@ -176,7 +176,12 @@ public class UserFactory {
 		// Inputs - Edit Text
 		RandomEditor re = (customizeInput(TYPE_TEXT))?new RandomEditor(typesForInput(TYPE_TEXT)):new RandomEditor();
 		re.setEventWhenNoId(false);
-		u.addInput (addVetoes(c2), addVetoes(sl), addVetoes(re));
+
+		// Inputs - Spinner
+		RandomSpinnerSelector rss = (customizeInput(SPINNER_SELECT))?new RandomSpinnerSelector(typesForInput(SPINNER_SELECT)):new RandomSpinnerSelector();
+		rss.setEventWhenNoId(false);
+		
+		u.addInput (addVetoes(c2), addVetoes(sl), addVetoes(re),addVetoes(rss));
 		
 		// Addiotional Inputs
 		for (InteractorAdapter i: ADDITIONAL_INPUTS) {

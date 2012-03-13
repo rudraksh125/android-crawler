@@ -37,15 +37,16 @@ public class Slider extends RandomInteractorAdapter {
 		setMin(minValue);
 	}
 
-	@Override
 	public String getInteractionType() {
 		return SET_BAR;
 	}
 	
+	@Override
 	public int getMin () {
 		return 0;
 	}
 	
+	@Override
 	public int getMax(WidgetState w) {
 		return w.getCount();
 	}

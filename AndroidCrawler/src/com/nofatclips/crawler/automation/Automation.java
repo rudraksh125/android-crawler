@@ -454,8 +454,6 @@ public class Automation implements Robot, Extractor, TaskProcessor, ImageCaptor 
 		wait(SLEEP_AFTER_RESTART);
 		waitOnThrobber();
 		Log.d("nofatclips", "Ready to operate after restarting...");
-		solo.clickOnText("Graphics");
-		wait (SLEEP_AFTER_EVENT);
 	}
 	
 	public void changeOrientation() {

@@ -23,9 +23,8 @@ public class Resources {
 
 //	public final static String PACKAGE_NAME = "com.blazing_skies.caloriecalculator";
 //	public final static String CLASS_NAME = "com.blazing_skies.caloriecalculator.PreMainActivity";
-//	public final static String FILE_NAME = "calorie.xml"; // Output
 //	public final static Comparator COMPARATOR = new EditTextComparator();
-//	public final static int SLEEP_AFTER_EVENT = 0;
+//	public final static int SLEEP_AFTER_EVENT = 300;
 //	public final static int SLEEP_AFTER_RESTART = 2000;
 
 //	public final static String PACKAGE_NAME = "com.evancharlton.mileage";
@@ -55,25 +54,25 @@ public class Resources {
 //		new AfterEventDontExplore("Remove Blog", "Add"),
 //	};
 
-//	// Wordpress 2 (Beta)
-//	public final static String PACKAGE_NAME = "org.wordpress.android";
-//	public final static String CLASS_NAME = "org.wordpress.android.Dashboard";
-////	public final static String FILE_NAME = "wordpress2.xml"; // Output
-//	public final static Comparator COMPARATOR = new CustomWidgetsComparator(EDIT_TEXT, BUTTON, MENU_VIEW, DIALOG_VIEW, LIST_VIEW);
-//	public final static int SLEEP_AFTER_EVENT = 6000;
-//	public final static int SLEEP_AFTER_RESTART = 1000;
-//	public final static StrategyCriteria[] ADDITIONAL_CRITERIAS = new StrategyCriteria[] {
-//		new AfterEventDontExplore("Remove Blog"),
-//		new AfterWidgetDontExplore (2131165200),
-//	};
-//	static {
-////		UserFactory.addEvent(CLICK, BUTTON, LINEAR_LAYOUT);
-//		UserFactory.denyInteractionOnIds(TYPE_TEXT, 2131165215, 2131165217); // Don't change user and password
-//		UserFactory.denyInteractionOnIds(CLICK, 2131165204, 2131165351); // Don't click Linear Layout container, don't check Geotag Posts
-//	}
-//	//	public final static InteractorAdapter[] ADDITIONAL_INPUTS = new InteractorAdapter[] { // Username and password
-//	//	new FixedValueEditor().addIdValuePair(2131165215, "").addIdValuePair(2131165217, ""),
-//	//};
+	// Wordpress 2 (Beta)
+	public final static String PACKAGE_NAME = "org.wordpress.android";
+	public final static String CLASS_NAME = "org.wordpress.android.Dashboard";
+//	public final static String FILE_NAME = "wordpress2.xml"; // Output
+	public final static Comparator COMPARATOR = new CustomWidgetsComparator(EDIT_TEXT, BUTTON, MENU_VIEW, DIALOG_VIEW, LIST_VIEW);
+	public final static int SLEEP_AFTER_EVENT = 3000;
+	public final static int SLEEP_AFTER_RESTART = 1000;
+	public final static StrategyCriteria[] ADDITIONAL_CRITERIAS = new StrategyCriteria[] {
+		new AfterEventDontExplore("Remove Blog"),
+		new AfterWidgetDontExplore (2131165200),
+	};
+	static {
+		UserFactory.addEvent(CLICK, BUTTON, LINEAR_LAYOUT);
+		UserFactory.denyInteractionOnIds(TYPE_TEXT, 2131165215, 2131165217); // Don't change user and password
+		UserFactory.denyInteractionOnIds(CLICK, 2131165204, 2131165351); // Don't click Linear Layout container, don't check Geotag Posts
+	}
+	//	public final static InteractorAdapter[] ADDITIONAL_INPUTS = new InteractorAdapter[] { // Username and password
+	//	new FixedValueEditor().addIdValuePair(2131165215, "").addIdValuePair(2131165217, ""),
+	//};
 
 //	public final static String PACKAGE_NAME = "com.bwx.bequick";
 //	public final static String CLASS_NAME = "com.bwx.bequick.ShowSettingsActivity";
@@ -105,7 +104,6 @@ public class Resources {
 //	
 //	public final static String PACKAGE_NAME = "com.example.android.apis";
 //	public final static String CLASS_NAME = "com.example.android.apis.ApiDemos";
-//	public final static String FILE_NAME = "apidemos.xml"; // Output
 //	public final static Comparator COMPARATOR = new CustomWidgetsDeepComparator(TEXT_VIEW, DIALOG_VIEW, MENU_VIEW, BUTTON);
 //	public final static int SLEEP_AFTER_EVENT = 2000;
 //	public final static int SLEEP_AFTER_RESTART = 500;
@@ -200,10 +198,9 @@ public class Resources {
 
 //	public final static String PACKAGE_NAME = "ee.smkv.calc.loan";
 //	public final static String CLASS_NAME = "ee.smkv.calc.loan.MainActivity";
-//	public final static String FILE_NAME = "loan.xml"; // Output
 //	public final static Comparator COMPARATOR = new CustomWidgetsComparator(TEXT_VIEW, DIALOG_VIEW, MENU_VIEW, BUTTON);
 //	public final static int SLEEP_AFTER_EVENT = 2000;
-//	public final static int SLEEP_AFTER_RESTART = 0;
+//	public final static int SLEEP_AFTER_RESTART = 500;
 
 //	// TomDroid
 //	public final static String PACKAGE_NAME = "org.tomdroid";
@@ -218,12 +215,12 @@ public class Resources {
 //		new FixedValueEditor().addIdValuePair(16908291, "\r\n"),
 //	};
 
-	// TomDroid
-	public final static String PACKAGE_NAME = "aarddict.android";
-	public final static String CLASS_NAME = "aarddict.android.LookupActivity";
-	public final static Comparator COMPARATOR = new CustomWidgetsComparator(EDIT_TEXT, BUTTON, MENU_VIEW, DIALOG_VIEW, LIST_VIEW);
-	public final static int SLEEP_AFTER_EVENT = 6000;
-	public final static int SLEEP_AFTER_RESTART = 1000;
+//	// TomDroid
+//	public final static String PACKAGE_NAME = "aarddict.android";
+//	public final static String CLASS_NAME = "aarddict.android.LookupActivity";
+//	public final static Comparator COMPARATOR = new CustomWidgetsComparator(EDIT_TEXT, BUTTON, MENU_VIEW, DIALOG_VIEW, LIST_VIEW);
+//	public final static int SLEEP_AFTER_EVENT = 6000;
+//	public final static int SLEEP_AFTER_RESTART = 6000;
 
 	/*
 	 * 				Default Parameters
@@ -234,11 +231,11 @@ public class Resources {
 	public final static int PAUSE_AFTER_TRACES = 0; // After performing this amount of traces, the crawler pauses (0 = no pause)
 	public final static long MAX_TIME_CRAWLING = 0; // In seconds (0 = no time limit)
 	public final static long PAUSE_AFTER_TIME = 0; // In seconds (0 = no pause)
-	public final static int TRACE_MAX_DEPTH = 3; // Max number of transitions in a trace (0 = no depth limit)
+	public final static int TRACE_MAX_DEPTH = 0; // Max number of transitions in a trace (0 = no depth limit)
 	public final static boolean CHECK_FOR_TRANSITION = false;
 	public final static boolean EXPLORE_ONLY_NEW_STATES = true;
 //	public final static Comparator COMPARATOR = new NullComparator();
-	public final static StrategyCriteria[] ADDITIONAL_CRITERIAS = new StrategyCriteria[] {};
+//	public final static StrategyCriteria[] ADDITIONAL_CRITERIAS = new StrategyCriteria[] {};
 	
 	// Persistence Parameters
 	public final static int MAX_TRACES_IN_RAM = 0; // After performing this amount of traces, the crawler saves to disk, empties the session and continues (0 = keep all in RAM)
@@ -250,7 +247,7 @@ public class Resources {
 
 	// Screenshot Parameters
 	public final static boolean SCREENSHOT_FOR_STATES = false; // Performs an image capture of the screen after processing a task
-	public final static boolean SCREENSHOT_ONLY_NEW_STATES = true; // Capture only if comparation was negative - Only relevant if SCREENSHOT_FOR_STATES is true
+	public final static boolean SCREENSHOT_ONLY_NEW_STATES = false; // Capture only if comparation was negative - Only relevant if SCREENSHOT_FOR_STATES is true
 //	public final static boolean SCREENSHOT_FOR_TRANSITIONS = false; // Performs an image capture of the screen after firing an event
 //	public final static boolean SCREENSHOT_ONLY_NEW_EVENTS = true; // Capture only for final events - Only relevant if SCREENSHOT_AFTER_EVENTS is true
 
@@ -259,10 +256,10 @@ public class Resources {
 	public final static int MAX_TASKS_PER_EVENT = 1; // How many input sequences to generate for each event on a widget; 0 = no limit
 	public final static boolean EVENT_WHEN_NO_ID = false; // Whether to inject events on widgets without ID or not
 	public final static boolean BACK_BUTTON_EVENT = true;
-	public final static boolean MENU_EVENTS = true;
+	public final static boolean MENU_EVENTS = false;
 	public final static boolean ORIENTATION_EVENTS = true;
 	public final static boolean TAB_EVENTS_START_ONLY = true; // true -> click on tabs only on the start activity
-	public final static boolean LONG_CLICK_LIST_EVENT = true;
+	public final static boolean LONG_CLICK_LIST_EVENT = false;
 	public final static boolean LONG_CLICK_EVENT = false;
 	public final static boolean SCROLL_DOWN_EVENT = false;
 	public final static long RANDOM_SEED = 93874383493L; // 0 = Random
@@ -270,9 +267,10 @@ public class Resources {
 	public final static InteractorAdapter[] ADDITIONAL_INPUTS = new InteractorAdapter[] {};
 	
 	// More Parameters
-	public final static boolean FORCE_RESTART = false;
-	public final static boolean ACTIVITY_DESCRIPTION_IN_SESSION = true;
-	public final static boolean RETRY_FAILED_TRACES = true; // Crashed and failed traces are retried once in case the failure had an asynchronous cause
+	public final static boolean IN_AND_OUT_FOCUS = true;
+	public final static boolean FORCE_RESTART = true;
+	public final static boolean ACTIVITY_DESCRIPTION_IN_SESSION = false;
+	public final static boolean RETRY_FAILED_TRACES = false; // Crashed and failed traces are retried once in case the failure had an asynchronous cause
 	public final static int SLEEP_ON_THROBBER = 30000; // How long to wait on spinning wheels (in ms -- 0 = don't wait)
 	public final static String XML_BODY_BEGIN = "    <TRACE";
 	public final static String XML_BODY_END = "/TRACE>";

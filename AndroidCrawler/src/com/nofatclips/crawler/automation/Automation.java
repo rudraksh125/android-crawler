@@ -176,6 +176,9 @@ public class Automation implements Robot, Extractor, TaskProcessor, ImageCaptor 
 	}
 	
 	private void injectInteraction (View v, String interactionType, String value) {
+		if (v!=null) {
+			requestView(v);
+		}
 		if (interactionType.equals(CLICK)) {
 			click (v);
 		} else if (interactionType.equals(LONG_CLICK)) {
@@ -306,41 +309,11 @@ public class Automation implements Robot, Extractor, TaskProcessor, ImageCaptor 
 
 	private void selectSpinnerItem (final Spinner s, int num) {
 		assertNotNull(s, "Cannon press spinner item: the spinner does not exist");
-//		final int n = Math.min(s.getCount(), Math.max(1,num))-1;
-		requestFocus(s);
+//		requestFocus(s);
 		Log.i("nofatclips", "Clicking the spinner view");
 		click(s);
 		sync();
-//		wait(2000);
-//		extractState();
-//		Log.i("nofatclips", solo.getCurrentListViews().get(0).getId()+" = 16908823");
-//		Log.i("nofatclips",((ListView)getWidget(16908823)).getCount()+" - " + s.getCount());
 		selectListItem(solo.getCurrentListViews().get(0), num, false);
-//		Log.i("nofatclips", "Swapping to spinner item " + num);
-//		solo.sendKey(Solo.DOWN);
-//		getActivity().runOnUiThread(new Runnable() {
-//			public void run() {
-//				s.setSelection(n,true);
-//			}
-//		});
-//		sync();
-//		if (n<s.getCount()/2) {
-//			solo.sendKey(Solo.DOWN);
-//			solo.sendKey(Solo.UP);
-//		} else {
-//			solo.sendKey(Solo.UP);			
-//			solo.sendKey(Solo.DOWN);
-//		}
-//		sync();
-//		Log.i("nofatclips", "Clicking on spinner item " + num);
-//		View v = s.getSelectedView();
-//		click(v);
-//		if (longClick) {
-//			longClick(v);
-//		} else {
-//			click (v);
-//		}
-//		describeCurrentEvent(v);
 	}
 
 	protected void assertNotNull (final View v) {
@@ -351,6 +324,10 @@ public class Automation implements Robot, Extractor, TaskProcessor, ImageCaptor 
 		ActivityInstrumentationTestCase2.assertNotNull(errorMessage, v);
 	}
 
+	public static boolean isInAndOutFocusEnabled() {
+		return (IN_AND_OUT_FOCUS);
+	}		
+
 	protected void requestFocus (final View v) {
 		getActivity().runOnUiThread(new Runnable() {
 			public void run() {
@@ -358,6 +335,20 @@ public class Automation implements Robot, Extractor, TaskProcessor, ImageCaptor 
 			}
 		});
 		sync();
+	}
+	
+	// Scroll until the view is on the screen if IN_AND_OUT_OF_FOCUS is enabled or if the force parameter is true 
+	protected void requestView (final View v, boolean force) {
+		if (force || isInAndOutFocusEnabled()) {
+			home();
+			solo.sendKey(Solo.UP); // Solo.waitForView() requires a widget to be focused		
+			solo.waitForView(v, 1000, true);
+		}
+		requestFocus(v);
+	}		
+
+	protected void requestView (final View v) {
+		requestView(v, false);
 	}
 	
 	protected void click (View v) {
@@ -406,7 +397,8 @@ public class Automation implements Robot, Extractor, TaskProcessor, ImageCaptor 
 		home();
 		clearWidgetList();
 		Log.i("nofatclips", "Retrieving widgets");
-		for (View w: solo.getCurrentViews()) {
+		ArrayList<View> viewList = (isInAndOutFocusEnabled())?solo.getViews():solo.getCurrentViews();
+		for (View w: viewList) {
 			String text = (w instanceof TextView)?": "+((TextView)w).getText().toString():"";
 			Log.d("nofatclips", "Found widget: id=" + w.getId() + " ("+ w.toString() + ")" + text); // + " in window at [" + xy[0] + "," + xy[1] + "] on screen at [" + xy2[0] + "," + xy2[1] +"]");
 			allViews.add(w);

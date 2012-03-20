@@ -259,9 +259,13 @@ public abstract class Engine extends ActivityInstrumentationTestCase2 implements
 		return SCREENSHOT_FOR_STATES;
 	}
 	
+	public boolean screenshotEveryTrace() {
+		return !SCREENSHOT_ONLY_NEW_STATES;
+	}
+	
 	public boolean screenshotNeeded() {
 		if (!screenshotEnabled()) return false; // Function disable, always return false
-		if (!SCREENSHOT_ONLY_NEW_STATES) return true; // Function enable for all states, always return true
+		if (screenshotEveryTrace()) return true; // Function enable for all states, always return true
 		return !(getStrategy().isLastComparationPositive()); // Function enabled for new states only: return true if comparation was false
 	}
 	

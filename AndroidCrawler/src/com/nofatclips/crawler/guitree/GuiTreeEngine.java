@@ -96,6 +96,7 @@ public class GuiTreeEngine extends Engine {
 		theGuiTree.setSleepOnThrobber(SLEEP_ON_THROBBER);
 		theGuiTree.setClassName(CLASS_NAME);
 		theGuiTree.setPackageName(PACKAGE_NAME);
+		theGuiTree.setComparationWidgets(COMPARATOR.describe());
 		if (!ACTIVITY_DESCRIPTION_IN_SESSION) {
 			theGuiTree.setStateFileName(ACTIVITY_LIST_FILE_NAME);
 		}

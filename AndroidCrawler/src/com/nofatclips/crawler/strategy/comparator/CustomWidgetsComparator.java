@@ -87,4 +87,14 @@ public class CustomWidgetsComparator extends NameComparator {
 		return false;
 	}
 	
+	public String describe() {
+		StringBuilder values = new StringBuilder();
+		String comma = "";
+		for (String value: this.widgetClasses) {
+			values.append(comma).append(value);
+			comma = ",";
+		}
+		return values.toString();
+	}
+	
 }

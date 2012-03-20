@@ -266,10 +266,11 @@ public class GuiTreeAbstractor implements Abstractor, FilterHandler, SaveStateLi
 	}
 
 	public ActivityState importState (Element fromXml) {
-		Element state = (Element)getTheSession().getDom().adoptNode(fromXml);
-		ActivityState imported = (state.getNodeName().equals(FinalActivity.getTag()))?FinalActivity.createActivity(getTheSession()):StartActivity.createActivity(getTheSession());
-		imported.setElement(state);
-		return imported;
+//		Element state = (Element)getTheSession().getDom().adoptNode(fromXml);
+//		ActivityState imported = (state.getNodeName().equals(FinalActivity.getTag()))?FinalActivity.createActivity(getTheSession()):StartActivity.createActivity(getTheSession());
+//		imported.setElement(state);
+//		return imported;
+		return getTheSession().importState(fromXml);
 	}
 
 	public Transition createStep (ActivityState start, Collection<UserInput> inputs, UserEvent event) {

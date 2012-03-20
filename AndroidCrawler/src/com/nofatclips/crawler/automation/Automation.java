@@ -300,7 +300,6 @@ public class Automation implements Robot, Extractor, TaskProcessor, ImageCaptor 
 		} else {
 			click (v);
 		}
-//		describeCurrentEvent(v);
 	}
 
 	private void selectSpinnerItem (Spinner l, String item) {
@@ -309,7 +308,6 @@ public class Automation implements Robot, Extractor, TaskProcessor, ImageCaptor 
 
 	private void selectSpinnerItem (final Spinner s, int num) {
 		assertNotNull(s, "Cannon press spinner item: the spinner does not exist");
-//		requestFocus(s);
 		Log.i("nofatclips", "Clicking the spinner view");
 		click(s);
 		sync();

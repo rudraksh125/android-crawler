@@ -8,10 +8,12 @@ import com.nofatclips.crawler.storage.*;
 import com.nofatclips.crawler.strategy.comparator.*;
 import com.nofatclips.crawler.planning.interactors.*;
 import com.nofatclips.crawler.strategy.criteria.*;
+import android.util.Log;
 
 import static com.nofatclips.androidtesting.model.SimpleType.*;
 import static com.nofatclips.androidtesting.model.InteractionType.*;
 
+@SuppressWarnings("unused")
 public class Resources {
 
 //	public final static String PACKAGE_NAME = "com.softmimo.android.mileagetracker";
@@ -248,8 +250,7 @@ public class Resources {
 	// Screenshot Parameters
 	public final static boolean SCREENSHOT_FOR_STATES = false; // Performs an image capture of the screen after processing a task
 	public final static boolean SCREENSHOT_ONLY_NEW_STATES = false; // Capture only if comparation was negative - Only relevant if SCREENSHOT_FOR_STATES is true
-//	public final static boolean SCREENSHOT_FOR_TRANSITIONS = false; // Performs an image capture of the screen after firing an event
-//	public final static boolean SCREENSHOT_ONLY_NEW_EVENTS = true; // Capture only for final events - Only relevant if SCREENSHOT_AFTER_EVENTS is true
+	public final static boolean SCREENSHOT_FOR_EVENTS = false; // Performs an image capture of the screen before firing an event
 
 	// User/Planner Parameters
 	public final static int MAX_EVENTS_PER_WIDGET = 12; // For GroupViews (0 = try all items in the group)

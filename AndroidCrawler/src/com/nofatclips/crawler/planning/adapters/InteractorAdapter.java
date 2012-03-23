@@ -91,8 +91,12 @@ public abstract class InteractorAdapter {
 		return inputs;
 	}
 
-	protected UserEvent generateEvent (WidgetState w) {
+	protected UserEvent createEvent (WidgetState w) {
 		return getAbstractor().createEvent(w, getInteractionType());
+	}
+	
+	protected UserEvent generateEvent (WidgetState w) {
+		return createEvent(w);
 	}
 
 	protected UserInput generateInput (WidgetState w) {
@@ -100,7 +104,7 @@ public abstract class InteractorAdapter {
 	}
 
 	protected UserEvent generateEvent (WidgetState w, String value) {
-		UserEvent event = generateEvent(w);
+		UserEvent event = createEvent(w);
 		event.setValue(value);
 		return event;
 	}

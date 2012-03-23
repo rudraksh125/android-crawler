@@ -363,7 +363,7 @@ public class Automation implements Robot, Extractor, TaskProcessor, ImageCaptor 
 	}
 	
 	protected void wait (int milli) {
-		Log.i("nofatclips", "Waiting for " + milli/1000 + " sec.");
+		Log.i("nofatclips", "Waiting for " + ((milli>=1000)?(milli/1000 + " sec."):(milli + " msec.")));
 		solo.sleep(milli);
 	}
 

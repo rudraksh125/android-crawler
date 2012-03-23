@@ -56,25 +56,25 @@ public class Resources {
 //		new AfterEventDontExplore("Remove Blog", "Add"),
 //	};
 
-	// Wordpress 2 (Beta)
-	public final static String PACKAGE_NAME = "org.wordpress.android";
-	public final static String CLASS_NAME = "org.wordpress.android.Dashboard";
-//	public final static String FILE_NAME = "wordpress2.xml"; // Output
-	public final static Comparator COMPARATOR = new CustomWidgetsComparator(EDIT_TEXT, BUTTON, MENU_VIEW, DIALOG_VIEW, LIST_VIEW);
-	public final static int SLEEP_AFTER_EVENT = 3000;
-	public final static int SLEEP_AFTER_RESTART = 1000;
-	public final static StrategyCriteria[] ADDITIONAL_CRITERIAS = new StrategyCriteria[] {
-		new AfterEventDontExplore("Remove Blog"),
-		new AfterWidgetDontExplore (2131165200),
-	};
-	static {
-		UserFactory.addEvent(CLICK, BUTTON, LINEAR_LAYOUT);
-		UserFactory.denyInteractionOnIds(TYPE_TEXT, 2131165215, 2131165217); // Don't change user and password
-		UserFactory.denyInteractionOnIds(CLICK, 2131165204, 2131165351); // Don't click Linear Layout container, don't check Geotag Posts
-	}
-	//	public final static InteractorAdapter[] ADDITIONAL_INPUTS = new InteractorAdapter[] { // Username and password
-	//	new FixedValueEditor().addIdValuePair(2131165215, "").addIdValuePair(2131165217, ""),
-	//};
+//	// Wordpress 2 (Beta)
+//	public final static String PACKAGE_NAME = "org.wordpress.android";
+//	public final static String CLASS_NAME = "org.wordpress.android.Dashboard";
+////	public final static String FILE_NAME = "wordpress2.xml"; // Output
+//	public final static Comparator COMPARATOR = new CustomWidgetsComparator(EDIT_TEXT, BUTTON, MENU_VIEW, DIALOG_VIEW, LIST_VIEW);
+//	public final static int SLEEP_AFTER_EVENT = 3000;
+//	public final static int SLEEP_AFTER_RESTART = 1000;
+//	public final static StrategyCriteria[] ADDITIONAL_CRITERIAS = new StrategyCriteria[] {
+//		new AfterEventDontExplore("Remove Blog"),
+//		new AfterWidgetDontExplore (2131165200),
+//	};
+//	static {
+//		UserFactory.addEvent(CLICK, BUTTON, LINEAR_LAYOUT);
+//		UserFactory.denyInteractionOnIds(TYPE_TEXT, 2131165215, 2131165217); // Don't change user and password
+//		UserFactory.denyInteractionOnIds(CLICK, 2131165204, 2131165351); // Don't click Linear Layout container, don't check Geotag Posts
+//	}
+//	//	public final static InteractorAdapter[] ADDITIONAL_INPUTS = new InteractorAdapter[] { // Username and password
+//	//	new FixedValueEditor().addIdValuePair(2131165215, "").addIdValuePair(2131165217, ""),
+//	//};
 
 //	public final static String PACKAGE_NAME = "com.bwx.bequick";
 //	public final static String CLASS_NAME = "com.bwx.bequick.ShowSettingsActivity";
@@ -217,12 +217,18 @@ public class Resources {
 //		new FixedValueEditor().addIdValuePair(16908291, "\r\n"),
 //	};
 
-//	// TomDroid
-//	public final static String PACKAGE_NAME = "aarddict.android";
-//	public final static String CLASS_NAME = "aarddict.android.LookupActivity";
-//	public final static Comparator COMPARATOR = new CustomWidgetsComparator(EDIT_TEXT, BUTTON, MENU_VIEW, DIALOG_VIEW, LIST_VIEW);
-//	public final static int SLEEP_AFTER_EVENT = 6000;
-//	public final static int SLEEP_AFTER_RESTART = 6000;
+	// Aarddict
+	public final static String PACKAGE_NAME = "aarddict.android";
+	public final static String CLASS_NAME = "aarddict.android.LookupActivity";
+	public final static Comparator COMPARATOR = new CustomWidgetsComparator(EDIT_TEXT, BUTTON, MENU_VIEW, DIALOG_VIEW, LIST_VIEW);
+	public final static int SLEEP_AFTER_EVENT = 6000;
+	public final static int SLEEP_AFTER_RESTART = 6000;
+	public final static InteractorAdapter[] ADDITIONAL_EVENTS = new InteractorAdapter[] { // Search
+		new FixedValueEditor().addIdValuePair(2131099648, "5"),
+	};
+	static {
+		UserFactory.addInput(EDIT_TEXT);
+	}
 
 	/*
 	 * 				Default Parameters
@@ -237,7 +243,7 @@ public class Resources {
 	public final static boolean CHECK_FOR_TRANSITION = false;
 	public final static boolean EXPLORE_ONLY_NEW_STATES = true;
 //	public final static Comparator COMPARATOR = new NullComparator();
-//	public final static StrategyCriteria[] ADDITIONAL_CRITERIAS = new StrategyCriteria[] {};
+	public final static StrategyCriteria[] ADDITIONAL_CRITERIAS = new StrategyCriteria[] {};
 	
 	// Persistence Parameters
 	public final static int MAX_TRACES_IN_RAM = 0; // After performing this amount of traces, the crawler saves to disk, empties the session and continues (0 = keep all in RAM)
@@ -264,7 +270,7 @@ public class Resources {
 	public final static boolean LONG_CLICK_EVENT = false;
 	public final static boolean SCROLL_DOWN_EVENT = false;
 	public final static long RANDOM_SEED = 93874383493L; // 0 = Random
-	public final static InteractorAdapter[] ADDITIONAL_EVENTS = new InteractorAdapter[] {};
+//	public final static InteractorAdapter[] ADDITIONAL_EVENTS = new InteractorAdapter[] {};
 	public final static InteractorAdapter[] ADDITIONAL_INPUTS = new InteractorAdapter[] {};
 	
 	// More Parameters

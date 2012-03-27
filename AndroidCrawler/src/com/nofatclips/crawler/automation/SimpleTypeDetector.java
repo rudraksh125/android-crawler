@@ -55,6 +55,8 @@ public class SimpleTypeDetector implements TypeDetector {
 			return LINEAR_LAYOUT;
 		if ((v instanceof WebView) || type.endsWith("WebView"))
 			return WEB_VIEW;
+		if (type.endsWith("TwoLineListItem"))
+			return LIST_ITEM;
 		return "";
 	}
 

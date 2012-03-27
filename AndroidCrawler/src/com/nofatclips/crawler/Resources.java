@@ -228,6 +228,7 @@ public class Resources {
 	};
 	static {
 		UserFactory.addInput(EDIT_TEXT);
+		UserFactory.addEvent(CLICK, BUTTON, LIST_ITEM);
 	}
 
 	/*

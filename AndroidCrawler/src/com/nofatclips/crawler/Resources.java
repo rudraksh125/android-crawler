@@ -1,5 +1,6 @@
 package com.nofatclips.crawler;
 
+import com.nofatclips.androidtesting.model.InteractionType;
 import com.nofatclips.crawler.model.Comparator;
 import com.nofatclips.crawler.model.StrategyCriteria;
 import com.nofatclips.crawler.planning.UserFactory;
@@ -223,17 +224,26 @@ public class Resources {
 	public final static Comparator COMPARATOR = new CustomWidgetsComparator(EDIT_TEXT, BUTTON, MENU_VIEW, DIALOG_VIEW, LIST_VIEW);
 	public final static int SLEEP_AFTER_EVENT = 6000;
 	public final static int SLEEP_AFTER_RESTART = 6000;
-	public final static InteractorAdapter[] ADDITIONAL_EVENTS = new InteractorAdapter[] { // Search
-		new FixedValueEditor().addIdValuePair(2131099648, "5"),
-	};
-	static {
-		UserFactory.addInput(EDIT_TEXT);
-		UserFactory.addEvent(CLICK, BUTTON, LIST_ITEM);
-	}
+//	public final static InteractorAdapter[] ADDITIONAL_EVENTS = new InteractorAdapter[] { // Search
+//		new FixedValueEditor().addIdValuePair(2131099648, "5"),
+//	};
 
 	/*
 	 * 				Default Parameters
 	 */
+
+	// Default events and inputs for user
+	static {
+		UserFactory.addEvent(CLICK, BUTTON);
+		UserFactory.addEvent(LONG_CLICK, WEB_VIEW);
+		UserFactory.addEvent(LIST_SELECT, LIST_VIEW);
+		UserFactory.addEvent(LIST_LONG_SELECT, LIST_VIEW);
+		UserFactory.addEvent(SWAP_TAB, TAB_HOST);
+		UserFactory.addInput(CLICK, CHECKBOX, RADIO, TOGGLE_BUTTON);
+		UserFactory.addInput(SET_BAR, SEEK_BAR);
+		UserFactory.addInput(TYPE_TEXT, EDIT_TEXT);
+		UserFactory.addInput(SPINNER_SELECT, SPINNER);
+	}
 	
 	// Strategy Parameters
 	public final static int MAX_NUM_TRACES = 0; // After performing this amount of traces, the crawler exits (0 = no length limit)
@@ -264,14 +274,14 @@ public class Resources {
 	public final static int MAX_TASKS_PER_EVENT = 1; // How many input sequences to generate for each event on a widget; 0 = no limit
 	public final static boolean EVENT_WHEN_NO_ID = false; // Whether to inject events on widgets without ID or not
 	public final static boolean BACK_BUTTON_EVENT = true;
-	public final static boolean MENU_EVENTS = false;
+	public final static boolean MENU_EVENTS = true;
 	public final static boolean ORIENTATION_EVENTS = true;
 	public final static boolean TAB_EVENTS_START_ONLY = true; // true -> click on tabs only on the start activity
-	public final static boolean LONG_CLICK_LIST_EVENT = false;
-	public final static boolean LONG_CLICK_EVENT = false;
+//	public final static boolean LONG_CLICK_LIST_EVENT = false;
+//	public final static boolean LONG_CLICK_EVENT = false;
 	public final static boolean SCROLL_DOWN_EVENT = false;
 	public final static long RANDOM_SEED = 93874383493L; // 0 = Random
-//	public final static InteractorAdapter[] ADDITIONAL_EVENTS = new InteractorAdapter[] {};
+	public final static InteractorAdapter[] ADDITIONAL_EVENTS = new InteractorAdapter[] {};
 	public final static InteractorAdapter[] ADDITIONAL_INPUTS = new InteractorAdapter[] {};
 	
 	// More Parameters

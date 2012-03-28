@@ -8,7 +8,6 @@ import java.util.Map;
 import java.util.Random;
 
 import static com.nofatclips.androidtesting.model.InteractionType.*;
-import static com.nofatclips.androidtesting.model.SimpleType.*;
 import static com.nofatclips.crawler.Resources.*;
 
 import com.nofatclips.crawler.model.Abstractor;
@@ -73,11 +72,11 @@ public class UserFactory {
 		}		
 	}
 	
-	public static boolean customizeEvent (String interaction) {
+	public static boolean isRequiredEvent (String interaction) {
 		return isRequired (Category.EVENT, interaction);
 	}
 
-	public static boolean customizeInput (String interaction) {
+	public static boolean isRequiredInput (String interaction) {
 		return isRequired (Category.INPUT, interaction);
 	}
 
@@ -100,13 +99,13 @@ public class UserFactory {
 		return UserFactory.inputToTypeMap.get(interaction);
 	}
 
-	public static boolean doLongClick() {
-		return LONG_CLICK_EVENT;
-	}
-
-	public static boolean doLongClickOnLists() {
-		return LONG_CLICK_LIST_EVENT;
-	}
+//	public static boolean doLongClick() {
+//		return LONG_CLICK_EVENT;
+//	}
+//
+//	public static boolean doLongClickOnLists() {
+//		return LONG_CLICK_LIST_EVENT;
+//	}
 
 	public static boolean doForceSeed () {
 		return (RANDOM_SEED==0);
@@ -128,63 +127,112 @@ public class UserFactory {
 		}
 
 		// Events - Click
-		Clicker c = (customizeEvent(CLICK))?new Clicker (typesForEvent(CLICK)):new Clicker (BUTTON);
-		c.setEventWhenNoId(EVENT_WHEN_NO_ID);
-		u.addEvent(addVetoes(c));
+		if (isRequiredEvent(CLICK)) {
+			Clicker c = new Clicker (typesForEvent(CLICK));
+			c.setEventWhenNoId(EVENT_WHEN_NO_ID);
+			u.addEvent(addVetoes(c));
+		}
+//		Clicker c = (isRequiredEvent(CLICK))?new Clicker (typesForEvent(CLICK)):new Clicker (BUTTON);
+//		c.setEventWhenNoId(EVENT_WHEN_NO_ID);
+//		u.addEvent(addVetoes(c));
 
 		// Events - Long Click
-		if (doLongClick()) {
-			LongClicker l = (customizeEvent(LONG_CLICK))?new LongClicker (typesForEvent(LONG_CLICK)):new LongClicker (BUTTON, WEB_VIEW);
+		if (isRequiredEvent(LONG_CLICK)) {
+			LongClicker l = new LongClicker (typesForEvent(LONG_CLICK));
 			l.setEventWhenNoId(EVENT_WHEN_NO_ID);
 			u.addEvent(addVetoes(l));
 		}
+//		if (doLongClick()) {
+//			LongClicker l = (isRequiredEvent(LONG_CLICK))?new LongClicker (typesForEvent(LONG_CLICK)):new LongClicker (BUTTON, WEB_VIEW);
+//			l.setEventWhenNoId(EVENT_WHEN_NO_ID);
+//			u.addEvent(addVetoes(l));
+//		}
 		
 		// Events - Select List Item
-		ListSelector ls = (customizeEvent(LIST_SELECT))?
-				new ListSelector (MAX_EVENTS_PER_WIDGET, typesForEvent(LIST_SELECT)):new ListSelector(MAX_EVENTS_PER_WIDGET);
-		ls.setEventWhenNoId(true);
-		u.addEvent(addVetoes(ls));
+		if (isRequiredEvent(LIST_SELECT)) {			
+			ListSelector ls = new ListSelector (MAX_EVENTS_PER_WIDGET, typesForEvent(LIST_SELECT));
+			ls.setEventWhenNoId(true);
+			u.addEvent(addVetoes(ls));
+		}
+//		ListSelector ls = (isRequiredEvent(LIST_SELECT))?
+//				new ListSelector (MAX_EVENTS_PER_WIDGET, typesForEvent(LIST_SELECT)):new ListSelector(MAX_EVENTS_PER_WIDGET);
+//		ls.setEventWhenNoId(true);
+//		u.addEvent(addVetoes(ls));
 		
 		// Events - Long Click List Item
-		if (doLongClickOnLists()) {
-			ListLongClicker llc = (customizeEvent(LIST_LONG_SELECT))?
-					new ListLongClicker (MAX_EVENTS_PER_WIDGET, typesForEvent(LIST_LONG_SELECT)):new ListLongClicker(MAX_EVENTS_PER_WIDGET);
+		if (isRequiredEvent(LIST_LONG_SELECT)) {
+			ListLongClicker llc = new ListLongClicker (MAX_EVENTS_PER_WIDGET, typesForEvent(LIST_LONG_SELECT));
 			llc.setEventWhenNoId(true);
-			u.addEvent(addVetoes(llc));
+			u.addEvent(addVetoes(llc));			
 		}
+//		if (doLongClickOnLists()) {
+//			ListLongClicker llc = (isRequiredEvent(LIST_LONG_SELECT))?
+//					new ListLongClicker (MAX_EVENTS_PER_WIDGET, typesForEvent(LIST_LONG_SELECT)):new ListLongClicker(MAX_EVENTS_PER_WIDGET);
+//			llc.setEventWhenNoId(true);
+//			u.addEvent(addVetoes(llc));
+//		}
 		
 		// Events - Swap Tab
-		TabSwapper ts = (customizeEvent(SWAP_TAB))?new TabSwapper (typesForEvent(SWAP_TAB)):new TabSwapper ();
-		if (TAB_EVENTS_START_ONLY) {
-			ts.setOnlyOnce(true);
+		if (isRequiredEvent(SWAP_TAB)) {
+			TabSwapper ts = new TabSwapper (typesForEvent(SWAP_TAB));
+			if (TAB_EVENTS_START_ONLY) {
+				ts.setOnlyOnce(true);
+			}
+			u.addEvent(ts);			
 		}
-		u.addEvent(ts);
+//		TabSwapper ts = (isRequiredEvent(SWAP_TAB))?new TabSwapper (typesForEvent(SWAP_TAB)):new TabSwapper ();
+//		if (TAB_EVENTS_START_ONLY) {
+//			ts.setOnlyOnce(true);
+//		}
+//		u.addEvent(ts);
 		
 		// Additional Events
 		for (InteractorAdapter i: ADDITIONAL_EVENTS) {
+			i.setEventWhenNoId(EVENT_WHEN_NO_ID);
 			u.addEvent(addVetoes(i));			
 		}
 		
 		// Inputs - Click
-		Clicker c2 = (customizeInput(CLICK))?new Clicker (typesForInput(CLICK)):new Clicker (TOGGLE_BUTTON, CHECKBOX, RADIO);
-		c2.setEventWhenNoId(false);
+		if (isRequiredInput(CLICK)) {
+			Clicker c2 = new Clicker (typesForInput(CLICK));
+			c2.setEventWhenNoId(false);
+			u.addInput (addVetoes(c2));
+		}
+//		Clicker c2 = (isRequiredInput(CLICK))?new Clicker (typesForInput(CLICK)):new Clicker (TOGGLE_BUTTON, CHECKBOX, RADIO);
+//		c2.setEventWhenNoId(false);
 
 		// Inputs - Slider
-		Slider sl = (customizeInput(SET_BAR))?new Slider (typesForInput(SET_BAR)):new Slider();
-		sl.setEventWhenNoId(false);
+		if (isRequiredInput(SET_BAR)) {
+			Slider sl = new Slider (typesForInput(SET_BAR));
+			sl.setEventWhenNoId(false);
+			u.addInput (addVetoes(sl));
+		}
+//		Slider sl = (isRequiredInput(SET_BAR))?new Slider (typesForInput(SET_BAR)):new Slider();
+//		sl.setEventWhenNoId(false);
 		
 		// Inputs - Edit Text
-		RandomEditor re = (customizeInput(TYPE_TEXT))?new RandomEditor(typesForInput(TYPE_TEXT)):new RandomEditor();
-		re.setEventWhenNoId(false);
+		if (isRequiredInput(TYPE_TEXT)) {
+			RandomEditor re = new RandomEditor(typesForInput(TYPE_TEXT));
+			re.setEventWhenNoId(false);
+			u.addInput (addVetoes(re));
+		}
+//		RandomEditor re = (isRequiredInput(TYPE_TEXT))?new RandomEditor(typesForInput(TYPE_TEXT)):new RandomEditor();
+//		re.setEventWhenNoId(false);
 
 		// Inputs - Spinner
-		RandomSpinnerSelector rss = (customizeInput(SPINNER_SELECT))?new RandomSpinnerSelector(typesForInput(SPINNER_SELECT)):new RandomSpinnerSelector();
-		rss.setEventWhenNoId(false);
+		if (isRequiredInput(SPINNER_SELECT)) {
+			RandomSpinnerSelector rss = new RandomSpinnerSelector(typesForInput(SPINNER_SELECT));
+			rss.setEventWhenNoId(false);
+			u.addInput(addVetoes(rss));
+		}
+//		RandomSpinnerSelector rss = (isRequiredInput(SPINNER_SELECT))?new RandomSpinnerSelector(typesForInput(SPINNER_SELECT)):new RandomSpinnerSelector();
+//		rss.setEventWhenNoId(false);
 		
-		u.addInput (addVetoes(c2), addVetoes(sl), addVetoes(re),addVetoes(rss));
+//		u.addInput (addVetoes(c2), addVetoes(sl), addVetoes(re),addVetoes(rss));
 		
 		// Addiotional Inputs
 		for (InteractorAdapter i: ADDITIONAL_INPUTS) {
+			i.setEventWhenNoId(false);
 			u.addInput(addVetoes(i));
 		}
 		

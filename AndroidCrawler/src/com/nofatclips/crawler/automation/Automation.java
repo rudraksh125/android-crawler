@@ -152,6 +152,8 @@ public class Automation implements Robot, Extractor, TaskProcessor, ImageCaptor 
 		View v = null;
 		if (widgetType.equals(BUTTON)) {
 			v = solo.getButton(widgetName);
+		} else if (widgetType.equals(MENU_ITEM)) {
+			v = solo.getText(widgetName);
 		}
 		if (v == null) {
 			for (View w: getAllWidgets()) {

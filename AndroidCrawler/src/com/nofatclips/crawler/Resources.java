@@ -234,7 +234,7 @@ public class Resources {
 
 	// Default events and inputs for user
 	static {
-		UserFactory.addEvent(CLICK, BUTTON);
+		UserFactory.addEvent(CLICK, BUTTON, MENU_ITEM);
 		UserFactory.addEvent(LONG_CLICK, WEB_VIEW);
 		UserFactory.addEvent(LIST_SELECT, LIST_VIEW);
 		UserFactory.addEvent(LIST_LONG_SELECT, LIST_VIEW);

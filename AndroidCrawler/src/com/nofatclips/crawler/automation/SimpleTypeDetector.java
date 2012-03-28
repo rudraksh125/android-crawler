@@ -2,6 +2,7 @@ package com.nofatclips.crawler.automation;
 
 import android.view.View;
 import android.webkit.WebView;
+import android.widget.ListView;
 import android.widget.RatingBar;
 
 import com.nofatclips.crawler.model.TypeDetector;
@@ -30,7 +31,7 @@ public class SimpleTypeDetector implements TypeDetector {
 		if (type.endsWith("TimePicker"))
 			return TIME_PICKER;
 		if (type.endsWith("IconMenuItemView"))
-			return BUTTON;
+			return MENU_ITEM;
 		if (type.endsWith("DialogTitle"))
 			return DIALOG_VIEW;
 		if (type.endsWith("Button"))
@@ -45,8 +46,10 @@ public class SimpleTypeDetector implements TypeDetector {
 			return RATING_BAR;
 		if (type.endsWith("TabHost"))
 			return TAB_HOST;
-		if (type.endsWith("ListView") || type.endsWith("ExpandedMenuView"))
-			return LIST_VIEW;
+		if (type.endsWith("ListView") || type.endsWith("ExpandedMenuView")) {
+			ListView l = (ListView)v;
+			return (l.getCount()>0)?LIST_VIEW:EMPTY_LIST;
+		}
 		if (type.endsWith("TextView"))
 			return TEXT_VIEW;
 		if (type.endsWith("ImageView"))

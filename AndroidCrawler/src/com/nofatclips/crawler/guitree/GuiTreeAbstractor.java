@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Checkable;
+import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.AdapterView;
@@ -104,13 +105,15 @@ public class GuiTreeAbstractor implements Abstractor, FilterHandler, SaveStateLi
 			TestCaseWidget w = TestCaseWidget.createWidget(getTheSession());
 			String id = String.valueOf(v.getId());
 			String text = "";
+			String name = "";
 			int type = 0;
 			if (v instanceof TextView) {
 				TextView t = (TextView)v;
 				type = t.getInputType();
 				text = t.getText().toString();
+				name = (v instanceof EditText)?(t.getHint().toString()):text;
 			}
-			w.setIdNameType(id, text, v.getClass().getName());
+			w.setIdNameType(id, name, v.getClass().getName());
 			if (type!=0) {
 				w.setTextType("" + type);
 			}

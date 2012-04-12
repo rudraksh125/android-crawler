@@ -18,6 +18,7 @@ public abstract class InteractorAdapter {
 	private Abstractor theAbstractor;
 	private boolean eventWhenNoId = false;
 	private List<String> vetoId;
+	private List<String> forceId;
 
 	public InteractorAdapter (String ... simpleTypes) {
 		for (String s: simpleTypes) {
@@ -43,9 +44,20 @@ public abstract class InteractorAdapter {
 		}
 		return false;
 	}
-	
+
+	public boolean isForcedWidget (WidgetState w) {
+		for (String id: getForcedIds()) {
+			if (w.getId().equals(id)) {
+				Log.d("nofatclips", "Event forced for widget #" + id);
+				return true;
+			}
+		}
+		return false;
+	}
+
 	public boolean canUseWidget (WidgetState w) {
 		if ( cannotIdentifyWidget(w) || isVetoedWidget(w) ) return false;
+		if (isForcedWidget(w)) return true;
 		return (w.isAvailable() && matchClass(w.getSimpleType()));
 	}
 	
@@ -145,7 +157,15 @@ public abstract class InteractorAdapter {
 		this.vetoId = new ArrayList<String>();
 		return this.vetoId;
 	}
-	
+
+	public List<String> getForcedIds () {
+		if (this.forceId instanceof List) {
+			return this.forceId;
+		}
+		this.forceId = new ArrayList<String>();
+		return this.forceId;
+	}
+
 	public void denyIds (String ... ids) {
 		for (String id: ids) {
 			getVetoedIds().add(id);
@@ -153,8 +173,13 @@ public abstract class InteractorAdapter {
 	}
 
 	public void denyIds (Collection<String> ids) {
-		Log.v("nofatclips", "Added vetoes for " + this.toString());
+		Log.v("nofatclips", "Added veto for " + this.toString());
 		getVetoedIds().addAll(ids);
+	}
+
+	public void forceIds(Collection<String> ids) {
+		Log.v("nofatclips", "Added override for " + this.toString());
+		getForcedIds().addAll(ids);
 	}
 
 }

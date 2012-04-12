@@ -20,6 +20,7 @@ public class UserFactory {
 	public static InteractionMap eventToTypeMap = new InteractionMap();
 	public static InteractionMap inputToTypeMap = new InteractionMap();
 	public static Map<String,List<String>> vetoesMap = new Hashtable<String,List<String>>();
+	public static Map<String,List<String>> overridesMap = new Hashtable<String,List<String>>();
 	
 	public final static String ALL = "ALL";
 
@@ -54,15 +55,36 @@ public class UserFactory {
 		}
 	}
 
+	public static void forceIds (String ... ids) {
+		forceIdsForEvent(ALL, ids);
+	}
+
+	public static void forceIdsForEvent (String event, String ... ids) {
+		if (!overridesMap.containsKey(event)) {
+			overridesMap.put(event, new ArrayList<String>());
+		}
+		for (String id: ids) {
+			overridesMap.get(event).add(id);
+		}
+	}
+
+	public static void forceIds (int ... ids) {
+		for (Integer id: ids) {
+			forceIdsForEvent(ALL, String.valueOf(id));
+		}
+	}
+
 	public static void denyInteractionOnIds (String event, int ... ids) {
 		for (Integer id: ids) {
 			denyIdsForEvent(event, String.valueOf(id));
 		}
 	}
 
-	public static InteractorAdapter addVetoes (InteractorAdapter i) {
+	public static InteractorAdapter addDosAndDonts (InteractorAdapter i) {
 		addVetoes (i, ALL);
 		addVetoes (i, i.getInteractionType());
+		addOverrides (i, ALL);
+		addOverrides (i, i.getInteractionType());
 		return i;
 	}
 	
@@ -71,7 +93,13 @@ public class UserFactory {
 			i.denyIds(vetoesMap.get(event));
 		}		
 	}
-	
+
+	public static void addOverrides (InteractorAdapter i, String event) {
+		if (overridesMap.containsKey(event)) {
+			i.forceIds(overridesMap.get(event));
+		}		
+	}
+
 	public static boolean isRequiredEvent (String interaction) {
 		return isRequired (Category.EVENT, interaction);
 	}
@@ -99,14 +127,6 @@ public class UserFactory {
 		return UserFactory.inputToTypeMap.get(interaction);
 	}
 
-//	public static boolean doLongClick() {
-//		return LONG_CLICK_EVENT;
-//	}
-//
-//	public static boolean doLongClickOnLists() {
-//		return LONG_CLICK_LIST_EVENT;
-//	}
-
 	public static boolean doForceSeed () {
 		return (RANDOM_SEED==0);
 	}
@@ -126,53 +146,30 @@ public class UserFactory {
 			u = (doForceSeed())?new AlternativeUser (a):new AlternativeUser(a,new Random(RANDOM_SEED));
 		}
 
-		// Events - Click
 		if (isRequiredEvent(CLICK)) {
 			Clicker c = new Clicker (typesForEvent(CLICK));
 			c.setEventWhenNoId(EVENT_WHEN_NO_ID);
-			u.addEvent(addVetoes(c));
+			u.addEvent(addDosAndDonts(c));
 		}
-//		Clicker c = (isRequiredEvent(CLICK))?new Clicker (typesForEvent(CLICK)):new Clicker (BUTTON);
-//		c.setEventWhenNoId(EVENT_WHEN_NO_ID);
-//		u.addEvent(addVetoes(c));
 
-		// Events - Long Click
 		if (isRequiredEvent(LONG_CLICK)) {
 			LongClicker l = new LongClicker (typesForEvent(LONG_CLICK));
 			l.setEventWhenNoId(EVENT_WHEN_NO_ID);
-			u.addEvent(addVetoes(l));
+			u.addEvent(addDosAndDonts(l));
 		}
-//		if (doLongClick()) {
-//			LongClicker l = (isRequiredEvent(LONG_CLICK))?new LongClicker (typesForEvent(LONG_CLICK)):new LongClicker (BUTTON, WEB_VIEW);
-//			l.setEventWhenNoId(EVENT_WHEN_NO_ID);
-//			u.addEvent(addVetoes(l));
-//		}
 		
-		// Events - Select List Item
 		if (isRequiredEvent(LIST_SELECT)) {			
 			ListSelector ls = new ListSelector (MAX_EVENTS_PER_WIDGET, typesForEvent(LIST_SELECT));
 			ls.setEventWhenNoId(true);
-			u.addEvent(addVetoes(ls));
+			u.addEvent(addDosAndDonts(ls));
 		}
-//		ListSelector ls = (isRequiredEvent(LIST_SELECT))?
-//				new ListSelector (MAX_EVENTS_PER_WIDGET, typesForEvent(LIST_SELECT)):new ListSelector(MAX_EVENTS_PER_WIDGET);
-//		ls.setEventWhenNoId(true);
-//		u.addEvent(addVetoes(ls));
 		
-		// Events - Long Click List Item
 		if (isRequiredEvent(LIST_LONG_SELECT)) {
 			ListLongClicker llc = new ListLongClicker (MAX_EVENTS_PER_WIDGET, typesForEvent(LIST_LONG_SELECT));
 			llc.setEventWhenNoId(true);
-			u.addEvent(addVetoes(llc));			
+			u.addEvent(addDosAndDonts(llc));			
 		}
-//		if (doLongClickOnLists()) {
-//			ListLongClicker llc = (isRequiredEvent(LIST_LONG_SELECT))?
-//					new ListLongClicker (MAX_EVENTS_PER_WIDGET, typesForEvent(LIST_LONG_SELECT)):new ListLongClicker(MAX_EVENTS_PER_WIDGET);
-//			llc.setEventWhenNoId(true);
-//			u.addEvent(addVetoes(llc));
-//		}
 		
-		// Events - Swap Tab
 		if (isRequiredEvent(SWAP_TAB)) {
 			TabSwapper ts = new TabSwapper (typesForEvent(SWAP_TAB));
 			if (TAB_EVENTS_START_ONLY) {
@@ -180,60 +177,39 @@ public class UserFactory {
 			}
 			u.addEvent(ts);			
 		}
-//		TabSwapper ts = (isRequiredEvent(SWAP_TAB))?new TabSwapper (typesForEvent(SWAP_TAB)):new TabSwapper ();
-//		if (TAB_EVENTS_START_ONLY) {
-//			ts.setOnlyOnce(true);
-//		}
-//		u.addEvent(ts);
 		
-		// Additional Events
 		for (InteractorAdapter i: ADDITIONAL_EVENTS) {
 			i.setEventWhenNoId(EVENT_WHEN_NO_ID);
-			u.addEvent(addVetoes(i));			
+			u.addEvent(addDosAndDonts(i));			
 		}
 		
-		// Inputs - Click
 		if (isRequiredInput(CLICK)) {
 			Clicker c2 = new Clicker (typesForInput(CLICK));
 			c2.setEventWhenNoId(false);
-			u.addInput (addVetoes(c2));
+			u.addInput (addDosAndDonts(c2));
 		}
-//		Clicker c2 = (isRequiredInput(CLICK))?new Clicker (typesForInput(CLICK)):new Clicker (TOGGLE_BUTTON, CHECKBOX, RADIO);
-//		c2.setEventWhenNoId(false);
 
-		// Inputs - Slider
 		if (isRequiredInput(SET_BAR)) {
 			Slider sl = new Slider (typesForInput(SET_BAR));
 			sl.setEventWhenNoId(false);
-			u.addInput (addVetoes(sl));
+			u.addInput (addDosAndDonts(sl));
 		}
-//		Slider sl = (isRequiredInput(SET_BAR))?new Slider (typesForInput(SET_BAR)):new Slider();
-//		sl.setEventWhenNoId(false);
 		
-		// Inputs - Edit Text
 		if (isRequiredInput(TYPE_TEXT)) {
 			RandomEditor re = new RandomEditor(typesForInput(TYPE_TEXT));
 			re.setEventWhenNoId(false);
-			u.addInput (addVetoes(re));
+			u.addInput (addDosAndDonts(re));
 		}
-//		RandomEditor re = (isRequiredInput(TYPE_TEXT))?new RandomEditor(typesForInput(TYPE_TEXT)):new RandomEditor();
-//		re.setEventWhenNoId(false);
 
-		// Inputs - Spinner
 		if (isRequiredInput(SPINNER_SELECT)) {
 			RandomSpinnerSelector rss = new RandomSpinnerSelector(typesForInput(SPINNER_SELECT));
 			rss.setEventWhenNoId(false);
-			u.addInput(addVetoes(rss));
+			u.addInput(addDosAndDonts(rss));
 		}
-//		RandomSpinnerSelector rss = (isRequiredInput(SPINNER_SELECT))?new RandomSpinnerSelector(typesForInput(SPINNER_SELECT)):new RandomSpinnerSelector();
-//		rss.setEventWhenNoId(false);
 		
-//		u.addInput (addVetoes(c2), addVetoes(sl), addVetoes(re),addVetoes(rss));
-		
-		// Addiotional Inputs
 		for (InteractorAdapter i: ADDITIONAL_INPUTS) {
 			i.setEventWhenNoId(false);
-			u.addInput(addVetoes(i));
+			u.addInput(addDosAndDonts(i));
 		}
 		
 		return u;

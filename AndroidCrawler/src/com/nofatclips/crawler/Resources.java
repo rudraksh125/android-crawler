@@ -161,7 +161,6 @@ public class Resources {
 
 //	public final static String PACKAGE_NAME = "com.saatcioglu.android.guessthenumber";
 //	public final static String CLASS_NAME = "com.saatcioglu.android.guessthenumber.GfxMain";
-//	public final static String FILE_NAME = "guess.xml"; // Output
 //	public final static Comparator COMPARATOR = new CustomWidgetsComparator(BUTTON);
 //	public final static int SLEEP_AFTER_EVENT = 1000;
 //	public final static int SLEEP_AFTER_RESTART = 1000;
@@ -224,9 +223,15 @@ public class Resources {
 	public final static Comparator COMPARATOR = new CustomWidgetsComparator(EDIT_TEXT, BUTTON, MENU_VIEW, DIALOG_VIEW, LIST_VIEW);
 	public final static int SLEEP_AFTER_EVENT = 6000;
 	public final static int SLEEP_AFTER_RESTART = 6000;
+//	static {
+//		UserFactory.addEvent(CLICK);
+//		UserFactory.forceIdsForEvent(CLICK, "2131099660");
+//	}
 //	public final static InteractorAdapter[] ADDITIONAL_EVENTS = new InteractorAdapter[] { // Search
 //		new FixedValueEditor().addIdValuePair(2131099648, "5"),
 //	};
+	
+	
 
 	/*
 	 * 				Default Parameters
@@ -244,6 +249,12 @@ public class Resources {
 		UserFactory.addInput(TYPE_TEXT, EDIT_TEXT);
 		UserFactory.addInput(SPINNER_SELECT, SPINNER);
 	}
+	
+	// Precrawling sequence
+	public final static String[] PRECRAWLING = new String[] {
+		OPEN_MENU, null,
+		CLICK_ON_TEXT, "About", null
+	};
 	
 	// Strategy Parameters
 	public final static int MAX_NUM_TRACES = 0; // After performing this amount of traces, the crawler exits (0 = no length limit)
@@ -274,8 +285,8 @@ public class Resources {
 	public final static int MAX_TASKS_PER_EVENT = 1; // How many input sequences to generate for each event on a widget; 0 = no limit
 	public final static boolean EVENT_WHEN_NO_ID = false; // Whether to inject events on widgets without ID or not
 	public final static boolean BACK_BUTTON_EVENT = true;
-	public final static boolean MENU_EVENTS = true;
-	public final static boolean ORIENTATION_EVENTS = true;
+	public final static boolean MENU_EVENTS = false;
+	public final static boolean ORIENTATION_EVENTS = false;
 	public final static boolean TAB_EVENTS_START_ONLY = true; // true -> click on tabs only on the start activity
 //	public final static boolean LONG_CLICK_LIST_EVENT = false;
 //	public final static boolean LONG_CLICK_EVENT = false;

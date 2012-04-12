@@ -102,9 +102,13 @@ public class Automation implements Robot, Extractor, TaskProcessor, ImageCaptor 
 	public void fireEvent(UserEvent e) {
 		this.currentEvent = e;
 		String eventType = e.getType();
+		String eventValue = e.getValue();
 		if (eventType.equals(BACK) || eventType.equals(SCROLL_DOWN)) { // Special events
 			Log.d("nofatclips", "Firing event: type= " + eventType);
 			fireEventOnView(null, eventType, null);
+		} else if (eventType.equals(CLICK_ON_TEXT)) {
+			Log.d("nofatclips", "Firing event: type= " + eventType + " value= " + eventValue);
+			fireEventOnView(null, eventType, eventValue);
 		} else {
 			View v = null;
 			if (e.getWidget().getIndex()<getAllWidgets().size()) {
@@ -112,13 +116,13 @@ public class Automation implements Robot, Extractor, TaskProcessor, ImageCaptor 
 			}
 			if ((v!=null) && checkWidgetEquivalence(v, Integer.parseInt(e.getWidgetId()), e.getWidgetType(), e.getWidgetName())) { // Widget found
 				Log.i("nofatclips", "Firing event: type= " + eventType + " index=" + e.getWidget().getIndex() + " widget="+ e.getWidgetType());
-				fireEventOnView (v, eventType, e.getValue());
+				fireEventOnView (v, eventType, eventValue);
 			} else if (e.getWidgetId().equals("-1")) { // Widget not found. Search widget by name
 				Log.i("nofatclips", "Firing event: type= " + eventType + " name=" + e.getWidgetName() + " widget="+ e.getWidgetType());
-				fireEvent (e.getWidgetName(), e.getWidget().getSimpleType(), eventType, e.getValue());			
+				fireEvent (e.getWidgetName(), e.getWidget().getSimpleType(), eventType, eventValue);
 			} else { // Widget not found. Search widget by id
 				Log.i("nofatclips", "Firing event: type= " + eventType + " id=" + e.getWidgetId() + " widget="+ e.getWidgetType());
-				fireEvent (Integer.parseInt(e.getWidgetId()), e.getWidgetName(), e.getWidget().getSimpleType(), eventType, e.getValue());
+				fireEvent (Integer.parseInt(e.getWidgetId()), e.getWidgetName(), e.getWidget().getSimpleType(), eventType, eventValue);
 			}
 		}
 		this.currentEvent = null;
@@ -193,6 +197,8 @@ public class Automation implements Robot, Extractor, TaskProcessor, ImageCaptor 
 			solo.scrollDown();
 		} else if (interactionType.equals(CHANGE_ORIENTATION)) {
 			changeOrientation();
+		} else if (interactionType.equals(CLICK_ON_TEXT)) {
+			clickOnText(value);
 		} else if (interactionType.equals(SWAP_TAB) && (value!=null)) {
 			if (v instanceof TabHost) {
 				swapTab ((TabHost)v, value);
@@ -211,7 +217,7 @@ public class Automation implements Robot, Extractor, TaskProcessor, ImageCaptor 
 			solo.setProgressBar((ProgressBar)v, Integer.parseInt(value));
 		} else {
 			return;
-		}		
+		}
 	}
 
 	// Scroll the view to the top. Only works for ListView and ScrollView. Support for GridView and others must be added
@@ -253,6 +259,10 @@ public class Automation implements Robot, Extractor, TaskProcessor, ImageCaptor 
 
 	private void swapTab (TabHost t, String tab) {
 		swapTab (t, Integer.valueOf(tab));
+	}
+	
+	private void clickOnText (String text) {
+		solo.clickOnText (text);
 	}
 
 	private void swapTab (final TabHost t, int num) {
@@ -445,7 +455,38 @@ public class Automation implements Robot, Extractor, TaskProcessor, ImageCaptor 
 		solo.setActivityOrientation(Solo.PORTRAIT);
 		wait(SLEEP_AFTER_RESTART);
 		waitOnThrobber();
+		processPrecrawling();	
 		Log.d("nofatclips", "Ready to operate after restarting...");
+	}
+	
+	private void processPrecrawling() {
+		Log.i("nofatclips", "Processing precrawling");
+		String[] params = new String[3];
+		int paramCount=0;
+		for (String s: PRECRAWLING) {
+			if (s == null) {
+				switch (paramCount) {
+					case 0: continue;
+					case 1: {
+						fireEventOnView(null, params[0], null);
+						break;
+					}
+					case 2: {
+						fireEventOnView(null, params[0], params[1]);
+						break;
+					}	
+					case 3: {
+						View v = getWidget(Integer.parseInt(params[2]));
+						fireEventOnView(v, params[0], params[1]);
+						break;
+					}
+				}; 
+				paramCount = 0;
+			} else {
+				params[paramCount] = s;
+				paramCount++;
+			}
+		}
 	}
 	
 	public void changeOrientation() {
@@ -501,7 +542,8 @@ public class Automation implements Robot, Extractor, TaskProcessor, ImageCaptor 
 		Log.i("nofatclips", "Retrieved from return list id=" + testee.getId());
 		String testeeType = testee.getClass().getName();
 		Log.d("nofatclips", "Testing for type (" + testeeType + ") against the original (" + theType + ")");
-		String testeeName = (testee instanceof TextView)?((TextView) testee).getText().toString():"";
+		String testeeText = (testee instanceof TextView)?(((TextView)testee).getText().toString()):"";
+		String testeeName = (testee instanceof EditText)?(((EditText)testee).getHint().toString()):testeeText;
 		Log.d("nofatclips", "Testing for name (" + testeeName + ") against the original (" + theName + ")");
 		if ( (theType.equals(testeeType)) && (theName.equals(testeeName)) && (theId == testee.getId()) ) {
 			return true;

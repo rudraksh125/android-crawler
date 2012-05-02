@@ -296,7 +296,7 @@ public class GuiTreeAbstractor implements Abstractor, FilterHandler, SaveStateLi
 	}
 	
 	public String getUniqueEventId () {
-		int ret = this.eventId++;
+		int ret = this.eventId;
 		this.eventId++;
 		return "e" + ret;
 	}
@@ -307,7 +307,7 @@ public class GuiTreeAbstractor implements Abstractor, FilterHandler, SaveStateLi
 	}
 
 	public String getUniqueInputId () {
-		int ret = this.inputId++;
+		int ret = this.inputId;
 		this.inputId++;
 		return "i" + ret;
 	}

@@ -296,8 +296,9 @@ public class GuiTreeAbstractor implements Abstractor, FilterHandler, SaveStateLi
 	}
 	
 	public String getUniqueEventId () {
+		int ret = this.eventId++;
 		this.eventId++;
-		return "e" + this.eventId;
+		return "e" + ret;
 	}
 
 	public String getUniqueActivityId () {
@@ -306,8 +307,9 @@ public class GuiTreeAbstractor implements Abstractor, FilterHandler, SaveStateLi
 	}
 
 	public String getUniqueInputId () {
+		int ret = this.inputId++;
 		this.inputId++;
-		return "i" + this.inputId;
+		return "i" + ret;
 	}
 
 	public SessionParams onSavingState() {

@@ -543,7 +543,14 @@ public class Automation implements Robot, Extractor, TaskProcessor, ImageCaptor 
 		String testeeType = testee.getClass().getName();
 		Log.d("nofatclips", "Testing for type (" + testeeType + ") against the original (" + theType + ")");
 		String testeeText = (testee instanceof TextView)?(((TextView)testee).getText().toString()):"";
-		String testeeName = (testee instanceof EditText)?(((EditText)testee).getHint().toString()):testeeText;
+		
+		String testeeName = testeeText;
+		if (testee instanceof EditText) {
+			CharSequence hint = ((EditText)testee).getHint();
+			testeeName = (hint==null)?"":hint.toString();
+		}
+		
+//		String testeeName = (testee instanceof EditText)?(((EditText)testee).getHint().toString()):testeeText;
 		Log.d("nofatclips", "Testing for name (" + testeeName + ") against the original (" + theName + ")");
 		if ( (theType.equals(testeeType)) && (theName.equals(testeeName)) && (theId == testee.getId()) ) {
 			return true;

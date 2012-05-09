@@ -212,6 +212,7 @@ public class Automation implements Robot, Extractor, TaskProcessor, ImageCaptor 
 		} else if (interactionType.equals(SPINNER_SELECT)) {
 			selectSpinnerItem((Spinner)v, value);
 		} else if (interactionType.equals(TYPE_TEXT)) {
+			Log.e("nofatclips","Sono qui: " + value + " - " + v.getClass().toString());
 			solo.enterText((EditText)v, value);
 		} else if (interactionType.equals(SET_BAR)) {
 			solo.setProgressBar((ProgressBar)v, Integer.parseInt(value));
@@ -468,16 +469,19 @@ public class Automation implements Robot, Extractor, TaskProcessor, ImageCaptor 
 				switch (paramCount) {
 					case 0: continue;
 					case 1: {
+						Log.i ("nofatclips", "Firing event " + params[0]);
 						fireEventOnView(null, params[0], null);
 						break;
 					}
 					case 2: {
+						Log.i ("nofatclips", "Firing event " + params[0] + " with value: " + params[1]);
 						fireEventOnView(null, params[0], params[1]);
 						break;
 					}	
 					case 3: {
-						View v = getWidget(Integer.parseInt(params[2]));
-						fireEventOnView(v, params[0], params[1]);
+						View v = getWidget(Integer.parseInt(params[1]));
+						Log.i ("nofatclips", "Firing event " + params[0] + " on widget #" + params[1] + " with value: " + params[2]);
+						fireEventOnView(v, params[0], params[2]);
 						break;
 					}
 				}; 

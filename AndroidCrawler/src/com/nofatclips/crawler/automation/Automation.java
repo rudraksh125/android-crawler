@@ -212,7 +212,6 @@ public class Automation implements Robot, Extractor, TaskProcessor, ImageCaptor 
 		} else if (interactionType.equals(SPINNER_SELECT)) {
 			selectSpinnerItem((Spinner)v, value);
 		} else if (interactionType.equals(TYPE_TEXT)) {
-			Log.e("nofatclips","Sono qui: " + value + " - " + v.getClass().toString());
 			solo.enterText((EditText)v, value);
 		} else if (interactionType.equals(SET_BAR)) {
 			solo.setProgressBar((ProgressBar)v, Integer.parseInt(value));
@@ -456,7 +455,11 @@ public class Automation implements Robot, Extractor, TaskProcessor, ImageCaptor 
 		solo.setActivityOrientation(Solo.PORTRAIT);
 		wait(SLEEP_AFTER_RESTART);
 		waitOnThrobber();
-		processPrecrawling();	
+		if (PRECRAWLING.length>0) {
+			refreshCurrentActivity();
+			extractState();
+			processPrecrawling();			
+		}
 		Log.d("nofatclips", "Ready to operate after restarting...");
 	}
 	

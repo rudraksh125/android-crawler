@@ -222,7 +222,7 @@ public class Resources {
 	public final static String CLASS_NAME = "aarddict.android.LookupActivity";
 	public final static Comparator COMPARATOR = new CustomWidgetsComparator(EDIT_TEXT, BUTTON, MENU_VIEW, DIALOG_VIEW, LIST_VIEW);
 	public final static int SLEEP_AFTER_EVENT = 6000;
-	public final static int SLEEP_AFTER_RESTART = 12000;
+	public final static int SLEEP_AFTER_RESTART = 6000;
 //	static {
 //		UserFactory.addEvent(CLICK);
 //		UserFactory.forceIdsForEvent(CLICK, "2131099660");
@@ -252,7 +252,6 @@ public class Resources {
 	
 	// Precrawling sequence
 	public final static String[] PRECRAWLING = new String[] {
-		NULL, null,
 		TYPE_TEXT, "2131099659", "wa", null
 	};
 	
@@ -266,7 +265,7 @@ public class Resources {
 	public final static boolean EXPLORE_ONLY_NEW_STATES = true;
 //	public final static Comparator COMPARATOR = new NullComparator();
 	public final static StrategyCriteria[] ADDITIONAL_CRITERIAS = new StrategyCriteria[] {};
-	public final static boolean COMPARE_STATE_TITLE = false;
+	public final static boolean COMPARE_STATE_TITLE = true;
 	
 	// Persistence Parameters
 	public final static int MAX_TRACES_IN_RAM = 0; // After performing this amount of traces, the crawler saves to disk, empties the session and continues (0 = keep all in RAM)

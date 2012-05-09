@@ -222,7 +222,7 @@ public class Resources {
 	public final static String CLASS_NAME = "aarddict.android.LookupActivity";
 	public final static Comparator COMPARATOR = new CustomWidgetsComparator(EDIT_TEXT, BUTTON, MENU_VIEW, DIALOG_VIEW, LIST_VIEW);
 	public final static int SLEEP_AFTER_EVENT = 6000;
-	public final static int SLEEP_AFTER_RESTART = 6000;
+	public final static int SLEEP_AFTER_RESTART = 12000;
 //	static {
 //		UserFactory.addEvent(CLICK);
 //		UserFactory.forceIdsForEvent(CLICK, "2131099660");
@@ -239,21 +239,21 @@ public class Resources {
 
 	// Default events and inputs for user
 	static {
-		UserFactory.addEvent(CLICK, BUTTON, MENU_ITEM);
+//		UserFactory.addEvent(CLICK, BUTTON, MENU_ITEM);
 		UserFactory.addEvent(LONG_CLICK, WEB_VIEW);
 		UserFactory.addEvent(LIST_SELECT, LIST_VIEW);
-		UserFactory.addEvent(LIST_LONG_SELECT, LIST_VIEW);
+//		UserFactory.addEvent(LIST_LONG_SELECT, LIST_VIEW);
 		UserFactory.addEvent(SWAP_TAB, TAB_HOST);
 		UserFactory.addInput(CLICK, CHECKBOX, RADIO, TOGGLE_BUTTON);
 		UserFactory.addInput(SET_BAR, SEEK_BAR);
-		UserFactory.addInput(TYPE_TEXT, EDIT_TEXT);
+//		UserFactory.addInput(TYPE_TEXT, EDIT_TEXT);
 		UserFactory.addInput(SPINNER_SELECT, SPINNER);
 	}
 	
 	// Precrawling sequence
 	public final static String[] PRECRAWLING = new String[] {
-		OPEN_MENU, null,
-		CLICK_ON_TEXT, "About", null
+		NULL, null,
+		TYPE_TEXT, "2131099659", "wa", null
 	};
 	
 	// Strategy Parameters
@@ -266,6 +266,7 @@ public class Resources {
 	public final static boolean EXPLORE_ONLY_NEW_STATES = true;
 //	public final static Comparator COMPARATOR = new NullComparator();
 	public final static StrategyCriteria[] ADDITIONAL_CRITERIAS = new StrategyCriteria[] {};
+	public final static boolean COMPARE_STATE_TITLE = false;
 	
 	// Persistence Parameters
 	public final static int MAX_TRACES_IN_RAM = 0; // After performing this amount of traces, the crawler saves to disk, empties the session and continues (0 = keep all in RAM)
@@ -281,7 +282,7 @@ public class Resources {
 	public final static boolean SCREENSHOT_FOR_EVENTS = false; // Performs an image capture of the screen before firing an event
 
 	// User/Planner Parameters
-	public final static int MAX_EVENTS_PER_WIDGET = 12; // For GroupViews (0 = try all items in the group)
+	public final static int MAX_EVENTS_PER_WIDGET = 5; // For GroupViews (0 = try all items in the group)
 	public final static int MAX_TASKS_PER_EVENT = 1; // How many input sequences to generate for each event on a widget; 0 = no limit
 	public final static boolean EVENT_WHEN_NO_ID = false; // Whether to inject events on widgets without ID or not
 	public final static boolean BACK_BUTTON_EVENT = true;
@@ -298,7 +299,7 @@ public class Resources {
 	// More Parameters
 	public final static boolean IN_AND_OUT_FOCUS = true;
 	public final static boolean FORCE_RESTART = true;
-	public final static boolean ACTIVITY_DESCRIPTION_IN_SESSION = false;
+	public final static boolean ACTIVITY_DESCRIPTION_IN_SESSION = true;
 	public final static boolean RETRY_FAILED_TRACES = false; // Crashed and failed traces are retried once in case the failure had an asynchronous cause
 	public final static int SLEEP_ON_THROBBER = 30000; // How long to wait on spinning wheels (in ms -- 0 = don't wait)
 	public final static String XML_BODY_BEGIN = "    <TRACE";

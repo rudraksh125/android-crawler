@@ -217,12 +217,12 @@ public class Resources {
 //		new FixedValueEditor().addIdValuePair(16908291, "\r\n"),
 //	};
 
-	// Aarddict
-	public final static String PACKAGE_NAME = "aarddict.android";
-	public final static String CLASS_NAME = "aarddict.android.LookupActivity";
-	public final static Comparator COMPARATOR = new CustomWidgetsComparator(EDIT_TEXT, BUTTON, MENU_VIEW, DIALOG_VIEW, LIST_VIEW);
-	public final static int SLEEP_AFTER_EVENT = 6000;
-	public final static int SLEEP_AFTER_RESTART = 6000;
+//	// Aarddict
+//	public final static String PACKAGE_NAME = "aarddict.android";
+//	public final static String CLASS_NAME = "aarddict.android.LookupActivity";
+//	public final static Comparator COMPARATOR = new CustomWidgetsComparator(EDIT_TEXT, BUTTON, MENU_VIEW, DIALOG_VIEW, LIST_VIEW);
+//	public final static int SLEEP_AFTER_EVENT = 6000;
+//	public final static int SLEEP_AFTER_RESTART = 6000;
 //	static {
 //		UserFactory.addEvent(CLICK);
 //		UserFactory.forceIdsForEvent(CLICK, "2131099660");
@@ -230,30 +230,38 @@ public class Resources {
 //	public final static InteractorAdapter[] ADDITIONAL_EVENTS = new InteractorAdapter[] { // Search
 //		new FixedValueEditor().addIdValuePair(2131099648, "5"),
 //	};
+//	public final static String[] PRECRAWLING = new String[] {
+//		TYPE_TEXT, "2131099659", "wa", null,
+//		CLICK_ON_TEXT, "Miller", null,
+//	};
 	
+// Book Catalog
+	public final static String PACKAGE_NAME = "com.eleybourn.bookcatalogue";
+	public final static String CLASS_NAME = "com.eleybourn.bookcatalogue.BookCatalogue";
+	public final static Comparator COMPARATOR = new CustomWidgetsComparator(LIST_VIEW, BUTTON);
+	public final static int SLEEP_AFTER_EVENT = 2000;
+	public final static int SLEEP_AFTER_RESTART = 2000;
 	
 
 	/*
 	 * 				Default Parameters
 	 */
 
-	// Default events and inputs for user
+	// Default events and inputs for the User
 	static {
 //		UserFactory.addEvent(CLICK, BUTTON, MENU_ITEM);
-		UserFactory.addEvent(LONG_CLICK, WEB_VIEW);
-		UserFactory.addEvent(LIST_SELECT, LIST_VIEW);
-//		UserFactory.addEvent(LIST_LONG_SELECT, LIST_VIEW);
-		UserFactory.addEvent(SWAP_TAB, TAB_HOST);
-		UserFactory.addInput(CLICK, CHECKBOX, RADIO, TOGGLE_BUTTON);
-		UserFactory.addInput(SET_BAR, SEEK_BAR);
+//		UserFactory.addEvent(LONG_CLICK, WEB_VIEW);
+//		UserFactory.addEvent(LIST_SELECT, LIST_VIEW);
+		UserFactory.addEvent(LIST_LONG_SELECT, LIST_VIEW);
+//		UserFactory.addEvent(SWAP_TAB, TAB_HOST);
+//		UserFactory.addInput(CLICK, CHECKBOX, RADIO, TOGGLE_BUTTON);
+//		UserFactory.addInput(SET_BAR, SEEK_BAR);
 //		UserFactory.addInput(TYPE_TEXT, EDIT_TEXT);
 		UserFactory.addInput(SPINNER_SELECT, SPINNER);
 	}
 	
 	// Precrawling sequence
-	public final static String[] PRECRAWLING = new String[] {
-		TYPE_TEXT, "2131099659", "wa", null
-	};
+	public final static String[] PRECRAWLING = new String[] {};
 	
 	// Strategy Parameters
 	public final static int MAX_NUM_TRACES = 0; // After performing this amount of traces, the crawler exits (0 = no length limit)
@@ -266,6 +274,7 @@ public class Resources {
 //	public final static Comparator COMPARATOR = new NullComparator();
 	public final static StrategyCriteria[] ADDITIONAL_CRITERIAS = new StrategyCriteria[] {};
 	public final static boolean COMPARE_STATE_TITLE = true;
+	public final static boolean COMPARE_LIST_COUNT = true;
 	
 	// Persistence Parameters
 	public final static int MAX_TRACES_IN_RAM = 0; // After performing this amount of traces, the crawler saves to disk, empties the session and continues (0 = keep all in RAM)

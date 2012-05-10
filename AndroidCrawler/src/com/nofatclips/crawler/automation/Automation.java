@@ -10,14 +10,12 @@ import java.util.Iterator;
 import java.util.Map;
 
 import android.app.Activity;
+import android.app.Instrumentation;
 import android.graphics.Bitmap;
 //import android.app.Instrumentation;
 import android.test.ActivityInstrumentationTestCase2;
 import android.util.Log;
-import android.view.Display;
-import android.view.View;
-import android.view.ViewGroup;
-import android.view.WindowManager;
+import android.view.*;
 import android.widget.*;
 
 import com.jayway.android.robotium.solo.Solo;
@@ -64,7 +62,7 @@ public class Automation implements Robot, Extractor, TaskProcessor, ImageCaptor 
 	public void bind (ActivityInstrumentationTestCase2 test) {
 		this.test = test;
 //		this.theActivity = this.test.getActivity();
-		this.solo = new Solo (test.getInstrumentation(), test.getActivity());
+		this.solo = new Solo (getInstrumentation(), test.getActivity());
 		afterRestart();
 		refreshCurrentActivity();
 		Log.w ("nofatclips","--->" + theActivity.getLocalClassName());
@@ -347,6 +345,18 @@ public class Automation implements Robot, Extractor, TaskProcessor, ImageCaptor 
 		sync();
 	}
 	
+//    public void  sendKeyDownUpLong(int key) {
+//		long downTime = SystemClock.uptimeMillis();
+//		long eventTime = SystemClock.uptimeMillis();
+//		KeyEvent down = new KeyEvent(downTime, eventTime, KeyEvent.ACTION_DOWN, key, 100);
+//        getInstrumentation().sendKeySync(down);
+//        solo.sleep(1500);//solo.sleep((int) (android.view.ViewConfiguration.getLongPressTimeout() * 2.5f));
+//		eventTime = SystemClock.uptimeMillis();
+//		KeyEvent up = new KeyEvent(downTime, eventTime, KeyEvent.ACTION_UP, key, 0);
+//		up = KeyEvent.changeFlags(down, KeyEvent.FLAG_LONG_PRESS);
+//        getInstrumentation().sendKeySync(up);
+//    }
+	
 	// Scroll until the view is on the screen if IN_AND_OUT_OF_FOCUS is enabled or if the force parameter is true 
 	protected void requestView (final View v, boolean force) {
 		if (force || isInAndOutFocusEnabled()) {
@@ -458,7 +468,7 @@ public class Automation implements Robot, Extractor, TaskProcessor, ImageCaptor 
 		if (PRECRAWLING.length>0) {
 			refreshCurrentActivity();
 			extractState();
-			processPrecrawling();			
+			processPrecrawling();
 		}
 		Log.d("nofatclips", "Ready to operate after restarting...");
 	}
@@ -496,8 +506,12 @@ public class Automation implements Robot, Extractor, TaskProcessor, ImageCaptor 
 		}
 	}
 	
+	public Instrumentation getInstrumentation() {
+		return this.test.getInstrumentation();
+	}
+	
 	public void changeOrientation() {
-		Display display = ((WindowManager) this.test.getInstrumentation().getContext().getSystemService(WINDOW_SERVICE)).getDefaultDisplay();
+		Display display = ((WindowManager) getInstrumentation().getContext().getSystemService(WINDOW_SERVICE)).getDefaultDisplay();
 		int angle = display.getRotation();
 		int newAngle = ((angle==ROTATION_0)||(angle==ROTATION_180))?Solo.LANDSCAPE:Solo.PORTRAIT;
 		solo.setActivityOrientation(newAngle);
@@ -589,7 +603,7 @@ public class Automation implements Robot, Extractor, TaskProcessor, ImageCaptor 
 	}
 	
 	public void sync() {
-		this.test.getInstrumentation().waitForIdleSync();
+		getInstrumentation().waitForIdleSync();
 	}
 	
 	// The TrivialExtractor uses the same methods available in Automation to create

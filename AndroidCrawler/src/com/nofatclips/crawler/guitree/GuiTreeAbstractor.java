@@ -111,7 +111,11 @@ public class GuiTreeAbstractor implements Abstractor, FilterHandler, SaveStateLi
 				TextView t = (TextView)v;
 				type = t.getInputType();
 				text = t.getText().toString();
-				name = (v instanceof EditText)?(t.getHint().toString()):text;
+				name = text;
+				if (v instanceof EditText) {
+					CharSequence hint = ((EditText)v).getHint();
+					name = (hint==null)?"":hint.toString();
+				}
 			}
 			w.setIdNameType(id, name, v.getClass().getName());
 			if (type!=0) {

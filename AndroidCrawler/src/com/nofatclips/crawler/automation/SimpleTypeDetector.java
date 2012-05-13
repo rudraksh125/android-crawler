@@ -48,7 +48,12 @@ public class SimpleTypeDetector implements TypeDetector {
 			return TAB_HOST;
 		if (type.endsWith("ListView") || type.endsWith("ExpandedMenuView")) {
 			ListView l = (ListView)v;
-			return (l.getCount()>0)?LIST_VIEW:EMPTY_LIST;
+			if (l.getCount() == 0) return EMPTY_LIST;
+			switch (l.getChoiceMode()) {
+				case ListView.CHOICE_MODE_NONE: return LIST_VIEW;
+				case ListView.CHOICE_MODE_SINGLE: return SINGLE_CHOICE_LIST;
+				case ListView.CHOICE_MODE_MULTIPLE: return MULTI_CHOICE_LIST;
+			}
 		}
 		if (type.endsWith("TextView"))
 			return TEXT_VIEW;

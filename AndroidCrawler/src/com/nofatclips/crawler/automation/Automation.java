@@ -265,6 +265,7 @@ public class Automation implements Robot, Extractor, TaskProcessor, ImageCaptor 
 
 	private void swapTab (final TabHost t, int num) {
 		assertNotNull(t, "Cannon swap tab: the tab host does not exist");
+		ActivityInstrumentationTestCase2.assertTrue("Cannot swap tab: tab index out of bound", num<=t.getTabWidget().getTabCount());
 		final int n = Math.min(this.tabNum, Math.max(1,num))-1;
 		Log.i("nofatclips", "Swapping to tab " + num);
 		getActivity().runOnUiThread(new Runnable() {

@@ -57,24 +57,24 @@ public class Resources {
 //		new AfterEventDontExplore("Remove Blog", "Add"),
 //	};
 
-	// Wordpress 2 (Beta)
-	public final static String PACKAGE_NAME = "org.wordpress.android";
-	public final static String CLASS_NAME = "org.wordpress.android.Dashboard";
-//	public final static String FILE_NAME = "wordpress2.xml"; // Output
-	public final static Comparator COMPARATOR = new CustomWidgetsComparator(EDIT_TEXT, BUTTON, MENU_VIEW, DIALOG_VIEW, LIST_VIEW, SINGLE_CHOICE_LIST);
-	public final static int SLEEP_AFTER_EVENT = 3000;
-	public final static int SLEEP_AFTER_RESTART = 1000;
-	public final static StrategyCriteria[] ADDITIONAL_CRITERIAS = new StrategyCriteria[] {
-		new AfterEventDontExplore("Remove Blog"),
-		new AfterWidgetDontExplore (2131165200),
-	};
-	static {
-		UserFactory.denyInteractionOnIds(TYPE_TEXT, 2131165215, 2131165217); // Don't change user and password
-		UserFactory.denyInteractionOnIds(CLICK, 2131165204, 2131165351); // Don't click Linear Layout container, don't check Geotag Posts
-	}
-	//	public final static InteractorAdapter[] ADDITIONAL_INPUTS = new InteractorAdapter[] { // Username and password
-	//	new FixedValueEditor().addIdValuePair(2131165215, "").addIdValuePair(2131165217, ""),
-	//};
+//	// Wordpress 2 (Beta)
+//	public final static String PACKAGE_NAME = "org.wordpress.android";
+//	public final static String CLASS_NAME = "org.wordpress.android.Dashboard";
+////	public final static String FILE_NAME = "wordpress2.xml"; // Output
+//	public final static Comparator COMPARATOR = new CustomWidgetsComparator(EDIT_TEXT, BUTTON, MENU_VIEW, DIALOG_VIEW, LIST_VIEW, SINGLE_CHOICE_LIST, MULTI_CHOICE_LIST);
+//	public final static int SLEEP_AFTER_EVENT = 3000;
+//	public final static int SLEEP_AFTER_RESTART = 1000;
+//	public final static StrategyCriteria[] ADDITIONAL_CRITERIAS = new StrategyCriteria[] {
+//		new AfterEventDontExplore("Remove Blog"),
+//		new AfterWidgetDontExplore (2131165200),
+//	};
+//	static {
+//		UserFactory.denyInteractionOnIds(TYPE_TEXT, 2131165215, 2131165217); // Don't change user and password
+//		UserFactory.denyInteractionOnIds(CLICK, 2131165204, 2131165351); // Don't click Linear Layout container, don't check Geotag Posts
+//	}
+//	//	public final static InteractorAdapter[] ADDITIONAL_INPUTS = new InteractorAdapter[] { // Username and password
+//	//	new FixedValueEditor().addIdValuePair(2131165215, "").addIdValuePair(2131165217, ""),
+//	//};
 
 //	public final static String PACKAGE_NAME = "com.bwx.bequick";
 //	public final static String CLASS_NAME = "com.bwx.bequick.ShowSettingsActivity";
@@ -234,12 +234,12 @@ public class Resources {
 //		CLICK_ON_TEXT, "Miller", null,
 //	};
 	
-//	// Book Catalog
-//	public final static String PACKAGE_NAME = "com.eleybourn.bookcatalogue";
-//	public final static String CLASS_NAME = "com.eleybourn.bookcatalogue.BookCatalogue";
-//	public final static Comparator COMPARATOR = new CustomWidgetsComparator(LIST_VIEW, BUTTON);
-//	public final static int SLEEP_AFTER_EVENT = 2000;
-//	public final static int SLEEP_AFTER_RESTART = 2000;
+	// Book Catalog
+	public final static String PACKAGE_NAME = "com.eleybourn.bookcatalogue";
+	public final static String CLASS_NAME = "com.eleybourn.bookcatalogue.BookCatalogue";
+	public final static Comparator COMPARATOR = new CustomWidgetsComparator(LIST_VIEW, BUTTON);
+	public final static int SLEEP_AFTER_EVENT = 2000;
+	public final static int SLEEP_AFTER_RESTART = 2000;
 	
 
 	/*
@@ -248,11 +248,11 @@ public class Resources {
 
 	// Default events and inputs for the User
 	static {
-		UserFactory.addEvent(CLICK, BUTTON, MENU_ITEM, LINEAR_LAYOUT);
+//		UserFactory.addEvent(CLICK, BUTTON, MENU_ITEM, LINEAR_LAYOUT);
 //		UserFactory.addEvent(LONG_CLICK, WEB_VIEW);
-		UserFactory.addEvent(LIST_SELECT, SINGLE_CHOICE_LIST);
-		UserFactory.addEvent(LIST_LONG_SELECT, LIST_VIEW);
-//		UserFactory.addEvent(SWAP_TAB, TAB_HOST);
+//		UserFactory.addEvent(LIST_SELECT, SINGLE_CHOICE_LIST);
+//		UserFactory.addEvent(LIST_LONG_SELECT, LIST_VIEW);
+		UserFactory.addEvent(SWAP_TAB, TAB_HOST);
 //		UserFactory.addInput(CLICK, CHECKBOX, RADIO, TOGGLE_BUTTON);
 //		UserFactory.addInput(SET_BAR, SEEK_BAR);
 //		UserFactory.addInput(TYPE_TEXT, EDIT_TEXT);
@@ -260,7 +260,19 @@ public class Resources {
 	}
 	
 	// Precrawling sequence
-	public final static String[] PRECRAWLING = new String[] {};
+	public final static String[] PRECRAWLING = new String[] {
+		LIST_SELECT, "16908298", "2", null,
+		OPEN_MENU, null,
+		CLICK_ON_TEXT, "Duplicate Book", null,
+		TYPE_TEXT, "2131034177", "85", null,
+		CLICK, "2131034189", NULL, null,
+		CLICK, "2131034152", NULL, null,
+		CLICK, "2131034199", NULL, null,
+		CLICK_ON_TEXT, "Save Book", null,
+		LIST_SELECT, "16908298", "3", null,
+		CLICK, "2131034189", NULL, null,
+		SWAP_TAB, "16908306", "4", null,
+	};
 	
 	// Strategy Parameters
 	public final static int MAX_NUM_TRACES = 0; // After performing this amount of traces, the crawler exits (0 = no length limit)
@@ -271,7 +283,7 @@ public class Resources {
 	public final static boolean CHECK_FOR_TRANSITION = false;
 	public final static boolean EXPLORE_ONLY_NEW_STATES = true;
 //	public final static Comparator COMPARATOR = new NullComparator();
-//	public final static StrategyCriteria[] ADDITIONAL_CRITERIAS = new StrategyCriteria[] {};
+	public final static StrategyCriteria[] ADDITIONAL_CRITERIAS = new StrategyCriteria[] {};
 	public final static boolean COMPARE_STATE_TITLE = true;
 	public final static boolean COMPARE_LIST_COUNT = true;
 	

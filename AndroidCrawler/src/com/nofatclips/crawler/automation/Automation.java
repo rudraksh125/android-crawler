@@ -334,7 +334,7 @@ public class Automation implements Robot, Extractor, TaskProcessor, ImageCaptor 
 	}
 
 	public static boolean isInAndOutFocusEnabled() {
-		return (IN_AND_OUT_FOCUS);
+		return IN_AND_OUT_FOCUS;
 	}		
 
 	protected void requestFocus (final View v) {
@@ -498,7 +498,7 @@ public class Automation implements Robot, Extractor, TaskProcessor, ImageCaptor 
 						fireEventOnView(v, params[0], params[2]);
 						break;
 					}
-				}; 
+				};
 				paramCount = 0;
 			} else {
 				params[paramCount] = s;

@@ -37,12 +37,14 @@ public class GuiTreeAbstractor implements Abstractor, FilterHandler, SaveStateLi
 	private int eventId=0;
 	private int inputId=0;
 	private int activityId=0;
+	private int widgetId=0;
 	private TypeDetector detector;
 	private List<AbstractorListener> theListeners = new ArrayList<AbstractorListener>();
 	public final static String ACTOR_NAME = "GuiTreeAbstractor";
 	private static final String EVENT_PARAM_NAME = "eventId";
 	private static final String INPUT_PARAM_NAME = "inputId";
 	private static final String ACTIVITY_PARAM_NAME = "activityId";
+	private static final String WIDGET_PARAM_NAME = "widgetId";
 
 	public GuiTreeAbstractor () throws ParserConfigurationException {
 		this (new GuiTree());
@@ -118,6 +120,7 @@ public class GuiTreeAbstractor implements Abstractor, FilterHandler, SaveStateLi
 				}
 			}
 			w.setIdNameType(id, name, v.getClass().getName());
+			w.setUniqueId(getUniqueWidgetId());
 			if (type!=0) {
 				w.setTextType("" + type);
 			}
@@ -139,7 +142,7 @@ public class GuiTreeAbstractor implements Abstractor, FilterHandler, SaveStateLi
 	
 	@SuppressWarnings("rawtypes")
 	private void setCount (View v, WidgetState w) {
-		// For lists, the count is set to the number of rows in the list (inactive rows count as well)
+		// For lists, the count is set to the number of rows in the list (inactive rows - e.g. separators - count as well)
 		if (v instanceof AdapterView) {
 			w.setCount(((AdapterView)v).getCount());
 			return;
@@ -242,10 +245,10 @@ public class GuiTreeAbstractor implements Abstractor, FilterHandler, SaveStateLi
 		return newEvent;
 	}
 
-	public UserInput createInput(WidgetState target, String text, String type) {
+	public UserInput createInput(WidgetState target, String value, String type) {
 		TestCaseInput newInput = TestCaseInput.createInput(getTheSession());
-		newInput.setWidget(target);
-		newInput.setValue(text);
+		newInput.setWidget (target.clone());
+		newInput.setValue(value);
 		newInput.setType(type);
 		newInput.setId(getUniqueInputId());
 		for (AbstractorListener listener: this.theListeners) {
@@ -253,6 +256,18 @@ public class GuiTreeAbstractor implements Abstractor, FilterHandler, SaveStateLi
 		}
 		return newInput;
 	}
+
+//	public UserInput createInput(WidgetState target, String text, String type) {
+//		TestCaseInput newInput = TestCaseInput.createInput(getTheSession());
+//		newInput.setWidget(target);
+//		newInput.setValue(text);
+//		newInput.setType(type);
+//		newInput.setId(getUniqueInputId());
+//		for (AbstractorListener listener: this.theListeners) {
+//			listener.onNewInput(newInput);
+//		}
+//		return newInput;
+//	}
 
 	public Trace createTrace(Trace head, Transition tail) {
 		TestCaseTrace t;
@@ -316,11 +331,18 @@ public class GuiTreeAbstractor implements Abstractor, FilterHandler, SaveStateLi
 		return "i" + ret;
 	}
 
+	public String getUniqueWidgetId () {
+		int ret = this.widgetId;
+		this.widgetId++;
+		return "w" + ret;
+	}
+
 	public SessionParams onSavingState() {
 		SessionParams state = new SessionParams();
 		state.store(EVENT_PARAM_NAME, String.valueOf(this.eventId));
 		state.store(INPUT_PARAM_NAME, String.valueOf(this.inputId));
 		state.store(ACTIVITY_PARAM_NAME, String.valueOf(this.activityId));
+		state.store(WIDGET_PARAM_NAME, String.valueOf(this.widgetId));
 		return state;
 	}
 	
@@ -328,6 +350,7 @@ public class GuiTreeAbstractor implements Abstractor, FilterHandler, SaveStateLi
 		this.eventId = sessionParams.getInt(EVENT_PARAM_NAME);
 		this.inputId = sessionParams.getInt(INPUT_PARAM_NAME);
 		this.activityId = sessionParams.getInt(ACTIVITY_PARAM_NAME);
+		this.widgetId = sessionParams.getInt(WIDGET_PARAM_NAME);
 		Log.d("nofatclips", "Restored abstractor counters to: event = " + eventId + " - input = " + inputId + " - activity = " + activityId);
 	}
 

@@ -81,11 +81,19 @@ public class Automation implements Robot, Extractor, TaskProcessor, ImageCaptor 
 		extractState();
 		Log.i ("nofatclips", "Playing Trace " + t.getId());
 		for (Transition step: t) {
-			for (UserInput i: step) {
-				setInput(i);
-			}
-			fireEvent (step.getEvent());
+//			for (UserInput i: step) {
+//				setInput(i);
+//			}
+//			fireEvent (step.getEvent());
+			process (step);
 		}
+	}
+	
+	public void process (Transition step) {
+		for (UserInput i: step) {
+			setInput(i);
+		}
+		fireEvent (step.getEvent());		
 	}
 
 	public void finalize() {
@@ -385,7 +393,7 @@ public class Automation implements Robot, Extractor, TaskProcessor, ImageCaptor 
 		solo.clickLongOnView(v);
 	}
 	
-	protected void wait (int milli) {
+	public void wait (int milli) {
 		Log.i("nofatclips", "Waiting for " + ((milli>=1000)?(milli/1000 + " sec."):(milli + " msec.")));
 		solo.sleep(milli);
 	}

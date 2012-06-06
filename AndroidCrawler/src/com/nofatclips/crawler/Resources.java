@@ -24,11 +24,12 @@ public class Resources {
 //	public final static int SLEEP_AFTER_EVENT = 2000;
 //	public final static int SLEEP_AFTER_RESTART = 2000;
 
-//	public final static String PACKAGE_NAME = "com.blazing_skies.caloriecalculator";
-//	public final static String CLASS_NAME = "com.blazing_skies.caloriecalculator.PreMainActivity";
-//	public final static Comparator COMPARATOR = new EditTextComparator();
-//	public final static int SLEEP_AFTER_EVENT = 300;
-//	public final static int SLEEP_AFTER_RESTART = 2000;
+	public final static String PACKAGE_NAME = "com.blazing_skies.caloriecalculator";
+	public final static String CLASS_NAME = "com.blazing_skies.caloriecalculator.PreMainActivity";
+	public final static Comparator COMPARATOR = new EditTextComparator();
+	public final static int SLEEP_AFTER_EVENT = 300;
+	public final static int SLEEP_AFTER_RESTART = 2000;
+	public final static int SLEEP_AFTER_TASK = 5000;
 
 //	public final static String PACKAGE_NAME = "com.evancharlton.mileage";
 //	public final static String CLASS_NAME = "com.evancharlton.mileage.Mileage";
@@ -235,11 +236,24 @@ public class Resources {
 //	};
 	
 	// Book Catalog
-	public final static String PACKAGE_NAME = "com.eleybourn.bookcatalogue";
-	public final static String CLASS_NAME = "com.eleybourn.bookcatalogue.BookCatalogue";
-	public final static Comparator COMPARATOR = new CustomWidgetsComparator(LIST_VIEW, BUTTON);
-	public final static int SLEEP_AFTER_EVENT = 2000;
-	public final static int SLEEP_AFTER_RESTART = 2000;
+//	public final static String PACKAGE_NAME = "com.eleybourn.bookcatalogue";
+//	public final static String CLASS_NAME = "com.eleybourn.bookcatalogue.BookCatalogue";
+//	public final static Comparator COMPARATOR = new CustomWidgetsComparator(LIST_VIEW, BUTTON);
+//	public final static int SLEEP_AFTER_EVENT = 2000;
+//	public final static int SLEEP_AFTER_RESTART = 2000;
+//	public final static String[] PRECRAWLING = new String[] {
+//		LIST_SELECT, "16908298", "2", null,
+//		OPEN_MENU, null,
+//		CLICK_ON_TEXT, "Duplicate Book", null,
+//		TYPE_TEXT, "2131034177", "85", null,
+//		CLICK, "2131034189", NULL, null,
+//		CLICK, "2131034152", NULL, null,
+//		CLICK, "2131034199", NULL, null,
+//		CLICK_ON_TEXT, "Save Book", null,
+//		LIST_SELECT, "16908298", "3", null,
+//		CLICK, "2131034189", NULL, null,
+//		SWAP_TAB, "16908306", "4", null,
+//	};
 	
 
 	/*
@@ -248,31 +262,19 @@ public class Resources {
 
 	// Default events and inputs for the User
 	static {
-//		UserFactory.addEvent(CLICK, BUTTON, MENU_ITEM, LINEAR_LAYOUT);
-//		UserFactory.addEvent(LONG_CLICK, WEB_VIEW);
-//		UserFactory.addEvent(LIST_SELECT, SINGLE_CHOICE_LIST);
-//		UserFactory.addEvent(LIST_LONG_SELECT, LIST_VIEW);
+		UserFactory.addEvent(CLICK, BUTTON, MENU_ITEM, LINEAR_LAYOUT);
+		UserFactory.addEvent(LONG_CLICK, WEB_VIEW);
+		UserFactory.addEvent(LIST_SELECT, LIST_VIEW, SINGLE_CHOICE_LIST);
+		UserFactory.addEvent(LIST_LONG_SELECT, LIST_VIEW, SINGLE_CHOICE_LIST);
 		UserFactory.addEvent(SWAP_TAB, TAB_HOST);
-//		UserFactory.addInput(CLICK, CHECKBOX, RADIO, TOGGLE_BUTTON);
-//		UserFactory.addInput(SET_BAR, SEEK_BAR);
-//		UserFactory.addInput(TYPE_TEXT, EDIT_TEXT);
-//		UserFactory.addInput(SPINNER_SELECT, SPINNER);
+		UserFactory.addInput(CLICK, CHECKBOX, RADIO, TOGGLE_BUTTON);
+		UserFactory.addInput(SET_BAR, SEEK_BAR);
+		UserFactory.addInput(TYPE_TEXT, EDIT_TEXT);
+		UserFactory.addInput(SPINNER_SELECT, SPINNER);
 	}
 	
 	// Precrawling sequence
-	public final static String[] PRECRAWLING = new String[] {
-		LIST_SELECT, "16908298", "2", null,
-		OPEN_MENU, null,
-		CLICK_ON_TEXT, "Duplicate Book", null,
-		TYPE_TEXT, "2131034177", "85", null,
-		CLICK, "2131034189", NULL, null,
-		CLICK, "2131034152", NULL, null,
-		CLICK, "2131034199", NULL, null,
-		CLICK_ON_TEXT, "Save Book", null,
-		LIST_SELECT, "16908298", "3", null,
-		CLICK, "2131034189", NULL, null,
-		SWAP_TAB, "16908306", "4", null,
-	};
+	public final static String[] PRECRAWLING = new String[] {};
 	
 	// Strategy Parameters
 	public final static int MAX_NUM_TRACES = 0; // After performing this amount of traces, the crawler exits (0 = no length limit)
@@ -305,8 +307,8 @@ public class Resources {
 	public final static int MAX_TASKS_PER_EVENT = 1; // How many input sequences to generate for each event on a widget; 0 = no limit
 	public final static boolean EVENT_WHEN_NO_ID = false; // Whether to inject events on widgets without ID or not
 	public final static boolean BACK_BUTTON_EVENT = true;
-	public final static boolean MENU_EVENTS = false;
-	public final static boolean ORIENTATION_EVENTS = false;
+	public final static boolean MENU_EVENTS = true;
+	public final static boolean ORIENTATION_EVENTS = true;
 	public final static boolean TAB_EVENTS_START_ONLY = true; // true -> click on tabs only on the start activity
 //	public final static boolean LONG_CLICK_LIST_EVENT = false;
 //	public final static boolean LONG_CLICK_EVENT = false;

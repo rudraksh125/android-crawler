@@ -98,6 +98,7 @@ public class GuiTreeEngine extends Engine {
 		theGuiTree.setPackageName(PACKAGE_NAME);
 		theGuiTree.setComparationWidgets(COMPARATOR.describe());
 		theGuiTree.setInAndOutFocus(IN_AND_OUT_FOCUS);
+		theGuiTree.setSleepAfterTask(SLEEP_AFTER_TASK);
 		if (!ACTIVITY_DESCRIPTION_IN_SESSION) {
 			theGuiTree.setStateFileName(ACTIVITY_LIST_FILE_NAME);
 		}

@@ -33,7 +33,7 @@ public class SimplePlanner implements Planner {
 		Plan p = new Plan();
 		Log.i("nofatclips", "Planning for new Activity " + a.getName());
 		for (WidgetState w: getEventFilter()) {
-			Collection<UserEvent> events = getUser().handleEvent(w);
+			Collection<UserEvent> events = getUser().handleEvent(w);			
 			for (UserEvent evt: events) {
 				if (evt == null) continue;
 				Collection<UserInput> inputs = new ArrayList<UserInput>();

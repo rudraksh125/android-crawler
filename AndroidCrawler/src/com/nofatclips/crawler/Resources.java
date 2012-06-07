@@ -37,7 +37,6 @@ public class Resources {
 //	public final static Comparator COMPARATOR = new CustomWidgetsDeepComparator(CustomWidgetsComparator.IGNORE_ACTIVITY_NAME, BUTTON, LIST_VIEW, MENU_VIEW, IMAGE_VIEW);
 	public final static int SLEEP_AFTER_EVENT = 4000;
 	public final static int SLEEP_AFTER_RESTART = 4000;
-	public final static int MAX_EVENTS_PER_WIDGET = 7;
 	
 //	public final static String PACKAGE_NAME = "net.sf.andbatdog.batterydog";
 //	public final static String CLASS_NAME = "net.sf.andbatdog.batterydog.BatteryDog";
@@ -279,9 +278,7 @@ public class Resources {
 	
 	// Precrawling sequence
 	public final static String[] PRECRAWLING = new String[] {
-		OPEN_MENU, null,
-		CLICK_ON_TEXT, "Import / Export", null,
-		CLICK, "2131165223", NULL, null,
+		SWAP_TAB, "16908307", "2", null, 
 	};
 	
 	// Strategy Parameters
@@ -311,7 +308,8 @@ public class Resources {
 	public final static boolean SCREENSHOT_FOR_EVENTS = false; // Performs an image capture of the screen before firing an event
 
 	// User/Planner Parameters
-//	public final static int MAX_EVENTS_PER_WIDGET = 5; // For GroupViews (0 = try all items in the group)
+	public final static int MAX_EVENTS_PER_WIDGET = 2; // For GroupViews (0 = try all items in the group)
+	public final static boolean ALL_EVENTS_ON_PREFERENCES = true; // Bypass MAX_EVENTS_PER_WIDGET for PREFERENCE_LIST when true
 	public final static int MAX_TASKS_PER_EVENT = 1; // How many input sequences to generate for each event on a widget; 0 = no limit
 	public final static boolean EVENT_WHEN_NO_ID = false; // Whether to inject events on widgets without ID or not
 	public final static boolean BACK_BUTTON_EVENT = true;

@@ -440,7 +440,7 @@ public class Automation implements Robot, Extractor, TaskProcessor, ImageCaptor 
 		ArrayList<View> viewList = (isInAndOutFocusEnabled())?solo.getViews():solo.getCurrentViews();
 		for (View w: viewList) {
 			String text = (w instanceof TextView)?": "+((TextView)w).getText().toString():"";
-			Log.d("nofatclips", "Found widget: id=" + w.getId() + " ("+ w.toString() + ")" + text); // + " in window at [" + xy[0] + "," + xy[1] + "] on screen at [" + xy2[0] + "," + xy2[1] +"]");
+			Log.d("nofatclips", "Found widget: id=" + w.getId() + " ("+ w.toString() + ")" + text); // + " in window at [" + xy[0] + "," + xy[1] + "] on screen at [" + xy2[0] + "," + xy2[1] +"]");			
 			allViews.add(w);
 			if (w.getId()>0) {
 				theViews.put(w.getId(), w); // Add only if the widget has a valid ID

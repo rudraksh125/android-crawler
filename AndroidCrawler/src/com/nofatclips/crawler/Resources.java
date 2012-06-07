@@ -31,14 +31,13 @@ public class Resources {
 //	public final static int SLEEP_AFTER_RESTART = 2000;
 //	public final static int SLEEP_AFTER_TASK = 5000;
 
-//	public final static String PACKAGE_NAME = "com.evancharlton.mileage";
-//	public final static String CLASS_NAME = "com.evancharlton.mileage.Mileage";
-//	public final static String FILE_NAME = "mileage.xml"; // Output
-////	public final static Comparator COMPARATOR = new CustomWidgetsComparator(CustomWidgetsComparator.IGNORE_ACTIVITY_NAME, EDIT_TEXT, BUTTON, LIST_VIEW, MENU_VIEW, IMAGE_VIEW);
+	public final static String PACKAGE_NAME = "com.evancharlton.mileage";
+	public final static String CLASS_NAME = "com.evancharlton.mileage.Mileage";
+	public final static Comparator COMPARATOR = new CustomWidgetsComparator(CustomWidgetsComparator.IGNORE_ACTIVITY_NAME, EDIT_TEXT, BUTTON, LIST_VIEW, MENU_VIEW, IMAGE_VIEW);
 //	public final static Comparator COMPARATOR = new CustomWidgetsDeepComparator(CustomWidgetsComparator.IGNORE_ACTIVITY_NAME, BUTTON, LIST_VIEW, MENU_VIEW, IMAGE_VIEW);
-//	public final static int SLEEP_AFTER_EVENT = 4000;
-//	public final static int SLEEP_AFTER_RESTART = 4000;
-//	public final static int MAX_EVENTS_PER_WIDGET = 7;
+	public final static int SLEEP_AFTER_EVENT = 4000;
+	public final static int SLEEP_AFTER_RESTART = 4000;
+	public final static int MAX_EVENTS_PER_WIDGET = 7;
 	
 //	public final static String PACKAGE_NAME = "net.sf.andbatdog.batterydog";
 //	public final static String CLASS_NAME = "net.sf.andbatdog.batterydog.BatteryDog";
@@ -205,16 +204,21 @@ public class Resources {
 //	public final static int SLEEP_AFTER_RESTART = 500;
 
 	// TomDroid
-	public final static String PACKAGE_NAME = "org.tomdroid";
-	public final static String CLASS_NAME = "org.tomdroid.ui.Tomdroid";
-	public final static Comparator COMPARATOR = new CustomWidgetsComparator(EDIT_TEXT, BUTTON, MENU_VIEW); //, DIALOG_VIEW, LIST_VIEW);
-	public final static int SLEEP_AFTER_EVENT = 2000;
-	public final static int SLEEP_AFTER_RESTART = 1000;
-	public final static StrategyCriteria[] ADDITIONAL_CRITERIAS = new StrategyCriteria[] {
-		new AfterEventDontExplore("Service"),
-	};
+//	public final static String PACKAGE_NAME = "org.tomdroid";
+//	public final static String CLASS_NAME = "org.tomdroid.ui.Tomdroid";
+//	public final static Comparator COMPARATOR = new CustomWidgetsComparator(EDIT_TEXT, BUTTON, MENU_VIEW); //, DIALOG_VIEW, LIST_VIEW);
+//	public final static int SLEEP_AFTER_EVENT = 2000;
+//	public final static int SLEEP_AFTER_RESTART = 1000;
+//	public final static StrategyCriteria[] ADDITIONAL_CRITERIAS = new StrategyCriteria[] {
+//		new AfterEventDontExplore("Service"),
+//	};
 //	public final static InteractorAdapter[] ADDITIONAL_INPUTS = new InteractorAdapter[] { // Username and password
 //		new FixedValueEditor().addIdValuePair(16908291, "\r\n"),
+//	};
+//	public final static String[] PRECRAWLING = new String[] {
+//		OPEN_MENU, null,
+//		CLICK_ON_TEXT, "Settings", null,
+//		CLICK_ON_TEXT, "Server", null,
 //	};
 
 //	// Aarddict
@@ -264,7 +268,7 @@ public class Resources {
 	static {
 		UserFactory.addEvent(CLICK, BUTTON, MENU_ITEM, LINEAR_LAYOUT);
 		UserFactory.addEvent(LONG_CLICK, WEB_VIEW);
-		UserFactory.addEvent(LIST_SELECT, LIST_VIEW, SINGLE_CHOICE_LIST);
+		UserFactory.addEvent(LIST_SELECT, LIST_VIEW, SINGLE_CHOICE_LIST, PREFERENCE_LIST);
 		UserFactory.addEvent(LIST_LONG_SELECT, LIST_VIEW, SINGLE_CHOICE_LIST);
 		UserFactory.addEvent(SWAP_TAB, TAB_HOST);
 		UserFactory.addInput(CLICK, CHECKBOX, RADIO, TOGGLE_BUTTON);
@@ -276,8 +280,8 @@ public class Resources {
 	// Precrawling sequence
 	public final static String[] PRECRAWLING = new String[] {
 		OPEN_MENU, null,
-		CLICK_ON_TEXT, "Settings", null,
-		CLICK_ON_TEXT, "Server", null,
+		CLICK_ON_TEXT, "Import / Export", null,
+		CLICK, "2131165223", NULL, null,
 	};
 	
 	// Strategy Parameters
@@ -289,9 +293,9 @@ public class Resources {
 	public final static boolean CHECK_FOR_TRANSITION = false;
 	public final static boolean EXPLORE_ONLY_NEW_STATES = true;
 //	public final static Comparator COMPARATOR = new NullComparator();
-//	public final static StrategyCriteria[] ADDITIONAL_CRITERIAS = new StrategyCriteria[] {};
+	public final static StrategyCriteria[] ADDITIONAL_CRITERIAS = new StrategyCriteria[] {};
 	public final static boolean COMPARE_STATE_TITLE = true;
-	public final static boolean COMPARE_LIST_COUNT = true;
+	public final static boolean COMPARE_LIST_COUNT = false;
 	
 	// Persistence Parameters
 	public final static int MAX_TRACES_IN_RAM = 0; // After performing this amount of traces, the crawler saves to disk, empties the session and continues (0 = keep all in RAM)
@@ -307,15 +311,13 @@ public class Resources {
 	public final static boolean SCREENSHOT_FOR_EVENTS = false; // Performs an image capture of the screen before firing an event
 
 	// User/Planner Parameters
-	public final static int MAX_EVENTS_PER_WIDGET = 5; // For GroupViews (0 = try all items in the group)
+//	public final static int MAX_EVENTS_PER_WIDGET = 5; // For GroupViews (0 = try all items in the group)
 	public final static int MAX_TASKS_PER_EVENT = 1; // How many input sequences to generate for each event on a widget; 0 = no limit
 	public final static boolean EVENT_WHEN_NO_ID = false; // Whether to inject events on widgets without ID or not
 	public final static boolean BACK_BUTTON_EVENT = true;
 	public final static boolean MENU_EVENTS = true;
 	public final static boolean ORIENTATION_EVENTS = true;
 	public final static boolean TAB_EVENTS_START_ONLY = true; // true -> click on tabs only on the start activity
-//	public final static boolean LONG_CLICK_LIST_EVENT = false;
-//	public final static boolean LONG_CLICK_EVENT = false;
 	public final static boolean SCROLL_DOWN_EVENT = false;
 	public final static long RANDOM_SEED = 93874383493L; // 0 = Random
 	public final static InteractorAdapter[] ADDITIONAL_EVENTS = new InteractorAdapter[] {};

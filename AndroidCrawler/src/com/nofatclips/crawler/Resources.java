@@ -24,12 +24,12 @@ public class Resources {
 //	public final static int SLEEP_AFTER_EVENT = 2000;
 //	public final static int SLEEP_AFTER_RESTART = 2000;
 
-	public final static String PACKAGE_NAME = "com.blazing_skies.caloriecalculator";
-	public final static String CLASS_NAME = "com.blazing_skies.caloriecalculator.PreMainActivity";
-	public final static Comparator COMPARATOR = new EditTextComparator();
-	public final static int SLEEP_AFTER_EVENT = 300;
-	public final static int SLEEP_AFTER_RESTART = 2000;
-	public final static int SLEEP_AFTER_TASK = 5000;
+//	public final static String PACKAGE_NAME = "com.blazing_skies.caloriecalculator";
+//	public final static String CLASS_NAME = "com.blazing_skies.caloriecalculator.PreMainActivity";
+//	public final static Comparator COMPARATOR = new EditTextComparator();
+//	public final static int SLEEP_AFTER_EVENT = 300;
+//	public final static int SLEEP_AFTER_RESTART = 2000;
+//	public final static int SLEEP_AFTER_TASK = 5000;
 
 //	public final static String PACKAGE_NAME = "com.evancharlton.mileage";
 //	public final static String CLASS_NAME = "com.evancharlton.mileage.Mileage";
@@ -204,15 +204,15 @@ public class Resources {
 //	public final static int SLEEP_AFTER_EVENT = 2000;
 //	public final static int SLEEP_AFTER_RESTART = 500;
 
-//	// TomDroid
-//	public final static String PACKAGE_NAME = "org.tomdroid";
-//	public final static String CLASS_NAME = "org.tomdroid.ui.Tomdroid";
-//	public final static Comparator COMPARATOR = new CustomWidgetsComparator(EDIT_TEXT, BUTTON, MENU_VIEW); //, DIALOG_VIEW, LIST_VIEW);
-//	public final static int SLEEP_AFTER_EVENT = 2000;
-//	public final static int SLEEP_AFTER_RESTART = 1000;
-//	public final static StrategyCriteria[] ADDITIONAL_CRITERIAS = new StrategyCriteria[] {
-//		new AfterEventDontExplore("Service"),
-//	};
+	// TomDroid
+	public final static String PACKAGE_NAME = "org.tomdroid";
+	public final static String CLASS_NAME = "org.tomdroid.ui.Tomdroid";
+	public final static Comparator COMPARATOR = new CustomWidgetsComparator(EDIT_TEXT, BUTTON, MENU_VIEW); //, DIALOG_VIEW, LIST_VIEW);
+	public final static int SLEEP_AFTER_EVENT = 2000;
+	public final static int SLEEP_AFTER_RESTART = 1000;
+	public final static StrategyCriteria[] ADDITIONAL_CRITERIAS = new StrategyCriteria[] {
+		new AfterEventDontExplore("Service"),
+	};
 //	public final static InteractorAdapter[] ADDITIONAL_INPUTS = new InteractorAdapter[] { // Username and password
 //		new FixedValueEditor().addIdValuePair(16908291, "\r\n"),
 //	};
@@ -269,12 +269,16 @@ public class Resources {
 		UserFactory.addEvent(SWAP_TAB, TAB_HOST);
 		UserFactory.addInput(CLICK, CHECKBOX, RADIO, TOGGLE_BUTTON);
 		UserFactory.addInput(SET_BAR, SEEK_BAR);
-		UserFactory.addInput(TYPE_TEXT, EDIT_TEXT);
+		UserFactory.addInput(WRITE_TEXT, EDIT_TEXT);
 		UserFactory.addInput(SPINNER_SELECT, SPINNER);
 	}
 	
 	// Precrawling sequence
-	public final static String[] PRECRAWLING = new String[] {};
+	public final static String[] PRECRAWLING = new String[] {
+		OPEN_MENU, null,
+		CLICK_ON_TEXT, "Settings", null,
+		CLICK_ON_TEXT, "Server", null,
+	};
 	
 	// Strategy Parameters
 	public final static int MAX_NUM_TRACES = 0; // After performing this amount of traces, the crawler exits (0 = no length limit)
@@ -285,7 +289,7 @@ public class Resources {
 	public final static boolean CHECK_FOR_TRANSITION = false;
 	public final static boolean EXPLORE_ONLY_NEW_STATES = true;
 //	public final static Comparator COMPARATOR = new NullComparator();
-	public final static StrategyCriteria[] ADDITIONAL_CRITERIAS = new StrategyCriteria[] {};
+//	public final static StrategyCriteria[] ADDITIONAL_CRITERIAS = new StrategyCriteria[] {};
 	public final static boolean COMPARE_STATE_TITLE = true;
 	public final static boolean COMPARE_LIST_COUNT = true;
 	
@@ -323,6 +327,7 @@ public class Resources {
 	public final static boolean ACTIVITY_DESCRIPTION_IN_SESSION = true;
 	public final static boolean RETRY_FAILED_TRACES = false; // Crashed and failed traces are retried once in case the failure had an asynchronous cause
 	public final static int SLEEP_ON_THROBBER = 30000; // How long to wait on spinning wheels (in ms -- 0 = don't wait)
+	public final static int SLEEP_AFTER_TASK = 0;
 	public final static String XML_BODY_BEGIN = "    <TRACE";
 	public final static String XML_BODY_END = "/TRACE>";
 	public final static CrawlerLog LOGGER = new SessionLogger();

@@ -218,12 +218,23 @@ public class Automation implements Robot, Extractor, TaskProcessor, ImageCaptor 
 		} else if (interactionType.equals(SPINNER_SELECT)) {
 			selectSpinnerItem((Spinner)v, value);
 		} else if (interactionType.equals(TYPE_TEXT)) {
-			solo.enterText((EditText)v, value);
+			typeText((EditText)v, value);
+		} else if (interactionType.equals(WRITE_TEXT)) {
+			writeText((EditText)v, value);
 		} else if (interactionType.equals(SET_BAR)) {
 			solo.setProgressBar((ProgressBar)v, Integer.parseInt(value));
 		} else {
 			return;
 		}
+	}
+	
+	protected void typeText (EditText v, String value) {
+		solo.enterText(v, value);
+	}
+	
+	protected void writeText (EditText v, String value) {
+		typeText (v, "");
+		typeText (v, value);
 	}
 
 	// Scroll the view to the top. Only works for ListView and ScrollView. Support for GridView and others must be added

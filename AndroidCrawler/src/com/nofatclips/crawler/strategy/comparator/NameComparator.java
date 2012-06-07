@@ -1,5 +1,7 @@
 package com.nofatclips.crawler.strategy.comparator;
 
+import android.util.Log;
+
 import com.nofatclips.androidtesting.model.ActivityState;
 import com.nofatclips.crawler.model.Comparator;
 import static com.nofatclips.androidtesting.model.SimpleType.NULL;
@@ -12,7 +14,9 @@ public class NameComparator implements Comparator {
 	};
 
 	public NameComparator (boolean byName) {
+		Log.d("nofatclips", "Comparation by name is " + ((byName)?"enabled":"disabled"));
 		this.byName = byName;
+		Log.d("nofatclips", "Comparation by title is " + ((compareByTitle())?"enabled":"disabled"));
 		this.byTitle = COMPARE_STATE_TITLE;
 	};
 
@@ -26,6 +30,10 @@ public class NameComparator implements Comparator {
 	
 	public String describe() {
 		return NULL;
+	}
+	
+	public boolean compareByTitle () {
+		return COMPARE_STATE_TITLE;
 	}
 	
 	protected boolean byName;

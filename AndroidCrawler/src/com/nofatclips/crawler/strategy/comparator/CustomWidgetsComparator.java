@@ -25,7 +25,7 @@ public class CustomWidgetsComparator extends NameComparator {
 	protected String[] widgetClasses;
 	
 	public CustomWidgetsComparator (String... widgets) {
-		this (true, widgets);
+		this (false, widgets);
 	}
 	
 	public CustomWidgetsComparator (boolean ignore, String... widgets) {

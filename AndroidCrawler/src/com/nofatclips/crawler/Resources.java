@@ -13,6 +13,7 @@ import android.util.Log;
 
 import static com.nofatclips.androidtesting.model.SimpleType.*;
 import static com.nofatclips.androidtesting.model.InteractionType.*;
+import static android.view.KeyEvent.*;
 
 @SuppressWarnings("unused")
 public class Resources {
@@ -265,21 +266,20 @@ public class Resources {
 
 	// Default events and inputs for the User
 	static {
-		UserFactory.addEvent(CLICK, BUTTON, MENU_ITEM, LINEAR_LAYOUT);
-		UserFactory.addEvent(LONG_CLICK, WEB_VIEW);
-		UserFactory.addEvent(LIST_SELECT, LIST_VIEW, SINGLE_CHOICE_LIST, PREFERENCE_LIST);
-		UserFactory.addEvent(LIST_LONG_SELECT, LIST_VIEW, SINGLE_CHOICE_LIST);
-		UserFactory.addEvent(SWAP_TAB, TAB_HOST);
-		UserFactory.addInput(CLICK, CHECKBOX, RADIO, TOGGLE_BUTTON);
-		UserFactory.addInput(SET_BAR, SEEK_BAR);
-		UserFactory.addInput(WRITE_TEXT, EDIT_TEXT);
-		UserFactory.addInput(SPINNER_SELECT, SPINNER);
+//		UserFactory.addEvent(CLICK, BUTTON, MENU_ITEM, LINEAR_LAYOUT);
+//		UserFactory.addEvent(LONG_CLICK, WEB_VIEW);
+//		UserFactory.addEvent(LIST_SELECT, LIST_VIEW, SINGLE_CHOICE_LIST, PREFERENCE_LIST);
+//		UserFactory.addEvent(LIST_LONG_SELECT, LIST_VIEW, SINGLE_CHOICE_LIST);
+//		UserFactory.addEvent(SWAP_TAB, TAB_HOST);
+//		UserFactory.addInput(CLICK, CHECKBOX, RADIO, TOGGLE_BUTTON);
+//		UserFactory.addInput(SET_BAR, SEEK_BAR);
+//		UserFactory.addInput(WRITE_TEXT, EDIT_TEXT);
+//		UserFactory.addInput(SPINNER_SELECT, SPINNER);
 	}
+	public final static int[] KEY_EVENTS = {KEYCODE_VOLUME_UP, KEYCODE_VOLUME_DOWN};
 	
 	// Precrawling sequence
-	public final static String[] PRECRAWLING = new String[] {
-		SWAP_TAB, "16908307", "2", null, 
-	};
+	public final static String[] PRECRAWLING = new String[] {};
 	
 	// Strategy Parameters
 	public final static int MAX_NUM_TRACES = 0; // After performing this amount of traces, the crawler exits (0 = no length limit)

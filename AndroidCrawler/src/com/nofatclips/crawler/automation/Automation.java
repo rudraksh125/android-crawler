@@ -4,6 +4,7 @@ import static com.nofatclips.crawler.Resources.*;
 import static com.nofatclips.androidtesting.model.InteractionType.*;
 import static com.nofatclips.androidtesting.model.SimpleType.*;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -205,6 +206,8 @@ public class Automation implements Robot, Extractor, TaskProcessor, ImageCaptor 
 			changeOrientation();
 		} else if (interactionType.equals(CLICK_ON_TEXT)) {
 			clickOnText(value);
+		} else if (interactionType.equals(PRESS_KEY)) {
+			pressKey(value);
 		} else if (interactionType.equals(SWAP_TAB) && (value!=null)) {
 			if (v instanceof TabHost) {
 				swapTab ((TabHost)v, value);
@@ -364,6 +367,15 @@ public class Automation implements Robot, Extractor, TaskProcessor, ImageCaptor 
 		});
 		sync();
 	}
+
+	public void pressKey (String keyCode) {
+		pressKey (Integer.parseInt(keyCode));
+	}
+
+	public void pressKey (int keyCode) {
+		solo.sendKey(keyCode);
+		describeKeyEvent();
+	}
 	
 //    public void  sendKeyDownUpLong(int key) {
 //		long downTime = SystemClock.uptimeMillis();
@@ -409,8 +421,30 @@ public class Automation implements Robot, Extractor, TaskProcessor, ImageCaptor 
 		solo.sleep(milli);
 	}
 
+	// Special handling for Press Key event: there is no target widget to describe
+	private boolean describeKeyEvent () {
+		int val = Integer.parseInt(this.currentEvent.getValue());
+		for (Field f: android.view.KeyEvent.class.getFields()) {
+			if (f.getType().equals(Integer.TYPE)) {
+				try {
+					if (f.getInt(null) == val) {
+						this.currentEvent.setDescription(f.getName());
+						return true;
+					}
+				} catch (IllegalArgumentException e) {
+				} catch (IllegalAccessException e) {}
+			}
+		}
+		return false;		
+	}
+	
 	private boolean describeCurrentEvent (View v) {
 		if (this.currentEvent == null) return false; // This is probably an input, not an event
+		if (this.currentEvent.getType().equals(PRESS_KEY)) {
+			return describeKeyEvent();
+		}
+		
+		// Get text from the target widget
 		if (v instanceof TextView) {
 			String s = ((TextView)v).getText().toString();
 			this.currentEvent.setDescription(s);

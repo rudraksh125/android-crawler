@@ -81,6 +81,16 @@ public class SimplePlanner implements Planner {
 			Log.i("nofatclips", "Created trace to change orientation");
 			p.addTask(t);
 		}
+		
+		if (KEY_EVENTS.length>0) {
+			for (int keyCode: KEY_EVENTS) {
+				evt = getAbstractor().createEvent(null, PRESS_KEY);
+				evt.setValue(String.valueOf(keyCode));
+				t = getAbstractor().createStep(a, new HashSet<UserInput>(), evt);
+				Log.i("nofatclips", "Created trace to perform key press (key code: " + keyCode + ")");
+				p.addTask(t);
+			}
+		}
 
 		return p;
 	}

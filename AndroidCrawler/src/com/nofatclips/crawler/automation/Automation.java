@@ -424,11 +424,13 @@ public class Automation implements Robot, Extractor, TaskProcessor, ImageCaptor 
 	// Special handling for Press Key event: there is no target widget to describe
 	private boolean describeKeyEvent () {
 		int val = Integer.parseInt(this.currentEvent.getValue());
+		String name;
 		for (Field f: android.view.KeyEvent.class.getFields()) {
+			name = f.getName();
 			if (f.getType().equals(Integer.TYPE)) {
 				try {
-					if (f.getInt(null) == val) {
-						this.currentEvent.setDescription(f.getName());
+					if (name.startsWith("KEYCODE_") && (f.getInt(null) == val)) {
+						this.currentEvent.setDescription(name.replaceAll("KEYCODE_", ""));
 						return true;
 					}
 				} catch (IllegalArgumentException e) {

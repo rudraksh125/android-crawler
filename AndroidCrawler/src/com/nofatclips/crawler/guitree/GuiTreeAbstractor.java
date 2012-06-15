@@ -99,37 +99,69 @@ public class GuiTreeAbstractor implements Abstractor, FilterHandler, SaveStateLi
 		return updateDescription  (newActivity, desc, true);
 	}
 
+	public TestCaseWidget createWidget (View v) {
+		TestCaseWidget w = TestCaseWidget.createWidget(getTheSession());
+		String id = String.valueOf(v.getId());
+		String text = "";
+		String name = "";
+		int type = 0;
+		if (v instanceof TextView) {
+			TextView t = (TextView)v;
+			type = t.getInputType();
+			text = t.getText().toString();
+			name = text;
+			if (v instanceof EditText) {
+				CharSequence hint = ((EditText)v).getHint();
+				name = (hint==null)?"":hint.toString();
+			}
+		}
+		w.setIdNameType(id, name, v.getClass().getName());
+		w.setUniqueId(getUniqueWidgetId());
+		if (type!=0) {
+			w.setTextType("" + type);
+		}
+		w.setSimpleType(getTypeDetector().getSimpleType(v));
+		setCount (v,w);
+		setValue (v,w);
+		w.setAvailable((v.isEnabled())?"true":"false");
+		w.setClickable((v.isClickable())?"true":"false");
+		w.setLongClickable((v.isLongClickable())?"true":"false");
+//		w.setIndex(desc.getWidgetIndex(v));
+		return w;
+	}
+	
 	public boolean updateDescription (ActivityState newActivity, ActivityDescription desc, boolean detectDuplicates) {
 		boolean hasDescription = false;
 		for (View v: desc) {
 			hasDescription = true;
 			if (!v.isShown()) continue;
-			TestCaseWidget w = TestCaseWidget.createWidget(getTheSession());
-			String id = String.valueOf(v.getId());
-			String text = "";
-			String name = "";
-			int type = 0;
-			if (v instanceof TextView) {
-				TextView t = (TextView)v;
-				type = t.getInputType();
-				text = t.getText().toString();
-				name = text;
-				if (v instanceof EditText) {
-					CharSequence hint = ((EditText)v).getHint();
-					name = (hint==null)?"":hint.toString();
-				}
-			}
-			w.setIdNameType(id, name, v.getClass().getName());
-			w.setUniqueId(getUniqueWidgetId());
-			if (type!=0) {
-				w.setTextType("" + type);
-			}
-			w.setSimpleType(getTypeDetector().getSimpleType(v));
-			setCount (v,w);
-			setValue (v,w);
-			w.setAvailable((v.isEnabled())?"true":"false");
-			w.setClickable((v.isClickable())?"true":"false");
-			w.setLongClickable((v.isLongClickable())?"true":"false");
+			TestCaseWidget w = createWidget (v);
+//			TestCaseWidget w = TestCaseWidget.createWidget(getTheSession());
+//			String id = String.valueOf(v.getId());
+//			String text = "";
+//			String name = "";
+//			int type = 0;
+//			if (v instanceof TextView) {
+//				TextView t = (TextView)v;
+//				type = t.getInputType();
+//				text = t.getText().toString();
+//				name = text;
+//				if (v instanceof EditText) {
+//					CharSequence hint = ((EditText)v).getHint();
+//					name = (hint==null)?"":hint.toString();
+//				}
+//			}
+//			w.setIdNameType(id, name, v.getClass().getName());
+//			w.setUniqueId(getUniqueWidgetId());
+//			if (type!=0) {
+//				w.setTextType("" + type);
+//			}
+//			w.setSimpleType(getTypeDetector().getSimpleType(v));
+//			setCount (v,w);
+//			setValue (v,w);
+//			w.setAvailable((v.isEnabled())?"true":"false");
+//			w.setClickable((v.isClickable())?"true":"false");
+//			w.setLongClickable((v.isLongClickable())?"true":"false");
 			w.setIndex(desc.getWidgetIndex(v));
 			if (detectDuplicates && newActivity.hasWidget(w)) continue;
 			newActivity.addWidget(w);
@@ -233,6 +265,7 @@ public class GuiTreeAbstractor implements Abstractor, FilterHandler, SaveStateLi
 			target.setType("null");
 			target.setId("-1");
 			target.setSimpleType("null");
+			target.setUniqueId("w0");
 			newEvent.setWidget (target);
 		} else {
 			newEvent.setWidget (target.clone());

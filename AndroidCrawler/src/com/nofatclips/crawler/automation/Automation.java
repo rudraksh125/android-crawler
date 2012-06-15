@@ -14,6 +14,8 @@ import android.app.Activity;
 import android.app.Instrumentation;
 import android.graphics.Bitmap;
 //import android.app.Instrumentation;
+
+import android.os.SystemClock;
 import android.test.ActivityInstrumentationTestCase2;
 import android.util.Log;
 import android.view.*;
@@ -374,20 +376,50 @@ public class Automation implements Robot, Extractor, TaskProcessor, ImageCaptor 
 
 	public void pressKey (int keyCode) {
 		solo.sendKey(keyCode);
+//		sendKeyDownUpLong(keyCode);
 		describeKeyEvent();
 	}
 	
-//    public void  sendKeyDownUpLong(int key) {
+    public void  sendKeyDownUpLong(final int key) {
 //		long downTime = SystemClock.uptimeMillis();
 //		long eventTime = SystemClock.uptimeMillis();
-//		KeyEvent down = new KeyEvent(downTime, eventTime, KeyEvent.ACTION_DOWN, key, 100);
+//		KeyEvent down = new KeyEvent(downTime, eventTime, KeyEvent.ACTION_DOWN, key, 0);
 //        getInstrumentation().sendKeySync(down);
+//        sync();
 //        solo.sleep(1500);//solo.sleep((int) (android.view.ViewConfiguration.getLongPressTimeout() * 2.5f));
 //		eventTime = SystemClock.uptimeMillis();
 //		KeyEvent up = new KeyEvent(downTime, eventTime, KeyEvent.ACTION_UP, key, 0);
 //		up = KeyEvent.changeFlags(down, KeyEvent.FLAG_LONG_PRESS);
 //        getInstrumentation().sendKeySync(up);
-//    }
+//        sync();
+    	final KeyEvent downEvent = new KeyEvent (KeyEvent.ACTION_DOWN, key);
+    	getInstrumentation().sendKeySync(downEvent);
+      	sync();
+
+    	try {
+            Thread.sleep(500);
+        } catch (InterruptedException e) {
+            Log.e("nofatclips", "Could not sleep for long press timeout", e);
+            return;
+        }
+    	
+//    	Log.d("nofatclips", "Prima della pausa");
+//    	solo.sleep(2000);
+//    	Log.d("nofatclips", "Dopo la pausa");
+    	
+    	for (int repetition = 0; repetition<50; repetition++) {
+	//    	getInstrumentation().sendKeySync(KeyEvent.changeFlags(upEvent, KeyEvent.FLAG_LONG_PRESS));
+    		KeyEvent newEvent = KeyEvent.changeTimeRepeat(downEvent, SystemClock.uptimeMillis(), repetition, downEvent.getFlags() | KeyEvent.FLAG_LONG_PRESS);
+	    	getInstrumentation().sendKeySync(newEvent);
+	    	sync();
+	    	solo.sleep(10);
+    	}
+
+    	final KeyEvent upEvent = new KeyEvent (KeyEvent.ACTION_UP, key);
+    	getInstrumentation().sendKeySync(upEvent);
+    	getInstrumentation().waitForIdleSync();
+    	sync();    	
+    }
 	
 	// Scroll until the view is on the screen if IN_AND_OUT_OF_FOCUS is enabled or if the force parameter is true 
 	protected void requestView (final View v, boolean force) {

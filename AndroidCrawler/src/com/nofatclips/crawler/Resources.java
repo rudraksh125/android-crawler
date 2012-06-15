@@ -32,12 +32,12 @@ public class Resources {
 //	public final static int SLEEP_AFTER_RESTART = 2000;
 //	public final static int SLEEP_AFTER_TASK = 5000;
 
-	public final static String PACKAGE_NAME = "com.evancharlton.mileage";
-	public final static String CLASS_NAME = "com.evancharlton.mileage.Mileage";
-	public final static Comparator COMPARATOR = new CustomWidgetsComparator(CustomWidgetsComparator.IGNORE_ACTIVITY_NAME, EDIT_TEXT, BUTTON, LIST_VIEW, MENU_VIEW, IMAGE_VIEW);
-//	public final static Comparator COMPARATOR = new CustomWidgetsDeepComparator(CustomWidgetsComparator.IGNORE_ACTIVITY_NAME, BUTTON, LIST_VIEW, MENU_VIEW, IMAGE_VIEW);
-	public final static int SLEEP_AFTER_EVENT = 4000;
-	public final static int SLEEP_AFTER_RESTART = 4000;
+//	public final static String PACKAGE_NAME = "com.evancharlton.mileage";
+//	public final static String CLASS_NAME = "com.evancharlton.mileage.Mileage";
+//	public final static Comparator COMPARATOR = new CustomWidgetsComparator(CustomWidgetsComparator.IGNORE_ACTIVITY_NAME, EDIT_TEXT, BUTTON, LIST_VIEW, MENU_VIEW, IMAGE_VIEW);
+////	public final static Comparator COMPARATOR = new CustomWidgetsDeepComparator(CustomWidgetsComparator.IGNORE_ACTIVITY_NAME, BUTTON, LIST_VIEW, MENU_VIEW, IMAGE_VIEW);
+//	public final static int SLEEP_AFTER_EVENT = 4000;
+//	public final static int SLEEP_AFTER_RESTART = 4000;
 	
 //	public final static String PACKAGE_NAME = "net.sf.andbatdog.batterydog";
 //	public final static String CLASS_NAME = "net.sf.andbatdog.batterydog.BatteryDog";
@@ -258,7 +258,13 @@ public class Resources {
 //		CLICK, "2131034189", NULL, null,
 //		SWAP_TAB, "16908306", "4", null,
 //	};
-	
+
+	public final static String PACKAGE_NAME = "com.nofatclips.keyevent";
+	public final static String CLASS_NAME = "com.nofatclips.keyevent.KeyEventsDumpActivity";
+	public final static Comparator COMPARATOR = new CustomWidgetsDeepComparator(EDIT_TEXT);
+	public final static int SLEEP_AFTER_EVENT = 4000;
+	public final static int SLEEP_AFTER_RESTART = 4000;
+
 
 	/*
 	 * 				Default Parameters
@@ -276,7 +282,7 @@ public class Resources {
 //		UserFactory.addInput(WRITE_TEXT, EDIT_TEXT);
 //		UserFactory.addInput(SPINNER_SELECT, SPINNER);
 	}
-	public final static int[] KEY_EVENTS = {KEYCODE_VOLUME_UP, KEYCODE_VOLUME_DOWN};
+	public final static int[] KEY_EVENTS = {KEYCODE_HOME, KEYCODE_ENDCALL, KEYCODE_VOLUME_DOWN};
 	
 	// Precrawling sequence
 	public final static String[] PRECRAWLING = new String[] {};
@@ -297,9 +303,9 @@ public class Resources {
 	// Persistence Parameters
 	public final static int MAX_TRACES_IN_RAM = 0; // After performing this amount of traces, the crawler saves to disk, empties the session and continues (0 = keep all in RAM)
 	public final static boolean ENABLE_RESUME = false;
-	public final static String TASK_LIST_FILE_NAME = "tasklist.xml"; // Save state for resume
+	public final static String TASK_LIST_FILE_NAME = "tasklist.xml"; // Save state for resume and optionally output
 	public final static String ACTIVITY_LIST_FILE_NAME = "activities.xml"; // Save state for resume
-	public final static String PARAMETERS_FILE_NAME = "parameters.obj";
+	public final static String PARAMETERS_FILE_NAME = "parameters.obj"; // Save state for resume
 	public final static String FILE_NAME = "guitree.xml"; // Output
 
 	// Screenshot Parameters
@@ -312,9 +318,9 @@ public class Resources {
 	public final static boolean ALL_EVENTS_ON_PREFERENCES = true; // Bypass MAX_EVENTS_PER_WIDGET for PREFERENCE_LIST when true
 	public final static int MAX_TASKS_PER_EVENT = 1; // How many input sequences to generate for each event on a widget; 0 = no limit
 	public final static boolean EVENT_WHEN_NO_ID = false; // Whether to inject events on widgets without ID or not
-	public final static boolean BACK_BUTTON_EVENT = true;
-	public final static boolean MENU_EVENTS = true;
-	public final static boolean ORIENTATION_EVENTS = true;
+	public final static boolean BACK_BUTTON_EVENT = false;
+	public final static boolean MENU_EVENTS = false;
+	public final static boolean ORIENTATION_EVENTS = false;
 	public final static boolean TAB_EVENTS_START_ONLY = true; // true -> click on tabs only on the start activity
 	public final static boolean SCROLL_DOWN_EVENT = false;
 	public final static long RANDOM_SEED = 93874383493L; // 0 = Random

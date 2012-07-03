@@ -71,11 +71,15 @@ public abstract class Engine extends ActivityInstrumentationTestCase2 implements
 			if (!getStrategy().checkForTransition()) continue;
 			getAbstractor().setFinalActivity (theTask, theActivity);
 			getPersistence().addTrace(theTask);
-			if (!(theActivity.isExit()) && getStrategy().checkForExploration()) {
+			if (canPlanTests(theActivity)) {
 				planTests(theTask, theActivity);
 			}
 			if ( (getStrategy().checkForTermination()) || (getStrategy().checkForPause()) ) break;
 		}
+	}
+	
+	protected boolean canPlanTests (ActivityState theActivity){
+		return (!(theActivity.isExit()) && getStrategy().checkForExploration());
 	}
 	
 	@Override
@@ -160,12 +164,18 @@ public abstract class Engine extends ActivityInstrumentationTestCase2 implements
 		planTests (theTask, thePlan);
 	}
 	
-	private void planTests (Trace theTask, Plan thePlan) {
+	protected void planTests (Trace theTask, Plan thePlan) {
 		for (Transition t: thePlan) {
-			Trace newTrace = getAbstractor().createTrace(theTask, t);
-			newTrace.setId(nextId());
-			getScheduler().addTasks(newTrace);
+//			Trace newTrace = getAbstractor().createTrace(theTask, t);
+//			newTrace.setId(nextId());
+			getScheduler().addTasks(getTask(theTask, t));
 		}		
+	}
+	
+	protected Trace getTask (Trace theTask, Transition t) {
+		Trace newTrace = getAbstractor().createTrace(theTask, t);
+		newTrace.setId(nextId());
+		return newTrace;
 	}
 	
 	public SessionParams onSavingState () {
@@ -247,6 +257,10 @@ public abstract class Engine extends ActivityInstrumentationTestCase2 implements
 
 	public void setSession(Session theSession) {
 		this.theSession = theSession;
+	}
+	
+	public int getLastId() {
+		return this.id;
 	}
 	
 	protected String nextId () {

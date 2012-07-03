@@ -258,7 +258,11 @@ public class GuiTreeAbstractor implements Abstractor, FilterHandler, SaveStateLi
 		this.filters.add(f);
 	}
 
-	public UserEvent createEvent(WidgetState target, String type) {
+	public UserEvent createEvent (String type) {
+		return createEvent (null, type);
+	}
+
+	public UserEvent createEvent (WidgetState target, String type) {
 		TestCaseEvent newEvent = TestCaseEvent.createEvent(getTheSession());
 		if (target == null) {
 			target = TestCaseWidget.createWidget(getTheSession());

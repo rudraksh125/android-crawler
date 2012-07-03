@@ -18,4 +18,12 @@ public class Plan implements Iterable<Transition> {
 		return this.tasks.add(t);
 	}
 	
+	public int size () {
+		return this.tasks.size();
+	}
+	
+	public Transition getTask (int task) {
+		return this.tasks.get(task);
+	}
+	
 }

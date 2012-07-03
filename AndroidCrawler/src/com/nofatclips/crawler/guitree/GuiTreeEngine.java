@@ -13,6 +13,7 @@ import com.nofatclips.crawler.automation.SimpleTypeDetector;
 import com.nofatclips.crawler.filters.AllPassFilter;
 import com.nofatclips.crawler.filters.FormFilter;
 import com.nofatclips.crawler.model.Filter;
+import com.nofatclips.crawler.model.Strategy;
 import com.nofatclips.crawler.model.UserAdapter;
 import com.nofatclips.crawler.planning.SimplePlanner;
 import com.nofatclips.crawler.planning.TraceDispatcher;
@@ -74,15 +75,18 @@ public class GuiTreeEngine extends Engine {
 		sf.setCheckTransitions(CHECK_FOR_TRANSITION);
 		sf.setPauseTraces(PAUSE_AFTER_TRACES);
 		sf.setExploreNewOnly(EXPLORE_ONLY_NEW_STATES);
-		setStrategy (sf.getStrategy());
+		this.theStrategyFactory = sf; // Save in a field so that subclasses can modify the parameters of the strategy
 
 		// Last object to instantiate: the other components register as listeners on the factory class
-		PersistenceFactory pf = new PersistenceFactory (this.theGuiTree, getScheduler(), getStrategy());
-		setPersistence (pf.getPersistence());
+		this.thePersistenceFactory = new PersistenceFactory (this.theGuiTree, getScheduler());
 		
 	}
 	
 	protected void setUp () {
+		Strategy s = this.theStrategyFactory.getStrategy();
+		setStrategy (s);
+		this.thePersistenceFactory.setStrategy(s);
+		setPersistence (this.thePersistenceFactory.getPersistence());
 		try {
 			super.setUp();
 		} catch (Exception e) {
@@ -123,6 +127,8 @@ public class GuiTreeEngine extends Engine {
 	private UserAdapter user;
 	private BasicRestarter theRestarter;
 	private GuiTree theGuiTree;
+	protected StrategyFactory theStrategyFactory;
+	private PersistenceFactory thePersistenceFactory;
 //	private Persistence diskWriter;
 	
 }

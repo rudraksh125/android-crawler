@@ -203,7 +203,7 @@ public class Resources {
 //	public final static int SLEEP_AFTER_EVENT = 2000;
 //	public final static int SLEEP_AFTER_RESTART = 500;
 
-	// TomDroid
+//	TomDroid
 //	public final static String PACKAGE_NAME = "org.tomdroid";
 //	public final static String CLASS_NAME = "org.tomdroid.ui.Tomdroid";
 //	public final static Comparator COMPARATOR = new CustomWidgetsComparator(EDIT_TEXT, BUTTON, MENU_VIEW); //, DIALOG_VIEW, LIST_VIEW);
@@ -216,9 +216,6 @@ public class Resources {
 //		new FixedValueEditor().addIdValuePair(16908291, "\r\n"),
 //	};
 //	public final static String[] PRECRAWLING = new String[] {
-//		OPEN_MENU, null,
-//		CLICK_ON_TEXT, "Settings", null,
-//		CLICK_ON_TEXT, "Server", null,
 //	};
 
 //	// Aarddict
@@ -240,11 +237,11 @@ public class Resources {
 //	};
 	
 	// Book Catalog
-//	public final static String PACKAGE_NAME = "com.eleybourn.bookcatalogue";
-//	public final static String CLASS_NAME = "com.eleybourn.bookcatalogue.BookCatalogue";
-//	public final static Comparator COMPARATOR = new CustomWidgetsComparator(LIST_VIEW, BUTTON);
-//	public final static int SLEEP_AFTER_EVENT = 2000;
-//	public final static int SLEEP_AFTER_RESTART = 2000;
+	public final static String PACKAGE_NAME = "com.eleybourn.bookcatalogue";
+	public final static String CLASS_NAME = "com.eleybourn.bookcatalogue.BookCatalogue";
+	public final static Comparator COMPARATOR = new CustomWidgetsComparator(LIST_VIEW, BUTTON);
+	public final static int SLEEP_AFTER_EVENT = 2000;
+	public final static int SLEEP_AFTER_RESTART = 2000;
 //	public final static String[] PRECRAWLING = new String[] {
 //		LIST_SELECT, "16908298", "2", null,
 //		OPEN_MENU, null,
@@ -259,11 +256,11 @@ public class Resources {
 //		SWAP_TAB, "16908306", "4", null,
 //	};
 
-	public final static String PACKAGE_NAME = "com.nofatclips.keyevent";
-	public final static String CLASS_NAME = "com.nofatclips.keyevent.KeyEventsDumpActivity";
-	public final static Comparator COMPARATOR = new CustomWidgetsDeepComparator(EDIT_TEXT);
-	public final static int SLEEP_AFTER_EVENT = 4000;
-	public final static int SLEEP_AFTER_RESTART = 4000;
+//	public final static String PACKAGE_NAME = "com.nofatclips.keyevent";
+//	public final static String CLASS_NAME = "com.nofatclips.keyevent.KeyEventsDumpActivity";
+//	public final static Comparator COMPARATOR = new CustomWidgetsDeepComparator(EDIT_TEXT);
+//	public final static int SLEEP_AFTER_EVENT = 4000;
+//	public final static int SLEEP_AFTER_RESTART = 4000;
 
 
 	/*
@@ -272,24 +269,24 @@ public class Resources {
 
 	// Default events and inputs for the User
 	static {
-//		UserFactory.addEvent(CLICK, BUTTON, MENU_ITEM, LINEAR_LAYOUT);
-//		UserFactory.addEvent(LONG_CLICK, WEB_VIEW);
-//		UserFactory.addEvent(LIST_SELECT, LIST_VIEW, SINGLE_CHOICE_LIST, PREFERENCE_LIST);
-//		UserFactory.addEvent(LIST_LONG_SELECT, LIST_VIEW, SINGLE_CHOICE_LIST);
-//		UserFactory.addEvent(SWAP_TAB, TAB_HOST);
-//		UserFactory.addInput(CLICK, CHECKBOX, RADIO, TOGGLE_BUTTON);
-//		UserFactory.addInput(SET_BAR, SEEK_BAR);
-//		UserFactory.addInput(WRITE_TEXT, EDIT_TEXT);
-//		UserFactory.addInput(SPINNER_SELECT, SPINNER);
+		UserFactory.addEvent(CLICK, BUTTON, MENU_ITEM, LINEAR_LAYOUT, IMAGE_VIEW);
+		UserFactory.addEvent(LONG_CLICK, WEB_VIEW);
+		UserFactory.addEvent(LIST_SELECT, LIST_VIEW, SINGLE_CHOICE_LIST, PREFERENCE_LIST);
+		UserFactory.addEvent(LIST_LONG_SELECT, LIST_VIEW, SINGLE_CHOICE_LIST);
+		UserFactory.addEvent(SWAP_TAB, TAB_HOST);
+		UserFactory.addInput(CLICK, CHECKBOX, RADIO, TOGGLE_BUTTON);
+		UserFactory.addInput(SET_BAR, SEEK_BAR);
+		UserFactory.addInput(WRITE_TEXT, EDIT_TEXT);
+		UserFactory.addInput(SPINNER_SELECT, SPINNER);
 	}
-	public final static int[] KEY_EVENTS = {KEYCODE_HOME, KEYCODE_ENDCALL, KEYCODE_VOLUME_DOWN};
+	public final static int[] KEY_EVENTS = {};
 	
 	// Precrawling sequence
 	public final static String[] PRECRAWLING = new String[] {};
 	
 	// Strategy Parameters
 	public final static int MAX_NUM_TRACES = 0; // After performing this amount of traces, the crawler exits (0 = no length limit)
-	public final static int PAUSE_AFTER_TRACES = 0; // After performing this amount of traces, the crawler pauses (0 = no pause)
+	public final static int PAUSE_AFTER_TRACES = 1; // After performing this amount of traces, the crawler pauses (0 = no pause)
 	public final static long MAX_TIME_CRAWLING = 0; // In seconds (0 = no time limit)
 	public final static long PAUSE_AFTER_TIME = 0; // In seconds (0 = no pause)
 	public final static int TRACE_MAX_DEPTH = 0; // Max number of transitions in a trace (0 = no depth limit)
@@ -302,35 +299,35 @@ public class Resources {
 	
 	// Persistence Parameters
 	public final static int MAX_TRACES_IN_RAM = 0; // After performing this amount of traces, the crawler saves to disk, empties the session and continues (0 = keep all in RAM)
-	public final static boolean ENABLE_RESUME = false;
+	public final static boolean ENABLE_RESUME = true;
 	public final static String TASK_LIST_FILE_NAME = "tasklist.xml"; // Save state for resume and optionally output
 	public final static String ACTIVITY_LIST_FILE_NAME = "activities.xml"; // Save state for resume
 	public final static String PARAMETERS_FILE_NAME = "parameters.obj"; // Save state for resume
 	public final static String FILE_NAME = "guitree.xml"; // Output
 
 	// Screenshot Parameters
-	public final static boolean SCREENSHOT_FOR_STATES = false; // Performs an image capture of the screen after processing a task
+	public final static boolean SCREENSHOT_FOR_STATES = true; // Performs an image capture of the screen after processing a task
 	public final static boolean SCREENSHOT_ONLY_NEW_STATES = false; // Capture only if comparation was negative - Only relevant if SCREENSHOT_FOR_STATES is true
 	public final static boolean SCREENSHOT_FOR_EVENTS = false; // Performs an image capture of the screen before firing an event
 
 	// User/Planner Parameters
-	public final static int MAX_EVENTS_PER_WIDGET = 2; // For GroupViews (0 = try all items in the group)
+	public final static int MAX_EVENTS_PER_WIDGET = 5; // For GroupViews (0 = try all items in the group)
 	public final static boolean ALL_EVENTS_ON_PREFERENCES = true; // Bypass MAX_EVENTS_PER_WIDGET for PREFERENCE_LIST when true
 	public final static int MAX_TASKS_PER_EVENT = 1; // How many input sequences to generate for each event on a widget; 0 = no limit
 	public final static boolean EVENT_WHEN_NO_ID = false; // Whether to inject events on widgets without ID or not
-	public final static boolean BACK_BUTTON_EVENT = false;
-	public final static boolean MENU_EVENTS = false;
-	public final static boolean ORIENTATION_EVENTS = false;
+	public final static boolean BACK_BUTTON_EVENT = true;
+	public final static boolean MENU_EVENTS = true;
+	public final static boolean ORIENTATION_EVENTS = true;
 	public final static boolean TAB_EVENTS_START_ONLY = true; // true -> click on tabs only on the start activity
 	public final static boolean SCROLL_DOWN_EVENT = false;
-	public final static long RANDOM_SEED = 93874383493L; // 0 = Random
+	public final static long RANDOM_SEED = 5466516511651561651L; // 0 = Random
 	public final static InteractorAdapter[] ADDITIONAL_EVENTS = new InteractorAdapter[] {};
 	public final static InteractorAdapter[] ADDITIONAL_INPUTS = new InteractorAdapter[] {};
 	
 	// More Parameters
 	public final static boolean IN_AND_OUT_FOCUS = true;
-	public final static boolean FORCE_RESTART = true;
-	public final static boolean ACTIVITY_DESCRIPTION_IN_SESSION = true;
+	public final static boolean FORCE_RESTART = false;
+	public final static boolean ACTIVITY_DESCRIPTION_IN_SESSION = false;
 	public final static boolean RETRY_FAILED_TRACES = false; // Crashed and failed traces are retried once in case the failure had an asynchronous cause
 	public final static int SLEEP_ON_THROBBER = 30000; // How long to wait on spinning wheels (in ms -- 0 = don't wait)
 	public final static int SLEEP_AFTER_TASK = 0;

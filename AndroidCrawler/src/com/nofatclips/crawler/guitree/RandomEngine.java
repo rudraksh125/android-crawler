@@ -8,9 +8,11 @@ import com.nofatclips.androidtesting.model.ActivityState;
 import com.nofatclips.androidtesting.model.Trace;
 import com.nofatclips.androidtesting.model.Transition;
 import com.nofatclips.crawler.model.Plan;
+import com.nofatclips.crawler.planning.TraceDispatcher;
 
 import static com.nofatclips.crawler.Resources.*;
 import static com.nofatclips.androidtesting.model.InteractionType.*;
+import static com.nofatclips.crawler.planning.TraceDispatcher.SchedulerAlgorithm.DEPTH_FIRST;
 
 public class RandomEngine extends GuiTreeEngine {
 
@@ -27,20 +29,40 @@ public class RandomEngine extends GuiTreeEngine {
 	
 	@Override
 	protected void planTests (Trace theTask, Plan thePlan) {
-		int max = thePlan.size();
-		if (max==0) return;
-		
 		int n;
+		int max;
 		Transition t;
-		do {
+		String type;
+		while (!thePlan.isEmpty()) {
+			max = thePlan.size();
 			n = getRandom(max);
-			Log.e("nofatclips","Estratto: " + n + " su " + (max-1));
 			t = thePlan.getTask(n);
-		} while (isBase() && t.getEvent().getType().equals(BACK));
+			type = t.getEvent().getType();
+			Log.v("nofatclips","Estratto: " + (n+1) + " su " + max + " (di tipo " + type + ")");
+			if (!(isBase() && type.equals(BACK))) {
+				getScheduler().addTasks(getNewTask(theTask, t));
+			}
+			thePlan.removeTask(n);
+		}
 		
-		getScheduler().addTasks(getTask(theTask, t));		
+//		getScheduler().addTasks(getNewTask(theTask, t));		
 	}
 	
+	@Override
+	public TraceDispatcher getNewScheduler() {
+		return new TraceDispatcher(DEPTH_FIRST);
+	}
+
+	@Override
+	protected void process(Trace theTask) {
+		if (this.first) {
+			super.process(theTask);
+		} else {
+			getRobot().process(theTask.getFinalTransition());
+		}
+		this.first=false;
+	}
+
 	public boolean isBase () {
 		return isBase (getStrategy().getStateAfterEvent());
 	}
@@ -51,12 +73,12 @@ public class RandomEngine extends GuiTreeEngine {
 	}
 	
 	public int getRandom (int max) {
-		if (this.first) {
-			for (int i = 0; i<getLastId(); i++) {
-				taskLottery.nextInt(max);
-			}
-		}
-		this.first = false;
+//		if (this.first) {
+//			for (int i = 0; i<getLastId(); i++) {
+//				taskLottery.nextInt(max);
+//			}
+//		}
+//		this.first = false;
 		int n = taskLottery.nextInt(max);
 		return n;
 	}

@@ -286,7 +286,7 @@ public class Resources {
 	
 	// Strategy Parameters
 	public final static int MAX_NUM_TRACES = 0; // After performing this amount of traces, the crawler exits (0 = no length limit)
-	public final static int PAUSE_AFTER_TRACES = 1; // After performing this amount of traces, the crawler pauses (0 = no pause)
+	public final static int PAUSE_AFTER_TRACES = 0; // After performing this amount of traces, the crawler pauses (0 = no pause)
 	public final static long MAX_TIME_CRAWLING = 0; // In seconds (0 = no time limit)
 	public final static long PAUSE_AFTER_TIME = 0; // In seconds (0 = no pause)
 	public final static int TRACE_MAX_DEPTH = 0; // Max number of transitions in a trace (0 = no depth limit)
@@ -298,13 +298,16 @@ public class Resources {
 	public final static boolean COMPARE_LIST_COUNT = false;
 	
 	// Persistence Parameters
-	public final static int MAX_TRACES_IN_RAM = 0; // After performing this amount of traces, the crawler saves to disk, empties the session and continues (0 = keep all in RAM)
+	public final static int MAX_TRACES_IN_RAM = 1; // After performing this amount of traces, the crawler saves to disk, empties the session and continues (0 = keep all in RAM)
 	public final static boolean ENABLE_RESUME = true;
 	public final static String TASK_LIST_FILE_NAME = "tasklist.xml"; // Save state for resume and optionally output
 	public final static String ACTIVITY_LIST_FILE_NAME = "activities.xml"; // Save state for resume
 	public final static String PARAMETERS_FILE_NAME = "parameters.obj"; // Save state for resume
 	public final static String FILE_NAME = "guitree.xml"; // Output
 
+	// Scheduler Parameters
+	public final static int MAX_TASKS_IN_SCHEDULER = 100;
+	
 	// Screenshot Parameters
 	public final static boolean SCREENSHOT_FOR_STATES = true; // Performs an image capture of the screen after processing a task
 	public final static boolean SCREENSHOT_ONLY_NEW_STATES = false; // Capture only if comparation was negative - Only relevant if SCREENSHOT_FOR_STATES is true

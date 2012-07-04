@@ -60,7 +60,8 @@ public abstract class Engine extends ActivityInstrumentationTestCase2 implements
 			GregorianCalendar c=new GregorianCalendar();
 			theTask.setDateTime(c.getTime().toString());
 			getStrategy().setTask(theTask);
-			getRobot().process(theTask);
+//			getRobot().process(theTask);
+			process(theTask);
 			ActivityDescription d = getExtractor().describeActivity();
 			ActivityState theActivity = getAbstractor().createActivity(d);
 			getStrategy().compareState(theActivity);
@@ -78,6 +79,10 @@ public abstract class Engine extends ActivityInstrumentationTestCase2 implements
 		}
 	}
 	
+	protected void process(Trace theTask) {
+		getRobot().process(theTask);
+	}
+
 	protected boolean canPlanTests (ActivityState theActivity){
 		return (!(theActivity.isExit()) && getStrategy().checkForExploration());
 	}
@@ -168,11 +173,11 @@ public abstract class Engine extends ActivityInstrumentationTestCase2 implements
 		for (Transition t: thePlan) {
 //			Trace newTrace = getAbstractor().createTrace(theTask, t);
 //			newTrace.setId(nextId());
-			getScheduler().addTasks(getTask(theTask, t));
+			getScheduler().addTasks(getNewTask(theTask, t));
 		}		
 	}
 	
-	protected Trace getTask (Trace theTask, Transition t) {
+	protected Trace getNewTask (Trace theTask, Transition t) {
 		Trace newTrace = getAbstractor().createTrace(theTask, t);
 		newTrace.setId(nextId());
 		return newTrace;

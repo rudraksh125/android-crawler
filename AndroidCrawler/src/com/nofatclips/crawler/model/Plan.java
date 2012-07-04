@@ -9,7 +9,6 @@ public class Plan implements Iterable<Transition> {
 
 	private List<Transition> tasks = new ArrayList<Transition> ();
 
-	@Override
 	public Iterator<Transition> iterator() {
 		return this.tasks.iterator();
 	}
@@ -24,6 +23,14 @@ public class Plan implements Iterable<Transition> {
 	
 	public Transition getTask (int task) {
 		return this.tasks.get(task);
+	}
+	
+	public void removeTask (int task) {
+		this.tasks.remove(task);
+	}
+	
+	public boolean isEmpty () {
+		return (size()==0);
 	}
 	
 }

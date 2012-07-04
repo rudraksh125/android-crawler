@@ -28,9 +28,9 @@ public class GuiTreeEngine extends Engine {
 	public GuiTreeEngine () {
 		super ();
 		
-		setScheduler(new TraceDispatcher());
+		setScheduler(getNewScheduler());
 		
-		this.theAutomation = new Automation();
+		this.theAutomation = getNewAutomation();
 		this.theRestarter = new BasicRestarter();
 		this.theAutomation.setRestarter(theRestarter);
 		setRobot (this.theAutomation);
@@ -118,6 +118,14 @@ public class GuiTreeEngine extends Engine {
 		return null;
 	}
 	
+	public TraceDispatcher getNewScheduler() {
+		return new TraceDispatcher();
+	}
+
+	public Automation getNewAutomation() {
+		return new Automation();
+	}
+
 	public boolean stepPersistence () {
 		return (MAX_TRACES_IN_RAM>0);
 	}

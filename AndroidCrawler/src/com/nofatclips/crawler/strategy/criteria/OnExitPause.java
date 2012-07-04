@@ -10,9 +10,8 @@ public class OnExitPause implements PauseCriteria {
 		this.theStrategy = theStrategy;	
 	}
 
-	@Override
 	public boolean pause() {
-		return theStrategy.getStateAfterEvent().isExit();
+		return this.theStrategy.getStateAfterEvent().isExit();
 	}
 
 }

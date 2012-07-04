@@ -306,7 +306,7 @@ public class Resources {
 	public final static String FILE_NAME = "guitree.xml"; // Output
 
 	// Scheduler Parameters
-	public final static int MAX_TASKS_IN_SCHEDULER = 100;
+	public final static int MAX_TASKS_IN_SCHEDULER = 40;
 	
 	// Screenshot Parameters
 	public final static boolean SCREENSHOT_FOR_STATES = true; // Performs an image capture of the screen after processing a task

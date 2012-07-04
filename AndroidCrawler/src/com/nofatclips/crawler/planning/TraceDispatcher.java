@@ -149,6 +149,7 @@ public class TraceDispatcher implements Iterable<Trace> {
 		}
 
 		private void discardTasks() {
+			if (MAX_TASKS_IN_SCHEDULER==0) return;
 			while (this.tasks.size()>=MAX_TASKS_IN_SCHEDULER) {
 				switch (algorithm) {
 					case DEPTH_FIRST: remove (firstTask());

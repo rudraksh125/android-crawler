@@ -37,7 +37,5 @@ public class MaxDepthExplore implements ExplorationCriteria {
 		Log.i("nofatclips", "Checking for depth: this trace is " + transitions + " transitions deep (max = " + getMaxDepth() + ")");
 		return (transitions<getMaxDepth());
 	}
-	
-	
 
 }

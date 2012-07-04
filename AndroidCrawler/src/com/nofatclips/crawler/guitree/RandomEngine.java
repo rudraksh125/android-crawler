@@ -26,13 +26,16 @@ public class RandomEngine extends GuiTreeEngine {
 		this.theStrategyFactory.setExploreNewOnly(false);
 		Log.d("nofatclips", "Starting random testing");
 		this.taskLottery = new Random(RANDOM_SEED);
+		this.theStrategyFactory.setMoreCriterias(new OnExitPause());
+		if (TRACE_MAX_DEPTH>0) {
+			this.theStrategyFactory.setMoreCriterias(new MaxDepthTermination(TRACE_MAX_DEPTH));
+		}
 		this.first = true;
 	}
 	
 	@Override
 	protected void setUp () {
 		super.setUp();
-		this.theStrategyFactory.setMoreCriterias(new OnExitPause(), new MaxDepthTermination(TRACE_MAX_DEPTH));
 	}
 	
 	@Override
@@ -46,7 +49,7 @@ public class RandomEngine extends GuiTreeEngine {
 			n = getRandom(max);
 			t = thePlan.getTask(n);
 			type = t.getEvent().getType();
-			Log.v("nofatclips","Estratto: " + (n+1) + " su " + max + " (di tipo " + type + ")");
+//			Log.v("nofatclips","Estratto: " + (n+1) + " su " + max + " (di tipo " + type + ")");
 			if (!(isBase() && type.equals(BACK))) {
 				getScheduler().addTasks(getNewTask(theTask, t));
 			}

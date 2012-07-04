@@ -152,9 +152,13 @@ public class TraceDispatcher implements Iterable<Trace> {
 			if (MAX_TASKS_IN_SCHEDULER==0) return;
 			while (this.tasks.size()>=MAX_TASKS_IN_SCHEDULER) {
 				switch (algorithm) {
-					case DEPTH_FIRST: remove (firstTask());
+					case DEPTH_FIRST: 
+						remove (firstTask());
+						break;
 					case BREADTH_FIRST: 
-					default: remove(lastTask());
+					default: 
+						remove(lastTask());
+						break;
 				}
 			}
 		}

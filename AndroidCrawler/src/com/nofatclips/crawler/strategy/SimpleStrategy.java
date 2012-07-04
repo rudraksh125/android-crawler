@@ -91,10 +91,12 @@ public class SimpleStrategy implements Strategy {
 	}
 	
 	public void addTerminationCriteria (TerminationCriteria t) {
+		t.setStrategy(this);
 		this.terminators.add(t);
 	}
 
 	public void addPauseCriteria (PauseCriteria p) {
+		p.setStrategy(this);
 		this.pausers.add(p);
 	}
 

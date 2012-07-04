@@ -9,6 +9,8 @@ import com.nofatclips.androidtesting.model.Trace;
 import com.nofatclips.androidtesting.model.Transition;
 import com.nofatclips.crawler.model.Plan;
 import com.nofatclips.crawler.planning.TraceDispatcher;
+import com.nofatclips.crawler.strategy.criteria.MaxDepthTermination;
+import com.nofatclips.crawler.strategy.criteria.OnExitPause;
 
 import static com.nofatclips.crawler.Resources.*;
 import static com.nofatclips.androidtesting.model.InteractionType.*;
@@ -25,6 +27,12 @@ public class RandomEngine extends GuiTreeEngine {
 		Log.d("nofatclips", "Starting random testing");
 		this.taskLottery = new Random(RANDOM_SEED);
 		this.first = true;
+	}
+	
+	@Override
+	protected void setUp () {
+		super.setUp();
+		this.theStrategyFactory.setMoreCriterias(new OnExitPause(), new MaxDepthTermination(TRACE_MAX_DEPTH));
 	}
 	
 	@Override
@@ -47,6 +55,12 @@ public class RandomEngine extends GuiTreeEngine {
 		
 //		getScheduler().addTasks(getNewTask(theTask, t));		
 	}
+
+	@Override
+	protected void doNotPlanTests() { 
+		this.first = true; 
+	}
+
 	
 	@Override
 	public TraceDispatcher getNewScheduler() {

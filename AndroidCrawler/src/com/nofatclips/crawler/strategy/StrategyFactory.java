@@ -1,5 +1,7 @@
 package com.nofatclips.crawler.strategy;
 
+import java.util.ArrayList;
+
 import com.nofatclips.crawler.model.Comparator;
 import com.nofatclips.crawler.model.Strategy;
 import com.nofatclips.crawler.model.StrategyCriteria;
@@ -20,7 +22,7 @@ public class StrategyFactory {
 	private long pauseSeconds = 0;
 	private boolean checkTransistions = false;
 	private boolean exploreNewStatesOnly = true;
-	private StrategyCriteria[] otherCriterias = new StrategyCriteria[] {};
+	private ArrayList<StrategyCriteria> otherCriterias = new ArrayList<StrategyCriteria>();
 	private int pauseTraces;
 	
 	public StrategyFactory () {}
@@ -40,7 +42,9 @@ public class StrategyFactory {
 
 	public Strategy getStrategy () {
 		if (useCustomStrategy ()) {
-			CustomStrategy s = new CustomStrategy(this.comparator, this.otherCriterias);
+			
+			StrategyCriteria[] c = new StrategyCriteria[this.otherCriterias.size()];
+			CustomStrategy s = new CustomStrategy(this.comparator, this.otherCriterias.toArray(c));
 			if (exploreNewStatesOnly()) {
 				s.addCriteria (new NewActivityExplore());
 			}
@@ -106,7 +110,7 @@ public class StrategyFactory {
 	}
 
 	public boolean hasMoreCriterias() {
-		return (this.otherCriterias.length>0);
+		return (this.otherCriterias.size()>0);
 	}
 
 	public void setDepth(int depth) {
@@ -134,7 +138,9 @@ public class StrategyFactory {
 	}
 
 	public void setMoreCriterias (StrategyCriteria ... s) {
-		this.otherCriterias = s;
+		for (StrategyCriteria sc: s) {
+			this.otherCriterias.add(sc);
+		}
 	}
 
 	public void setPauseTraces(int pauseAfterTraces) {

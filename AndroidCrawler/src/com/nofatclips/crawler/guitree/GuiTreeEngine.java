@@ -136,7 +136,7 @@ public class GuiTreeEngine extends Engine {
 	private BasicRestarter theRestarter;
 	private GuiTree theGuiTree;
 	protected StrategyFactory theStrategyFactory;
-	private PersistenceFactory thePersistenceFactory;
+	protected PersistenceFactory thePersistenceFactory;
 //	private Persistence diskWriter;
 	
 }

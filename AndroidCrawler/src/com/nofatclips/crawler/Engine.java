@@ -74,6 +74,8 @@ public abstract class Engine extends ActivityInstrumentationTestCase2 implements
 			getPersistence().addTrace(theTask);
 			if (canPlanTests(theActivity)) {
 				planTests(theTask, theActivity);
+			} else {
+				doNotPlanTests();
 			}
 			if ( (getStrategy().checkForTermination()) || (getStrategy().checkForPause()) ) break;
 		}
@@ -175,6 +177,10 @@ public abstract class Engine extends ActivityInstrumentationTestCase2 implements
 //			newTrace.setId(nextId());
 			getScheduler().addTasks(getNewTask(theTask, t));
 		}		
+	}
+	
+	protected void doNotPlanTests() { 
+		// do nothing 
 	}
 	
 	protected Trace getNewTask (Trace theTask, Transition t) {

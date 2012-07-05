@@ -204,19 +204,25 @@ public class Resources {
 //	public final static int SLEEP_AFTER_RESTART = 500;
 
 //	TomDroid
-//	public final static String PACKAGE_NAME = "org.tomdroid";
-//	public final static String CLASS_NAME = "org.tomdroid.ui.Tomdroid";
-//	public final static Comparator COMPARATOR = new CustomWidgetsComparator(EDIT_TEXT, BUTTON, MENU_VIEW); //, DIALOG_VIEW, LIST_VIEW);
-//	public final static int SLEEP_AFTER_EVENT = 2000;
-//	public final static int SLEEP_AFTER_RESTART = 1000;
-//	public final static StrategyCriteria[] ADDITIONAL_CRITERIAS = new StrategyCriteria[] {
-//		new AfterEventDontExplore("Service"),
-//	};
+	public final static String PACKAGE_NAME = "org.tomdroid";
+	public final static String CLASS_NAME = "org.tomdroid.ui.Tomdroid";
+	public final static Comparator COMPARATOR = new CustomWidgetsDeepComparator(EDIT_TEXT, BUTTON, MENU_VIEW); //, DIALOG_VIEW, LIST_VIEW);
+	public final static int SLEEP_AFTER_EVENT = 2000;
+	public final static int SLEEP_AFTER_RESTART = 1000;
+	public final static StrategyCriteria[] ADDITIONAL_CRITERIAS = new StrategyCriteria[] {
+		new AfterEventDontExplore("Service"),
+	};
 //	public final static InteractorAdapter[] ADDITIONAL_INPUTS = new InteractorAdapter[] { // Username and password
 //		new FixedValueEditor().addIdValuePair(16908291, "\r\n"),
 //	};
-//	public final static String[] PRECRAWLING = new String[] {
-//	};
+	public final static InteractorAdapter[] ADDITIONAL_EVENTS = new InteractorAdapter[] { // Username and password
+		new FixedValueEditor().addIdValuePair(16908291, "1", "2", "3", "http:\\"),
+	};
+	public final static String[] PRECRAWLING = new String[] {
+		OPEN_MENU, null,
+		CLICK_ON_TEXT, "Settings", null
+	};
+
 
 //	// Aarddict
 //	public final static String PACKAGE_NAME = "aarddict.android";
@@ -237,11 +243,11 @@ public class Resources {
 //	};
 	
 	// Book Catalog
-	public final static String PACKAGE_NAME = "com.eleybourn.bookcatalogue";
-	public final static String CLASS_NAME = "com.eleybourn.bookcatalogue.BookCatalogue";
-	public final static Comparator COMPARATOR = new CustomWidgetsComparator(LIST_VIEW, BUTTON);
-	public final static int SLEEP_AFTER_EVENT = 2000;
-	public final static int SLEEP_AFTER_RESTART = 2000;
+//	public final static String PACKAGE_NAME = "com.eleybourn.bookcatalogue";
+//	public final static String CLASS_NAME = "com.eleybourn.bookcatalogue.BookCatalogue";
+//	public final static Comparator COMPARATOR = new CustomWidgetsComparator(LIST_VIEW, BUTTON);
+//	public final static int SLEEP_AFTER_EVENT = 2000;
+//	public final static int SLEEP_AFTER_RESTART = 2000;
 //	public final static String[] PRECRAWLING = new String[] {
 //		LIST_SELECT, "16908298", "2", null,
 //		OPEN_MENU, null,
@@ -282,7 +288,7 @@ public class Resources {
 	public final static int[] KEY_EVENTS = {};
 	
 	// Precrawling sequence
-	public final static String[] PRECRAWLING = new String[] {};
+//	public final static String[] PRECRAWLING = new String[] {};
 	
 	// Strategy Parameters
 	public final static int MAX_NUM_TRACES = 0; // After performing this amount of traces, the crawler exits (0 = no length limit)
@@ -293,13 +299,14 @@ public class Resources {
 	public final static boolean CHECK_FOR_TRANSITION = false;
 	public final static boolean EXPLORE_ONLY_NEW_STATES = true;
 //	public final static Comparator COMPARATOR = new NullComparator();
-	public final static StrategyCriteria[] ADDITIONAL_CRITERIAS = new StrategyCriteria[] {};
+//	public final static StrategyCriteria[] ADDITIONAL_CRITERIAS = new StrategyCriteria[] {};
 	public final static boolean COMPARE_STATE_TITLE = true;
 	public final static boolean COMPARE_LIST_COUNT = false;
+	public final static boolean COMPARE_VALUES = true; // Only for Deep comparator;
 	
 	// Persistence Parameters
 	public final static int MAX_TRACES_IN_RAM = 1; // After performing this amount of traces, the crawler saves to disk, empties the session and continues (0 = keep all in RAM)
-	public final static boolean ENABLE_RESUME = true;
+	public final static boolean ENABLE_RESUME = false;
 	public final static String TASK_LIST_FILE_NAME = "tasklist.xml"; // Save state for resume and optionally output
 	public final static String ACTIVITY_LIST_FILE_NAME = "activities.xml"; // Save state for resume
 	public final static String PARAMETERS_FILE_NAME = "parameters.obj"; // Save state for resume
@@ -324,12 +331,12 @@ public class Resources {
 	public final static boolean TAB_EVENTS_START_ONLY = true; // true -> click on tabs only on the start activity
 	public final static boolean SCROLL_DOWN_EVENT = false;
 	public final static long RANDOM_SEED = 5466516511651561651L; // 0 = Random
-	public final static InteractorAdapter[] ADDITIONAL_EVENTS = new InteractorAdapter[] {};
+//	public final static InteractorAdapter[] ADDITIONAL_EVENTS = new InteractorAdapter[] {};
 	public final static InteractorAdapter[] ADDITIONAL_INPUTS = new InteractorAdapter[] {};
 	
 	// More Parameters
 	public final static boolean IN_AND_OUT_FOCUS = true;
-	public final static boolean FORCE_RESTART = false;
+	public final static boolean FORCE_RESTART = true;
 	public final static boolean ACTIVITY_DESCRIPTION_IN_SESSION = false;
 	public final static boolean RETRY_FAILED_TRACES = false; // Crashed and failed traces are retried once in case the failure had an asynchronous cause
 	public final static int SLEEP_ON_THROBBER = 30000; // How long to wait on spinning wheels (in ms -- 0 = don't wait)

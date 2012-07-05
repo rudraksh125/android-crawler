@@ -2,6 +2,8 @@ package com.nofatclips.crawler.strategy.comparator;
 
 import com.nofatclips.androidtesting.model.WidgetState;
 
+import static com.nofatclips.crawler.Resources.COMPARE_VALUES;
+
 public class CustomWidgetsDeepComparator extends CustomWidgetsComparator {
 	
 	public CustomWidgetsDeepComparator (String... widgets) {
@@ -14,7 +16,8 @@ public class CustomWidgetsDeepComparator extends CustomWidgetsComparator {
 
 	@Override
 	protected boolean matchWidget (WidgetState campo, WidgetState altroCampo) {
-		return (super.matchWidget(campo, altroCampo) && altroCampo.getName().equals(campo.getName()));
+		boolean matchValue = (COMPARE_VALUES)?altroCampo.getValue().equals(campo.getValue()):true; 
+		return (matchValue && super.matchWidget(campo, altroCampo) && altroCampo.getName().equals(campo.getName()));
 	}
 	
 }

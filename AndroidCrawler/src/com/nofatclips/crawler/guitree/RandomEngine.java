@@ -30,6 +30,7 @@ public class RandomEngine extends GuiTreeEngine {
 		Log.d("nofatclips", "Starting random testing");
 		this.taskLottery = new SaveStateRandom(RANDOM_SEED);
 		this.theStrategyFactory.setMoreCriterias(new OnExitPause());
+		this.theStrategyFactory.setPauseTraces(0);
 		this.theStrategyFactory.setExploreNewOnly(false);
 		if (TRACE_MAX_DEPTH>0) {
 			this.theStrategyFactory.setMoreCriterias(new MaxDepthTermination(TRACE_MAX_DEPTH));

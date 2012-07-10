@@ -8,7 +8,10 @@ import com.nofatclips.androidtesting.model.ActivityState;
 import com.nofatclips.androidtesting.model.Trace;
 import com.nofatclips.androidtesting.model.Transition;
 import com.nofatclips.crawler.model.Plan;
+import com.nofatclips.crawler.model.SaveStateListener;
+import com.nofatclips.crawler.model.SessionParams;
 import com.nofatclips.crawler.planning.TraceDispatcher;
+import com.nofatclips.crawler.storage.PersistenceFactory;
 import com.nofatclips.crawler.strategy.criteria.MaxDepthTermination;
 import com.nofatclips.crawler.strategy.criteria.OnExitPause;
 
@@ -25,8 +28,9 @@ public class RandomEngine extends GuiTreeEngine {
 		super();
 		this.theStrategyFactory.setExploreNewOnly(false);
 		Log.d("nofatclips", "Starting random testing");
-		this.taskLottery = new Random(RANDOM_SEED);
+		this.taskLottery = new SaveStateRandom(RANDOM_SEED);
 		this.theStrategyFactory.setMoreCriterias(new OnExitPause());
+		this.theStrategyFactory.setExploreNewOnly(false);
 		if (TRACE_MAX_DEPTH>0) {
 			this.theStrategyFactory.setMoreCriterias(new MaxDepthTermination(TRACE_MAX_DEPTH));
 		}
@@ -55,8 +59,6 @@ public class RandomEngine extends GuiTreeEngine {
 			}
 			thePlan.removeTask(n);
 		}
-		
-//		getScheduler().addTasks(getNewTask(theTask, t));		
 	}
 
 	@Override
@@ -86,18 +88,48 @@ public class RandomEngine extends GuiTreeEngine {
 	
 	public boolean isBase (ActivityState s) {
 		if (s==null) return true;
-		return s.getId().equals(getAbstractor().getBaseActivity().getId());
+		return s.getName().equals(getAbstractor().getBaseActivity().getName());
 	}
 	
 	public int getRandom (int max) {
-//		if (this.first) {
-//			for (int i = 0; i<getLastId(); i++) {
-//				taskLottery.nextInt(max);
-//			}
-//		}
-//		this.first = false;
 		int n = taskLottery.nextInt(max);
 		return n;
+	}
+	
+	@SuppressWarnings("serial")
+	class SaveStateRandom extends Random implements SaveStateListener {
+		
+		public final static String ACTOR_NAME = "GuiTreeAbstractor";
+		private final static String PARAM_NAME = "eventId";
+		int count;
+		
+		public SaveStateRandom (long seed) {
+			super (seed);
+			count = 0;
+			PersistenceFactory.registerForSavingState(this);
+		}
+
+		public String getListenerName() {
+			return ACTOR_NAME;
+		}
+
+		public SessionParams onSavingState() {
+			return new SessionParams(PARAM_NAME, this.count);
+		}
+		
+		public void onLoadingState(SessionParams sessionParams) {
+			this.count = sessionParams.getInt(PARAM_NAME);
+			Log.d("nofatclips", "Restored random counter to: " + this.count);
+			for (int i=0; i<this.count; i++) {
+				nextInt();
+			}
+		}
+		
+		public int nextInt (int max) {
+			count++;
+			return super.nextInt(max);
+		}
+		
 	}
 
 }

@@ -1,8 +1,17 @@
 package com.nofatclips.crawler.guitree;
 
+import java.io.BufferedInputStream;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.GregorianCalendar;
+import java.util.prefs.InvalidPreferencesFormatException;
+import java.util.prefs.Preferences;
 
 import javax.xml.parsers.ParserConfigurationException;
+
+import android.util.Log;
 
 import com.nofatclips.androidtesting.guitree.GuiTree;
 import com.nofatclips.androidtesting.model.Session;
@@ -29,6 +38,30 @@ public class GuiTreeEngine extends Engine {
 		super ();
 		
 		setScheduler(getNewScheduler());
+		
+		// BEGIN - Reading preferences from XML file
+		
+		// Create an input stream on a file
+		InputStream is = null;
+		try {
+			Log.e("nofatclips", "/data/data/" + PACKAGE_NAME + "/files/"+ PREFERENCES_FILE);
+			is = new BufferedInputStream(new FileInputStream("/data/data/" + PACKAGE_NAME + "/files/"+ PREFERENCES_FILE));
+			Preferences.importPreferences(is);
+		} catch (FileNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InvalidPreferencesFormatException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		Preferences prefs = Preferences.userRoot().node("com.nofatclips.crawler");
+		RANDOM_SEED = prefs.getLong ("RANDOM_SEED", RANDOM_SEED);
+
+		// END - Reading preferences from XML file
 		
 		this.theAutomation = getNewAutomation();
 		this.theRestarter = new BasicRestarter();
@@ -103,6 +136,8 @@ public class GuiTreeEngine extends Engine {
 		theGuiTree.setComparationWidgets(COMPARATOR.describe());
 		theGuiTree.setInAndOutFocus(IN_AND_OUT_FOCUS);
 		theGuiTree.setSleepAfterTask(SLEEP_AFTER_TASK);
+		theGuiTree.setRandomSeed(RANDOM_SEED);
+		theGuiTree.setMaxDepth(TRACE_MAX_DEPTH);
 		if (!ACTIVITY_DESCRIPTION_IN_SESSION) {
 			theGuiTree.setStateFileName(ACTIVITY_LIST_FILE_NAME);
 		}

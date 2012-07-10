@@ -39,6 +39,8 @@ public class SimpleTypeDetector implements TypeDetector {
 			return BUTTON;
 		if (type.endsWith("EditText"))
 			return EDIT_TEXT;
+		if (type.endsWith("SearchAutoComplete"))
+			return SEARCH_BAR;
 		if (type.endsWith("Spinner")) {
 			Spinner s = (Spinner)v;
 			if (s.getCount() == 0) return EMPTY_SPINNER;

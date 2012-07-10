@@ -292,12 +292,13 @@ public class Automation implements Robot, Extractor, TaskProcessor, ImageCaptor 
 		ActivityInstrumentationTestCase2.assertTrue("Cannot swap tab: tab index out of bound", num<=t.getTabWidget().getTabCount());
 		final int n = Math.min(this.tabNum, Math.max(1,num))-1;
 		Log.i("nofatclips", "Swapping to tab " + num);
-		getActivity().runOnUiThread(new Runnable() {
-			public void run() {
-				t.setCurrentTab(n);
-			}
-		});
-		sync();
+//		getActivity().runOnUiThread(new Runnable() {
+//			public void run() {
+//				t.setCurrentTab(n);
+//			}
+//		});
+//		sync();
+		click (t.getTabWidget().getChildAt(n));
 		describeCurrentEvent(t.getTabWidget().getChildAt(n));
 	}
 

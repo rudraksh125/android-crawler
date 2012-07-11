@@ -78,6 +78,7 @@ public class RandomEngine extends GuiTreeEngine {
 		if (this.first) {
 			super.process(theTask);
 		} else {
+			Log.i ("nofatclips", "Incrementally Playing Trace " + theTask.getId());
 			getRobot().process(theTask.getFinalTransition());
 		}
 		this.first=false;
@@ -100,8 +101,8 @@ public class RandomEngine extends GuiTreeEngine {
 	@SuppressWarnings("serial")
 	class SaveStateRandom extends Random implements SaveStateListener {
 		
-		public final static String ACTOR_NAME = "GuiTreeAbstractor";
-		private final static String PARAM_NAME = "eventId";
+		public final static String ACTOR_NAME = "RandomEngine";
+		private final static String PARAM_NAME = "randomState";
 		int count;
 		
 		public SaveStateRandom (long seed) {

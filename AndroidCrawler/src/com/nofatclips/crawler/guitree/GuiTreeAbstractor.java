@@ -136,32 +136,6 @@ public class GuiTreeAbstractor implements Abstractor, FilterHandler, SaveStateLi
 			hasDescription = true;
 			if (!v.isShown()) continue;
 			TestCaseWidget w = createWidget (v);
-//			TestCaseWidget w = TestCaseWidget.createWidget(getTheSession());
-//			String id = String.valueOf(v.getId());
-//			String text = "";
-//			String name = "";
-//			int type = 0;
-//			if (v instanceof TextView) {
-//				TextView t = (TextView)v;
-//				type = t.getInputType();
-//				text = t.getText().toString();
-//				name = text;
-//				if (v instanceof EditText) {
-//					CharSequence hint = ((EditText)v).getHint();
-//					name = (hint==null)?"":hint.toString();
-//				}
-//			}
-//			w.setIdNameType(id, name, v.getClass().getName());
-//			w.setUniqueId(getUniqueWidgetId());
-//			if (type!=0) {
-//				w.setTextType("" + type);
-//			}
-//			w.setSimpleType(getTypeDetector().getSimpleType(v));
-//			setCount (v,w);
-//			setValue (v,w);
-//			w.setAvailable((v.isEnabled())?"true":"false");
-//			w.setClickable((v.isClickable())?"true":"false");
-//			w.setLongClickable((v.isLongClickable())?"true":"false");
 			w.setIndex(desc.getWidgetIndex(v));
 			if (detectDuplicates && newActivity.hasWidget(w)) continue;
 			newActivity.addWidget(w);
@@ -294,18 +268,6 @@ public class GuiTreeAbstractor implements Abstractor, FilterHandler, SaveStateLi
 		return newInput;
 	}
 
-//	public UserInput createInput(WidgetState target, String text, String type) {
-//		TestCaseInput newInput = TestCaseInput.createInput(getTheSession());
-//		newInput.setWidget(target);
-//		newInput.setValue(text);
-//		newInput.setType(type);
-//		newInput.setId(getUniqueInputId());
-//		for (AbstractorListener listener: this.theListeners) {
-//			listener.onNewInput(newInput);
-//		}
-//		return newInput;
-//	}
-
 	public Trace createTrace(Trace head, Transition tail) {
 		TestCaseTrace t;
 		if (head!= null) {
@@ -376,10 +338,10 @@ public class GuiTreeAbstractor implements Abstractor, FilterHandler, SaveStateLi
 
 	public SessionParams onSavingState() {
 		SessionParams state = new SessionParams();
-		state.store(EVENT_PARAM_NAME, String.valueOf(this.eventId));
-		state.store(INPUT_PARAM_NAME, String.valueOf(this.inputId));
-		state.store(ACTIVITY_PARAM_NAME, String.valueOf(this.activityId));
-		state.store(WIDGET_PARAM_NAME, String.valueOf(this.widgetId));
+		state.store(EVENT_PARAM_NAME, this.eventId);
+		state.store(INPUT_PARAM_NAME, this.inputId);
+		state.store(ACTIVITY_PARAM_NAME, this.activityId);
+		state.store(WIDGET_PARAM_NAME, this.widgetId);
 		return state;
 	}
 	

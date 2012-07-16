@@ -4,8 +4,9 @@ import android.util.Log;
 
 import com.nofatclips.androidtesting.model.ActivityState;
 import com.nofatclips.crawler.model.Comparator;
+
 import static com.nofatclips.androidtesting.model.SimpleType.NULL;
-import static com.nofatclips.crawler.Resources.COMPARE_STATE_TITLE;
+import static com.nofatclips.crawler.strategy.comparator.Resources.COMPARE_STATE_TITLE;
 
 public class NameComparator implements Comparator {
 
@@ -33,7 +34,7 @@ public class NameComparator implements Comparator {
 	}
 	
 	public boolean compareByTitle () {
-		return COMPARE_STATE_TITLE;
+		return this.byTitle;
 	}
 	
 	protected boolean byName;

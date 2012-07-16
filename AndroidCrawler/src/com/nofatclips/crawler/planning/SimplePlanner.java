@@ -22,7 +22,7 @@ public class SimplePlanner implements Planner {
 	public final static boolean NO_GO_BACK = false;
 	
 	public Plan getPlanForActivity (ActivityState a) {
-		return getPlanForActivity(a, !TAB_EVENTS_START_ONLY, ALLOW_GO_BACK);
+		return getPlanForActivity(a, !Resources.TAB_EVENTS_START_ONLY, ALLOW_GO_BACK);
 	}
 
 	public Plan getPlanForBaseActivity (ActivityState a) {
@@ -53,14 +53,14 @@ public class SimplePlanner implements Planner {
 		Transition t;
 		
 		// Special handling for pressing back button
-		if (BACK_BUTTON_EVENT && allowGoBack) {
+		if (Resources.BACK_BUTTON_EVENT && allowGoBack) {
 			evt = getAbstractor().createEvent(null, BACK);
 			t = getAbstractor().createStep(a, new HashSet<UserInput>(), evt);
 			Log.i("nofatclips", "Created trace to press the back button");
 			p.addTask(t);
 		}
 		
-		if (MENU_EVENTS) {
+		if (Resources.MENU_EVENTS) {
 			evt = getAbstractor().createEvent(null, OPEN_MENU);
 			t = getAbstractor().createStep(a, new HashSet<UserInput>(), evt);
 			Log.i("nofatclips", "Created trace to press the menu button");
@@ -68,22 +68,22 @@ public class SimplePlanner implements Planner {
 		}
 
 		// Special handling for scrolling down
-		if (SCROLL_DOWN_EVENT) {
+		if (Resources.SCROLL_DOWN_EVENT) {
 			evt = getAbstractor().createEvent(null, SCROLL_DOWN);
 			t = getAbstractor().createStep(a, new HashSet<UserInput>(), evt);
 			Log.i("nofatclips", "Created trace to perform scrolling down");
 			p.addTask(t);
 		}
 
-		if (ORIENTATION_EVENTS) {
+		if (Resources.ORIENTATION_EVENTS) {
 			evt = getAbstractor().createEvent(null, CHANGE_ORIENTATION);
 			t = getAbstractor().createStep(a, new HashSet<UserInput>(), evt);
 			Log.i("nofatclips", "Created trace to change orientation");
 			p.addTask(t);
 		}
 		
-		if (KEY_EVENTS.length>0) {
-			for (int keyCode: KEY_EVENTS) {
+		if (Resources.KEY_EVENTS.length>0) {
+			for (int keyCode: Resources.KEY_EVENTS) {
 				evt = getAbstractor().createEvent(null, PRESS_KEY);
 				evt.setValue(String.valueOf(keyCode));
 				t = getAbstractor().createStep(a, new HashSet<UserInput>(), evt);

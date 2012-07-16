@@ -11,7 +11,8 @@ import com.nofatclips.androidtesting.model.Trace;
 import com.nofatclips.crawler.model.DispatchListener;
 import com.nofatclips.crawler.model.TaskScheduler;
 
-import static com.nofatclips.crawler.Resources.MAX_TASKS_IN_SCHEDULER;
+import static com.nofatclips.crawler.planning.Resources.MAX_TASKS_IN_SCHEDULER;
+import static com.nofatclips.crawler.planning.Resources.SCHEDULER_ALGORITHM;
 
 public class TraceDispatcher implements Iterable<Trace> {
 
@@ -22,10 +23,14 @@ public class TraceDispatcher implements Iterable<Trace> {
 	}
 	
 	public TraceDispatcher () {
-		this (SchedulerAlgorithm.BREADTH_FIRST);
+		this (SCHEDULER_ALGORITHM);
 //		setScheduler(getTrivialScheduler());
 	}
 
+	public TraceDispatcher (String algorithm) {
+		this (SchedulerAlgorithm.valueOf(algorithm));
+	}
+	
 	public TraceDispatcher(SchedulerAlgorithm algorithm) {
 		setScheduler(getTrivialScheduler(algorithm));
 	}

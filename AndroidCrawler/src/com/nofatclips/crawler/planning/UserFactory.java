@@ -1,11 +1,6 @@
 package com.nofatclips.crawler.planning;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Hashtable;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
 
 import static com.nofatclips.androidtesting.model.InteractionType.*;
 import static com.nofatclips.crawler.Resources.*;
@@ -36,6 +31,14 @@ public class UserFactory {
 		inputToTypeMap.put(inputType, widgetTypes);
 	}
 	
+	public static void resetEvents () {
+		eventToTypeMap.clear();
+	}
+
+	public static void resetInputs () {
+		inputToTypeMap.clear();
+	}
+
 	public static void denyIds (String ... ids) {
 		denyIdsForEvent(ALL, ids);
 	}
@@ -132,7 +135,7 @@ public class UserFactory {
 	}
 	
 	public static boolean isUserSimple () {
-		int m = MAX_TASKS_PER_EVENT;
+		int m = Resources.MAX_TASKS_PER_EVENT;
 		return (m == 1);
 	}
 	
@@ -148,38 +151,38 @@ public class UserFactory {
 
 		if (isRequiredEvent(CLICK)) {
 			Clicker c = new Clicker (typesForEvent(CLICK));
-			c.setEventWhenNoId(EVENT_WHEN_NO_ID);
+			c.setEventWhenNoId(Resources.EVENT_WHEN_NO_ID);
 			u.addEvent(addDosAndDonts(c));
 		}
 
 		if (isRequiredEvent(LONG_CLICK)) {
 			LongClicker l = new LongClicker (typesForEvent(LONG_CLICK));
-			l.setEventWhenNoId(EVENT_WHEN_NO_ID);
+			l.setEventWhenNoId(Resources.EVENT_WHEN_NO_ID);
 			u.addEvent(addDosAndDonts(l));
 		}
 		
 		if (isRequiredEvent(LIST_SELECT)) {			
-			ListSelector ls = new ListSelector (MAX_EVENTS_PER_WIDGET, typesForEvent(LIST_SELECT));
+			ListSelector ls = new ListSelector (Resources.MAX_EVENTS_PER_WIDGET, typesForEvent(LIST_SELECT));
 			ls.setEventWhenNoId(true);
 			u.addEvent(addDosAndDonts(ls));
 		}
 		
 		if (isRequiredEvent(LIST_LONG_SELECT)) {
-			ListLongClicker llc = new ListLongClicker (MAX_EVENTS_PER_WIDGET, typesForEvent(LIST_LONG_SELECT));
+			ListLongClicker llc = new ListLongClicker (Resources.MAX_EVENTS_PER_WIDGET, typesForEvent(LIST_LONG_SELECT));
 			llc.setEventWhenNoId(true);
 			u.addEvent(addDosAndDonts(llc));			
 		}
 		
 		if (isRequiredEvent(SWAP_TAB)) {
 			TabSwapper ts = new TabSwapper (typesForEvent(SWAP_TAB));
-			if (TAB_EVENTS_START_ONLY) {
+			if (Resources.TAB_EVENTS_START_ONLY) {
 				ts.setOnlyOnce(true);
 			}
 			u.addEvent(ts);			
 		}
 		
 		for (InteractorAdapter i: ADDITIONAL_EVENTS) {
-			i.setEventWhenNoId(EVENT_WHEN_NO_ID);
+			i.setEventWhenNoId(Resources.EVENT_WHEN_NO_ID);
 			u.addEvent(addDosAndDonts(i));			
 		}
 		

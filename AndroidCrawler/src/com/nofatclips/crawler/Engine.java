@@ -8,6 +8,7 @@ import org.w3c.dom.Element;
 
 import com.nofatclips.androidtesting.model.*;
 import com.nofatclips.androidtesting.xml.XmlGraph;
+import com.nofatclips.crawler.automation.Resources;
 import com.nofatclips.crawler.automation.ScreenshotFactory;
 import com.nofatclips.crawler.model.*;
 import com.nofatclips.crawler.planning.TraceDispatcher;
@@ -40,7 +41,7 @@ public abstract class Engine extends ActivityInstrumentationTestCase2 implements
 		getRobot().bind(this);
 		getExtractor().extractState();
 		Activity a = getExtractor().getActivity();
-		getPersistence().setFileName(FILE_NAME);
+		getPersistence().setFileName(com.nofatclips.crawler.storage.Resources.FILE_NAME);
 		getPersistence().setContext(a);
 		ActivityDescription d = getExtractor().describeActivity();
 		getAbstractor().setBaseActivity(d);
@@ -68,7 +69,7 @@ public abstract class Engine extends ActivityInstrumentationTestCase2 implements
 			if (screenshotNeeded()) {
 				takeScreenshot(theActivity);
 			}
-			getRobot().wait(SLEEP_AFTER_TASK);
+			getRobot().wait(Resources.SLEEP_AFTER_TASK);
 			if (!getStrategy().checkForTransition()) continue;
 			getAbstractor().setFinalActivity (theTask, theActivity);
 			getPersistence().addTrace(theTask);
@@ -106,7 +107,7 @@ public abstract class Engine extends ActivityInstrumentationTestCase2 implements
 			return false;
 		}
 		if (!(getPersistence() instanceof ResumingPersistence)) {
-			Log.i("nofatclips", "The instance of Persistence does not implement Resuming.");
+			Log.w("nofatclips", "The instance of Persistence does not implement Resuming.");
 			return false;
 		}
 		
@@ -126,10 +127,10 @@ public abstract class Engine extends ActivityInstrumentationTestCase2 implements
 			e = ((XmlGraph)sandboxSession).getDom().getDocumentElement();
 			t = getAbstractor().importTask (e);
 			if (t.isFailed()) {
-				Log.i("nofatclips", "Importing crashed trace #" + t.getId() + " from disk");
+				Log.d("nofatclips", "Importing crashed trace #" + t.getId() + " from disk");
 				getSession().addCrashedTrace(t);
 			} else {
-				Log.i("nofatclips", "Importing trace #" + t.getId() + " from disk");
+				Log.d("nofatclips", "Importing trace #" + t.getId() + " from disk");
 				taskList.add(t);
 			}
 		}
@@ -147,7 +148,7 @@ public abstract class Engine extends ActivityInstrumentationTestCase2 implements
 				e = ((XmlGraph)sandboxSession).getDom().getDocumentElement();
 				s = getAbstractor().importState (e);
 				stateList.add(s);
-				Log.i("nofatclips", "Imported activity state " + s.getId() + " from disk");
+				Log.d("nofatclips", "Imported activity state " + s.getId() + " from disk");
 			}
 			for (ActivityState state: stateList) {
 				getStrategy().addState(state);
@@ -289,11 +290,11 @@ public abstract class Engine extends ActivityInstrumentationTestCase2 implements
 	}
 	
 	public boolean screenshotEnabled() {
-		return SCREENSHOT_FOR_STATES;
+		return com.nofatclips.crawler.automation.Resources.SCREENSHOT_FOR_STATES;
 	}
 	
 	public boolean screenshotEveryTrace() {
-		return !SCREENSHOT_ONLY_NEW_STATES;
+		return !com.nofatclips.crawler.automation.Resources.SCREENSHOT_ONLY_NEW_STATES;
 	}
 	
 	public boolean screenshotNeeded() {

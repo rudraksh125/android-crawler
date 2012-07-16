@@ -2,7 +2,7 @@ package com.nofatclips.crawler.strategy.comparator;
 
 import com.nofatclips.androidtesting.model.WidgetState;
 
-import static com.nofatclips.crawler.Resources.COMPARE_VALUES;
+import static com.nofatclips.crawler.strategy.comparator.Resources.COMPARE_VALUES;
 
 public class CustomWidgetsDeepComparator extends CustomWidgetsComparator {
 	

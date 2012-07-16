@@ -2,6 +2,7 @@ package com.nofatclips.crawler;
 
 import com.nofatclips.androidtesting.model.InteractionType;
 import com.nofatclips.crawler.model.Comparator;
+import com.nofatclips.crawler.model.ResourceFile;
 import com.nofatclips.crawler.model.StrategyCriteria;
 import com.nofatclips.crawler.planning.UserFactory;
 import com.nofatclips.crawler.planning.adapters.InteractorAdapter;
@@ -16,7 +17,9 @@ import static com.nofatclips.androidtesting.model.InteractionType.*;
 import static android.view.KeyEvent.*;
 
 @SuppressWarnings("unused")
-public class Resources {
+public class Resources implements ResourceFile {
+
+	public final static String PREFERENCES_FILE = "preferences.xml";
 
 //	public static String PACKAGE_NAME = "com.softmimo.android.mileagetracker";
 //	public static String CLASS_NAME = "com.softmimo.android.mileagetracker.ListView";
@@ -31,13 +34,13 @@ public class Resources {
 //	public static int SLEEP_AFTER_EVENT = 300;
 //	public static int SLEEP_AFTER_RESTART = 2000;
 //	public static int SLEEP_AFTER_TASK = 5000;
-
+	
 	public static String PACKAGE_NAME = "com.evancharlton.mileage";
 	public static String CLASS_NAME = "com.evancharlton.mileage.Mileage";
-	public static Comparator COMPARATOR = new CustomWidgetsComparator(CustomWidgetsComparator.IGNORE_ACTIVITY_NAME, EDIT_TEXT, BUTTON, LIST_VIEW, MENU_VIEW, IMAGE_VIEW);
 //	public static Comparator COMPARATOR = new CustomWidgetsDeepComparator(CustomWidgetsComparator.IGNORE_ACTIVITY_NAME, BUTTON, LIST_VIEW, MENU_VIEW, IMAGE_VIEW);
-	public static int SLEEP_AFTER_EVENT = 4000;
-	public static int SLEEP_AFTER_RESTART = 4000;
+//	public static Comparator COMPARATOR = new CustomWidgetsComparator(CustomWidgetsComparator.IGNORE_ACTIVITY_NAME, EDIT_TEXT, BUTTON, LIST_VIEW, MENU_VIEW, IMAGE_VIEW);
+//	public static int SLEEP_AFTER_EVENT = 4000;
+//	public static int SLEEP_AFTER_RESTART = 4000;
 	
 //	public static String PACKAGE_NAME = "net.sf.andbatdog.batterydog";
 //	public static String CLASS_NAME = "net.sf.andbatdog.batterydog.BatteryDog";
@@ -272,79 +275,19 @@ public class Resources {
 	/*
 	 * 				Default Parameters
 	 */
-
-	// Default events and inputs for the User
-	static {
-//		UserFactory.addEvent(CLICK, BUTTON, MENU_ITEM, LINEAR_LAYOUT, IMAGE_VIEW);
-//		UserFactory.addEvent(LONG_CLICK, WEB_VIEW);
-//		UserFactory.addEvent(LIST_SELECT, LIST_VIEW, SINGLE_CHOICE_LIST, PREFERENCE_LIST);
-//		UserFactory.addEvent(LIST_LONG_SELECT, LIST_VIEW, SINGLE_CHOICE_LIST);
-		UserFactory.addEvent(SWAP_TAB, TAB_HOST);
-//		UserFactory.addInput(CLICK, CHECKBOX, RADIO, TOGGLE_BUTTON);
-//		UserFactory.addInput(SET_BAR, SEEK_BAR);
-//		UserFactory.addInput(WRITE_TEXT, EDIT_TEXT);
-//		UserFactory.addInput(SPINNER_SELECT, SPINNER);
-	}
-	public static int[] KEY_EVENTS = {};
 	
-	// Precrawling sequence
-	public static String[] PRECRAWLING = new String[] {};
-	
-	// Strategy Parameters
-	public static int MAX_NUM_TRACES = 0; // After performing this amount of traces, the crawler exits (0 = no length limit)
-	public static int PAUSE_AFTER_TRACES = 0; // After performing this amount of traces, the crawler pauses (0 = no pause)
-	public static long MAX_TIME_CRAWLING = 0; // In seconds (0 = no time limit)
-	public static long PAUSE_AFTER_TIME = 0; // In seconds (0 = no pause)
-	public static int TRACE_MAX_DEPTH = 0; // Max number of transitions in a trace (0 = no depth limit)
-	public static boolean CHECK_FOR_TRANSITION = false;
-	public static boolean EXPLORE_ONLY_NEW_STATES = true;
-//	public static Comparator COMPARATOR = new NullComparator();
 	public static StrategyCriteria[] ADDITIONAL_CRITERIAS = new StrategyCriteria[] {};
-	public static boolean COMPARE_STATE_TITLE = true;
-	public static boolean COMPARE_LIST_COUNT = false;
-	public static boolean COMPARE_VALUES = true; // Only for Deep comparator;
-	
-	// Persistence Parameters
-	public static int MAX_TRACES_IN_RAM = 1; // After performing this amount of traces, the crawler saves to disk, empties the session and continues (0 = keep all in RAM)
-	public static boolean ENABLE_RESUME = true;
-	public static String TASK_LIST_FILE_NAME = "tasklist.xml"; // Save state for resume and optionally output
-	public static String ACTIVITY_LIST_FILE_NAME = "activities.xml"; // Save state for resume
-	public static String PARAMETERS_FILE_NAME = "parameters.obj"; // Save state for resume
-	public static String FILE_NAME = "guitree.xml"; // Output
-	public static String PREFERENCES_FILE = "preferences.xml";
 
-	// Scheduler Parameters
-	public static int MAX_TASKS_IN_SCHEDULER = 40;
-	
-	// Screenshot Parameters
-	public static boolean SCREENSHOT_FOR_STATES = true; // Performs an image capture of the screen after processing a task
-	public static boolean SCREENSHOT_ONLY_NEW_STATES = false; // Capture only if comparation was negative - Only relevant if SCREENSHOT_FOR_STATES is true
-	public static boolean SCREENSHOT_FOR_EVENTS = false; // Performs an image capture of the screen before firing an event
-
-	// User/Planner Parameters
-	public static int MAX_EVENTS_PER_WIDGET = 5; // For GroupViews (0 = try all items in the group)
-	public static boolean ALL_EVENTS_ON_PREFERENCES = true; // Bypass MAX_EVENTS_PER_WIDGET for PREFERENCE_LIST when true
-	public static int MAX_TASKS_PER_EVENT = 1; // How many input sequences to generate for each event on a widget; 0 = no limit
-	public static boolean EVENT_WHEN_NO_ID = false; // Whether to inject events on widgets without ID or not
-	public static boolean BACK_BUTTON_EVENT = true;
-	public static boolean MENU_EVENTS = true;
-	public static boolean ORIENTATION_EVENTS = true;
-	public static boolean TAB_EVENTS_START_ONLY = false; // true -> click on tabs only on the start activity
-	public static boolean SCROLL_DOWN_EVENT = false;
-	public static long RANDOM_SEED = 5466516511651561651L; // 0 = Random
 	public static InteractorAdapter[] ADDITIONAL_EVENTS = new InteractorAdapter[] {};
 	public static InteractorAdapter[] ADDITIONAL_INPUTS = new InteractorAdapter[] {};
 	
 	// More Parameters
-	public static boolean IN_AND_OUT_FOCUS = true;
-	public static boolean FORCE_RESTART = true;
+	public static boolean ENABLE_RESUME = true;
+	public static long RANDOM_SEED = 5466516511651561651L; // 0 = Random
 	public static boolean ACTIVITY_DESCRIPTION_IN_SESSION = false;
 	public static boolean RETRY_FAILED_TRACES = false; // Crashed and failed traces are retried once in case the failure had an asynchronous cause
-	public static int SLEEP_ON_THROBBER = 30000; // How long to wait on spinning wheels (in ms -- 0 = don't wait)
-	public static int SLEEP_AFTER_TASK = 0;
 	public static String XML_BODY_BEGIN = "    <TRACE";
 	public static String XML_BODY_END = "/TRACE>";
-	public static CrawlerLog LOGGER = new SessionLogger();
 
 	public static Class<?> theClass;
 	static {

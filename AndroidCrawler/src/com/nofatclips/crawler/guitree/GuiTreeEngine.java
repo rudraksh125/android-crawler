@@ -1,21 +1,12 @@
 package com.nofatclips.crawler.guitree;
 
-import java.io.BufferedInputStream;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.GregorianCalendar;
-import java.util.prefs.InvalidPreferencesFormatException;
-import java.util.prefs.Preferences;
-
 import javax.xml.parsers.ParserConfigurationException;
-
-import android.util.Log;
 
 import com.nofatclips.androidtesting.guitree.GuiTree;
 import com.nofatclips.androidtesting.model.Session;
 import com.nofatclips.crawler.Engine;
+import com.nofatclips.crawler.Prefs;
 import com.nofatclips.crawler.automation.Automation;
 import com.nofatclips.crawler.automation.BasicRestarter;
 import com.nofatclips.crawler.automation.SimpleTypeDetector;
@@ -29,6 +20,7 @@ import com.nofatclips.crawler.planning.TraceDispatcher;
 import com.nofatclips.crawler.planning.UserFactory;
 import com.nofatclips.crawler.storage.PersistenceFactory;
 import com.nofatclips.crawler.strategy.*;
+import com.nofatclips.crawler.strategy.comparator.Resources;
 
 import static com.nofatclips.crawler.Resources.*;
 
@@ -40,26 +32,44 @@ public class GuiTreeEngine extends Engine {
 		setScheduler(getNewScheduler());
 		
 		// BEGIN - Reading preferences from XML file
-		
-		// Create an input stream on a file
-		InputStream is = null;
-		try {
-			Log.e("nofatclips", "/data/data/" + PACKAGE_NAME + "/files/"+ PREFERENCES_FILE);
-			is = new BufferedInputStream(new FileInputStream("/data/data/" + PACKAGE_NAME + "/files/"+ PREFERENCES_FILE));
-			Preferences.importPreferences(is);
-		} catch (FileNotFoundException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (InvalidPreferencesFormatException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		Preferences prefs = Preferences.userRoot().node("com.nofatclips.crawler");
-		RANDOM_SEED = prefs.getLong ("RANDOM_SEED", RANDOM_SEED);
+		Prefs.setMainNode("com.nofatclips.crawler");
+		Prefs.updateMainNode();
+//		
+//		// Create an input stream on a file
+//		InputStream is = null;
+//		try {
+//			is = new BufferedInputStream(new FileInputStream("/data/data/" + PACKAGE_NAME + "/files/"+ PREFERENCES_FILE));
+//			Preferences.importPreferences(is);
+//		} catch (FileNotFoundException e1) {
+//			// TODO Auto-generated catch block
+//			e1.printStackTrace();
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		} catch (InvalidPreferencesFormatException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//
+//		Preferences prefs = Preferences.userRoot().node("com.nofatclips.crawler");
+//		RANDOM_SEED = prefs.getLong ("RANDOM_SEED", RANDOM_SEED);
+//		
+//		String fieldValue = "";
+//		for (Field f: Resources.class.getFields()) {
+//			
+//		    if (Modifier.isFinal(f.getModifiers())) continue;
+//
+//			try {
+//				fieldValue = "\"" + f.get("").toString() + "\"";
+//			} catch (IllegalArgumentException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			} catch (IllegalAccessException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+//			Log.e ("nofatclips", "public static " + f.getType() + " " + f.getName() + " = " + fieldValue + ";");
+//		}
 
 		// END - Reading preferences from XML file
 		
@@ -100,14 +110,14 @@ public class GuiTreeEngine extends Engine {
 		p.setAbstractor(this.guiAbstractor);
 		setPlanner (p);
 		
-		StrategyFactory sf = new StrategyFactory(COMPARATOR, ADDITIONAL_CRITERIAS);
-		sf.setDepth(TRACE_MAX_DEPTH);
-		sf.setMaxTraces(MAX_NUM_TRACES);
-		sf.setMaxSeconds(MAX_TIME_CRAWLING);
-		sf.setPauseSeconds(PAUSE_AFTER_TIME);
-		sf.setCheckTransitions(CHECK_FOR_TRANSITION);
-		sf.setPauseTraces(PAUSE_AFTER_TRACES);
-		sf.setExploreNewOnly(EXPLORE_ONLY_NEW_STATES);
+		StrategyFactory sf = new StrategyFactory(Resources.COMPARATOR, ADDITIONAL_CRITERIAS);
+		sf.setDepth(com.nofatclips.crawler.strategy.Resources.TRACE_MAX_DEPTH);
+		sf.setMaxTraces(com.nofatclips.crawler.strategy.Resources.MAX_NUM_TRACES);
+		sf.setMaxSeconds(com.nofatclips.crawler.strategy.Resources.MAX_TIME_CRAWLING);
+		sf.setPauseSeconds(com.nofatclips.crawler.strategy.Resources.PAUSE_AFTER_TIME);
+		sf.setCheckTransitions(com.nofatclips.crawler.strategy.Resources.CHECK_FOR_TRANSITION);
+		sf.setPauseTraces(com.nofatclips.crawler.strategy.Resources.PAUSE_AFTER_TRACES);
+		sf.setExploreNewOnly(com.nofatclips.crawler.strategy.Resources.EXPLORE_ONLY_NEW_STATES);
 		this.theStrategyFactory = sf; // Save in a field so that subclasses can modify the parameters of the strategy
 
 		// Last object to instantiate: the other components register as listeners on the factory class
@@ -128,18 +138,18 @@ public class GuiTreeEngine extends Engine {
 		}
 		theRestarter.setRestartPoint(theAutomation.getActivity());
 		theGuiTree.setAppName(theAutomation.getAppName());
-		theGuiTree.setSleepAfterEvent(SLEEP_AFTER_EVENT);
-		theGuiTree.setSleepAfterRestart(SLEEP_AFTER_RESTART);
-		theGuiTree.setSleepOnThrobber(SLEEP_ON_THROBBER);
+		theGuiTree.setSleepAfterEvent(com.nofatclips.crawler.automation.Resources.SLEEP_AFTER_EVENT);
+		theGuiTree.setSleepAfterRestart(com.nofatclips.crawler.automation.Resources.SLEEP_AFTER_RESTART);
+		theGuiTree.setSleepOnThrobber(com.nofatclips.crawler.automation.Resources.SLEEP_ON_THROBBER);
 		theGuiTree.setClassName(CLASS_NAME);
 		theGuiTree.setPackageName(PACKAGE_NAME);
-		theGuiTree.setComparationWidgets(COMPARATOR.describe());
-		theGuiTree.setInAndOutFocus(IN_AND_OUT_FOCUS);
-		theGuiTree.setSleepAfterTask(SLEEP_AFTER_TASK);
+		theGuiTree.setComparationWidgets(Resources.COMPARATOR.describe());
+		theGuiTree.setInAndOutFocus(com.nofatclips.crawler.automation.Resources.IN_AND_OUT_FOCUS);
+		theGuiTree.setSleepAfterTask(com.nofatclips.crawler.automation.Resources.SLEEP_AFTER_TASK);
 		theGuiTree.setRandomSeed(RANDOM_SEED);
-		theGuiTree.setMaxDepth(TRACE_MAX_DEPTH);
+		theGuiTree.setMaxDepth(com.nofatclips.crawler.strategy.Resources.TRACE_MAX_DEPTH);
 		if (!ACTIVITY_DESCRIPTION_IN_SESSION) {
-			theGuiTree.setStateFileName(ACTIVITY_LIST_FILE_NAME);
+			theGuiTree.setStateFileName(com.nofatclips.crawler.storage.Resources.ACTIVITY_LIST_FILE_NAME);
 		}
 	}
 	
@@ -162,7 +172,7 @@ public class GuiTreeEngine extends Engine {
 	}
 
 	public boolean stepPersistence () {
-		return (MAX_TRACES_IN_RAM>0);
+		return (com.nofatclips.crawler.storage.Resources.MAX_TRACES_IN_RAM>0);
 	}
 	
 	private Automation theAutomation;
@@ -172,6 +182,5 @@ public class GuiTreeEngine extends Engine {
 	private GuiTree theGuiTree;
 	protected StrategyFactory theStrategyFactory;
 	protected PersistenceFactory thePersistenceFactory;
-//	private Persistence diskWriter;
 	
 }

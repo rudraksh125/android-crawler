@@ -12,6 +12,7 @@ import com.nofatclips.crawler.model.SaveStateListener;
 import com.nofatclips.crawler.model.SessionParams;
 import com.nofatclips.crawler.planning.TraceDispatcher;
 import com.nofatclips.crawler.storage.PersistenceFactory;
+import com.nofatclips.crawler.strategy.Resources;
 import com.nofatclips.crawler.strategy.criteria.MaxDepthTermination;
 import com.nofatclips.crawler.strategy.criteria.OnExitPause;
 
@@ -32,8 +33,8 @@ public class RandomEngine extends GuiTreeEngine {
 		this.theStrategyFactory.setMoreCriterias(new OnExitPause());
 		this.theStrategyFactory.setPauseTraces(0);
 		this.theStrategyFactory.setExploreNewOnly(false);
-		if (TRACE_MAX_DEPTH>0) {
-			this.theStrategyFactory.setMoreCriterias(new MaxDepthTermination(TRACE_MAX_DEPTH));
+		if (Resources.TRACE_MAX_DEPTH>0) {
+			this.theStrategyFactory.setMoreCriterias(new MaxDepthTermination(Resources.TRACE_MAX_DEPTH));
 		}
 		this.first = true;
 	}

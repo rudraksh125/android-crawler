@@ -3,7 +3,7 @@ package com.nofatclips.crawler.planning.interactors;
 import static com.nofatclips.androidtesting.model.InteractionType.LIST_SELECT;
 import static com.nofatclips.androidtesting.model.SimpleType.LIST_VIEW;
 import static com.nofatclips.androidtesting.model.SimpleType.PREFERENCE_LIST;
-import static com.nofatclips.crawler.Resources.ALL_EVENTS_ON_PREFERENCES;
+import static com.nofatclips.crawler.planning.Resources.ALL_EVENTS_ON_PREFERENCES;
 
 import com.nofatclips.androidtesting.model.WidgetState;
 import com.nofatclips.crawler.model.Abstractor;

@@ -1,6 +1,7 @@
 package com.nofatclips.crawler.automation;
 
-import static com.nofatclips.crawler.Resources.*;
+//import static com.nofatclips.crawler.Resources.*;
+import static com.nofatclips.crawler.automation.Resources.*;
 import static com.nofatclips.androidtesting.model.InteractionType.*;
 import static com.nofatclips.androidtesting.model.SimpleType.*;
 
@@ -47,6 +48,8 @@ public class Automation implements Robot, Extractor, TaskProcessor, ImageCaptor 
 	private Robot theRobot;
 	private UserEvent currentEvent;
 	private ImageCaptor imageCaptor;
+	
+	public final static String SEPARATOR = ".-.-.";
 		
 	// A Trivial Extractor is provided if none is assigned
 	public Automation () {
@@ -299,7 +302,7 @@ public class Automation implements Robot, Extractor, TaskProcessor, ImageCaptor 
 //		});
 //		sync();
 		click (t.getTabWidget().getChildAt(n));
-		describeCurrentEvent(t.getTabWidget().getChildAt(n));
+//		describeCurrentEvent(t.getTabWidget().getChildAt(n));
 	}
 
 	private void selectListItem (ListView l, String item) {
@@ -463,6 +466,7 @@ public class Automation implements Robot, Extractor, TaskProcessor, ImageCaptor 
 			if (f.getType().equals(Integer.TYPE)) {
 				try {
 					if (name.startsWith("KEYCODE_") && (f.getInt(null) == val)) {
+						Log.i("nofatclips", "Event Description: " + name);
 						this.currentEvent.setDescription(name.replaceAll("KEYCODE_", ""));
 						return true;
 					}
@@ -567,7 +571,7 @@ public class Automation implements Robot, Extractor, TaskProcessor, ImageCaptor 
 		String[] params = new String[3];
 		int paramCount=0;
 		for (String s: PRECRAWLING) {
-			if (s == null) {
+			if ((s == null) || s.equals(SEPARATOR)) {
 				switch (paramCount) {
 					case 0: continue;
 					case 1: {

@@ -8,7 +8,8 @@ import com.nofatclips.androidtesting.model.ActivityState;
 import com.nofatclips.androidtesting.model.WidgetState;
 
 import static com.nofatclips.androidtesting.model.SimpleType.LIST_VIEW;
-import static com.nofatclips.crawler.Resources.COMPARE_LIST_COUNT;
+import static com.nofatclips.crawler.strategy.comparator.Resources.COMPARE_LIST_COUNT;
+import static com.nofatclips.crawler.strategy.comparator.Resources.COMPARE_ACTIVITY_NAME;
 
 // Accetta in input (nel costruttore) un numero arbitrario di tipi di widget e compara le activity
 // considerandone il nome ed i widget dei tipi selezionati. Una activity A sarà diversa da B se il
@@ -25,7 +26,7 @@ public class CustomWidgetsComparator extends NameComparator {
 	protected String[] widgetClasses;
 	
 	public CustomWidgetsComparator (String... widgets) {
-		this (false, widgets);
+		this (!COMPARE_ACTIVITY_NAME, widgets);
 	}
 	
 	public CustomWidgetsComparator (boolean ignore, String... widgets) {

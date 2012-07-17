@@ -173,9 +173,9 @@ Following are the entries of the map stored in the `comparator` sub-node of the 
 *COMPARATOR_TYPE*: `String`
 
 This parameter defines the state equivalence criterion. Allowed values are:
-* NameComparator: two states are equivalent if they share the same name (they are instances of the same Activity)
-* CustomWidgetsComparator: two states are equivalent if they share the same set of widgets (each widget in state A is equivalent to a widget in state B and viceversa)
-* CustomWidgetsDeepComparator: two states are equivalent if they share the same set of widgets, and the equivalent widgets share the same properties
+ * NameComparator: two states are equivalent if they share the same name (they are instances of the same Activity)
+ * CustomWidgetsComparator: two states are equivalent if they share the same set of widgets (each widget in state A is equivalent to a widget in state B and viceversa)
+ * CustomWidgetsDeepComparator: two states are equivalent if they share the same set of widgets, and the equivalent widgets share the same properties
 For instance, if state A has an EditText with id 1234, CustomWidgetsComparator requires that state B has an EditText with id 1234 in order to consider B equivalent to A. CustomWidgetsDeepComparator additionally requires that the EditText has the same hint text.
 
 *WIDGET_TYPES*: `String[]`

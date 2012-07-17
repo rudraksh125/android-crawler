@@ -165,9 +165,9 @@ Following are the entries of the map stored in the `planner` sub-node of the XML
 
 Limits the number of times an event is generated when iterating on a group widget.
 
-For instance, when *MAX_EVENTS_PER_WIDGET* = `0` the SelectListItem interaction generates a select event (scroll, focus and click) for each entry in a ListView.
+For instance, when *MAX_EVENTS_PER_WIDGET* = `0` the selectListItem interaction generates a select event (scroll, focus and click) for each entry in a List View.
 
-If *MAX_EVENTS_PER_WIDGET* = `5`, only the first five elements in the ListView (including separators) will be selected.
+If *MAX_EVENTS_PER_WIDGET* = `5`, only the first five elements in the List View (including separators) will be selected.
 
 *ALL_EVENTS_ON_PREFERENCES*: `boolean`
 

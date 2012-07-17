@@ -117,3 +117,19 @@ The format is the same as for the *EVENTS*.
 
 Defines which hardware keys of the device will be pressed by the Ripper. Each key press will be an event.
 The allowed values are the key code constants listed in the [http://developer.android.com/reference/android/view/KeyEvent.html KeyEvent].
+
+*BACK_BUTTON_EVENT*: `boolean`
+
+Short hand to perform the back key press.
+
+*MENU_EVENTS*: `boolean`
+
+Short hand to perform the menu key press.
+
+*ORIENTATION_EVENTS*: `boolean`
+
+When `true`, a special event will be fired to change the orientation of the device from "portrait" to "landscape".
+
+*SCROLL_DOWN_EVENT*: `boolean`
+
+When `true`, a special event will be fired to scroll the display one page down.

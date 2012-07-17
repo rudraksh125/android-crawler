@@ -165,3 +165,39 @@ When `true`, events will be fired on widgets with no assigned id. The target wid
 Events will still not be fired on widgets with no id and no name.
 
 *MAX_TASKS_PER_EVENT*: <not yet implemented> {default = 1}
+
+= Comparator parameters =
+
+Following are the entries of the map stored in the `comparator` sub-node of the XML file.
+
+*COMPARATOR_TYPE*: `String`
+
+This parameter defines the state equivalence criterion. Allowed values are:
+* NameComparator: two states are equivalent if they share the same name (they are instances of the same Activity)
+* CustomWidgetsComparator: two states are equivalent if they share the same set of widgets (each widget in state A is equivalent to a widget in state B and viceversa)
+* CustomWidgetsDeepComparator: two states are equivalent if they share the same set of widgets, and the equivalent widgets share the same properties
+For instance, if state A has an EditText with id 1234, CustomWidgetsComparator requires that state B has an EditText with id 1234 in order to consider B equivalent to A. CustomWidgetsDeepComparator additionally requires that the EditText has the same hint text.
+
+*WIDGET_TYPES*: `String[]`
+
+Defines the subset of widget (types) on which CustomWidgetsComparator and CustomWidgetsDeepComparator operate. Ignored by NameComparator.
+
+*COMPARE_ACTIVITY_NAME*: `boolean`
+
+When `true`, name comparation is performed when using CustomWidgetsComparator or CustomWidgetsDeepComparator too. That is, two states are the same if they share the same name and the same set of widgets (and properties for the deep one).
+This parameter mainly exists because sometimes the Ripper mistakenly detects an incorrect Activity name, usually in tabbed applications. In these cases it's advisable to set it to `false`, since the name attribute is not reliable.
+In any other case it should be left to `true`.
+
+*COMPARE_STATE_TITLE*: `boolean`
+
+When `true`, NameComparator also checks whether two states have the same title. That is: two states are the same if they share the same name and title.
+If *COMPARE_ACTIVITY_NAME* = `true`, this also applies for the other Comparator types.
+
+*COMPARE_LIST_COUNT*: `boolean`
+
+When `true` CustomWidgetsComparator and CustomWidgetsDeepComparator will consider two ListView to be equivalent only if they have the same size.
+
+*COMPARE_VALUES*: `boolean`
+
+When `true`, CustomWidgetsDeepComparator will consider two widgets to be equivalent only if they have the same value.
+For instance, if state A has a RatingBar with id 4567, name "Vote for this book" and sat to the value of "4 stars", state B will not be equivalent to A unless it has a RatingBar with the same id, the same name which is set to the same value.

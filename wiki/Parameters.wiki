@@ -133,3 +133,29 @@ When `true`, a special event will be fired to change the orientation of the devi
 *SCROLL_DOWN_EVENT*: `boolean`
 
 When `true`, a special event will be fired to scroll the display one page down.
+
+= Planner parameters =
+
+Following are the entries of the map stored in the `planner` sub-node of the XML file.
+
+*MAX_EVENTS_PER_WIDGET*: `int` {0 = infinite}
+
+Limits the number of times an event is generated when iterating on a group widget.
+For instance, when *MAX_EVENTS_PER_WIDGET* = `0` the SelectListItem interaction generates a select event (scroll, focus and click) for each entry in a ListView.
+If *MAX_EVENTS_PER_WIDGET* = `5`, only the first five elements in the ListView (including separators) will be selected.
+
+*ALL_EVENTS_ON_PREFERENCES*: `boolean`
+
+When `true`, the value of *MAX_EVENTS_PER_WIDGET* is ignored for Preferences lists; that is, all entries in the Preferences will be selected even when a limit is set for ordinary lists.
+
+*TAB_EVENTS_START_ONLY*: `boolean`
+
+When `true`, the event swapTab will only be planned on the start activity.
+This is useful to speed up exploration for applications that always show the same tab widget all along. In case of doubt, leave it to `false`.
+
+*EVENT_WHEN_NO_ID*: `boolean`
+
+When `true`, events will be fired on widgets with no assigned id. The target widget will be identified by type and name.
+Events will still not be fired on widgets with no id and no name.
+
+*MAX_TASKS_PER_EVENT*: <not yet implemented> {default = 1}

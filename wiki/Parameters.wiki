@@ -139,8 +139,7 @@ The format is the same as for the *EVENTS*.
 
 Defines which hardware keys of the device will be pressed by the Ripper. Each key press will be an event.
 
-The allowed values are the key code constants listed in the [http://developer.android.com/reference/android/view/KeyEvent.html KeyEvent].
-
+The allowed values are the key code constants listed in the documentation for the [http://developer.android.com/reference/android/view/KeyEvent.html KeyEvent] class.
 *BACK_BUTTON_EVENT*: `boolean`
 
 Short hand to perform the back key press.

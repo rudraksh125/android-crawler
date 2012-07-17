@@ -116,4 +116,4 @@ The format is the same as for the *EVENTS*.
 *KEY_EVENTS*: `int []`
 
 Defines which hardware keys of the device will be pressed by the Ripper. Each key press will be an event.
-The allowed values are those integer constants listed in the [http://developer.android.com/reference/android/view/KeyEvent.html KeyEvent] class whose names start with "KEYCODE_".
+The allowed values are the key code constants listed in the [http://developer.android.com/reference/android/view/KeyEvent.html KeyEvent].

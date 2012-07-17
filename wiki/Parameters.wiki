@@ -24,7 +24,7 @@ Every trace in the ripping session will have this activity as its starting point
 When `true`, the ripper stores its internal state after every trace, in order to be able to resume the session after any occurrence of an interrupting event (e.g. crashes of the software under test, failures of the Ripper, crashes of the Dalvik VM, crashes of the Android emulator and so on...)
 When `false`, the ripping sessions definitively terminates after any such interruption, potentially leaving entire branches of the GUI tree unexplored. On the other hand, the ripping proceeds faster.
 
-*RANDOM_SEED*: <long> [0 = random]
+*RANDOM_SEED*: <long> {0 = random}
 
 This value is used to setup the randon number generation mechanism. Several instances of this are used with various purposes such as: filling in the values of text fields, randomizing the sequence of actions to be performed when using the Random engine, and so on...
 When initialized with the same seed, the Ripper should be able to generate the same sequence of random numbers, allowing the exact repetition of a session.

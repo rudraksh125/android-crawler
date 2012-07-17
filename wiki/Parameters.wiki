@@ -1,4 +1,10 @@
+#summary List of entries in the XML Preferences file
 #labels Phase-Support,Phase-Deploy
+
+This document lists the entries to set in the XML Preferences file in order to set up the parameters of the ripping session in the start-up phase.
+
+<wiki:toc max_depth="2" />
+
 = General parameters =
 
 Following are the entries of the map stored in the main node of the XML file.

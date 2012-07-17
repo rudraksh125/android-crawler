@@ -201,3 +201,42 @@ When `true` CustomWidgetsComparator and CustomWidgetsDeepComparator will conside
 
 When `true`, CustomWidgetsDeepComparator will consider two widgets to be equivalent only if they have the same value.
 For instance, if state A has a RatingBar with id 4567, name "Vote for this book" and sat to the value of "4 stars", state B will not be equivalent to A unless it has a RatingBar with the same id, the same name which is set to the same value.
+
+= Strategy parameters =
+
+Following are the entries of the map stored in the `strategy` sub-node of the XML file.
+
+*MAX_NUM_TRACES*: `int` {0 = infinite}
+
+Terminates the ripping session after processing this amount of tasks.
+
+*PAUSE_AFTER_TRACES*: `int` {0 = infinite}
+
+Pauses the ripping session after processing this amount of tasks. The session can be resumed if *ENABLE_RESUME* =  `true`
+This is useful to restore the the Android device to a known state before processing the next task. In this case it should be set to `1` (pause after every trace)
+
+*MAX_TIME_CRAWLING*: `long` {0 = infinite}
+
+Terminates the ripping session after the given amount of seconds elapsed.
+Note that the running task will not be interrupted when the timeout occurs: the termination is performed at the end of the last task.
+
+*PAUSE_AFTER_TIME*: `long` {0 = infinite}
+
+Pauses the ripping session after the given amount of seconds elapsed. The session can be resumed if *ENABLE_RESUME* =  `true`
+
+*TRACE_MAX_DEPTH*: `int` {0 = infinite}
+
+Limits the exploration of the GUI to a certain depth of the resulting GUI Tree.
+When *TRACE_MAX_DEPTH* = `n>0`, GUIs resulting from the execution of `n` actions (that is, nodes at depth `n` in the GUI Tree) won't be further explored, even when they're new and events could be fired on them.
+
+*CHECK_FOR_TRANSITION*: `boolean`
+
+When `true`, the ripper will require that the start and final state for an action won't be equivalent to each other.
+In other words, self-transition will not be stored in the output Gui Tree.
+It's generally better left to `false`.
+
+*EXPLORE_ONLY_NEW_STATES*: `boolean`
+
+When `true`, states that are equivalent to previous one (according to the defined Comparator) won't be explored.
+The Random engine forces *EXPLORE_ONLY_NEW_STATES* = `false` for obvious reasons.
+When set to `false`, either *TRACE_MAX_DEPTH* or *MAX_NUM_TRACES* should be provided. Otherwise, there won't be any termination criterion, and the exploration will continue indefinitely.

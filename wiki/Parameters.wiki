@@ -102,3 +102,23 @@ Note that the Random ripper forces the use of the `depth first` strategy.
 
 Tasks to be performed during the ripping session are planned in advance and stored in a task list. This parameter limits the dimension of this list.
 This is useful when using the Random ripper, since it can generate very long sequence of actions, leading to long I/O operations and possibly "Out of Memory" errors.
+
+= Interactions parameters =
+
+Following are the entries of the map stored in the `interactions` sub-node of the XML file.
+
+*EVENTS*: String[]
+
+Defines the type of the interactions to be fired by the Ripper as events, and the types of the widget upon which to fire them.
+Each `String` in the array will start with the Interaction Type of the event to fire, followed by the Simple Types of the widgets on which the event should be fired, separated by a comma. Spaces will be ignored.
+Example: "click, button, image, menuItem"
+
+*INPUTS*: String[]
+
+Defines the type of the interactions to be fired by the Ripper as inputs and the types of the widget upon which to fire them.
+The format is the same as for the *EVENTS*.
+
+*KEY_EVENTS*: int[]
+
+Defines which hardware keys of the device will be pressed by the Ripper. Each key press will be an event.
+The allowed values are the integer constants listed in the [KeyEvent http://developer.android.com/reference/android/view/KeyEvent.html] class whose name starts with "KEYCODE_".

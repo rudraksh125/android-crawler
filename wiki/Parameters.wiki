@@ -12,28 +12,35 @@ Following are the entries of the map stored in the main node of the XML file.
 *PACKAGE_NAME*: `String`
 
 The name of the package that contains the classes (specifically, the activities) which make up the application under test.
+
 Technically, this parameter defines the target package for the Instrumentation; as a result, any attempt to exercise items of software residing outside this package will result in a Runtime Exception and a "dead" branch of the Gui Tree.
 
 *CLASS_NAME*: `String`
 
 The fully qualified name (i.e. including the package) of the class of the start activity of the application under test.
+
 Every trace in the ripping session will have this activity as its starting point.
 
 *ENABLE_RESUME*: `boolean`
 
 When `true`, the ripper stores its internal state after every trace, in order to be able to resume the session after any occurrence of an interrupting event (e.g. crashes of the software under test, failures of the Ripper, crashes of the Dalvik VM, crashes of the Android emulator and so on...)
+
 When `false`, the ripping sessions definitively terminates after any such interruption, potentially leaving entire branches of the GUI tree unexplored. On the other hand, the ripping proceeds faster.
 
 *RANDOM_SEED*: `long` {0 = random}
 
 This value is used to setup the randon number generation mechanism. Several instances of this are used with various purposes such as: filling in the values of text fields, randomizing the sequence of actions to be performed when using the Random engine, and so on...
+
 When initialized with the same seed, the Ripper should be able to generate the same sequence of random numbers, allowing the exact repetition of a session.
+
 When set to zero, a random seed will be generated at startup based on the system time.
 
 *ACTIVITY_DESCRIPTION_IN_SESSION*: `boolean`
 
 When `false` the output will consist of two files: an Activity Map, with a detailed abstract description of the GUIs (activities) discovered by the Ripper during the exploration, and a GUI Tree, a (finite acyclic) state model of the application under test describing its transitions from a GUI to another in response to user interactions and other events.
+
 When `true`, the output will consist of a single, usually much bigger, XML file (the GUI Tree) describing the whole model of the GUI of the application under test. This is only useful for debugging purposes.
+
 Due to implementation issues, *ACTIVITY_DESCRIPTION_IN_SESSION* = `false` forces *ENABLE_RESUME* = `true`
 
 *RETRY_FAILED_TRACES* : <not yet implemented>
@@ -57,16 +64,19 @@ How many (additional) milliseconds to wait at the end of a task, after having pe
 *SLEEP_ON_THROBBER*: `int`
 
 How many milliseconds to wait after an event if a throbber (spinning wheel displayed when the user is supposed to wait) is on the screen.
+
 Note that the Ripper will always wait *SLEEP_AFTER_EVENT* ms even if the throbber disappears before this amount of time. Then, it waits for the throbber to disappear; if *SLEEP_ON_THROBBER* ms pass, the Ripper proceeds to the next event, even if the throbber is still displayed.
 
 *FORCE_RESTART*: `boolean`
 
 When `true`, an Intent is sent to the start activity of the application under test before processing a task, ensuring that all the traces begin from the same starting point.
+
 This is only useful for debugging purposes, and/or when using the Ripper as a stand-alone tool. The testing harness provided to excercise Android applications already makes sure that all traces start, not just from the same activity, but from the exact same state of the device.
 
 *IN_AND_OUT_FOCUS*: `boolean`
 
 When `false`, elements of the GUI that fall outside the boundary of the screen are ignored.
+
 This is a legacy parameter and is usually better left to `true`.
 
 *PRECRAWLING*: `String []`
@@ -84,6 +94,7 @@ When `true`, an image capture of the display screen is performed after the last 
 *SCREENSHOT_ONLY_NEW_STATES*: `boolean`
 
 When `true`, a screenshot is saved at the end of a task only when a new state is found; in other words, when the final state of a task is equivalent to one of the states already discovered (which we already have a screenshot of), no further pictures are taken.
+
 Ignored if *SCREENSHOT_FOR_STATES* = `false`
 
 *SCREENSHOT_FOR_EVENTS*: <not yet implemented>
@@ -94,14 +105,16 @@ Following are the entries of the map stored in the `scheduler` sub-node of the X
 
 *SCHEDULER_ALGORITHM*: {BREADTH_FIRST|DEPTH_FIRST}
 
-The strategy used to explore the application under test.
-With the `depth first` algorithm, the branch starting from a node of the GUI Tree is explored thoroughly before exploring the neighbours of (nodes at the same depth than) that node.
-With the `breadth first` algorithm, on the opposite, all neighbouring nodes are explored before descending to deeper nodes.
+The strategy used to explore the application under test:
+ * with the `DEPTH_FIRST` algorithm, the branch starting from a node of the GUI Tree is explored thoroughly before exploring the neighbours of (nodes at the same depth than) that node;
+ * with the `BREADTH_FIRST` algorithm, on the opposite, all neighbouring nodes are explored before descending to deeper nodes.
+
 Note that the Random ripper forces the use of the `depth first` strategy.
 
 *MAX_TASKS_IN_SCHEDULER*: `int`
 
 Tasks to be performed during the ripping session are planned in advance and stored in a task list. This parameter limits the dimension of this list.
+
 This is useful when using the Random ripper, since it can generate very long sequence of actions, leading to long I/O operations and possibly "Out of Memory" errors.
 
 = Interactions parameters =
@@ -111,17 +124,21 @@ Following are the entries of the map stored in the `interactions` sub-node of th
 *EVENTS*: `String []`
 
 Defines the type of the interactions to be fired by the Ripper as events, and the types of the widget upon which to fire them.
+
 Each `String` in the array will start with the Interaction Type of the event to fire, followed by the Simple Types of the widgets on which the event should be fired, separated by a comma. Spaces will be ignored.
-Example: "click, button, image, menuItem"
+
+Example: `"click, button, image, menuItem"`
 
 *INPUTS*: `String []`
 
 Defines the type of the interactions to be fired by the Ripper as inputs and the types of the widget upon which to fire them.
+
 The format is the same as for the *EVENTS*.
 
 *KEY_EVENTS*: `int []`
 
 Defines which hardware keys of the device will be pressed by the Ripper. Each key press will be an event.
+
 The allowed values are the key code constants listed in the [http://developer.android.com/reference/android/view/KeyEvent.html KeyEvent].
 
 *BACK_BUTTON_EVENT*: `boolean`
@@ -147,7 +164,9 @@ Following are the entries of the map stored in the `planner` sub-node of the XML
 *MAX_EVENTS_PER_WIDGET*: `int` {0 = infinite}
 
 Limits the number of times an event is generated when iterating on a group widget.
+
 For instance, when *MAX_EVENTS_PER_WIDGET* = `0` the SelectListItem interaction generates a select event (scroll, focus and click) for each entry in a ListView.
+
 If *MAX_EVENTS_PER_WIDGET* = `5`, only the first five elements in the ListView (including separators) will be selected.
 
 *ALL_EVENTS_ON_PREFERENCES*: `boolean`
@@ -157,14 +176,46 @@ When `true`, the value of *MAX_EVENTS_PER_WIDGET* is ignored for Preferences lis
 *TAB_EVENTS_START_ONLY*: `boolean`
 
 When `true`, the event swapTab will only be planned on the start activity.
+
 This is useful to speed up exploration for applications that always show the same tab widget all along. In case of doubt, leave it to `false`.
 
 *EVENT_WHEN_NO_ID*: `boolean`
 
 When `true`, events will be fired on widgets with no assigned id. The target widget will be identified by type and name.
+
 Events will still not be fired on widgets with no id and no name.
 
 *MAX_TASKS_PER_EVENT*: <not yet implemented> {default = 1}
+
+= Storage parameters =
+
+Following are the entries of the map stored in the `storage` sub-node of the XML file.
+
+*MAX_TRACES_IN_RAM*: `int` {0 = infinite}
+
+When set to a value other than zero, forces the GUI Tree to be saved incrementally to the disk. The traces are flushed to the XML output file and removed from the device RAM when the model reaches the specified dimension.
+
+Note that *ENABLE_RESUME* = `true` forces *MAX_TRACES_IN_RAM* = `1`
+
+*FILE_NAME*: `String` {default = "guitree.xml"}
+
+The name of the XML file containing the GUI Tree model.
+
+*TASK_LIST_FILE_NAME*: `String` {default = "tasklist.xml"}
+
+The name of the XML file containing the task list. This is a temporary file and is deleted when the ripping session is over.
+
+Change this file name only in case of name conflicts with existing files.
+
+*ACTIVITY_LIST_FILE_NAME*: `String` {default = "activities.xml"}
+
+The name of the file containing the Activity Map.
+
+*PARAMETERS_FILE_NAME*: `String` {default = "parameters.obj"}
+
+The name of the file containing the parameters saved by the Ripper components. This is a temporary file and is deleted when the ripping session is over.
+
+Change this file name only in case of name conflicts with existing files.
 
 = Comparator parameters =
 
@@ -173,10 +224,12 @@ Following are the entries of the map stored in the `comparator` sub-node of the 
 *COMPARATOR_TYPE*: `String`
 
 This parameter defines the state equivalence criterion. Allowed values are:
+ * NullComparator: no comparation, two states are always different (this is the default)
  * NameComparator: two states are equivalent if they share the same name (they are instances of the same Activity)
  * CustomWidgetsComparator: two states are equivalent if they share the same set of widgets (each widget in state A is equivalent to a widget in state B and viceversa)
  * CustomWidgetsDeepComparator: two states are equivalent if they share the same set of widgets, and the equivalent widgets share the same properties
-For instance, if state A has an EditText with id 1234, CustomWidgetsComparator requires that state B has an EditText with id 1234 in order to consider B equivalent to A. CustomWidgetsDeepComparator additionally requires that the EditText has the same hint text.
+
+ For instance, if state A has an EditText with id 1234, CustomWidgetsComparator requires that state B has an EditText with id 1234 in order to consider B equivalent to A. CustomWidgetsDeepComparator additionally requires that the EditText has the same hint text.
 
 *WIDGET_TYPES*: `String[]`
 
@@ -185,12 +238,15 @@ Defines the subset of widget (types) on which CustomWidgetsComparator and Custom
 *COMPARE_ACTIVITY_NAME*: `boolean`
 
 When `true`, name comparation is performed when using CustomWidgetsComparator or CustomWidgetsDeepComparator too. That is, two states are the same if they share the same name and the same set of widgets (and properties for the deep one).
+
 This parameter mainly exists because sometimes the Ripper mistakenly detects an incorrect Activity name, usually in tabbed applications. In these cases it's advisable to set it to `false`, since the name attribute is not reliable.
+
 In any other case it should be left to `true`.
 
 *COMPARE_STATE_TITLE*: `boolean`
 
 When `true`, NameComparator also checks whether two states have the same title. That is: two states are the same if they share the same name and title.
+
 If *COMPARE_ACTIVITY_NAME* = `true`, this also applies for the other Comparator types.
 
 *COMPARE_LIST_COUNT*: `boolean`
@@ -200,6 +256,7 @@ When `true` CustomWidgetsComparator and CustomWidgetsDeepComparator will conside
 *COMPARE_VALUES*: `boolean`
 
 When `true`, CustomWidgetsDeepComparator will consider two widgets to be equivalent only if they have the same value.
+
 For instance, if state A has a RatingBar with id 4567, name "Vote for this book" and sat to the value of "4 stars", state B will not be equivalent to A unless it has a RatingBar with the same id, the same name which is set to the same value.
 
 = Strategy parameters =
@@ -213,11 +270,13 @@ Terminates the ripping session after processing this amount of tasks.
 *PAUSE_AFTER_TRACES*: `int` {0 = infinite}
 
 Pauses the ripping session after processing this amount of tasks. The session can be resumed if *ENABLE_RESUME* =  `true`
+
 This is useful to restore the the Android device to a known state before processing the next task. In this case it should be set to `1` (pause after every trace)
 
 *MAX_TIME_CRAWLING*: `long` {0 = infinite}
 
 Terminates the ripping session after the given amount of seconds elapsed.
+
 Note that the running task will not be interrupted when the timeout occurs: the termination is performed at the end of the last task.
 
 *PAUSE_AFTER_TIME*: `long` {0 = infinite}
@@ -227,16 +286,21 @@ Pauses the ripping session after the given amount of seconds elapsed. The sessio
 *TRACE_MAX_DEPTH*: `int` {0 = infinite}
 
 Limits the exploration of the GUI to a certain depth of the resulting GUI Tree.
+
 When *TRACE_MAX_DEPTH* = `n>0`, GUIs resulting from the execution of `n` actions (that is, nodes at depth `n` in the GUI Tree) won't be further explored, even when they're new and events could be fired on them.
 
 *CHECK_FOR_TRANSITION*: `boolean`
 
 When `true`, the ripper will require that the start and final state for an action won't be equivalent to each other.
+
 In other words, self-transition will not be stored in the output Gui Tree.
+
 It's generally better left to `false`.
 
 *EXPLORE_ONLY_NEW_STATES*: `boolean`
 
 When `true`, states that are equivalent to previous one (according to the defined Comparator) won't be explored.
+
 The Random engine forces *EXPLORE_ONLY_NEW_STATES* = `false` for obvious reasons.
+
 When set to `false`, either *TRACE_MAX_DEPTH* or *MAX_NUM_TRACES* should be provided. Otherwise, there won't be any termination criterion, and the exploration will continue indefinitely.

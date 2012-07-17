@@ -87,7 +87,18 @@ When `true`, a screenshot is saved at the end of a task only when a new state is
 Ignored if *SCREENSHOT_FOR_STATES* = `false`
 
 *SCREENSHOT_FOR_EVENTS*: <not yet implemented>
-
 = Scheduler parameters =
 
 Following are the entries of the map stored in the `scheduler` sub-node of the XML file.
+
+*SCHEDULER_ALGORITHM*: {BREADTH_FIRST|DEPTH_FIRST}
+
+The strategy used to explore the application under test.
+With the `depth first` algorithm, the branch starting from a node of the GUI Tree is explored thoroughly before exploring the neighbours of (nodes at the same depth than) that node.
+With the `breadth first` algorithm, on the opposite, all neighbouring nodes are explored before descending to deeper nodes.
+Note that the Random ripper forces the use of the `depth first` strategy.
+
+*MAX_TASKS_IN_SCHEDULER*: int
+
+Tasks to be performed during the ripping session are planned in advance and stored in a task list. This parameter limits the dimension of this list.
+This is useful when using the Random ripper, since it can generate very long sequence of actions, leading to long I/O operations and possibly "Out of Memory" errors.

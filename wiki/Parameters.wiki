@@ -1,36 +1,30 @@
-#summary List of entries in the XML Preferences file
 #labels Phase-Support,Phase-Deploy
-
-This document lists the entries to set in the XML Preferences file in order to set up the parameters of the ripping session in the start-up phase.
-
-<wiki:toc max_depth="2" />
-
 = General parameters =
 
 Following are the entries of the map stored in the main node of the XML file.
 
-*PACKAGE_NAME*: String
+*PACKAGE_NAME*: `String`
 
 The name of the package that contains the classes (specifically, the activities) which make up the application under test.
 Technically, this parameter defines the target package for the Instrumentation; as a result, any attempt to exercise items of software residing outside this package will result in a Runtime Exception and a "dead" branch of the Gui Tree.
 
-*CLASS_NAME*: String
+*CLASS_NAME*: `String`
 
 The fully qualified name (i.e. including the package) of the class of the start activity of the application under test.
 Every trace in the ripping session will have this activity as its starting point.
 
-*ENABLE_RESUME*: boolean
+*ENABLE_RESUME*: `boolean`
 
 When `true`, the ripper stores its internal state after every trace, in order to be able to resume the session after any occurrence of an interrupting event (e.g. crashes of the software under test, failures of the Ripper, crashes of the Dalvik VM, crashes of the Android emulator and so on...)
 When `false`, the ripping sessions definitively terminates after any such interruption, potentially leaving entire branches of the GUI tree unexplored. On the other hand, the ripping proceeds faster.
 
-*RANDOM_SEED*: long {0 = random}
+*RANDOM_SEED*: `long` {0 = random}
 
 This value is used to setup the randon number generation mechanism. Several instances of this are used with various purposes such as: filling in the values of text fields, randomizing the sequence of actions to be performed when using the Random engine, and so on...
 When initialized with the same seed, the Ripper should be able to generate the same sequence of random numbers, allowing the exact repetition of a session.
 When set to zero, a random seed will be generated at startup based on the system time.
 
-*ACTIVITY_DESCRIPTION_IN_SESSION*: boolean
+*ACTIVITY_DESCRIPTION_IN_SESSION*: `boolean`
 
 When `false` the output will consist of two files: an Activity Map, with a detailed abstract description of the GUIs (activities) discovered by the Ripper during the exploration, and a GUI Tree, a (finite acyclic) state model of the application under test describing its transitions from a GUI to another in response to user interactions and other events.
 When `true`, the output will consist of a single, usually much bigger, XML file (the GUI Tree) describing the whole model of the GUI of the application under test. This is only useful for debugging purposes.
@@ -42,34 +36,34 @@ Due to implementation issues, *ACTIVITY_DESCRIPTION_IN_SESSION* = `false` forces
 
 Following are the entries of the map stored in the `automation` sub-node (direct child of the main node) of the XML file.
 
-*SLEEP_AFTER_EVENT*: int
+*SLEEP_AFTER_EVENT*: `int`
 
 How many milliseconds to wait after perfoming each of the actions of which a task is comprised of.
 
-*SLEEP_AFTER_RESTART*: int
+*SLEEP_AFTER_RESTART*: `int`
 
 How many milliseconds to wait at restart, that is before perfoming any of the actions in a task.
 
-*SLEEP_AFTER_TASK*: int
+*SLEEP_AFTER_TASK*: `int`
 
 How many (additional) milliseconds to wait at the end of a task, after having perfomed all the actions it is comprised of.
 
-*SLEEP_ON_THROBBER*: int
+*SLEEP_ON_THROBBER*: `int`
 
 How many milliseconds to wait after an event if a throbber (spinning wheel displayed when the user is supposed to wait) is on the screen.
 Note that the Ripper will always wait *SLEEP_AFTER_EVENT* ms even if the throbber disappears before this amount of time. Then, it waits for the throbber to disappear; if *SLEEP_ON_THROBBER* ms pass, the Ripper proceeds to the next event, even if the throbber is still displayed.
 
-*FORCE_RESTART*: boolean
+*FORCE_RESTART*: `boolean`
 
 When `true`, an Intent is sent to the start activity of the application under test before processing a task, ensuring that all the traces begin from the same starting point.
 This is only useful for debugging purposes, and/or when using the Ripper as a stand-alone tool. The testing harness provided to excercise Android applications already makes sure that all traces start, not just from the same activity, but from the exact same state of the device.
 
-*IN_AND_OUT_FOCUS*: boolean
+*IN_AND_OUT_FOCUS*: `boolean`
 
 When `false`, elements of the GUI that fall outside the boundary of the screen are ignored.
 This is a legacy parameter and is usually better left to `true`.
 
-*PRECRAWLING*: String[]
+*PRECRAWLING*: `String []`
 
 A string array containing the precrawling sequence. Refer to [...]
 
@@ -77,16 +71,17 @@ A string array containing the precrawling sequence. Refer to [...]
 
 Following are the entries of the map stored in the `screenshot` sub-node of the XML file.
 
-*SCREENSHOT_FOR_STATES*: boolean
+*SCREENSHOT_FOR_STATES*: `boolean`
 
 When `true`, an image capture of the display screen is performed after the last action in a task has been performed and saved as a JPEG file.
 
-*SCREENSHOT_ONLY_NEW_STATES*: boolean
+*SCREENSHOT_ONLY_NEW_STATES*: `boolean`
 
 When `true`, a screenshot is saved at the end of a task only when a new state is found; in other words, when the final state of a task is equivalent to one of the states already discovered (which we already have a screenshot of), no further pictures are taken.
 Ignored if *SCREENSHOT_FOR_STATES* = `false`
 
 *SCREENSHOT_FOR_EVENTS*: <not yet implemented>
+
 = Scheduler parameters =
 
 Following are the entries of the map stored in the `scheduler` sub-node of the XML file.
@@ -98,7 +93,7 @@ With the `depth first` algorithm, the branch starting from a node of the GUI Tre
 With the `breadth first` algorithm, on the opposite, all neighbouring nodes are explored before descending to deeper nodes.
 Note that the Random ripper forces the use of the `depth first` strategy.
 
-*MAX_TASKS_IN_SCHEDULER*: int
+*MAX_TASKS_IN_SCHEDULER*: `int`
 
 Tasks to be performed during the ripping session are planned in advance and stored in a task list. This parameter limits the dimension of this list.
 This is useful when using the Random ripper, since it can generate very long sequence of actions, leading to long I/O operations and possibly "Out of Memory" errors.
@@ -107,18 +102,18 @@ This is useful when using the Random ripper, since it can generate very long seq
 
 Following are the entries of the map stored in the `interactions` sub-node of the XML file.
 
-*EVENTS*: String[]
+*EVENTS*: `String []`
 
 Defines the type of the interactions to be fired by the Ripper as events, and the types of the widget upon which to fire them.
 Each `String` in the array will start with the Interaction Type of the event to fire, followed by the Simple Types of the widgets on which the event should be fired, separated by a comma. Spaces will be ignored.
 Example: "click, button, image, menuItem"
 
-*INPUTS*: String[]
+*INPUTS*: `String []`
 
 Defines the type of the interactions to be fired by the Ripper as inputs and the types of the widget upon which to fire them.
 The format is the same as for the *EVENTS*.
 
-*KEY_EVENTS*: int[]
+*KEY_EVENTS*: `int []`
 
 Defines which hardware keys of the device will be pressed by the Ripper. Each key press will be an event.
 The allowed values are the integer constants listed in the [KeyEvent http://developer.android.com/reference/android/view/KeyEvent.html] class whose name starts with "KEYCODE_".

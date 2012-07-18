@@ -1,6 +1,6 @@
 package com.nofatclips.crawler;
 
-import static com.nofatclips.crawler.Resources.PACKAGE_NAME;
+import static com.nofatclips.crawler.Resources.CRAWLER_PACKAGE;
 import static com.nofatclips.crawler.Resources.PREFERENCES_FILE;
 
 import java.io.*;
@@ -21,7 +21,7 @@ public class Prefs {
 	private static boolean notFound = false;
 	private Preferences localPrefs;
 	private Class<?> resources;
-	private static String mainNode = "com.nofatclips.crawler";
+	private static String mainNode = CRAWLER_PACKAGE;
 	
 	public Prefs (Preferences p) {
 		this.localPrefs = p;
@@ -57,7 +57,7 @@ public class Prefs {
 	}
 	
 	public static void loadMainNode (String node) {
-		String path = "/data/data/" + PACKAGE_NAME + "/files/"+ PREFERENCES_FILE;
+		String path = "/data/data/" + CRAWLER_PACKAGE + "/files/"+ PREFERENCES_FILE;
 		InputStream is = null;
 
 		if (!(new File(path).exists())) {

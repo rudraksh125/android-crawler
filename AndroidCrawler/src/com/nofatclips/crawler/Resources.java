@@ -282,6 +282,7 @@ public class Resources implements ResourceFile {
 	public static InteractorAdapter[] ADDITIONAL_INPUTS = new InteractorAdapter[] {};
 	
 	// More Parameters
+	public final static String CRAWLER_PACKAGE = "com.nofatclips.crawler";
 	public static boolean ENABLE_RESUME = true;
 	public static long RANDOM_SEED = 5466516511651561651L; // 0 = Random
 	public static boolean ACTIVITY_DESCRIPTION_IN_SESSION = false;
@@ -291,7 +292,7 @@ public class Resources implements ResourceFile {
 
 	public static Class<?> theClass;
 	static {
-		Prefs.setMainNode("com.nofatclips.crawler");
+		Prefs.setMainNode(CRAWLER_PACKAGE);
 		Prefs.updateMainNode();
 
 		try {

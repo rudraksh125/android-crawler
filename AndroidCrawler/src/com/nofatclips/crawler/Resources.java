@@ -286,11 +286,14 @@ public class Resources implements ResourceFile {
 	public static long RANDOM_SEED = 5466516511651561651L; // 0 = Random
 	public static boolean ACTIVITY_DESCRIPTION_IN_SESSION = false;
 	public static boolean RETRY_FAILED_TRACES = false; // Crashed and failed traces are retried once in case the failure had an asynchronous cause
-	public static String XML_BODY_BEGIN = "    <TRACE";
-	public static String XML_BODY_END = "/TRACE>";
+	public final static String XML_BODY_BEGIN = "    <TRACE";
+	public final static String XML_BODY_END = "/TRACE>";
 
 	public static Class<?> theClass;
 	static {
+		Prefs.setMainNode("com.nofatclips.crawler");
+		Prefs.updateMainNode();
+
 		try {
 			theClass = Class.forName(CLASS_NAME);
 		} catch (ClassNotFoundException e) {

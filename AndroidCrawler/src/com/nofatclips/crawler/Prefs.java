@@ -169,6 +169,8 @@ public class Prefs {
 			} else if (component.equals(int.class)) {
 				parameter.set (parameter, getIntArray(parameter));
 			}
+		} else {
+			return;
 		}
 		String after = parameter.get("").toString();
 		if (!after.equals(before)) {

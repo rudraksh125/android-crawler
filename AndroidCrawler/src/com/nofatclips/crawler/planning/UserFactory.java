@@ -173,6 +173,12 @@ public class UserFactory {
 			u.addEvent(addDosAndDonts(llc));			
 		}
 		
+		if (isRequiredEvent(SPINNER_SELECT)) {
+			SpinnerSelector ss = new SpinnerSelector (Resources.MAX_EVENTS_PER_WIDGET, typesForEvent(SPINNER_SELECT));
+			ss.setEventWhenNoId(false);
+			u.addEvent(ss);
+		}
+		
 		if (isRequiredEvent(SWAP_TAB)) {
 			TabSwapper ts = new TabSwapper (typesForEvent(SWAP_TAB));
 			if (Resources.TAB_EVENTS_START_ONLY) {

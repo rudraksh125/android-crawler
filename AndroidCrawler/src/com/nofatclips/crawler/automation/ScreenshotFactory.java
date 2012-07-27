@@ -5,7 +5,7 @@ import java.io.IOException;
 import android.graphics.Bitmap;
 
 import com.nofatclips.crawler.model.ImageCaptor;
-import com.nofatclips.crawler.storage.ImageStorage;
+import com.nofatclips.crawler.model.ImageStorage;
 
 public class ScreenshotFactory {
 	
@@ -36,8 +36,7 @@ public class ScreenshotFactory {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return true;
-		
+		return true;		
 	}
 	
 	public static String getFileExtension() {

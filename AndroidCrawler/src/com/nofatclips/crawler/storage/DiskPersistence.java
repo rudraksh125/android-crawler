@@ -13,6 +13,7 @@ import android.util.Log;
 import com.nofatclips.androidtesting.model.Session;
 import com.nofatclips.androidtesting.model.Trace;
 import com.nofatclips.androidtesting.xml.XmlGraph;
+import com.nofatclips.crawler.model.ImageStorage;
 import com.nofatclips.crawler.model.Persistence;
 import com.nofatclips.crawler.model.SaveStateListener;
 

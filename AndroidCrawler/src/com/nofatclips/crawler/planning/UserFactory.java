@@ -221,7 +221,13 @@ public class UserFactory {
 			rss.setEventWhenNoId(false);
 			u.addInput(addDosAndDonts(rss));
 		}
-		
+
+		if (isRequiredEvent(LIST_SELECT)) {
+			RandomListSelector rls = new RandomListSelector(typesForInput(LIST_SELECT));
+			rls.setEventWhenNoId(false);
+			u.addInput(addDosAndDonts(rls));
+		}
+
 		for (InteractorAdapter i: ADDITIONAL_INPUTS) {
 			i.setEventWhenNoId(false);
 			u.addInput(addDosAndDonts(i));

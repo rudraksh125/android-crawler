@@ -9,6 +9,7 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 import android.app.Activity;
@@ -313,18 +314,29 @@ public class Automation implements Robot, Extractor, TaskProcessor, ImageCaptor 
 		selectListItem (l, Integer.valueOf(item), longClick);
 	}
 
-	private void selectListItem (final ListView l, int num, boolean longClick) {
+	private void selectListItem (ListView l, int num, boolean longClick) {
+		
+		if (l==null) {
+			List<ListView> lists = solo.getCurrentListViews();
+			if (lists.size()>0) {
+				l = lists.get(0);
+			}
+		}
+		
 		assertNotNull(l, "Cannon select list item: the list does not exist");
-		final int n = Math.min(l.getCount(), Math.max(1,num))-1;
 		requestFocus(l);
 		Log.i("nofatclips", "Swapping to listview item " + num);
 		solo.sendKey(Solo.DOWN);
+
+		final ListView theList = l;
+		final int n = Math.min(l.getCount(), Math.max(1,num))-1;
 		getActivity().runOnUiThread(new Runnable() {
 			public void run() {
-				l.setSelection(n);
+				theList.setSelection(n);
 			}
 		});
 		sync();
+		
 		if (n<l.getCount()/2) {
 			solo.sendKey(Solo.DOWN);
 			solo.sendKey(Solo.UP);
@@ -333,6 +345,7 @@ public class Automation implements Robot, Extractor, TaskProcessor, ImageCaptor 
 			solo.sendKey(Solo.DOWN);
 		}
 		sync();
+		
 		View v = l.getSelectedView();
 		if (longClick) {
 			longClick(v);

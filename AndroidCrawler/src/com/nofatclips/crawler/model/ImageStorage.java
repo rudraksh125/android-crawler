@@ -1,4 +1,4 @@
-package com.nofatclips.crawler.storage;
+package com.nofatclips.crawler.model;
 
 import java.io.IOException;
 

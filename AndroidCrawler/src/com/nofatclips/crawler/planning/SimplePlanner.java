@@ -10,7 +10,6 @@ import android.util.Log;
 import com.nofatclips.androidtesting.model.*;
 import com.nofatclips.crawler.model.*;
 
-import static com.nofatclips.crawler.Resources.*;
 import static com.nofatclips.androidtesting.model.InteractionType.*;
 //import static com.nofatclips.androidtesting.model.SimpleType.*;
 

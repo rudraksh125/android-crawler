@@ -11,8 +11,9 @@ import com.nofatclips.androidtesting.model.UserEvent;
 import com.nofatclips.androidtesting.model.UserInput;
 import com.nofatclips.androidtesting.model.WidgetState;
 import com.nofatclips.crawler.model.Abstractor;
+import com.nofatclips.crawler.model.Interactor;
 
-public abstract class InteractorAdapter {
+public abstract class InteractorAdapter implements Interactor {
 	
 	protected HashSet<String> widgetClasses = new HashSet<String>();
 	private Abstractor theAbstractor;

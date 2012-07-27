@@ -5,19 +5,17 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
-import android.util.Log;
 
 import com.nofatclips.androidtesting.model.Trace;
 import com.nofatclips.crawler.model.DispatchListener;
 import com.nofatclips.crawler.model.TaskScheduler;
 
-import static com.nofatclips.crawler.planning.Resources.MAX_TASKS_IN_SCHEDULER;
 import static com.nofatclips.crawler.planning.Resources.SCHEDULER_ALGORITHM;
 
 public class TraceDispatcher implements Iterable<Trace> {
 
 	private TaskScheduler scheduler;
-	private List<DispatchListener> theListeners = new ArrayList<DispatchListener>();
+	List<DispatchListener> theListeners = new ArrayList<DispatchListener>();
 	public static enum SchedulerAlgorithm {
 		BREADTH_FIRST, DEPTH_FIRST
 	}
@@ -51,12 +49,8 @@ public class TraceDispatcher implements Iterable<Trace> {
 		getScheduler().addTasks(t);
 	}
 	
-//	public TaskScheduler getTrivialScheduler() {
-//		return getTrivialScheduler(SchedulerAlgorithm.BREADTH_FIRST);
-//	}
-
 	public TaskScheduler getTrivialScheduler(SchedulerAlgorithm a) {
-		TaskScheduler s = new TrivialScheduler(a);
+		TaskScheduler s = new TrivialScheduler(this, a);
 		s.setTaskList(new ArrayList<Trace>());
 		return s;
 	}
@@ -93,89 +87,6 @@ public class TraceDispatcher implements Iterable<Trace> {
 			}
 			
 		};
-	}
-	
-	private class TrivialScheduler implements TaskScheduler {
-		
-		private List<Trace> tasks;
-		private SchedulerAlgorithm algorithm;
-		
-//		public TrivialScheduler () {
-//		}
-
-		public TrivialScheduler (SchedulerAlgorithm algorithm) {
-			setSchedulerAlgorithm (algorithm);
-		}
-		
-		public void setSchedulerAlgorithm (SchedulerAlgorithm algorithm) {
-			this.algorithm = algorithm;
-		}
-
-		public Trace nextTask() {
-			Log.i("nofatclips", "Dispatching new task. " + tasks.size() + " more tasks remaining.");
-			if (!hasMore()) return null;
-
-			switch (algorithm) {
-				case DEPTH_FIRST: return lastTask();
-				case BREADTH_FIRST: 
-				default: return firstTask();
-			}
-//			Trace t = (hasMore())?tasks.get(0):null;
-		}
-
-		public void addTasks(Collection<Trace> newTasks) {
-			for (Trace t: newTasks) {
-				tasks.add(t);
-				for (DispatchListener theListener: theListeners) {
-					theListener.onNewTaskAdded(t);
-				}
-			}				
-		}
-
-		public void setTaskList(List<Trace> theList) {
-			this.tasks = theList;
-		}
-
-		public List<Trace> getTaskList() {
-			return this.tasks;
-		}
-
-		public boolean hasMore() {
-			return (!tasks.isEmpty());
-		}
-
-		public void remove(Trace t) {
-			tasks.remove(t);
-		}
-
-		public void addTasks(Trace t) {
-			discardTasks();
-			this.tasks.add(t);
-		}
-
-		private void discardTasks() {
-			if (MAX_TASKS_IN_SCHEDULER==0) return;
-			while (this.tasks.size()>=MAX_TASKS_IN_SCHEDULER) {
-				switch (algorithm) {
-					case DEPTH_FIRST: 
-						remove (firstTask());
-						break;
-					case BREADTH_FIRST: 
-					default: 
-						remove(lastTask());
-						break;
-				}
-			}
-		}
-		
-		public Trace firstTask() {
-			return this.tasks.get(0);
-		}
-
-		public Trace lastTask() {
-			return this.tasks.get(this.tasks.size()-1);
-		}
-
 	}
 
 }

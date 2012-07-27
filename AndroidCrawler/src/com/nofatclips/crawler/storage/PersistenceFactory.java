@@ -9,6 +9,7 @@ import android.util.Log;
 
 import com.nofatclips.androidtesting.model.Session;
 import com.nofatclips.crawler.automation.ScreenshotFactory;
+import com.nofatclips.crawler.model.ImageStorage;
 import com.nofatclips.crawler.model.Persistence;
 import com.nofatclips.crawler.model.SaveStateListener;
 import com.nofatclips.crawler.model.Strategy;

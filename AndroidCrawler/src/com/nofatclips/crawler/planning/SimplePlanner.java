@@ -37,9 +37,10 @@ public class SimplePlanner implements Planner {
 				if (evt == null) continue;
 				Collection<UserInput> inputs = new ArrayList<UserInput>();
 				for (WidgetState formWidget: getInputFilter()) {
-					List<UserInput> alternatives = getFormFiller().handleInput(formWidget); 
-					UserInput inp = ((alternatives.size()>0)?alternatives.get(alternatives.size()-1):null);
-					if ( (inp != null) && !(inp.getWidget().getUniqueId().equals(evt.getWidget().getUniqueId())) && (inp.getType().equals(evt.getType())) ) {
+					List<UserInput> alternatives = getFormFiller().handleInput(formWidget);
+					if (alternatives.size()==0) continue;
+					UserInput inp = alternatives.get(alternatives.size()-1);
+					if ( (inp != null) && !((inp.getWidget().getUniqueId().equals(evt.getWidget().getUniqueId())) && (inp.getType().equals(evt.getType()))) ) {
 						inputs.add(inp);
 					}
 				}

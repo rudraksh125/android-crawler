@@ -8,6 +8,7 @@ import java.util.List;
 import android.util.Log;
 import com.nofatclips.androidtesting.model.ActivityState;
 import com.nofatclips.androidtesting.model.Trace;
+import com.nofatclips.androidtesting.model.Transition;
 import com.nofatclips.crawler.model.Comparator;
 import com.nofatclips.crawler.model.StateDiscoveryListener;
 import com.nofatclips.crawler.model.Strategy;
@@ -25,6 +26,8 @@ public class SimpleStrategy implements Strategy {
 	private Trace theTask;
 	private ActivityState beforeEvent;
 	private ActivityState afterEvent;
+	private int depth;
+	private int minDepth;
 	private List<StateDiscoveryListener> theListeners = new ArrayList<StateDiscoveryListener>();
 	private List<TerminationListener> endListeners = new ArrayList<TerminationListener>();
 
@@ -108,7 +111,12 @@ public class SimpleStrategy implements Strategy {
 		this.c = c;
 	}
 
-	public boolean checkForExploration() {
+	public final boolean checkForExploration() {
+		if (this.depth<this.minDepth) return true;
+		return explorationNeeded();
+	}
+	
+	protected boolean explorationNeeded() {
 		return !isLastComparationPositive();
 	}
 
@@ -119,10 +127,24 @@ public class SimpleStrategy implements Strategy {
 	public void setTask(Trace theTask) {
 		this.theTask = theTask;
 		this.beforeEvent = theTask.getFinalTransition().getStartActivity();
+		setDepth();
 	}
 	
 	public Trace getTask () {
 		return this.theTask;
+	}
+	
+	@SuppressWarnings("unused")
+	public void setDepth() {
+		int transitions = 0;
+		for (Transition t: getTask()) {
+			transitions++;
+		}
+		this.depth=transitions;
+	}
+	
+	public int getDepth() {
+		return depth;
 	}
 
 	public ActivityState getStateBeforeEvent () {
@@ -147,6 +169,14 @@ public class SimpleStrategy implements Strategy {
 
 	public void registerTerminationListener(TerminationListener theListener) {
 		this.endListeners.add(theListener);
+	}
+
+	public int getMinDepth() {
+		return this.minDepth;
+	}
+
+	public void setMinDepth (int minDepth) {
+		this.minDepth = minDepth;
 	}
 
 }

@@ -10,7 +10,8 @@ public class Resources implements ResourceFile {
 	public static int PAUSE_AFTER_TRACES = 0; // After performing this amount of traces, the crawler pauses (0 = no pause)
 	public static long MAX_TIME_CRAWLING = 0; // In seconds (0 = no time limit)
 	public static long PAUSE_AFTER_TIME = 0; // In seconds (0 = no pause)
-	public static int TRACE_MAX_DEPTH = 0; // Max number of transitions in a trace (0 = no depth limit)
+	public static int TRACE_MAX_DEPTH = 3; // Max number of transitions in a trace (0 = no depth limit)
+	public static int TRACE_MIN_DEPTH = 2; // Ignore the exploration criteria until this depth is reached
 	public static boolean CHECK_FOR_TRANSITION = false;
 	public static boolean EXPLORE_ONLY_NEW_STATES = true;
 

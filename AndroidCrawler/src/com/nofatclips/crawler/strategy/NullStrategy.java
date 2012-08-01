@@ -56,4 +56,8 @@ public class NullStrategy implements Strategy {
 
 	public void registerTerminationListener(TerminationListener theListener) {}
 
+	public int getDepth() {
+		return 0;
+	}
+
 }

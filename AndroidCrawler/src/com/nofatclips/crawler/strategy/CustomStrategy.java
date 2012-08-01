@@ -46,7 +46,7 @@ public class CustomStrategy extends SimpleStrategy {
 	}
 	
 	@Override
-	public boolean checkForExploration () { // Logic AND of the criterias
+	public boolean explorationNeeded() { // Logic AND of the criterias
 		for (ExplorationCriteria e: this.explorers) {
 			if (!e.exploration()) return false;
 		}

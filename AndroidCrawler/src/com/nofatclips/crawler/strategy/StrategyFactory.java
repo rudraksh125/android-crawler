@@ -18,6 +18,7 @@ public class StrategyFactory {
 	private Comparator comparator;
 	private int maxTraces = 0;
 	private int maxTransitions = 0;
+	private int minTransitions = 0;
 	private long maxSeconds = 0;
 	private long pauseSeconds = 0;
 	private boolean checkTransistions = false;
@@ -66,12 +67,14 @@ public class StrategyFactory {
 			if (checkTracesForPause()) {
 				s.addCriteria(new MaxStepsPause(this.pauseTraces));
 			}
+			s.setMinDepth(minTransitions);
 			return s;
 		}
 		SimpleStrategy s = new SimpleStrategy (this.comparator);
 		if (checkMaxTraces()) {
 			s.addTerminationCriteria(new MaxStepsTermination(this.maxTraces));
 		}
+		s.setMinDepth(minTransitions);
 		return s;
 
 	}
@@ -116,7 +119,11 @@ public class StrategyFactory {
 	public void setDepth(int depth) {
 		this.maxTransitions = depth;
 	}
-	
+
+	public void setMinDepth(int depth) {
+		this.minTransitions = depth;
+	}
+
 	public void setMaxTraces(int length) {
 		this.maxTraces = length;
 	}

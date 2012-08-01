@@ -25,6 +25,7 @@ public interface Strategy {
 
 	public void setTask(Trace theTask);
 	public Trace getTask();
+	public int getDepth();
 	
 	public ActivityState getStateBeforeEvent();
 	public ActivityState getStateAfterEvent ();

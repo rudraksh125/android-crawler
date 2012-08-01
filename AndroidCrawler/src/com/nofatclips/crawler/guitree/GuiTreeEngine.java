@@ -16,6 +16,8 @@ import com.nofatclips.crawler.strategy.comparator.Resources;
 
 import static com.nofatclips.crawler.Resources.*;
 import static com.nofatclips.crawler.automation.Resources.*;
+import static com.nofatclips.crawler.strategy.Resources.*;
+import static com.nofatclips.crawler.storage.Resources.*;
 
 public class GuiTreeEngine extends Engine {
 
@@ -23,13 +25,6 @@ public class GuiTreeEngine extends Engine {
 		super ();
 		
 		setScheduler(getNewScheduler());
-		
-		// BEGIN - Reading preferences from XML file
-
-//		Prefs.setMainNode("com.nofatclips.crawler");
-//		Prefs.updateMainNode();
-
-		// END - Reading preferences from XML file
 		
 		this.theAutomation = getNewAutomation();
 		this.theRestarter = new BasicRestarter();
@@ -69,13 +64,14 @@ public class GuiTreeEngine extends Engine {
 		setPlanner (p);
 		
 		StrategyFactory sf = new StrategyFactory(Resources.COMPARATOR, ADDITIONAL_CRITERIAS);
-		sf.setDepth(com.nofatclips.crawler.strategy.Resources.TRACE_MAX_DEPTH);
-		sf.setMaxTraces(com.nofatclips.crawler.strategy.Resources.MAX_NUM_TRACES);
-		sf.setMaxSeconds(com.nofatclips.crawler.strategy.Resources.MAX_TIME_CRAWLING);
-		sf.setPauseSeconds(com.nofatclips.crawler.strategy.Resources.PAUSE_AFTER_TIME);
-		sf.setCheckTransitions(com.nofatclips.crawler.strategy.Resources.CHECK_FOR_TRANSITION);
-		sf.setPauseTraces(com.nofatclips.crawler.strategy.Resources.PAUSE_AFTER_TRACES);
-		sf.setExploreNewOnly(com.nofatclips.crawler.strategy.Resources.EXPLORE_ONLY_NEW_STATES);
+		sf.setDepth(TRACE_MAX_DEPTH);
+		sf.setMaxTraces(MAX_NUM_TRACES);
+		sf.setMaxSeconds(MAX_TIME_CRAWLING);
+		sf.setPauseSeconds(PAUSE_AFTER_TIME);
+		sf.setCheckTransitions(CHECK_FOR_TRANSITION);
+		sf.setPauseTraces(PAUSE_AFTER_TRACES);
+		sf.setExploreNewOnly(EXPLORE_ONLY_NEW_STATES);
+		sf.setMinDepth(TRACE_MIN_DEPTH);
 		this.theStrategyFactory = sf; // Save in a field so that subclasses can modify the parameters of the strategy
 
 		// Last object to instantiate: the other components register as listeners on the factory class
@@ -105,9 +101,9 @@ public class GuiTreeEngine extends Engine {
 		theGuiTree.setInAndOutFocus(IN_AND_OUT_FOCUS);
 		theGuiTree.setSleepAfterTask(SLEEP_AFTER_TASK);
 		theGuiTree.setRandomSeed(RANDOM_SEED);
-		theGuiTree.setMaxDepth(com.nofatclips.crawler.strategy.Resources.TRACE_MAX_DEPTH);
+		theGuiTree.setMaxDepth(TRACE_MAX_DEPTH);
 		if (!ACTIVITY_DESCRIPTION_IN_SESSION) {
-			theGuiTree.setStateFileName(com.nofatclips.crawler.storage.Resources.ACTIVITY_LIST_FILE_NAME);
+			theGuiTree.setStateFileName(ACTIVITY_LIST_FILE_NAME);
 		}
 	}
 	
@@ -130,7 +126,7 @@ public class GuiTreeEngine extends Engine {
 	}
 
 	public boolean stepPersistence () {
-		return (com.nofatclips.crawler.storage.Resources.MAX_TRACES_IN_RAM>0);
+		return (MAX_TRACES_IN_RAM>0);
 	}
 	
 	private Automation theAutomation;

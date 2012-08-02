@@ -226,6 +226,8 @@ public class Automation implements Robot, Extractor, TaskProcessor, ImageCaptor 
 			selectListItem((ListView)v, value, true);
 		} else if (interactionType.equals(SPINNER_SELECT)) {
 			selectSpinnerItem((Spinner)v, value);
+		} else if (interactionType.equals(RADIO_SELECT)) {
+			selectRadioItem((RadioGroup)v, value);
 		} else if (interactionType.equals(TYPE_TEXT)) {
 			typeText((EditText)v, value);
 		} else if (interactionType.equals(WRITE_TEXT)) {
@@ -364,6 +366,17 @@ public class Automation implements Robot, Extractor, TaskProcessor, ImageCaptor 
 		click(s);
 		sync();
 		selectListItem(solo.getCurrentListViews().get(0), num, false);
+	}
+	
+	public void selectRadioItem (RadioGroup r, String value) {
+		selectRadioItem (r, Integer.valueOf(value));
+	}
+
+	private void selectRadioItem (final RadioGroup r, int num) {
+		assertNotNull(r, "Cannon press spinner item: the spinner does not exist");
+		Log.i("nofatclips", "Selecting from the Radio Group view");
+		click(r.getChildAt(num));
+		sync();
 	}
 
 	protected void assertNotNull (final View v) {

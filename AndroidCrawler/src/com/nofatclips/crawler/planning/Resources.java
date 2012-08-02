@@ -20,10 +20,12 @@ public class Resources implements ResourceFile {
 		UserFactory.addEvent(LIST_SELECT, LIST_VIEW, SINGLE_CHOICE_LIST, PREFERENCE_LIST);
 		UserFactory.addEvent(LIST_LONG_SELECT, LIST_VIEW, SINGLE_CHOICE_LIST);
 		UserFactory.addEvent(SWAP_TAB, TAB_HOST);
-		UserFactory.addInput(CLICK, CHECKBOX, RADIO, TOGGLE_BUTTON);
+		UserFactory.addInput(CLICK, CHECKBOX, TOGGLE_BUTTON);
+		UserFactory.addInput(RADIO_SELECT, RADIO_GROUP);
 		UserFactory.addInput(SET_BAR, SEEK_BAR);
-		UserFactory.addInput(WRITE_TEXT, EDIT_TEXT);
+		UserFactory.addInput(TYPE_TEXT, EDIT_TEXT);
 		UserFactory.addInput(SPINNER_SELECT, SPINNER);
+		UserFactory.addInput(LIST_SELECT, MULTI_CHOICE_LIST);
 	}
 
 	// User/Planner Parameters
@@ -31,8 +33,8 @@ public class Resources implements ResourceFile {
 	public static int MAX_TASKS_PER_EVENT = 1; // How many input sequences to generate for each event on a widget; 0 = no limit
 
 	public static boolean BACK_BUTTON_EVENT = true;
-	public static boolean MENU_EVENTS = true;
-	public static boolean ORIENTATION_EVENTS = true;
+	public static boolean MENU_EVENTS = false;
+	public static boolean ORIENTATION_EVENTS = false;
 	public static boolean SCROLL_DOWN_EVENT = false;
 
 	public static boolean TAB_EVENTS_START_ONLY = false; // true -> click on tabs only on the start activity

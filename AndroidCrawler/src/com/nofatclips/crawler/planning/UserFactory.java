@@ -123,11 +123,11 @@ public class UserFactory {
 	}
 
 	public static String[] typesForEvent (String interaction) {
-		return UserFactory.eventToTypeMap.get(interaction);
+		return eventToTypeMap.get(interaction);
 	}
 
 	public static String[] typesForInput (String interaction) {
-		return UserFactory.inputToTypeMap.get(interaction);
+		return inputToTypeMap.get(interaction);
 	}
 
 	public static boolean doForceSeed () {
@@ -176,15 +176,21 @@ public class UserFactory {
 		if (isRequiredEvent(SPINNER_SELECT)) {
 			SpinnerSelector ss = new SpinnerSelector (Resources.MAX_EVENTS_PER_WIDGET, typesForEvent(SPINNER_SELECT));
 			ss.setEventWhenNoId(false);
-			u.addEvent(ss);
+			u.addEvent(addDosAndDonts(ss));
 		}
-		
+
+		if (isRequiredEvent(RADIO_SELECT)) {
+			RadioSelector rs = new RadioSelector (Resources.MAX_EVENTS_PER_WIDGET, typesForEvent(RADIO_SELECT));
+			rs.setEventWhenNoId(false);
+			u.addEvent(addDosAndDonts(rs));
+		}
+
 		if (isRequiredEvent(SWAP_TAB)) {
 			TabSwapper ts = new TabSwapper (typesForEvent(SWAP_TAB));
 			if (Resources.TAB_EVENTS_START_ONLY) {
 				ts.setOnlyOnce(true);
 			}
-			u.addEvent(ts);			
+			u.addEvent(addDosAndDonts(ts));
 		}
 		
 		for (InteractorAdapter i: ADDITIONAL_EVENTS) {
@@ -222,7 +228,13 @@ public class UserFactory {
 			u.addInput(addDosAndDonts(rss));
 		}
 
-		if (isRequiredEvent(LIST_SELECT)) {
+		if (isRequiredInput(RADIO_SELECT)) {
+			RandomRadioSelector rrs = new RandomRadioSelector(typesForInput(RADIO_SELECT));
+			rrs.setEventWhenNoId(false);
+			u.addInput(addDosAndDonts(rrs));
+		}
+
+		if (isRequiredInput(LIST_SELECT)) {
 			RandomListSelector rls = new RandomListSelector(typesForInput(LIST_SELECT));
 			rls.setEventWhenNoId(false);
 			u.addInput(addDosAndDonts(rls));

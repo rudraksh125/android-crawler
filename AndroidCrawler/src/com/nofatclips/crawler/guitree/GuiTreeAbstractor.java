@@ -166,7 +166,7 @@ public class GuiTreeAbstractor implements Abstractor, FilterHandler, SaveStateLi
 			return;
 		}
 		
-		// For grids, the count is set to the number of icons
+		// For grids, the count is set to the number of icons, for RadioGroups it's set to the number of RadioButtons
 		if (v instanceof ViewGroup) {
 			w.setCount(((ViewGroup)v).getChildCount());
 			return;

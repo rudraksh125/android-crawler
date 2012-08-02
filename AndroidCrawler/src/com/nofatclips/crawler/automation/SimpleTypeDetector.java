@@ -21,6 +21,8 @@ public class SimpleTypeDetector implements TypeDetector {
 			return NULL;
 		if (type.endsWith("RadioButton"))
 			return RADIO;
+		if (type.endsWith("RadioGroup"))
+			return RADIO_GROUP;
 		if (type.endsWith("CheckBox") || type.endsWith("CheckedTextView"))
 			return CHECKBOX;
 		if (type.endsWith("ToggleButton"))

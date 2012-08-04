@@ -289,6 +289,10 @@ Limits the exploration of the GUI to a certain depth of the resulting GUI Tree.
 
 When *TRACE_MAX_DEPTH* = `n>0`, GUIs resulting from the execution of `n` actions (that is, nodes at depth `n` in the GUI Tree) won't be further explored, even when they're new and events could be fired on them.
 
+*TRACE_MIN_DEPTH*: `int`
+
+Forces the exploration of the GUI up to a certain depth, as long as there are events to be fired: the exploration criteria will be ignored until depth becomes greater than this parameter.
+
 *CHECK_FOR_TRANSITION*: `boolean`
 
 When `true`, the ripper will require that the start and final state for an action won't be equivalent to each other.

@@ -28,9 +28,6 @@ public class MaxDepthTermination implements TerminationCriteria {
 
 	public boolean termination() {
 		int transitions = theStrategy.getDepth();
-//		for (Transition t: this.theStrategy.getTask()) {
-//			transitions++;
-//		}
 		Log.i("nofatclips", "Checking for depth: this trace is " + transitions + " transitions deep (max = " + getMaxDepth() + ")");
 		return (transitions>=getMaxDepth());
 	}

@@ -13,21 +13,14 @@ import org.w3c.dom.Element;
 
 import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Checkable;
-import android.widget.EditText;
-import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.AdapterView;
-import android.widget.AbsSpinner;
-import android.widget.TabHost;
-
 import com.nofatclips.androidtesting.guitree.*;
 import com.nofatclips.androidtesting.model.*;
 import com.nofatclips.crawler.model.*;
 import com.nofatclips.crawler.storage.PersistenceFactory;
 
 import static com.nofatclips.crawler.Resources.*;
+import static com.nofatclips.crawler.automation.AbstractorUtilities.*;
 
 public class GuiTreeAbstractor implements Abstractor, FilterHandler, SaveStateListener {
 
@@ -102,24 +95,29 @@ public class GuiTreeAbstractor implements Abstractor, FilterHandler, SaveStateLi
 	public TestCaseWidget createWidget (View v) {
 		TestCaseWidget w = TestCaseWidget.createWidget(getTheSession());
 		String id = String.valueOf(v.getId());
-		String text = "";
-		String name = "";
+//		String text = "";
+		String name = detectName(v);
 		int type = 0;
 		if (v instanceof TextView) {
-			TextView t = (TextView)v;
-			type = t.getInputType();
-			text = t.getText().toString();
-			name = text;
-			if (v instanceof EditText) {
-				CharSequence hint = ((EditText)v).getHint();
-				name = (hint==null)?"":hint.toString();
+//			TextView t = (TextView)v;
+//			text = t.getText().toString();
+//			if (v instanceof EditText) {
+//				CharSequence hint = ((EditText)v).getHint();
+//				name = (hint==null)?"":hint.toString();
+//			}
+//			if (v instanceof RadioGroup) {
+//				
+//			}
+			type = ((TextView)v).getInputType();
+			if (type!=0) {
+				w.setTextType("" + type);
 			}
 		}
-		w.setIdNameType(id, name, v.getClass().getName());
+		w.setIdNameType(id, name, getType(v));
 		w.setUniqueId(getUniqueWidgetId());
-		if (type!=0) {
-			w.setTextType("" + type);
-		}
+//		if (type!=0) {
+//			w.setTextType("" + type);
+//		}
 		w.setSimpleType(getTypeDetector().getSimpleType(v));
 		setCount (v,w);
 		setValue (v,w);
@@ -129,6 +127,31 @@ public class GuiTreeAbstractor implements Abstractor, FilterHandler, SaveStateLi
 //		w.setIndex(desc.getWidgetIndex(v));
 		return w;
 	}
+
+//	public static String detectName (View v) {
+//		String name = "";
+//		if (v instanceof TextView) {
+//			TextView t = (TextView)v;
+//			name = t.getText().toString();
+//			if (v instanceof EditText) {
+//				CharSequence hint = ((EditText)v).getHint();
+//				name = (hint==null)?"":hint.toString();
+//			}
+//		} else if (v instanceof RadioGroup) {
+//			RadioGroup g = (RadioGroup)v;
+//			int max=g.getChildCount();
+//			String text = "";
+//			for (int i=0; i<max; i++) {
+//				View c = g.getChildAt(i);
+//				text = detectName (c);
+//				if (!text.equals("")) {
+//					name = text;
+//					break;
+//				}
+//			}
+//		}
+//		return name;
+//	}
 	
 	public boolean updateDescription (ActivityState newActivity, ActivityDescription desc, boolean detectDuplicates) {
 		boolean hasDescription = false;
@@ -146,60 +169,60 @@ public class GuiTreeAbstractor implements Abstractor, FilterHandler, SaveStateLi
 		return hasDescription;
 	}
 	
-	@SuppressWarnings("rawtypes")
-	private void setCount (View v, WidgetState w) {
-		// For lists, the count is set to the number of rows in the list (inactive rows - e.g. separators - count as well)
-		if (v instanceof AdapterView) {
-			w.setCount(((AdapterView)v).getCount());
-			return;
-		}
-		
-		// For Spinners, the count is set to the number of options
-		if (v instanceof AbsSpinner) {
-			w.setCount(((AbsSpinner)v).getCount());
-			return;
-		}
-		
-		// For the tab layout host, the count is set to the number of tabs
-		if (v instanceof TabHost) {
-			w.setCount(((TabHost)v).getTabWidget().getTabCount());
-			return;
-		}
-		
-		// For grids, the count is set to the number of icons, for RadioGroups it's set to the number of RadioButtons
-		if (v instanceof ViewGroup) {
-			w.setCount(((ViewGroup)v).getChildCount());
-			return;
-		}
-		
-		// For progress bars, seek bars and rating bars, the count is set to the maximum value allowed
-		if (v instanceof ProgressBar) {
-			w.setCount(((ProgressBar)v).getMax());
-			return;
-		}
-		
-	}
+//	@SuppressWarnings("rawtypes")
+//	private void setCount (View v, WidgetState w) {
+//		// For lists, the count is set to the number of rows in the list (inactive rows - e.g. separators - count as well)
+//		if (v instanceof AdapterView) {
+//			w.setCount(((AdapterView)v).getCount());
+//			return;
+//		}
+//		
+//		// For Spinners, the count is set to the number of options
+//		if (v instanceof AbsSpinner) {
+//			w.setCount(((AbsSpinner)v).getCount());
+//			return;
+//		}
+//		
+//		// For the tab layout host, the count is set to the number of tabs
+//		if (v instanceof TabHost) {
+//			w.setCount(((TabHost)v).getTabWidget().getTabCount());
+//			return;
+//		}
+//		
+//		// For grids, the count is set to the number of icons, for RadioGroups it's set to the number of RadioButtons
+//		if (v instanceof ViewGroup) {
+//			w.setCount(((ViewGroup)v).getChildCount());
+//			return;
+//		}
+//		
+//		// For progress bars, seek bars and rating bars, the count is set to the maximum value allowed
+//		if (v instanceof ProgressBar) {
+//			w.setCount(((ProgressBar)v).getMax());
+//			return;
+//		}
+//		
+//	}
 	
-	private void setValue (View v, WidgetState w) {
-		
-		// Checkboxes, radio buttons and toggle buttons -> the value is the checked state (true or false)
-		if (v instanceof Checkable) {
-			w.setValue(String.valueOf(((Checkable) v).isChecked()));
-		}
-
-		// Textview, Editview et al. -> the value is the displayed text
-		if (v instanceof TextView) {
-			w.setValue(((TextView) v).getText().toString());
-//			Log.e("nofatclips", "Hint for " + (((TextView) v).getText().toString()) + " = " + (((TextView) v).getHint()));
-			return;
-		}
-		
-		// Progress bars, seek bars and rating bars -> the value is the current progress
-		if (v instanceof ProgressBar) {
-			w.setValue(String.valueOf(((ProgressBar) v).getProgress()));
-		}
-				
-	}
+//	private void setValue (View v, WidgetState w) {
+//		
+//		// Checkboxes, radio buttons and toggle buttons -> the value is the checked state (true or false)
+//		if (v instanceof Checkable) {
+//			w.setValue(String.valueOf(((Checkable) v).isChecked()));
+//		}
+//
+//		// Textview, Editview et al. -> the value is the displayed text
+//		if (v instanceof TextView) {
+//			w.setValue(((TextView) v).getText().toString());
+////			Log.e("nofatclips", "Hint for " + (((TextView) v).getText().toString()) + " = " + (((TextView) v).getHint()));
+//			return;
+//		}
+//		
+//		// Progress bars, seek bars and rating bars -> the value is the current progress
+//		if (v instanceof ProgressBar) {
+//			w.setValue(String.valueOf(((ProgressBar) v).getProgress()));
+//		}
+//				
+//	}
 	
 	public void setBaseActivity (ActivityDescription desc) {
 		this.baseActivity = (StartActivity) createActivity(desc,true);
@@ -287,10 +310,6 @@ public class GuiTreeAbstractor implements Abstractor, FilterHandler, SaveStateLi
 	}
 
 	public ActivityState importState (Element fromXml) {
-//		Element state = (Element)getTheSession().getDom().adoptNode(fromXml);
-//		ActivityState imported = (state.getNodeName().equals(FinalActivity.getTag()))?FinalActivity.createActivity(getTheSession()):StartActivity.createActivity(getTheSession());
-//		imported.setElement(state);
-//		return imported;
 		return getTheSession().importState(fromXml);
 	}
 

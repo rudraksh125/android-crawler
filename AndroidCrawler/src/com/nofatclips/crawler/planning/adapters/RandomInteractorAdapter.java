@@ -10,7 +10,7 @@ public abstract class RandomInteractorAdapter extends InteractorAdapter implemen
 	
 	private Random random;
 	private int min=0;
-	private int max=100;
+	private int max=99;
 
 	public RandomInteractorAdapter (String ... simpleTypes) {
 		super (simpleTypes);
@@ -67,7 +67,7 @@ public abstract class RandomInteractorAdapter extends InteractorAdapter implemen
 	
 	public int getValue (WidgetState w) {
 //		Log.e("nofatclips","getValue: #" + w.getId() + " (" + w.getSimpleType() + ") has " + w.getCount());
-		int delta = getMax(w)-getMin(w);
+		int delta = getMax(w)-getMin(w)+1;
 		return (delta>0)?(getRandomGenerator().nextInt(delta) + getMin(w)):getMin(w);
 	}
 

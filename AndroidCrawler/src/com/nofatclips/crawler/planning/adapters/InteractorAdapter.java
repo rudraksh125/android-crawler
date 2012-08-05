@@ -61,7 +61,7 @@ public abstract class InteractorAdapter implements Interactor {
 		if (isForcedWidget(w)) return true;
 		return (w.isAvailable() && matchClass(w.getSimpleType()));
 	}
-	
+
 	public List<UserEvent> getEvents (WidgetState w) {
 		ArrayList<UserEvent> events = new ArrayList<UserEvent>();
 		if (canUseWidget(w)) {

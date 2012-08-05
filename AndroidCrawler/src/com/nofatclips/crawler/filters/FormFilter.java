@@ -7,7 +7,7 @@ public class FormFilter extends ArrayListFilter {
 
 	@Override
 	public boolean isValidItem(View v) {
-		return ((v instanceof CompoundButton) || (v instanceof TextView) || (v instanceof ProgressBar) || (v instanceof Spinner) || (v instanceof ListView));
+		return ((v instanceof CompoundButton) || (v instanceof TextView) || (v instanceof ProgressBar) || (v instanceof Spinner) || (v instanceof ListView) || (v instanceof RadioGroup));
 	}
 
 }

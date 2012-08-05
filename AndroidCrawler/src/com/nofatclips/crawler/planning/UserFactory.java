@@ -181,7 +181,7 @@ public class UserFactory {
 
 		if (isRequiredEvent(RADIO_SELECT)) {
 			RadioSelector rs = new RadioSelector (Resources.MAX_EVENTS_PER_WIDGET, typesForEvent(RADIO_SELECT));
-			rs.setEventWhenNoId(false);
+			rs.setEventWhenNoId(true);
 			u.addEvent(addDosAndDonts(rs));
 		}
 
@@ -230,7 +230,7 @@ public class UserFactory {
 
 		if (isRequiredInput(RADIO_SELECT)) {
 			RandomRadioSelector rrs = new RandomRadioSelector(typesForInput(RADIO_SELECT));
-			rrs.setEventWhenNoId(false);
+			rrs.setEventWhenNoId(true);
 			u.addInput(addDosAndDonts(rrs));
 		}
 

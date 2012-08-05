@@ -3,8 +3,6 @@ package com.nofatclips.crawler.planning.interactors;
 import static com.nofatclips.androidtesting.model.InteractionType.RADIO_SELECT;
 import static com.nofatclips.androidtesting.model.SimpleType.RADIO_GROUP;
 
-import android.util.Log;
-
 import com.nofatclips.androidtesting.model.WidgetState;
 import com.nofatclips.crawler.model.Abstractor;
 import com.nofatclips.crawler.planning.adapters.RandomInteractorAdapter;
@@ -17,7 +15,6 @@ public class RandomRadioSelector extends RandomInteractorAdapter {
 	
 	public RandomRadioSelector (String ... simpleTypes) {
 		super (simpleTypes);
-		Log.e("nofatclips", "Sono qui");
 	}
 	
 	public RandomRadioSelector (Abstractor theAbstractor) {

@@ -88,10 +88,6 @@ public class Automation implements Robot, Extractor, TaskProcessor, ImageCaptor 
 		extractState();
 		Log.i ("nofatclips", "Playing Trace " + t.getId());
 		for (Transition step: t) {
-//			for (UserInput i: step) {
-//				setInput(i);
-//			}
-//			fireEvent (step.getEvent());
 			process (step);
 		}
 	}
@@ -143,7 +139,7 @@ public class Automation implements Robot, Extractor, TaskProcessor, ImageCaptor 
 
 	public void setInput(UserInput i) {
 		Log.d("nofatclips", "Setting input: type= " + i.getType() + " id=" + i.getWidgetId() + " value="+ i.getValue());
-		setInput (Integer.parseInt(i.getWidgetId()), i.getType(), i.getValue());
+		setInput (Integer.parseInt(i.getWidgetId()), i.getType(), i.getValue(), i.getWidgetName(), i.getWidgetType());
 	}
 	
 	public void swapTab (String tab) {
@@ -277,11 +273,25 @@ public class Automation implements Robot, Extractor, TaskProcessor, ImageCaptor 
 		Log.i("nofatclips", "Current activity is " + getActivity().getLocalClassName());
 	}
 
-	private void setInput (int widgetId, String inputType, String value) {
+	private void setInput (int widgetId, String inputType, String value, String widgetName, String widgetType) {
 		View v = getWidget(widgetId);
 		if (v == null) {
 			v = theActivity.findViewById(widgetId);
 		}
+		if (v == null) {
+			for (View w: getAllWidgets()) {
+				if (w instanceof Button || w instanceof RadioGroup) {
+					if (!AbstractorUtilities.getType(w).equals(widgetType)) continue;
+					v = (AbstractorUtilities.detectName(w).equals(widgetName))?w:null;
+//					Button candidate = (Button) w;
+//					if (candidate.getText().equals(widgetName)) {
+//						v = candidate;
+//					}
+				}
+				if (v!=null) break;
+			}
+		}
+
 		injectInteraction(v, inputType, value);
 	}
 
@@ -373,9 +383,10 @@ public class Automation implements Robot, Extractor, TaskProcessor, ImageCaptor 
 	}
 
 	private void selectRadioItem (final RadioGroup r, int num) {
-		assertNotNull(r, "Cannon press spinner item: the spinner does not exist");
+		if (num<1) assertNotNull(null, "Cannot press radio group item: the index must be a positive number");
+		assertNotNull(r, "Cannon press radio group item: the radio group does not exist");
 		Log.i("nofatclips", "Selecting from the Radio Group view");
-		click(r.getChildAt(num));
+		click(r.getChildAt(num-1));
 		sync();
 	}
 
@@ -680,19 +691,20 @@ public class Automation implements Robot, Extractor, TaskProcessor, ImageCaptor 
 	
 	public boolean checkWidgetEquivalence (View testee, int theId, String theType, String theName) {
 		Log.i("nofatclips", "Retrieved from return list id=" + testee.getId());
+		
 		String testeeType = testee.getClass().getName();
 		Log.d("nofatclips", "Testing for type (" + testeeType + ") against the original (" + theType + ")");
-		String testeeText = (testee instanceof TextView)?(((TextView)testee).getText().toString()):"";
+		if ( !(theType.equals(testeeType)) ) return false;
 		
-		String testeeName = testeeText;
-		if (testee instanceof EditText) {
-			CharSequence hint = ((EditText)testee).getHint();
-			testeeName = (hint==null)?"":hint.toString();
-		}
-		
-//		String testeeName = (testee instanceof EditText)?(((EditText)testee).getHint().toString()):testeeText;
+//		String testeeText = (testee instanceof TextView)?(((TextView)testee).getText().toString()):"";
+//		String testeeName = testeeText;
+//		if (testee instanceof EditText) {
+//			CharSequence hint = ((EditText)testee).getHint();
+//			testeeName = (hint==null)?"":hint.toString();
+//		}
+		String testeeName = AbstractorUtilities.detectName(testee);
 		Log.d("nofatclips", "Testing for name (" + testeeName + ") against the original (" + theName + ")");
-		if ( (theType.equals(testeeType)) && (theName.equals(testeeName)) && (theId == testee.getId()) ) {
+		if ( (theName.equals(testeeName)) && (theId == testee.getId()) ) {
 			return true;
 		}
 		return false;

@@ -49,6 +49,7 @@ public class Automation implements Robot, Extractor, TaskProcessor, ImageCaptor 
 	private Robot theRobot;
 	private UserEvent currentEvent;
 	private ImageCaptor imageCaptor;
+	private boolean precrawlNeeded = true;
 	
 	public final static String SEPARATOR = ".-.-.";
 		
@@ -83,6 +84,7 @@ public class Automation implements Robot, Extractor, TaskProcessor, ImageCaptor 
 		Log.i ("nofatclips", "Restarting");
 		if (FORCE_RESTART) {
 			this.restarter.restart();
+			this.precrawlNeeded = true;
 		}
 		afterRestart();
 		extractState();
@@ -595,7 +597,8 @@ public class Automation implements Robot, Extractor, TaskProcessor, ImageCaptor 
 		solo.setActivityOrientation(Solo.PORTRAIT);
 		wait(SLEEP_AFTER_RESTART);
 		waitOnThrobber();
-		if (PRECRAWLING.length>0) {
+		if ((PRECRAWLING.length>0) && this.precrawlNeeded) {
+			this.precrawlNeeded = false;
 			refreshCurrentActivity();
 			extractState();
 			processPrecrawling();
@@ -696,18 +699,13 @@ public class Automation implements Robot, Extractor, TaskProcessor, ImageCaptor 
 		Log.d("nofatclips", "Testing for type (" + testeeType + ") against the original (" + theType + ")");
 		if ( !(theType.equals(testeeType)) ) return false;
 		
-//		String testeeText = (testee instanceof TextView)?(((TextView)testee).getText().toString()):"";
-//		String testeeName = testeeText;
-//		if (testee instanceof EditText) {
-//			CharSequence hint = ((EditText)testee).getHint();
-//			testeeName = (hint==null)?"":hint.toString();
-//		}
 		String testeeName = AbstractorUtilities.detectName(testee);
 		Log.d("nofatclips", "Testing for name (" + testeeName + ") against the original (" + theName + ")");
-		if ( (theName.equals(testeeName)) && (theId == testee.getId()) ) {
-			return true;
-		}
-		return false;
+		return ( (theName.equals(testeeName)) && (theId == testee.getId()) );
+//		if ( (theName.equals(testeeName)) && (theId == testee.getId()) ) {
+//			return true;
+//		}
+//		return false;
 	}
 	
 	public ArrayList<View> getWidgetsById (int id) {

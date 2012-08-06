@@ -72,6 +72,8 @@ public class GuiTreeEngine extends Engine {
 		sf.setPauseTraces(PAUSE_AFTER_TRACES);
 		sf.setExploreNewOnly(EXPLORE_ONLY_NEW_STATES);
 		sf.setMinDepth(TRACE_MIN_DEPTH);
+		sf.setStopEvents(AFTER_EVENT_DONT_EXPLORE);
+		sf.setStopWidgets(AFTER_WIDGET_DONT_EXPLORE);
 		this.theStrategyFactory = sf; // Save in a field so that subclasses can modify the parameters of the strategy
 
 		// Last object to instantiate: the other components register as listeners on the factory class

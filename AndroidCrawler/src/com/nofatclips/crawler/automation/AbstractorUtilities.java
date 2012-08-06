@@ -1,7 +1,13 @@
 package com.nofatclips.crawler.automation;
 
+import static com.nofatclips.androidtesting.model.InteractionType.PRESS_KEY;
+
+import java.lang.reflect.Field;
+
+import com.nofatclips.androidtesting.model.UserEvent;
 import com.nofatclips.androidtesting.model.WidgetState;
 
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsSpinner;
@@ -97,6 +103,52 @@ public class AbstractorUtilities {
 	
 	public static String getType (View v) {
 		return v.getClass().getName();
+	}
+	
+	// Event description methods, used by Automation - the description property is only used in graphs
+	
+	// Special handling for Press Key event: there is no target widget to describe
+	public static boolean describeKeyEvent (UserEvent e) {
+		int val = Integer.parseInt(e.getValue());
+		String name;
+		for (Field f: android.view.KeyEvent.class.getFields()) {
+			name = f.getName();
+			if (f.getType().equals(Integer.TYPE)) {
+				try {
+					if (name.startsWith("KEYCODE_") && (f.getInt(null) == val)) {
+						Log.i("nofatclips", "Event Description: " + name);
+						e.setDescription(name.replaceAll("KEYCODE_", ""));
+						return true;
+					}
+				} catch (IllegalArgumentException iae) {
+				} catch (IllegalAccessException iae) {}
+			}
+		}
+		return false;		
+	}
+	
+	public static boolean describeCurrentEvent (UserEvent e, View v) {
+		if (e == null) return false; // This is probably an input, not an event
+		if (e.getType().equals(PRESS_KEY)) {
+			return describeKeyEvent(e);
+		}
+		
+		// Get text from the target widget
+		if (v instanceof TextView) {
+			String s = ((TextView)v).getText().toString();
+			e.setDescription(s);
+			Log.d ("nofatclips", "Event description: " + s);
+			return true;
+		} else if (v instanceof TabHost) {
+			e.setDescription(((TabHost)v).getCurrentTabTag());
+		} else if (v instanceof ViewGroup) {
+			int childNum = ((ViewGroup)v).getChildCount();
+			for (int i = 0; i<childNum; i++) {
+				View child =  ((ViewGroup)v).getChildAt(i);
+				if (describeCurrentEvent(e, child)) return true;
+			}
+		}
+		return false;
 	}
 
 }

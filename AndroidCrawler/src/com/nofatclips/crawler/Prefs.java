@@ -133,25 +133,47 @@ public class Prefs {
 		List<String> theList = new ArrayList<String>();
 		int index = 0;
 		String value;
+		boolean found = false;
 		while ((value = localPrefs.get(fromArray(parameter, index), null)) != null) {
+			found = true;
 			theList.add(value);
 			index++;
 		}
 		String tmp[] = new String [theList.size()];
-		return theList.toArray(tmp);
+		return (found)?theList.toArray(tmp):null;
 	}
 
 	public int[] getIntArray (Field parameter) throws IllegalArgumentException, IllegalAccessException {
 		String[] value = getStringArray (parameter);
+		if (value == null) return null;
 		int[] ret = new int[value.length];
 		for (int i=0; i<value.length; i++) {
 			ret[i] = Integer.parseInt(value[i]);
 		}
 		return ret;
 	}
+	
+	protected void setArray (Field parameter) throws IllegalArgumentException, IllegalAccessException {
+		setArray(parameter, parameter.getType());		
+	}
+	
+	protected void setArray (Field parameter, Class<?> type) throws IllegalArgumentException, IllegalAccessException {
+		Class<?> component = type.getComponentType();
+		if (component.equals(String.class)) {
+			String[] strings = getStringArray(parameter);
+			if (strings!=null) {
+				parameter.set (parameter, strings);					
+			}
+		} else if (component.equals(int.class)) {
+			int[] numbers = getIntArray(parameter);
+			if (numbers!=null) {
+				parameter.set (parameter, numbers);					
+			}
+		}
+	}
 
 	protected void updateValue (Field parameter) throws IllegalArgumentException, IllegalAccessException {
-		Log.v("nofatclips", "Updating value " + parameter.getName());
+//		Log.v("nofatclips", "Updating value " + parameter.getName());
 		Class<?> type = parameter.getType();
 		String before = (parameter.get("") != null)?parameter.get("").toString():null;
 		if (type.equals(int.class)) {
@@ -163,12 +185,19 @@ public class Prefs {
 		} else if (type.equals(boolean.class)) {
 			parameter.setBoolean (parameter, getBoolean (parameter));
 		} else if (type.isArray()) {
-			Class<?> component = type.getComponentType();
-			if (component.equals(String.class)) {
-				parameter.set (parameter, getStringArray(parameter));
-			} else if (component.equals(int.class)) {
-				parameter.set (parameter, getIntArray(parameter));
-			}
+			setArray (parameter, type);
+//			Class<?> component = type.getComponentType();
+//			if (component.equals(String.class)) {
+//				String[] strings = getStringArray(parameter);
+//				if (strings!=null) {
+//					parameter.set (parameter, strings);					
+//				}
+//			} else if (component.equals(int.class)) {
+//				int[] numbers = getIntArray(parameter);
+//				if (numbers!=null) {
+//					parameter.set (parameter, numbers);					
+//				}
+//			}
 		} else {
 			return;
 		}
@@ -176,23 +205,14 @@ public class Prefs {
 		if (!after.equals(before)) {
 			if (!type.isArray()) {
 				Log.d("nofatclips", "Updated value of parameter " + parameter.getName() + " to " + after + " (default = " + before + ")");
+			} else {
+				Log.d("nofatclips", "Updated values of array parameter " + parameter.getName());
 			}
 		}
 	}
 	
 	public static void updateMainNode () {
 		updateNode("", Resources.class);
-
-//		Preferences comparator = p.prefs.node("comparator");
-//		try {
-//			for (String s: comparator.keys()) {
-//				Log.e("nofatclips", s);
-//			}
-//		} catch (BackingStoreException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-
 	}
 
 	public static void updateNode (String node, Class<? extends ResourceFile> resources) {

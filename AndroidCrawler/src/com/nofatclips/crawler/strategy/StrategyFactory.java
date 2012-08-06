@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import com.nofatclips.crawler.model.Comparator;
 import com.nofatclips.crawler.model.Strategy;
 import com.nofatclips.crawler.model.StrategyCriteria;
+import com.nofatclips.crawler.strategy.criteria.AfterEventDontExplore;
+import com.nofatclips.crawler.strategy.criteria.AfterWidgetDontExplore;
 import com.nofatclips.crawler.strategy.criteria.MaxDepthExplore;
 import com.nofatclips.crawler.strategy.criteria.MaxStepsPause;
 import com.nofatclips.crawler.strategy.criteria.MaxStepsTermination;
@@ -25,6 +27,8 @@ public class StrategyFactory {
 	private boolean exploreNewStatesOnly = true;
 	private ArrayList<StrategyCriteria> otherCriterias = new ArrayList<StrategyCriteria>();
 	private int pauseTraces;
+	private String[] stopEvents;
+	private int[] stopWidgets;
 	
 	public StrategyFactory () {}
 	
@@ -67,6 +71,12 @@ public class StrategyFactory {
 			if (checkTracesForPause()) {
 				s.addCriteria(new MaxStepsPause(this.pauseTraces));
 			}
+			if (checkForEvents()) {
+				s.addCriteria(new AfterEventDontExplore(getStopEvents()));
+			}
+			if (checkForWidgets()) {
+				s.addCriteria(new AfterWidgetDontExplore(getStopWidgets()));
+			}
 			s.setMinDepth(minTransitions);
 			return s;
 		}
@@ -80,8 +90,9 @@ public class StrategyFactory {
 	}
 	
 	public boolean useCustomStrategy () {
-		return (checkTransition() || checkForDepth() || checkSessionTime() || hasMoreCriterias() 
-				|| checkTracesForPause() || checkSessionTimeForPause() || (!exploreNewStatesOnly()) );
+//		return (checkTransition() || checkForDepth() || checkSessionTime() || hasMoreCriterias() 
+//				|| checkTracesForPause() || checkSessionTimeForPause() || (!exploreNewStatesOnly()) );
+		return true;
 	}
 	
 	public boolean checkForDepth() {
@@ -110,6 +121,14 @@ public class StrategyFactory {
 
 	public boolean checkSessionTimeForPause() {
 		return (this.pauseSeconds>0);
+	}
+	
+	public boolean checkForEvents() {
+		return (getStopEvents().length>0);
+	}
+
+	public boolean checkForWidgets() {
+		return (getStopWidgets().length>0);
 	}
 
 	public boolean hasMoreCriterias() {
@@ -152,6 +171,22 @@ public class StrategyFactory {
 
 	public void setPauseTraces(int pauseAfterTraces) {
 		this.pauseTraces = pauseAfterTraces;		
+	}
+
+	public String[] getStopEvents() {
+		return stopEvents;
+	}
+
+	public void setStopEvents(String ... stopEvents) {
+		this.stopEvents = stopEvents;
+	}
+
+	public int[] getStopWidgets() {
+		return stopWidgets;
+	}
+
+	public void setStopWidgets(int ... stopWidgets) {
+		this.stopWidgets = stopWidgets;
 	}
 	
 }

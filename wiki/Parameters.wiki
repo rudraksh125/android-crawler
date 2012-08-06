@@ -299,7 +299,7 @@ A list of descriptions of "forbidding" events: that is, exploration of the state
 
 In other words: when an event is fired that matches one of the given descriptions, the exploration stops even if the new state has never been explored before.
 
-(The description of an event is the text shown in target widget, if the target is a TextView, or in the first non empty TextView contained in the target widget, if the target is a GroupView.)
+(The description of an event is the text shown in target widget, if the target is a Text View, or in the first non empty Text View contained in the target widget, if the target is a Group View.)
 
 *AFTER_WIDGET_DONT_EXPLORE*: `int []`
 

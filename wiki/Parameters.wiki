@@ -293,6 +293,20 @@ When *TRACE_MAX_DEPTH* = `n>0`, GUIs resulting from the execution of `n` actions
 
 Forces the exploration of the GUI up to a certain depth, as long as there are events to be fired: the exploration criteria will be ignored until depth becomes greater than this parameter.
 
+*AFTER_EVENT_DONT_EXPLORE*: `String []`
+
+A list of descriptions of "forbidding" events: that is, exploration of the states resulting from firing these events will be denied by the Ripper.
+
+In other words: when an event is fired that matches one of the given descriptions, the exploration stops even if the new state has never been explored before.
+
+(The description of an event is the text shown in target widget, if the target is a TextView, or in the first non empty TextView contained in the target widget, if the target is a GroupView.)
+
+*AFTER_WIDGET_DONT_EXPLORE*: `int []`
+
+A list of IDs of widgets that forbid the exploration of the states resulting from firing an event on them.
+
+In other words: when an event is fired on a widget whose ID is in the list, the exploration stops even if the new state has never been explored before.
+
 *CHECK_FOR_TRANSITION*: `boolean`
 
 When `true`, the ripper will require that the start and final state for an action won't be equivalent to each other.

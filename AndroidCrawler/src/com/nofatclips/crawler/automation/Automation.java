@@ -12,7 +12,6 @@ import java.util.Map;
 
 import android.app.Activity;
 import android.graphics.Bitmap;
-//import android.app.Instrumentation;
 
 import android.test.ActivityInstrumentationTestCase2;
 import android.util.Log;
@@ -32,15 +31,12 @@ public class Automation implements Robot, Extractor, TaskProcessor, ImageCaptor,
 	
 //	private Instrumentation inst;
 	
-//	private ActivityInstrumentationTestCase2 test; // The test case used to crawl the application
-//	private Activity theActivity; // Current Activity
 	private Map<Integer,View> theViews = new HashMap<Integer,View> (); // A list of widgets with an id
 	private ArrayList<View> allViews = new ArrayList<View>(); // A list of all widgets
 	private Solo solo; // Robotium
 	private Extractor extractor;
 	private Restarter restarter;
 	private TabHost	tabs; // Reference to the TabHost widget if present
-//	private int tabNum; // Number of tabs used by the Activity
 	private Robot theRobot;
 	private UserEvent currentEvent;
 	private ImageCaptor imageCaptor;
@@ -232,40 +228,7 @@ public class Automation implements Robot, Extractor, TaskProcessor, ImageCaptor,
 			return;
 		}
 	}
-	
-//	protected void typeText (EditText v, String value) {
-//		solo.enterText(v, value);
-//	}
-	
-//	protected void writeText (EditText v, String value) {
-//		typeText (v, "");
-//		typeText (v, value);
-//	}
-
-//	// Scroll the view to the top. Only works for ListView and ScrollView. Support for GridView and others must be added
-//	public void home () {
-//		
-//		// Scroll listviews up
-//		final ArrayList<ListView> viewList = solo.getCurrentListViews();
-//		if (viewList.size() > 0) {
-//			getActivity().runOnUiThread(new Runnable() {
-//				public void run() {
-//					viewList.get(0).setSelection(0);
-//				}
-//			});
-//		}
-//		
-//		// Scroll scrollviews up
-//		final ArrayList<ScrollView> viewScroll = solo.getCurrentScrollViews();
-//		if (viewScroll.size() > 0) {
-//			getActivity().runOnUiThread(new Runnable() {
-//				public void run() {
-//					viewScroll.get(0).fullScroll(ScrollView.FOCUS_UP);
-//				}
-//			});
-//		}
-//	}
-	
+		
 	private void refreshCurrentActivity() {
 		ExtractorUtilities.setActivity(solo.getCurrentActivity());
 		Log.i("nofatclips", "Current activity is " + getActivity().getLocalClassName());
@@ -293,249 +256,17 @@ public class Automation implements Robot, Extractor, TaskProcessor, ImageCaptor,
 		injectInteraction(v, inputType, value);
 	}
 
-//	private void swapTab (TabHost t, String tab) {
-//		swapTab (t, Integer.valueOf(tab));
-//	}
-	
-//	private void clickOnText (String text) {
-//		solo.clickOnText (text);
-//	}
-
-//	private void swapTab (final TabHost t, int num) {
-//		assertNotNull(t, "Cannon swap tab: the tab host does not exist");
-//		ActivityInstrumentationTestCase2.assertTrue("Cannot swap tab: tab index out of bound", num<=t.getTabWidget().getTabCount());
-//		final int n = Math.min(this.tabNum, Math.max(1,num))-1;
-//		Log.i("nofatclips", "Swapping to tab " + num);
-////		getActivity().runOnUiThread(new Runnable() {
-////			public void run() {
-////				t.setCurrentTab(n);
-////			}
-////		});
-////		sync();
-//		click (t.getTabWidget().getChildAt(n));
-////		describeCurrentEvent(t.getTabWidget().getChildAt(n));
-//	}
-
-//	private void selectListItem (ListView l, String item) {
-//		selectListItem (l, item, false);
-//	}
-//
-//	private void selectListItem (ListView l, String item, boolean longClick) {
-//		selectListItem (l, Integer.valueOf(item), longClick);
-//	}
-
-//	private void selectListItem (ListView l, int num, boolean longClick) {
-//		
-//		if (l==null) {
-//			List<ListView> lists = solo.getCurrentListViews();
-//			if (lists.size()>0) {
-//				l = lists.get(0);
-//			}
-//		}
-//		
-//		assertNotNull(l, "Cannon select list item: the list does not exist");
-//		requestFocus(l);
-//		Log.i("nofatclips", "Swapping to listview item " + num);
-//		solo.sendKey(Solo.DOWN);
-//
-//		final ListView theList = l;
-//		final int n = Math.min(l.getCount(), Math.max(1,num))-1;
-//		getActivity().runOnUiThread(new Runnable() {
-//			public void run() {
-//				theList.setSelection(n);
-//			}
-//		});
-//		sync();
-//		
-//		if (n<l.getCount()/2) {
-//			solo.sendKey(Solo.DOWN);
-//			solo.sendKey(Solo.UP);
-//		} else {
-//			solo.sendKey(Solo.UP);			
-//			solo.sendKey(Solo.DOWN);
-//		}
-//		sync();
-//		
-//		View v = l.getSelectedView();
-//		if (longClick) {
-//			longClick(v);
-//		} else {
-//			click (v);
-//		}
-//	}
-
-//	private void selectSpinnerItem (Spinner l, String item) {
-//		selectSpinnerItem (l, Integer.valueOf(item));
-//	}
-//
-//	private void selectSpinnerItem (final Spinner s, int num) {
-//		assertNotNull(s, "Cannon press spinner item: the spinner does not exist");
-//		Log.i("nofatclips", "Clicking the spinner view");
-//		click(s);
-//		sync();
-//		selectListItem(solo.getCurrentListViews().get(0), num, false);
-//	}
-	
-//	public void selectRadioItem (RadioGroup r, String value) {
-//		selectRadioItem (r, Integer.valueOf(value));
-//	}
-//
-//	private void selectRadioItem (final RadioGroup r, int num) {
-//		if (num<1) assertNotNull(null, "Cannot press radio group item: the index must be a positive number");
-//		assertNotNull(r, "Cannon press radio group item: the radio group does not exist");
-//		Log.i("nofatclips", "Selecting from the Radio Group view");
-//		click(r.getChildAt(num-1));
-//		sync();
-//	}
-
-//	protected void assertNotNull (final View v) {
-//		ActivityInstrumentationTestCase2.assertNotNull(v);
-//	}
-
-//	protected void assertNotNull (final View v, String errorMessage) {
-//		ActivityInstrumentationTestCase2.assertNotNull(errorMessage, v);
-//	}
-
 	public static boolean isInAndOutFocusEnabled() {
 		return IN_AND_OUT_FOCUS;
 	}		
 
-//	protected void requestFocus (final View v) {
-//		getActivity().runOnUiThread(new Runnable() {
-//			public void run() {
-//				v.requestFocus();		
-//			}
-//		});
-//		sync();
-//	}
-
-//	public void pressKey (String keyCode) {
-//		pressKey (Integer.parseInt(keyCode));
-//	}
-
-//	public void pressKey (int keyCode) {
-//		RobotUtilities.pressKey(keyCode);
-////		sendKeyDownUpLong(keyCode);
-//		AbstractorUtilities.describeKeyEvent(this.currentEvent);
-//	}
-	
-//    public void  sendKeyDownUpLong(final int key) {
-////		long downTime = SystemClock.uptimeMillis();
-////		long eventTime = SystemClock.uptimeMillis();
-////		KeyEvent down = new KeyEvent(downTime, eventTime, KeyEvent.ACTION_DOWN, key, 0);
-////        getInstrumentation().sendKeySync(down);
-////        sync();
-////        solo.sleep(1500);//solo.sleep((int) (android.view.ViewConfiguration.getLongPressTimeout() * 2.5f));
-////		eventTime = SystemClock.uptimeMillis();
-////		KeyEvent up = new KeyEvent(downTime, eventTime, KeyEvent.ACTION_UP, key, 0);
-////		up = KeyEvent.changeFlags(down, KeyEvent.FLAG_LONG_PRESS);
-////        getInstrumentation().sendKeySync(up);
-////        sync();
-//    	final KeyEvent downEvent = new KeyEvent (KeyEvent.ACTION_DOWN, key);
-//    	getInstrumentation().sendKeySync(downEvent);
-//      	sync();
-//
-//    	try {
-//            Thread.sleep(500);
-//        } catch (InterruptedException e) {
-//            Log.e("nofatclips", "Could not sleep for long press timeout", e);
-//            return;
-//        }
-//    	
-////    	Log.d("nofatclips", "Prima della pausa");
-////    	solo.sleep(2000);
-////    	Log.d("nofatclips", "Dopo la pausa");
-//    	
-//    	for (int repetition = 0; repetition<50; repetition++) {
-//	//    	getInstrumentation().sendKeySync(KeyEvent.changeFlags(upEvent, KeyEvent.FLAG_LONG_PRESS));
-//    		KeyEvent newEvent = KeyEvent.changeTimeRepeat(downEvent, SystemClock.uptimeMillis(), repetition, downEvent.getFlags() | KeyEvent.FLAG_LONG_PRESS);
-//	    	getInstrumentation().sendKeySync(newEvent);
-//	    	sync();
-//	    	solo.sleep(10);
-//    	}
-//
-//    	final KeyEvent upEvent = new KeyEvent (KeyEvent.ACTION_UP, key);
-//    	getInstrumentation().sendKeySync(upEvent);
-//    	getInstrumentation().waitForIdleSync();
-//    	sync();    	
-//    }
-	
-//	// Scroll until the view is on the screen if IN_AND_OUT_OF_FOCUS is enabled or if the force parameter is true 
-//	protected void requestView (final View v, boolean force) {
-//		if (force || isInAndOutFocusEnabled()) {
-//			RobotUtilities.home();
-//			solo.sendKey(Solo.UP); // Solo.waitForView() requires a widget to be focused		
-//			solo.waitForView(v, 1000, true);
-//		}
-//		requestFocus(v);
-//	}		
-//
 	protected void requestView (View v) {
 		RobotUtilities.requestView(v, isInAndOutFocusEnabled());
 	}
-	
-//	protected void click (View v) {
-//		assertNotNull(v,"Cannot click: the widget does not exist");
-////		android.test.TouchUtils.clickView(this.test, v);
-//		describeCurrentEvent(v);
-//		solo.clickOnView(v);
-//	}
-	
-//	protected void longClick (View v) {
-//		assertNotNull(v, "Cannot longClick: the widget does not exist");
-//		describeCurrentEvent(v);
-//		solo.clickLongOnView(v);
-//	}
-	
+		
 	public void wait (int milli) {
-//		Log.i("nofatclips", "Waiting for " + ((milli>=1000)?(milli/1000 + " sec."):(milli + " msec.")));
-//		solo.sleep(milli);
 		RobotUtilities.wait(milli);
 	}
-
-	// Special handling for Press Key event: there is no target widget to describe
-//	private boolean describeKeyEvent () {
-//		int val = Integer.parseInt(this.currentEvent.getValue());
-//		String name;
-//		for (Field f: android.view.KeyEvent.class.getFields()) {
-//			name = f.getName();
-//			if (f.getType().equals(Integer.TYPE)) {
-//				try {
-//					if (name.startsWith("KEYCODE_") && (f.getInt(null) == val)) {
-//						Log.i("nofatclips", "Event Description: " + name);
-//						this.currentEvent.setDescription(name.replaceAll("KEYCODE_", ""));
-//						return true;
-//					}
-//				} catch (IllegalArgumentException e) {
-//				} catch (IllegalAccessException e) {}
-//			}
-//		}
-//		return false;		
-//	}
-//	
-//	private boolean describeCurrentEvent (View v) {
-//		if (this.currentEvent == null) return false; // This is probably an input, not an event
-//		if (this.currentEvent.getType().equals(PRESS_KEY)) {
-//			return describeKeyEvent();
-//		}
-//		
-//		// Get text from the target widget
-//		if (v instanceof TextView) {
-//			String s = ((TextView)v).getText().toString();
-//			this.currentEvent.setDescription(s);
-//			Log.d ("nofatclips", "Event description: " + s);
-//			return true;
-//		} else if (v instanceof TabHost) {
-//			this.currentEvent.setDescription(((TabHost)v).getCurrentTabTag());
-//		} else if (v instanceof ViewGroup) {
-//			int childNum = ((ViewGroup)v).getChildCount();
-//			for (int i = 0; i<childNum; i++) {
-//				View child =  ((ViewGroup)v).getChildAt(i);
-//				if (describeCurrentEvent(child)) return true;
-//			}
-//		}
-//		return false;
-//	}
 
 	public void clearWidgetList() {
 		theViews.clear();
@@ -636,17 +367,6 @@ public class Automation implements Robot, Extractor, TaskProcessor, ImageCaptor,
 		}
 	}
 	
-//	public Instrumentation getInstrumentation() {
-//		return this.test.getInstrumentation();
-//	}
-	
-//	public void changeOrientation() {
-//		Display display = ((WindowManager) getInstrumentation().getContext().getSystemService(WINDOW_SERVICE)).getDefaultDisplay();
-//		int angle = display.getRotation();
-//		int newAngle = ((angle==ROTATION_0)||(angle==ROTATION_180))?Solo.LANDSCAPE:Solo.PORTRAIT;
-//		solo.setActivityOrientation(newAngle);
-//	}
-	
 	public void waitOnThrobber() {
 		int sleepTime = SLEEP_ON_THROBBER;
 		if (sleepTime==0) return;
@@ -699,10 +419,6 @@ public class Automation implements Robot, Extractor, TaskProcessor, ImageCaptor,
 		String testeeName = AbstractorUtilities.detectName(testee);
 		Log.d("nofatclips", "Testing for name (" + testeeName + ") against the original (" + theName + ")");
 		return ( (theName.equals(testeeName)) && (theId == testee.getId()) );
-//		if ( (theName.equals(testeeName)) && (theId == testee.getId()) ) {
-//			return true;
-//		}
-//		return false;
 	}
 	
 	public ArrayList<View> getWidgetsById (int id) {
@@ -728,10 +444,6 @@ public class Automation implements Robot, Extractor, TaskProcessor, ImageCaptor,
 		return this.imageCaptor.captureImage();
 	}
 	
-//	public void sync() {
-//		getInstrumentation().waitForIdleSync();
-//	}
-
 	// This methods call the Abstractor Utility methods to describe the current event
 	
 	public void onClickEventFired (View v) {

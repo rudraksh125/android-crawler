@@ -158,10 +158,13 @@ public class Prefs {
 	}
 	
 	protected void setArray (Field parameter, Class<?> type) throws IllegalArgumentException, IllegalAccessException {
+//		Log.e("nofatclips","Sono qui");
 		Class<?> component = type.getComponentType();
 		if (component.equals(String.class)) {
+//			Log.e("nofatclips","Sono qua");
 			String[] strings = getStringArray(parameter);
 			if (strings!=null) {
+//				Log.e("nofatclips","Sono quo");
 				parameter.set (parameter, strings);					
 			}
 		} else if (component.equals(int.class)) {
@@ -173,7 +176,7 @@ public class Prefs {
 	}
 
 	protected void updateValue (Field parameter) throws IllegalArgumentException, IllegalAccessException {
-//		Log.v("nofatclips", "Updating value " + parameter.getName());
+		Log.v("nofatclips", "Updating value " + parameter.getName());
 		Class<?> type = parameter.getType();
 		String before = (parameter.get("") != null)?parameter.get("").toString():null;
 		if (type.equals(int.class)) {
@@ -186,22 +189,11 @@ public class Prefs {
 			parameter.setBoolean (parameter, getBoolean (parameter));
 		} else if (type.isArray()) {
 			setArray (parameter, type);
-//			Class<?> component = type.getComponentType();
-//			if (component.equals(String.class)) {
-//				String[] strings = getStringArray(parameter);
-//				if (strings!=null) {
-//					parameter.set (parameter, strings);					
-//				}
-//			} else if (component.equals(int.class)) {
-//				int[] numbers = getIntArray(parameter);
-//				if (numbers!=null) {
-//					parameter.set (parameter, numbers);					
-//				}
-//			}
 		} else {
 			return;
 		}
-		String after = parameter.get("").toString();
+		Object o = parameter.get("");
+		String after = (o==null)?"null":o.toString();
 		if (!after.equals(before)) {
 			if (!type.isArray()) {
 				Log.d("nofatclips", "Updated value of parameter " + parameter.getName() + " to " + after + " (default = " + before + ")");

@@ -21,8 +21,8 @@ public class Resources implements ResourceFile {
 
 	public final static String PREFERENCES_FILE = "preferences.xml";
 
-	public static String PACKAGE_NAME = "com.blazing_skies.caloriecalculator";
-	public static String CLASS_NAME = "com.blazing_skies.caloriecalculator.PreMainActivity";
+	public static String PACKAGE_NAME = "it.simple";
+	public static String CLASS_NAME = "it.simple.SimpleProjectActivity";
 	public static StrategyCriteria[] ADDITIONAL_CRITERIAS = new StrategyCriteria[] {};
 	public static InteractorAdapter[] ADDITIONAL_EVENTS = new InteractorAdapter[] {
 //		new FixedValueEditor(SEARCH_BAR).addIdValuePair(16908819,"Primo", "Secondo", "Terzo"),
@@ -30,7 +30,7 @@ public class Resources implements ResourceFile {
 	public static InteractorAdapter[] ADDITIONAL_INPUTS = new InteractorAdapter[] {// Edit_Server
 //		new FixedValueEditor().addIdValuePair(16908291,"\r \n "),	
 	};
-	
+		
 	// More Parameters
 	public final static String CRAWLER_PACKAGE = "com.nofatclips.crawler";
 	public static boolean ENABLE_RESUME = false;

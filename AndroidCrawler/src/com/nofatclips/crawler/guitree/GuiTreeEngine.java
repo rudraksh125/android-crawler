@@ -3,6 +3,8 @@ package com.nofatclips.crawler.guitree;
 import java.util.GregorianCalendar;
 import javax.xml.parsers.ParserConfigurationException;
 
+import android.util.Log;
+
 import com.nofatclips.androidtesting.guitree.GuiTree;
 import com.nofatclips.androidtesting.model.Session;
 import com.nofatclips.crawler.Engine;
@@ -45,9 +47,19 @@ public class GuiTreeEngine extends Engine {
 		}
 		setAbstractor(this.guiAbstractor);
 		setSession (this.theGuiTree);
-
-		SimplePlanner p = new SimplePlanner();
-
+		
+		/** @author nicola */
+		String className = "com.nofatclips.crawler.planning." + com.nofatclips.crawler.planning.Resources.PLANNER;
+		SimplePlanner p;
+		try {
+			p = (SimplePlanner)Class.forName(className).newInstance();
+		} catch (Exception e) {		
+			//e.printStackTrace();
+			Log.e("nicola", "Error during planner instantiation: " + e.toString());
+			throw new RuntimeException(e);
+		}		
+		/** @author nicola */
+		
 		Filter inputFilter = new FormFilter();
 		p.setInputFilter (inputFilter);
 		this.guiAbstractor.addFilter (inputFilter);

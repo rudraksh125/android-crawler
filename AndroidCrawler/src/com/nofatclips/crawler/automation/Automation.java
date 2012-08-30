@@ -220,8 +220,12 @@ public class Automation implements Robot, Extractor, TaskProcessor, ImageCaptor,
 			selectRadioItem((RadioGroup)v, value);
 		} else if (interactionType.equals(TYPE_TEXT)) {
 			typeText((EditText)v, value);
-		} else if (interactionType.equals(WRITE_TEXT)) {
+		
+		/** @author nicola */
+		} else if (interactionType.equals(WRITE_TEXT) || interactionType.equals(WRITE_DICTIONARY_VALUE)) {
 			writeText((EditText)v, value);
+		/** @author nicola */
+			
 		} else if (interactionType.equals(SET_BAR)) {
 			setProgressBar(v, value);
 		} else {

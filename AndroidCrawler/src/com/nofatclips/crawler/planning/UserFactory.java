@@ -216,17 +216,20 @@ public class UserFactory {
 			u.addInput (addDosAndDonts(re));
 		}
 
-		if (isRequiredInput(WRITE_TEXT)) {
-			RandomWriter re = new RandomWriter(typesForInput(WRITE_TEXT));
-			re.setEventWhenNoId(false);
-			u.addInput (addDosAndDonts(re));
-		}
-
 		/** @author nicola */
-		if (isRequiredInput(WRITE_DICTIONARY_VALUE)) {
-			DictionaryValueWriter re = new DictionaryValueWriter(typesForInput(WRITE_DICTIONARY_VALUE));
-			re.setEventWhenNoId(false);
-			u.addInput (addDosAndDonts(re));
+		if (isRequiredInput(WRITE_TEXT)) {
+			if (Resources.WRITE_TEXT_VALUES_FROM_DICTIONARY)
+			{
+				DictionaryValueWriter re = new DictionaryValueWriter(typesForInput(WRITE_TEXT));
+				re.setEventWhenNoId(false);
+				u.addInput (addDosAndDonts(re));
+			}
+			else
+			{
+				RandomWriter re = new RandomWriter(typesForInput(WRITE_TEXT));				
+				re.setEventWhenNoId(false);
+				u.addInput (addDosAndDonts(re));
+			}
 		}
 		/** @author nicola */
 		

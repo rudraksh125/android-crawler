@@ -222,7 +222,7 @@ public class Automation implements Robot, Extractor, TaskProcessor, ImageCaptor,
 			typeText((EditText)v, value);
 		
 		/** @author nicola */
-		} else if (interactionType.equals(WRITE_TEXT) || interactionType.equals(WRITE_DICTIONARY_VALUE)) {
+		} else if (interactionType.equals(WRITE_TEXT)) {
 			writeText((EditText)v, value);
 		/** @author nicola */
 			

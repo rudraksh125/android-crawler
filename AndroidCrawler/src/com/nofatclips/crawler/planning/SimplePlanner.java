@@ -28,8 +28,7 @@ public class SimplePlanner implements Planner {
 		return getPlanForActivity(a, ALLOW_SWAP_TAB, NO_GO_BACK);
 	}
 
-	public Plan getPlanForActivity (ActivityState a, boolean allowSwapTabs, boolean allowGoBack) {
-		Plan p = new Plan();
+	public void addPlanForActivityWidgets (Plan p, ActivityState a, boolean allowSwapTabs, boolean allowGoBack) {		
 		Log.i("nofatclips", "Planning for new Activity " + a.getName());
 		for (WidgetState w: getEventFilter()) {
 			Collection<UserEvent> events = getUser().handleEvent(w);			
@@ -48,7 +47,12 @@ public class SimplePlanner implements Planner {
 				p.addTask(t);
 			}
 		}
-
+	}
+	
+	public Plan getPlanForActivity (ActivityState a, boolean allowSwapTabs, boolean allowGoBack) {
+		Plan p = new Plan();
+		addPlanForActivityWidgets(p, a, allowSwapTabs, allowGoBack);
+		
 		UserEvent evt;
 		Transition t;
 		
@@ -91,7 +95,7 @@ public class SimplePlanner implements Planner {
 				p.addTask(t);
 			}
 		}
-
+		
 		return p;
 	}
 	

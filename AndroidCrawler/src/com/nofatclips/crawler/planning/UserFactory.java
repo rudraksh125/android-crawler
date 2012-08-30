@@ -222,6 +222,14 @@ public class UserFactory {
 			u.addInput (addDosAndDonts(re));
 		}
 
+		/** @author nicola */
+		if (isRequiredInput(WRITE_DICTIONARY_VALUE)) {
+			DictionaryValueWriter re = new DictionaryValueWriter(typesForInput(WRITE_DICTIONARY_VALUE));
+			re.setEventWhenNoId(false);
+			u.addInput (addDosAndDonts(re));
+		}
+		/** @author nicola */
+		
 		if (isRequiredInput(SPINNER_SELECT)) {
 			RandomSpinnerSelector rss = new RandomSpinnerSelector(typesForInput(SPINNER_SELECT));
 			rss.setEventWhenNoId(false);

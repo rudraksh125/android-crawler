@@ -18,6 +18,7 @@ import com.nofatclips.androidtesting.guitree.*;
 import com.nofatclips.androidtesting.model.*;
 import com.nofatclips.crawler.model.*;
 import com.nofatclips.crawler.storage.PersistenceFactory;
+import com.nofatclips.dictionary.ContentTypeDetector;
 
 import static com.nofatclips.crawler.Resources.*;
 import static com.nofatclips.crawler.automation.AbstractorUtilities.*;
@@ -112,6 +113,29 @@ public class GuiTreeAbstractor implements Abstractor, FilterHandler, SaveStateLi
 			if (type!=0) {
 				w.setTextType("" + type);
 			}
+			
+			
+		
+			
+			
+			/** @author nicola */
+			//default
+			w.setContentType(ContentTypeDetector.detect(w));
+			Log.v("nicola", "ContentType detected : " + w.getContentType());
+			//content_type
+			/*
+			if (v.getId() == 0x7f050001)
+				w.setContentType(ContentType.EMAIL);
+			
+			if (v.getId() == 0x7f050003)
+				w.setContentType(ContentType.URL);
+			*/
+			/** @author nicola */
+			
+			
+			
+			
+			
 		}
 		w.setIdNameType(id, name, getType(v));
 		w.setUniqueId(getUniqueWidgetId());

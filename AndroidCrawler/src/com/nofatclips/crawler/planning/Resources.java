@@ -10,6 +10,15 @@ import com.nofatclips.crawler.model.ResourceFile;
 
 public class Resources implements ResourceFile {
 
+	/** @author nicola */
+	//nome classe del planner (deve ereditare da SimplePlanner)
+	//public static String PLANNER = "DictionarySimplePlanner";
+	public static String PLANNER = "SimplePlanner";
+	
+	//il valore deve essere sistematico o meno
+	public static boolean DICTIONARY_FIXED_VALUE = true;
+	/** @author nicola */
+	
 	public static String EVENTS[];
 	public static String INPUTS[];
 	
@@ -24,6 +33,7 @@ public class Resources implements ResourceFile {
 		UserFactory.addInput(RADIO_SELECT, RADIO_GROUP);
 //		UserFactory.addInput(SET_BAR, SEEK_BAR);
 		UserFactory.addInput(WRITE_TEXT, EDIT_TEXT);
+//		UserFactory.addInput(WRITE_DICTIONARY_VALUE, EDIT_TEXT);
 //		UserFactory.addInput(SPINNER_SELECT, SPINNER);
 //		UserFactory.addInput(LIST_SELECT, MULTI_CHOICE_LIST);
 	}

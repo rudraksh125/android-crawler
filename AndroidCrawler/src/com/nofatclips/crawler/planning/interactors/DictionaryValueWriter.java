@@ -1,11 +1,9 @@
 package com.nofatclips.crawler.planning.interactors;
 
-import static com.nofatclips.androidtesting.model.InteractionType.WRITE_DICTIONARY_VALUE;
+import static com.nofatclips.androidtesting.model.InteractionType.WRITE_TEXT;
 import static com.nofatclips.androidtesting.model.SimpleType.EDIT_TEXT;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Random;
 
 import com.nofatclips.androidtesting.model.UserEvent;
 import com.nofatclips.androidtesting.model.UserInput;
@@ -53,6 +51,6 @@ public class DictionaryValueWriter extends InteractorAdapter {
 	
 	@Override
 	public String getInteractionType() {
-		return WRITE_DICTIONARY_VALUE;
+		return WRITE_TEXT;
 	}
 }

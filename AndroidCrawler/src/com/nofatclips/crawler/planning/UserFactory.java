@@ -209,16 +209,25 @@ public class UserFactory {
 			sl.setEventWhenNoId(false);
 			u.addInput (addDosAndDonts(sl));
 		}
-		
-		if (isRequiredInput(TYPE_TEXT)) {
-			RandomEditor re = new RandomEditor(typesForInput(TYPE_TEXT));
-			re.setEventWhenNoId(false);
-			u.addInput (addDosAndDonts(re));
-		}
 
 		/** @author nicola */
+		if (isRequiredInput(TYPE_TEXT)) {
+			if (Resources.TEXT_VALUES_FROM_DICTIONARY)
+			{
+				RandomEditor re = new RandomEditor(typesForInput(TYPE_TEXT));
+				re.setEventWhenNoId(false);
+				u.addInput (addDosAndDonts(re));
+			}
+			else
+			{
+				DictionaryValueEditor re = new DictionaryValueEditor(typesForInput(TYPE_TEXT));
+				re.setEventWhenNoId(false);
+				u.addInput (addDosAndDonts(re));				
+			}
+		}
+
 		if (isRequiredInput(WRITE_TEXT)) {
-			if (Resources.WRITE_TEXT_VALUES_FROM_DICTIONARY)
+			if (Resources.TEXT_VALUES_FROM_DICTIONARY)
 			{
 				DictionaryValueWriter re = new DictionaryValueWriter(typesForInput(WRITE_TEXT));
 				re.setEventWhenNoId(false);

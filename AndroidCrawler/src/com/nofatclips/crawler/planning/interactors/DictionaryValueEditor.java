@@ -1,6 +1,5 @@
 package com.nofatclips.crawler.planning.interactors;
 
-import static com.nofatclips.androidtesting.model.InteractionType.WRITE_TEXT;
 import static com.nofatclips.androidtesting.model.SimpleType.EDIT_TEXT;
 
 import java.util.List;
@@ -12,17 +11,17 @@ import com.nofatclips.crawler.model.Abstractor;
 import com.nofatclips.crawler.planning.adapters.InteractorAdapter;
 import com.nofatclips.dictionary.TestValuesDictionary;
 
-public class DictionaryValueWriter extends InteractorAdapter {
+public class DictionaryValueEditor extends InteractorAdapter {
 
-	public DictionaryValueWriter () {
-		this (WRITE_TEXT);
+	public DictionaryValueEditor () {
+		this (EDIT_TEXT);
 	}
 	
-	public DictionaryValueWriter(Abstractor theAbstractor, String... simpleTypes) {
+	public DictionaryValueEditor(Abstractor theAbstractor, String... simpleTypes) {
 		super(theAbstractor, simpleTypes);
 	}
 
-	public DictionaryValueWriter(String... simpleTypes) {
+	public DictionaryValueEditor(String... simpleTypes) {
 		super(simpleTypes);
 	}
 
@@ -51,6 +50,6 @@ public class DictionaryValueWriter extends InteractorAdapter {
 	
 	@Override
 	public String getInteractionType() {
-		return WRITE_TEXT;
+		return EDIT_TEXT;
 	}
 }

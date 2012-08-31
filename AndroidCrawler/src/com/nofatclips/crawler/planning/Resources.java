@@ -15,8 +15,8 @@ public class Resources implements ResourceFile {
 	public static String PLANNER = "DictionarySimplePlanner";
 	//public static String PLANNER = "SimplePlanner";
 
-	//comportamento di write_text normale o con valori presi dal dizionario (true)
-	public static boolean WRITE_TEXT_VALUES_FROM_DICTIONARY = true;
+	//comportamento di write_text/type_text normale o con valori presi dal dizionario (true)
+	public static boolean TEXT_VALUES_FROM_DICTIONARY = true;
 	
 	//public static boolean VALID_DICTIONARY_VALUES = true;
 	//public static boolean INVALID_DICTIONARY_VALUES = true;

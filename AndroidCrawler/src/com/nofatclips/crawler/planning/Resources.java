@@ -12,11 +12,11 @@ public class Resources implements ResourceFile {
 
 	/** @author nicola */
 	//nome classe del planner (deve ereditare da SimplePlanner)
-	public static String PLANNER = "DictionarySimplePlanner";
-	//public static String PLANNER = "SimplePlanner";
+	//public static String PLANNER = "DictionarySimplePlanner";
+	public static String PLANNER = "SimplePlanner";
 
 	//comportamento di write_text/type_text normale o con valori presi dal dizionario (true)
-	public static boolean TEXT_VALUES_FROM_DICTIONARY = true;
+	public static boolean TEXT_VALUES_FROM_DICTIONARY = false;
 	
 	//public static boolean VALID_DICTIONARY_VALUES = true;
 	//public static boolean INVALID_DICTIONARY_VALUES = true;
@@ -38,7 +38,7 @@ public class Resources implements ResourceFile {
 //		UserFactory.addInput(CLICK, CHECKBOX, TOGGLE_BUTTON);
 		UserFactory.addInput(RADIO_SELECT, RADIO_GROUP);
 //		UserFactory.addInput(SET_BAR, SEEK_BAR);
-		UserFactory.addInput(WRITE_TEXT, EDIT_TEXT);
+		UserFactory.addInput(TYPE_TEXT, EDIT_TEXT);
 //		UserFactory.addInput(SPINNER_SELECT, SPINNER);
 //		UserFactory.addInput(LIST_SELECT, MULTI_CHOICE_LIST);
 	}

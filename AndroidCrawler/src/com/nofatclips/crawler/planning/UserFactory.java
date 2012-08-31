@@ -214,15 +214,15 @@ public class UserFactory {
 		if (isRequiredInput(TYPE_TEXT)) {
 			if (Resources.TEXT_VALUES_FROM_DICTIONARY)
 			{
-				RandomEditor re = new RandomEditor(typesForInput(TYPE_TEXT));
+				DictionaryValueEditor re = new DictionaryValueEditor(typesForInput(TYPE_TEXT));
 				re.setEventWhenNoId(false);
-				u.addInput (addDosAndDonts(re));
+				u.addInput (addDosAndDonts(re));	
 			}
 			else
 			{
-				DictionaryValueEditor re = new DictionaryValueEditor(typesForInput(TYPE_TEXT));
+				RandomEditor re = new RandomEditor(typesForInput(TYPE_TEXT));
 				re.setEventWhenNoId(false);
-				u.addInput (addDosAndDonts(re));				
+				u.addInput (addDosAndDonts(re));			
 			}
 		}
 

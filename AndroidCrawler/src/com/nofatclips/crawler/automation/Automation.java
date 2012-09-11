@@ -239,7 +239,10 @@ public class Automation implements Robot, Extractor, TaskProcessor, ImageCaptor,
 	}
 
 	private void setInput (int widgetId, String inputType, String value, String widgetName, String widgetType) {
-		View v = getWidget(widgetId);
+		View v = getWidget(widgetId, widgetType, widgetName);
+		if (v == null) {
+			v = getWidget(widgetId);
+		}
 		if (v == null) {
 			v = ExtractorUtilities.findViewById(widgetId);
 		}

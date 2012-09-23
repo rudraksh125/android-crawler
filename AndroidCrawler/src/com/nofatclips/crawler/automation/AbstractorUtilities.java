@@ -151,4 +151,41 @@ public class AbstractorUtilities {
 		return false;
 	}
 
+	/** @author nicola */
+	/* NOTA:
+	 * l'esecuzione di questa funziona puo' essere ottimizzata creando al momento
+	 * della descrizione dell'activity una hashmap temporanea <id,nome> (<integer,string>)
+	 * per cui la reflection interviene una sola volta
+	 */
+	public static String reflectTextualIDbyNumericalID(int id)
+	{
+		try {
+			Class c = Class.forName(com.nofatclips.crawler.Resources.PACKAGE_NAME+".R");
+			Class idClass = null; 
+			for (Class c1 : c.getClasses())
+			{
+				if (c1.getCanonicalName().endsWith(".id"))
+				{
+					idClass = c1;
+					break;
+				}
+			}
+			
+			if (idClass != null)
+			{
+				for (Field f: idClass.getFields())
+				{
+					if (f.getInt(null) == id)
+						return f.getName();
+				}
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			//e.printStackTrace();
+			Log.e("nicola", e.toString());
+		}
+		
+		return null;
+	}
+	/** @author nicola */
 }

@@ -113,29 +113,6 @@ public class GuiTreeAbstractor implements Abstractor, FilterHandler, SaveStateLi
 			if (type!=0) {
 				w.setTextType("" + type);
 			}
-			
-			
-		
-			
-			
-			/** @author nicola */
-			//default
-			w.setContentType(ContentTypeDetector.detect(w));
-			Log.v("nicola", "ContentType detected : " + w.getContentType());
-			//content_type
-			/*
-			if (v.getId() == 0x7f050001)
-				w.setContentType(ContentType.EMAIL);
-			
-			if (v.getId() == 0x7f050003)
-				w.setContentType(ContentType.URL);
-			*/
-			/** @author nicola */
-			
-			
-			
-			
-			
 		}
 		w.setIdNameType(id, name, getType(v));
 		w.setUniqueId(getUniqueWidgetId());
@@ -149,6 +126,18 @@ public class GuiTreeAbstractor implements Abstractor, FilterHandler, SaveStateLi
 		w.setClickable((v.isClickable())?"true":"false");
 		w.setLongClickable((v.isLongClickable())?"true":"false");
 //		w.setIndex(desc.getWidgetIndex(v));
+		
+		/** @author nicola */
+		//if duplicato perché nome e valore vengono settati dopo l'if precedente
+		if (v instanceof TextView) {
+			//default
+			String txtId = reflectTextualIDbyNumericalID(v.getId());
+			Log.v("nicola", "TextualID : " + txtId);
+			w.setContentType(ContentTypeDetector.detect(w, txtId));
+			Log.v("nicola", "ContentType detected : " + w.getContentType());			
+		}
+		/** @author nicola */
+		
 		return w;
 	}
 

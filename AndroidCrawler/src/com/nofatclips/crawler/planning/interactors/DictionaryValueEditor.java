@@ -4,11 +4,14 @@ import static com.nofatclips.androidtesting.model.SimpleType.EDIT_TEXT;
 
 import java.util.List;
 
+import android.util.Log;
+
 import com.nofatclips.androidtesting.model.UserEvent;
 import com.nofatclips.androidtesting.model.UserInput;
 import com.nofatclips.androidtesting.model.WidgetState;
 import com.nofatclips.crawler.model.Abstractor;
 import com.nofatclips.crawler.planning.adapters.InteractorAdapter;
+import com.nofatclips.crawler.planning.interactors.values_cache.ValuesCache;
 import com.nofatclips.dictionary.TestValuesDictionary;
 
 public class DictionaryValueEditor extends InteractorAdapter {
@@ -35,7 +38,35 @@ public class DictionaryValueEditor extends InteractorAdapter {
 	 */
 	public String[] getValues(WidgetState w)
 	{
-		return TestValuesDictionary.getValues(w, com.nofatclips.crawler.planning.Resources.DICTIONARY_FIXED_VALUE);				
+		String[] values = null;
+		
+		if (	com.nofatclips.crawler.planning.Resources.DICTIONARY_FIXED_VALUE
+			&&	w.getId() != null
+			&& 	w.getId().equals("") == false
+			)
+		{
+			Log.i("nicola", "DictionaryValueEditor: Using values from cache");
+			values = ValuesCache.getInstance().get(w.getId());
+		}
+		
+		//anche se non e' presente nella cache sara' null
+		if (values == null)
+		{
+			Log.i("nicola", "DictionaryValueEditor: Generating new values");
+			values = TestValuesDictionary.getValues(w, false);
+		}
+		
+		//se necessario aggiungo alla cache
+		if (	com.nofatclips.crawler.planning.Resources.DICTIONARY_FIXED_VALUE
+				&&	w.getId() != null
+				&& 	w.getId().equals("") == false
+				)
+		{
+			Log.i("nicola", "DictionaryValueEditor: Saving values to cache");
+			ValuesCache.getInstance().put(w.getId(), values);
+		}
+		
+		return values;
 	}
 	
 	@Override

@@ -12,6 +12,7 @@ import com.nofatclips.crawler.automation.*;
 import com.nofatclips.crawler.filters.*;
 import com.nofatclips.crawler.model.*;
 import com.nofatclips.crawler.planning.*;
+import com.nofatclips.crawler.planning.interactors.values_cache.ValuesCache;
 import com.nofatclips.crawler.storage.PersistenceFactory;
 import com.nofatclips.crawler.strategy.*;
 import com.nofatclips.crawler.strategy.comparator.Resources;
@@ -59,7 +60,7 @@ public class GuiTreeEngine extends Engine {
 			throw new RuntimeException(e);
 		}		
 		/** @author nicola */
-		
+
 		Filter inputFilter = new FormFilter();
 		p.setInputFilter (inputFilter);
 		this.guiAbstractor.addFilter (inputFilter);
@@ -119,6 +120,11 @@ public class GuiTreeEngine extends Engine {
 		if (!ACTIVITY_DESCRIPTION_IN_SESSION) {
 			theGuiTree.setStateFileName(ACTIVITY_LIST_FILE_NAME);
 		}
+		
+		/** @author nicola */
+		if (com.nofatclips.crawler.planning.Resources.DICTIONARY_FIXED_VALUE)
+			ValuesCache.init(this.getActivity().getApplicationContext());
+		/** @author nicola */
 	}
 	
 	public Session getNewSession() {

@@ -16,13 +16,13 @@ public class Resources implements ResourceFile {
 	public static String PLANNER = "SimplePlanner";
 
 	//comportamento di write_text/type_text normale o con valori presi dal dizionario (true)
-	public static boolean TEXT_VALUES_FROM_DICTIONARY = false;
+	public static boolean TEXT_VALUES_FROM_DICTIONARY = true;
 	
 	//public static boolean VALID_DICTIONARY_VALUES = true;
 	//public static boolean INVALID_DICTIONARY_VALUES = true;
 	
-	//il valore deve essere sistematico o meno
-	public static boolean DICTIONARY_FIXED_VALUE = true;
+	//il valore deve essere sistematico o meno (attiva il caching dei valori)
+	public static boolean DICTIONARY_FIXED_VALUE = false;
 	/** @author nicola */
 	
 	public static String EVENTS[];
@@ -48,12 +48,12 @@ public class Resources implements ResourceFile {
 	public static int MAX_TASKS_PER_EVENT = 1; // How many input sequences to generate for each event on a widget; 0 = no limit
 
 	public static boolean BACK_BUTTON_EVENT = true;
-	public static boolean MENU_EVENTS = false;
-	public static boolean ORIENTATION_EVENTS = false;
+	public static boolean MENU_EVENTS = true;
+	public static boolean ORIENTATION_EVENTS = true;
 	public static boolean SCROLL_DOWN_EVENT = false;
 
 	public static boolean TAB_EVENTS_START_ONLY = false; // true -> click on tabs only on the start activity
-	public static boolean EVENT_WHEN_NO_ID = false; // Whether to inject events on widgets without ID or not
+	public static boolean EVENT_WHEN_NO_ID = true; // Whether to inject events on widgets without ID or not
 	public static boolean ALL_EVENTS_ON_PREFERENCES = true; // Bypass MAX_EVENTS_PER_WIDGET for PREFERENCE_LIST when true
 	
 	public static int[] KEY_EVENTS = {};

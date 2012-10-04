@@ -18,6 +18,7 @@ public class Resources implements ResourceFile {
 	public static boolean COMPARE_ACTIVITY_NAME = true;
 	public static boolean COMPARE_STATE_TITLE = false;
 	public static boolean COMPARE_LIST_COUNT = false;
+	public static boolean COMPARE_MENU_COUNT = true;
 	public static boolean COMPARE_VALUES = false;
 	
 	public static void getComparator() {		

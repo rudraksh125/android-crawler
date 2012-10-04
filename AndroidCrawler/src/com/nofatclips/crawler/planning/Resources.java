@@ -28,20 +28,20 @@ public class Resources implements ResourceFile {
 	public static String EVENTS[];
 	public static String INPUTS[];
 	
-	// Default events and inputs for the User
-	static {
-		UserFactory.addEvent(CLICK, BUTTON, MENU_ITEM, LINEAR_LAYOUT, IMAGE_VIEW);
-//		UserFactory.addEvent(LONG_CLICK, WEB_VIEW);
-//		UserFactory.addEvent(LIST_SELECT, LIST_VIEW, SINGLE_CHOICE_LIST, PREFERENCE_LIST);
-//		UserFactory.addEvent(LIST_LONG_SELECT, LIST_VIEW, SINGLE_CHOICE_LIST);
-//		UserFactory.addEvent(SWAP_TAB, TAB_HOST);
-//		UserFactory.addInput(CLICK, CHECKBOX, TOGGLE_BUTTON);
-		UserFactory.addInput(RADIO_SELECT, RADIO_GROUP);
-//		UserFactory.addInput(SET_BAR, SEEK_BAR);
-		UserFactory.addInput(TYPE_TEXT, EDIT_TEXT);
-//		UserFactory.addInput(SPINNER_SELECT, SPINNER);
-//		UserFactory.addInput(LIST_SELECT, MULTI_CHOICE_LIST);
-	}
+//	// Default events and inputs for the User
+//	static {
+//		UserFactory.addEvent(CLICK, BUTTON, MENU_ITEM, LINEAR_LAYOUT, IMAGE_VIEW);
+////		UserFactory.addEvent(LONG_CLICK, WEB_VIEW);
+////		UserFactory.addEvent(LIST_SELECT, LIST_VIEW, SINGLE_CHOICE_LIST, PREFERENCE_LIST);
+////		UserFactory.addEvent(LIST_LONG_SELECT, LIST_VIEW, SINGLE_CHOICE_LIST);
+////		UserFactory.addEvent(SWAP_TAB, TAB_HOST);
+////		UserFactory.addInput(CLICK, CHECKBOX, TOGGLE_BUTTON);
+//		UserFactory.addInput(RADIO_SELECT, RADIO_GROUP);
+////		UserFactory.addInput(SET_BAR, SEEK_BAR);
+//		UserFactory.addInput(TYPE_TEXT, EDIT_TEXT);
+////		UserFactory.addInput(SPINNER_SELECT, SPINNER);
+////		UserFactory.addInput(LIST_SELECT, MULTI_CHOICE_LIST);
+//	}
 
 	// User/Planner Parameters
 	public static int MAX_EVENTS_PER_WIDGET = 5; // For GroupViews (0 = try all items in the group)

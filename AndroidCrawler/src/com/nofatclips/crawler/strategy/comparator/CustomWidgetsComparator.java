@@ -8,7 +8,9 @@ import com.nofatclips.androidtesting.model.ActivityState;
 import com.nofatclips.androidtesting.model.WidgetState;
 
 import static com.nofatclips.androidtesting.model.SimpleType.LIST_VIEW;
+import static com.nofatclips.androidtesting.model.SimpleType.MENU_VIEW;
 import static com.nofatclips.crawler.strategy.comparator.Resources.COMPARE_LIST_COUNT;
+import static com.nofatclips.crawler.strategy.comparator.Resources.COMPARE_MENU_COUNT;
 import static com.nofatclips.crawler.strategy.comparator.Resources.COMPARE_ACTIVITY_NAME;
 
 // Accetta in input (nel costruttore) un numero arbitrario di tipi di widget e compara le activity
@@ -43,7 +45,8 @@ public class CustomWidgetsComparator extends NameComparator {
 	
 	protected boolean matchWidget (WidgetState campo, WidgetState altroCampo) {
 		boolean listCount = !(COMPARE_LIST_COUNT && campo.getSimpleType().equals(LIST_VIEW) && ((altroCampo.getCount() != campo.getCount())));
-		return (listCount && (altroCampo.getId().equals(campo.getId())) && (altroCampo.getSimpleType().equals(campo.getSimpleType())));
+		boolean menuCount = !(COMPARE_MENU_COUNT && campo.getSimpleType().equals(MENU_VIEW) && ((altroCampo.getCount() != campo.getCount())));
+		return (listCount && menuCount && (altroCampo.getId().equals(campo.getId())) && (altroCampo.getSimpleType().equals(campo.getSimpleType())));
 	}
 
 	@Override

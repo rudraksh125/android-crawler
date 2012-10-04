@@ -251,7 +251,11 @@ If *COMPARE_ACTIVITY_NAME* = `true`, this also applies for the other Comparator 
 
 *COMPARE_LIST_COUNT*: `boolean`
 
-When `true` `CustomWidgetsComparator` and `CustomWidgetsDeepComparator` will consider two List View to be equivalent only if they have the same size.
+When `true` `CustomWidgetsComparator` and `CustomWidgetsDeepComparator` will consider two List View to be equivalent only if they have the same size. Defaults to `false`.
+
+*COMPARE_MENU_COUNT*: `boolean`
+
+When `true` `CustomWidgetsComparator` and `CustomWidgetsDeepComparator` will consider two Menu View to be equivalent only if they have the same number of items. Defaults to `true`.
 
 *COMPARE_VALUES*: `boolean`
 

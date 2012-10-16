@@ -16,13 +16,16 @@ public class Resources implements ResourceFile {
 	public static String PLANNER = "SimplePlanner";
 
 	//comportamento di write_text/type_text normale o con valori presi dal dizionario (true)
-	public static boolean TEXT_VALUES_FROM_DICTIONARY = true;
+	public static boolean TEXT_VALUES_FROM_DICTIONARY = false;
 	
 	//public static boolean VALID_DICTIONARY_VALUES = true;
 	//public static boolean INVALID_DICTIONARY_VALUES = true;
 	
 	//il valore deve essere sistematico o meno (attiva il caching dei valori)
 	public static boolean DICTIONARY_FIXED_VALUE = false;
+	
+	//prende un valore casuale di qualsiasi contentType dal dizionario
+	public static boolean DICTIONARY_IGNORE_CONTENT_TYPES = false;
 	/** @author nicola */
 	
 	public static String EVENTS[];
@@ -31,20 +34,20 @@ public class Resources implements ResourceFile {
 //	// Default events and inputs for the User
 //	static {
 //		UserFactory.addEvent(CLICK, BUTTON, MENU_ITEM, LINEAR_LAYOUT, IMAGE_VIEW);
-////		UserFactory.addEvent(LONG_CLICK, WEB_VIEW);
-////		UserFactory.addEvent(LIST_SELECT, LIST_VIEW, SINGLE_CHOICE_LIST, PREFERENCE_LIST);
-////		UserFactory.addEvent(LIST_LONG_SELECT, LIST_VIEW, SINGLE_CHOICE_LIST);
-////		UserFactory.addEvent(SWAP_TAB, TAB_HOST);
-////		UserFactory.addInput(CLICK, CHECKBOX, TOGGLE_BUTTON);
+//		UserFactory.addEvent(LONG_CLICK, WEB_VIEW);
+//		UserFactory.addEvent(LIST_SELECT, LIST_VIEW, SINGLE_CHOICE_LIST, PREFERENCE_LIST);
+//		UserFactory.addEvent(LIST_LONG_SELECT, LIST_VIEW, SINGLE_CHOICE_LIST);
+//		UserFactory.addEvent(SWAP_TAB, TAB_HOST);
+//		UserFactory.addInput(CLICK, CHECKBOX, TOGGLE_BUTTON);
 //		UserFactory.addInput(RADIO_SELECT, RADIO_GROUP);
-////		UserFactory.addInput(SET_BAR, SEEK_BAR);
+//		UserFactory.addInput(SET_BAR, SEEK_BAR);
 //		UserFactory.addInput(TYPE_TEXT, EDIT_TEXT);
-////		UserFactory.addInput(SPINNER_SELECT, SPINNER);
-////		UserFactory.addInput(LIST_SELECT, MULTI_CHOICE_LIST);
+//		UserFactory.addInput(SPINNER_SELECT, SPINNER);
+//		UserFactory.addInput(LIST_SELECT, MULTI_CHOICE_LIST);
 //	}
 
 	// User/Planner Parameters
-	public static int MAX_EVENTS_PER_WIDGET = 5; // For GroupViews (0 = try all items in the group)
+	public static int MAX_EVENTS_PER_WIDGET = 0; // For GroupViews (0 = try all items in the group)
 	public static int MAX_TASKS_PER_EVENT = 1; // How many input sequences to generate for each event on a widget; 0 = no limit
 
 	public static boolean BACK_BUTTON_EVENT = true;
@@ -60,7 +63,7 @@ public class Resources implements ResourceFile {
 
 	// Scheduler Parameters
 	public static String SCHEDULER_ALGORITHM = "BREADTH_FIRST";
-	public static int MAX_TASKS_IN_SCHEDULER = 40;
+	public static int MAX_TASKS_IN_SCHEDULER = 0;
 	
 	static {
 		Prefs.updateNode("scheduler", Resources.class);

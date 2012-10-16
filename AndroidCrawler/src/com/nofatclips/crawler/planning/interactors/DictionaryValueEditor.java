@@ -30,7 +30,7 @@ public class DictionaryValueEditor extends InteractorAdapter {
 
 	/*
 	 * NOTA: prima il valore "errato" e poi il valore corretto
-	 * poiché il comportamento normale del planner è prendere
+	 * poiche' il comportamento normale del planner e' prendere
 	 * il valore size() - 1 come input corrente
 	 * 
 	 * RegExSimplePlanner invece considera l'indice 0
@@ -53,9 +53,17 @@ public class DictionaryValueEditor extends InteractorAdapter {
 		if (values == null)
 		{
 			Log.i("nicola", "DictionaryValueEditor: Generating new values");
-			values = TestValuesDictionary.getValues(w, false);
+			
+			if (com.nofatclips.crawler.planning.Resources.DICTIONARY_IGNORE_CONTENT_TYPES)
+			{
+				values = TestValuesDictionary.getRandomMixedValues(w);
+			}
+			else
+			{
+				values = TestValuesDictionary.getValues(w, false);
+			}
 		}
-		
+
 		//se necessario aggiungo alla cache
 		if (	com.nofatclips.crawler.planning.Resources.DICTIONARY_FIXED_VALUE
 				&&	w.getId() != null

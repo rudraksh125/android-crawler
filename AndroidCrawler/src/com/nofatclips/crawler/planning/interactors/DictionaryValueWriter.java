@@ -54,7 +54,15 @@ public class DictionaryValueWriter extends InteractorAdapter {
 		if (values == null)
 		{
 			Log.i("nicola", "DictionaryValueWriter: Generating new values");
-			values = TestValuesDictionary.getValues(w, false);
+			
+			if (com.nofatclips.crawler.planning.Resources.DICTIONARY_IGNORE_CONTENT_TYPES)
+			{
+				values = TestValuesDictionary.getRandomMixedValues(w);
+			}
+			else
+			{
+				values = TestValuesDictionary.getValues(w, false);
+			}
 		}
 		
 		//se necessario aggiungo alla cache

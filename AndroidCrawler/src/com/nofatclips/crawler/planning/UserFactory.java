@@ -268,6 +268,138 @@ public class UserFactory {
 		return u;
 	}
 	
+	/** @author nicola amatucci - sensori/reflection */
+	//NOTA: se getUser viene modificato, modificare anche questa funziona
+	public static UserAdapter getUserForEvents (Abstractor a, String widgetType, ArrayList<String> eventTypes)
+	{
+		UserAdapter u;
+
+		if (isUserSimple()) {
+			u = (doForceSeed())?new SimpleUser (a):new SimpleUser(a,new Random(RANDOM_SEED));
+		} else {
+			u = (doForceSeed())?new AlternativeUser (a):new AlternativeUser(a,new Random(RANDOM_SEED));
+		}
+
+		if (eventTypes.contains(CLICK)) {
+			Clicker c = new Clicker (typesForEvent(CLICK));
+			c.setEventWhenNoId(Resources.EVENT_WHEN_NO_ID);
+			u.addEvent(addDosAndDonts(c));
+		}
+
+		if (eventTypes.contains(LONG_CLICK)) {
+			LongClicker l = new LongClicker (typesForEvent(LONG_CLICK));
+			l.setEventWhenNoId(Resources.EVENT_WHEN_NO_ID);
+			u.addEvent(addDosAndDonts(l));
+		}
+		
+		if (eventTypes.contains(LIST_SELECT)) {			
+			ListSelector ls = new ListSelector (Resources.MAX_EVENTS_PER_WIDGET, typesForEvent(LIST_SELECT));
+			ls.setEventWhenNoId(true);
+			u.addEvent(addDosAndDonts(ls));
+		}
+		
+		if (eventTypes.contains(LIST_LONG_SELECT)) {
+			ListLongClicker llc = new ListLongClicker (Resources.MAX_EVENTS_PER_WIDGET, typesForEvent(LIST_LONG_SELECT));
+			llc.setEventWhenNoId(true);
+			u.addEvent(addDosAndDonts(llc));			
+		}
+		
+		if (eventTypes.contains(SPINNER_SELECT)) {
+			SpinnerSelector ss = new SpinnerSelector (Resources.MAX_EVENTS_PER_WIDGET, typesForEvent(SPINNER_SELECT));
+			ss.setEventWhenNoId(false);
+			u.addEvent(addDosAndDonts(ss));
+		}
+
+		if (eventTypes.contains(RADIO_SELECT)) {
+			RadioSelector rs = new RadioSelector (Resources.MAX_EVENTS_PER_WIDGET, typesForEvent(RADIO_SELECT));
+			rs.setEventWhenNoId(true);
+			u.addEvent(addDosAndDonts(rs));
+		}
+
+		if (eventTypes.contains(SWAP_TAB)) {
+			TabSwapper ts = new TabSwapper (typesForEvent(SWAP_TAB));
+			if (Resources.TAB_EVENTS_START_ONLY) {
+				ts.setOnlyOnce(true);
+			}
+			u.addEvent(addDosAndDonts(ts));
+		}
+		
+		for (InteractorAdapter i: ADDITIONAL_EVENTS) {
+			i.setEventWhenNoId(Resources.EVENT_WHEN_NO_ID);
+			u.addEvent(addDosAndDonts(i));			
+		}
+		
+		if (isRequiredInput(CLICK)) {
+			Clicker c2 = new Clicker (typesForInput(CLICK));
+			c2.setEventWhenNoId(false);
+			u.addInput (addDosAndDonts(c2));
+		}
+
+		if (isRequiredInput(SET_BAR)) {
+			Slider sl = new Slider (typesForInput(SET_BAR));
+			sl.setEventWhenNoId(false);
+			u.addInput (addDosAndDonts(sl));
+		}
+
+		/** @author nicola */
+		if (isRequiredInput(TYPE_TEXT)) {
+			if (Resources.TEXT_VALUES_FROM_DICTIONARY)
+			{
+				DictionaryValueEditor re = new DictionaryValueEditor(typesForInput(TYPE_TEXT));
+				re.setEventWhenNoId(false);
+				u.addInput (addDosAndDonts(re));	
+			}
+			else
+			{
+				RandomEditor re = new RandomEditor(typesForInput(TYPE_TEXT));
+				re.setEventWhenNoId(false);
+				u.addInput (addDosAndDonts(re));			
+			}
+		}
+
+		if (isRequiredInput(WRITE_TEXT)) {
+			if (Resources.TEXT_VALUES_FROM_DICTIONARY)
+			{
+				DictionaryValueWriter re = new DictionaryValueWriter(typesForInput(WRITE_TEXT));
+				re.setEventWhenNoId(false);
+				u.addInput (addDosAndDonts(re));
+			}
+			else
+			{
+				RandomWriter re = new RandomWriter(typesForInput(WRITE_TEXT));				
+				re.setEventWhenNoId(false);
+				u.addInput (addDosAndDonts(re));
+			}
+		}
+		/** @author nicola */
+		
+		if (isRequiredInput(SPINNER_SELECT)) {
+			RandomSpinnerSelector rss = new RandomSpinnerSelector(typesForInput(SPINNER_SELECT));
+			rss.setEventWhenNoId(false);
+			u.addInput(addDosAndDonts(rss));
+		}
+
+		if (isRequiredInput(RADIO_SELECT)) {
+			RandomRadioSelector rrs = new RandomRadioSelector(typesForInput(RADIO_SELECT));
+			rrs.setEventWhenNoId(true);
+			u.addInput(addDosAndDonts(rrs));
+		}
+
+		if (isRequiredInput(LIST_SELECT)) {
+			RandomListSelector rls = new RandomListSelector(typesForInput(LIST_SELECT));
+			rls.setEventWhenNoId(false);
+			u.addInput(addDosAndDonts(rls));
+		}
+
+		for (InteractorAdapter i: ADDITIONAL_INPUTS) {
+			i.setEventWhenNoId(false);
+			u.addInput(addDosAndDonts(i));
+		}
+		
+		return u;
+	}
+	/** @author nicola amatucci - sensori/reflection */	
+	
 	@SuppressWarnings("serial")
 	public static class InteractionMap extends HashMap<String,String[]> {}
 	

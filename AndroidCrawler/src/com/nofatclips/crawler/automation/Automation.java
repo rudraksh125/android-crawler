@@ -5,6 +5,10 @@ import static com.nofatclips.crawler.automation.Resources.*;
 import static com.nofatclips.androidtesting.model.InteractionType.*;
 import static com.nofatclips.androidtesting.model.SimpleType.*;
 
+import it.unina.android.hardware.mock.MockSensorEvent;
+import it.unina.android.hardware.mock.MockSensorEventFactory;
+import it.unina.android.hardware.mock.MockSensorManager;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -12,6 +16,8 @@ import java.util.Map;
 
 import android.app.Activity;
 import android.graphics.Bitmap;
+import android.location.Location;
+import android.location.LocationManager;
 
 import android.test.ActivityInstrumentationTestCase2;
 import android.util.Log;
@@ -20,6 +26,11 @@ import android.widget.*;
 
 import com.jayway.android.robotium.solo.Solo;
 import com.nofatclips.androidtesting.model.*;
+import com.nofatclips.crawler.automation.utils.ActivityReflectionCache;
+import com.nofatclips.crawler.automation.utils.ActivityReflectionCacheElement;
+import com.nofatclips.crawler.automation.utils.AndroidConsoleSocket;
+import com.nofatclips.crawler.helpers.PackageManagerHelper;
+import com.nofatclips.crawler.helpers.ReflectionHelper;
 import com.nofatclips.crawler.model.*;
 
 import static com.nofatclips.crawler.automation.RobotUtilities.*;
@@ -43,7 +54,13 @@ public class Automation implements Robot, Extractor, TaskProcessor, ImageCaptor,
 	private boolean precrawlNeeded = true;
 	
 	public final static String SEPARATOR = ".-.-.";
-		
+	
+	/** @author nicola amatucci - sensori/reflection */
+	//settati da GuiTreeEngine.setUp()
+	public LocationManager locationManager;
+	public PackageManagerHelper packageManagerHelper;
+	/** @author nicola amatucci - sensori/reflection */	
+	
 	// A Trivial Extractor is provided if none is assigned
 	public Automation () {
 		TrivialExtractor te = new TrivialExtractor(); 
@@ -228,11 +245,114 @@ public class Automation implements Robot, Extractor, TaskProcessor, ImageCaptor,
 			
 		} else if (interactionType.equals(SET_BAR)) {
 			setProgressBar(v, value);
+			
+		/** @author nicola amatucci - sensori/reflection */
+		} else  if (
+					interactionType.equals(ORIENTATION_SENSOR_EVENT) ||
+					interactionType.equals(ACCELEROMETER_SENSOR_EVENT) ||
+					interactionType.equals(MAGNETIC_FIELD_SENSOR_EVENT) ||
+					interactionType.equals(TEMPERATURE_SENSOR_EVENT) ||
+					interactionType.equals(AMBIENT_TEMPERATURE_SENSOR_EVENT)
+					) {
+			fireSensorEvent(value, interactionType);						
+		} else if ( interactionType.equals(GPS_LOCATION_CHANGE_EVENT) ) {
+			fireGPSLocationChangeEvent(value);
+		} else if ( interactionType.equals(GPS_PROVIDER_DISABLE_EVENT) ) {
+			toggleGPSLocationProvider();
+		} else if ( interactionType.equals(INCOMING_CALL_EVENT) ) {
+			AndroidConsoleSocket.callNumber("1234");
+			try { Thread.sleep(2000); } catch(Exception ex) { }
+			AndroidConsoleSocket.hangUp("1234");
+		} else if ( interactionType.equals(INCOMING_SMS_EVENT) ) {
+			AndroidConsoleSocket.sendSMS("1234", "THIS IS A TEST");
+			/** @author nicola amatucci - sensori/reflection */
 		} else {
 			return;
 		}
 	}
 		
+	/** @author nicola amatucci - sensori/reflection */	
+	private void fireSensorEvent(String value, String interactionType)
+	{
+		if (value != null && interactionType != null)
+		{
+			String[] stringValues = value.split("\\|");
+			
+			if (stringValues != null && stringValues.length == 3)
+			{
+				float[] floatValues = new float[3];
+				floatValues[0] = Float.parseFloat(stringValues[0]);
+				floatValues[1] = Float.parseFloat(stringValues[1]);
+				floatValues[2] = Float.parseFloat(stringValues[2]);
+				
+				MockSensorEvent event = null;
+				
+				if (interactionType.equals(ORIENTATION_SENSOR_EVENT)) event = MockSensorEventFactory.buildOrientationEvent(floatValues);
+				if (interactionType.equals(ACCELEROMETER_SENSOR_EVENT)) event = MockSensorEventFactory.buildAccelerometerEvent(floatValues);
+				if (interactionType.equals(MAGNETIC_FIELD_SENSOR_EVENT)) event = MockSensorEventFactory.buildMagneticFieldEvent(floatValues);
+				if (interactionType.equals(TEMPERATURE_SENSOR_EVENT)) event = MockSensorEventFactory.buildTemperatureEvent(floatValues);
+				if (interactionType.equals(AMBIENT_TEMPERATURE_SENSOR_EVENT)) event = MockSensorEventFactory.buildAmbientTemperatureEvent(floatValues);
+
+				/*
+				 * NOTA: 	non e' presente nella precedente versione. Serve ad evitare
+				 * 			problemi di chiamate cross-thread
+				 */
+				final MockSensorEvent eventToPost = event;
+				solo.getCurrentActivity().runOnUiThread( new Runnable() {
+
+					@Override
+					public void run() {
+						MockSensorManager.getInstance().riseSensorEvent(eventToPost);						
+					}
+
+				});
+			}
+		}
+	}
+	
+	private void fireGPSLocationChangeEvent(String value)
+	{
+		//abilita il provider se disabilitato
+		if ( locationManager.isProviderEnabled( com.nofatclips.crawler.planning.Resources.TEST_LOCATION_PROVIDER ) == false )
+			locationManager.setTestProviderEnabled(com.nofatclips.crawler.planning.Resources.TEST_LOCATION_PROVIDER, true);
+		
+		if (value != null)
+		{
+			String[] stringValues = value.split("\\|");
+			
+			if (stringValues != null && stringValues.length == 3)
+			{
+				double[] doubleValues = new double[3];
+				doubleValues[0] = Double.parseDouble(stringValues[0]); //latitude
+				doubleValues[1] = Double.parseDouble(stringValues[1]); //longitude
+				doubleValues[2] = Double.parseDouble(stringValues[2]); //altitude
+				
+		        Location location = new Location(com.nofatclips.crawler.planning.Resources.TEST_LOCATION_PROVIDER);
+		        location.setLatitude(doubleValues[0]);
+		        location.setLongitude(doubleValues[1]);
+		        location.setAltitude(doubleValues[2]);
+		        locationManager.setTestProviderLocation(com.nofatclips.crawler.planning.Resources.TEST_LOCATION_PROVIDER, location);
+			}
+		}
+	}
+	
+	private void toggleGPSLocationProvider()
+	{
+		//disabilita il provider
+		if ( locationManager.isProviderEnabled( com.nofatclips.crawler.planning.Resources.TEST_LOCATION_PROVIDER ) == true )
+		{
+			//disabilita il gps
+			locationManager.setTestProviderEnabled(com.nofatclips.crawler.planning.Resources.TEST_LOCATION_PROVIDER, false);
+			
+			//pausa di un secondo
+			try { Thread.sleep(1000); } catch (InterruptedException e) { }
+			
+			//abilita il gps
+			locationManager.setTestProviderEnabled(com.nofatclips.crawler.planning.Resources.TEST_LOCATION_PROVIDER, true);
+		}
+	}	
+	/** @author nicola amatucci - sensori/reflection */
+	
 	private void refreshCurrentActivity() {
 		ExtractorUtilities.setActivity(solo.getCurrentActivity());
 		Log.i("nofatclips", "Current activity is " + getActivity().getLocalClassName());
@@ -469,6 +589,11 @@ public class Automation implements Robot, Extractor, TaskProcessor, ImageCaptor,
 	// a description of the Activity, which is basically the name and a list of widgets
 	// in the Activity.
 	
+	/** @author nicola amatucci - sensori/reflection */	
+	ActivityReflectionCache activityCache = new ActivityReflectionCache();
+	/** @author nicola amatucci - sensori/reflection */	
+	
+	
 	public class TrivialExtractor implements Extractor, ImageCaptor {
 
 		public void extractState() {
@@ -507,6 +632,127 @@ public class Automation implements Robot, Extractor, TaskProcessor, ImageCaptor,
 					return getActivityName();
 				}
 
+				/** @author nicola amatucci - sensori/reflection */
+				public boolean usesSensorsManager()
+				{
+					if (com.nofatclips.crawler.planning.Resources.USE_SENSORS)
+					{
+						ActivityReflectionCacheElement a = activityCache.get( getActivity().getClass().getCanonicalName() );
+						
+						if (a == null || a.usesSensors == null)
+						{
+							a = new ActivityReflectionCacheElement();
+							a.usesSensors = com.nofatclips.crawler.helpers.ReflectionHelper.scanClassForInterface(getActivity().getClass(), "it.unina.android.hardware.SensorEventListener");
+							activityCache.put( getActivity().getClass().getCanonicalName(), a );
+						}
+						return a.usesSensors;
+					}
+					else
+					{
+						return false;
+					}
+				}
+				
+				public boolean usesLocationManager()
+				{
+					if (com.nofatclips.crawler.planning.Resources.USE_GPS)
+					{
+						ActivityReflectionCacheElement a = activityCache.get( getActivity().getClass().getCanonicalName() );
+						
+						if (a == null || a.usesLocation == null)
+						{						
+							a = new ActivityReflectionCacheElement();
+							a.usesLocation = com.nofatclips.crawler.helpers.ReflectionHelper.scanClassForInterface(getActivity().getClass(), "android.location.LocationListener");
+							activityCache.put( getActivity().getClass().getCanonicalName(), a );
+						}						
+						return a.usesLocation;
+					}
+					else
+					{
+						return false;
+					}
+				}
+				
+				public boolean hasMenu()
+				{
+					ActivityReflectionCacheElement a = activityCache.get( getActivity().getClass().getCanonicalName() );
+					
+					if (a == null || a.hasMenu == null)
+					{
+						a = new ActivityReflectionCacheElement();
+						a.hasMenu =
+								(
+								ReflectionHelper.hasDeclaredMethod(getActivity().getClass(), "onCreateOptionsMenu")
+								|| ReflectionHelper.hasDeclaredMethod(getActivity().getClass(), "onPrepareOptionsMenu")
+								);
+								//&& ReflectionHelper.hasDeclaredMethod(getActivity().getClass(), "onOptionsItemSelected"); //tipicamente onCreateOptionsMenu basta
+						activityCache.put( getActivity().getClass().getCanonicalName(), a );
+					}
+					
+					return a.hasMenu;
+				}
+				
+				public boolean hasOnOptionsItemSelected()
+				{
+					ActivityReflectionCacheElement a = activityCache.get( getActivity().getClass().getCanonicalName() );
+					
+					if (a == null || a.hasOnOptionsItemSelected == null)
+					{
+						a = new ActivityReflectionCacheElement();
+						a.hasOnOptionsItemSelected =
+								ReflectionHelper.hasDeclaredMethod(getActivity().getClass(), "onOptionsItemSelected");
+						activityCache.put( getActivity().getClass().getCanonicalName(), a );
+					}
+					
+					return a.hasOnOptionsItemSelected;
+				}				
+
+				public boolean handlesKeyPress()
+				{
+					ActivityReflectionCacheElement a = activityCache.get( getActivity().getClass().getCanonicalName() );
+					
+					if (a == null || a.handlesKeyPress == null)
+					{
+						a = new ActivityReflectionCacheElement();
+						a.handlesKeyPress =
+								ReflectionHelper.hasDeclaredMethod(getActivity().getClass(), "onKeyDown");
+								//&& ReflectionHelper.hasDeclaredMethod(getActivity().getClass(), "onOptionsItemSelected"); //tipicamente onCreateOptionsMenu basta
+						activityCache.put( getActivity().getClass().getCanonicalName(), a );
+					}
+					
+					return a.handlesKeyPress;
+				}
+				
+				public boolean handlesLongKeyPress()
+				{
+					ActivityReflectionCacheElement a = activityCache.get( getActivity().getClass().getCanonicalName() );
+					
+					if (a == null || a.handlesLongKeyPress == null)
+					{
+						a = new ActivityReflectionCacheElement();
+						a.handlesLongKeyPress =
+								ReflectionHelper.hasDeclaredMethod(getActivity().getClass(), "onKeyLongPress");
+								//&& ReflectionHelper.hasDeclaredMethod(getActivity().getClass(), "onOptionsItemSelected"); //tipicamente onCreateOptionsMenu basta
+						activityCache.put( getActivity().getClass().getCanonicalName(), a );
+					}
+					
+					return a.handlesLongKeyPress;
+				}
+				
+				public boolean isTabActivity() 
+				{
+					ActivityReflectionCacheElement a = activityCache.get( getActivity().getClass().getCanonicalName() );
+					
+					if (a == null || a.isTabActivity == null)
+					{
+						a = new ActivityReflectionCacheElement();
+						a.isTabActivity = ReflectionHelper.isDescendant(getActivity().getClass(), android.app.TabActivity.class);
+						activityCache.put( getActivity().getClass().getCanonicalName(), a );
+					}
+					
+					return a.isTabActivity;
+				}
+				/** @author nicola amatucci - sensori/reflection */	
 			};
 		}
 		

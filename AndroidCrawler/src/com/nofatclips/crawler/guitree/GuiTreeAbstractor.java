@@ -2,6 +2,7 @@ package com.nofatclips.crawler.guitree;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -16,6 +17,7 @@ import android.view.View;
 import android.widget.TextView;
 import com.nofatclips.androidtesting.guitree.*;
 import com.nofatclips.androidtesting.model.*;
+import com.nofatclips.crawler.helpers.ReflectionHelper;
 import com.nofatclips.crawler.model.*;
 import com.nofatclips.crawler.storage.PersistenceFactory;
 import com.nofatclips.dictionary.ContentTypeDetector;
@@ -168,6 +170,39 @@ public class GuiTreeAbstractor implements Abstractor, FilterHandler, SaveStateLi
 	
 	public boolean updateDescription (ActivityState newActivity, ActivityDescription desc, boolean detectDuplicates) {
 		boolean hasDescription = false;
+		
+		/** @author nicola amatucci - sensori/reflection */
+		if ( com.nofatclips.crawler.planning.Resources.REFLECT_ACTIVITY_LISTENERS && desc.hasMenu() )
+		{
+			addActivitySupportedEvent(newActivity, InteractionType.OPEN_MENU);
+
+			//Verifica che al menu sia agganciato un listener
+			//if ( Resources.REFLECT_ACTIVITY_LISTENERS && desc.hasOnOptionsItemSelected() )
+		}
+		
+		if ( com.nofatclips.crawler.planning.Resources.REFLECT_ACTIVITY_LISTENERS && desc.handlesKeyPress() )
+		{
+			addActivitySupportedEvent(newActivity, InteractionType.PRESS_KEY);
+			
+			//NOTA:
+			//tipicamente OnKeyPress e' utilizzato per supportare il tasto Back
+			//per cui si puo' ipotizzare che possa essere scatenato queste evento
+			addActivitySupportedEvent(newActivity, InteractionType.BACK);
+		}
+		
+		if ( com.nofatclips.crawler.planning.Resources.REFLECT_ACTIVITY_LISTENERS && desc.handlesLongKeyPress() )
+		{
+			//TODO: da rendere costante
+			addActivitySupportedEvent(newActivity, "_longKeyPress");
+		}
+		
+		if ( desc.isTabActivity() )
+		{
+			//addActivitySupportedEvent(newActivity, InteractionType.SWAP_TAB);
+			Log.v("GuiTreeAbstracor", "Activity is TabActivity");
+		}
+		/** @author nicola amatucci - sensori/reflection */	
+		
 		for (View v: desc) {
 			hasDescription = true;
 			if (!v.isShown()) continue;
@@ -175,12 +210,120 @@ public class GuiTreeAbstractor implements Abstractor, FilterHandler, SaveStateLi
 			w.setIndex(desc.getWidgetIndex(v));
 			if (detectDuplicates && newActivity.hasWidget(w)) continue;
 			newActivity.addWidget(w);
+			
+			/** @author nicola amatucci - sensori/reflection */
+			if (com.nofatclips.crawler.planning.Resources.REFLECT_WIDGETS)
+				reflectWidget(newActivity, v, w);
+			/** @author nicola amatucci - sensori/reflection */
+
 			for (Filter f: this.filters) {
 				f.loadItem(v, w);
 			}
 		}
+		
+		/** @author nicola amatucci - sensori/reflection */
+		if ( com.nofatclips.crawler.planning.Resources.USE_SENSORS && desc.usesSensorsManager() )
+		{
+			for (Integer s : com.nofatclips.crawler.planning.Resources.SENSOR_TYPES)
+			{
+				switch (s)
+				{
+					case android.hardware.Sensor.TYPE_ACCELEROMETER:
+						addActivitySupportedEvent(newActivity, InteractionType.ACCELEROMETER_SENSOR_EVENT);
+						break;
+						
+					case android.hardware.Sensor.TYPE_ORIENTATION:
+						addActivitySupportedEvent(newActivity, InteractionType.ORIENTATION_SENSOR_EVENT);
+						break;
+						
+					case android.hardware.Sensor.TYPE_MAGNETIC_FIELD:
+						addActivitySupportedEvent(newActivity, InteractionType.MAGNETIC_FIELD_SENSOR_EVENT);
+						break;
+						
+					case android.hardware.Sensor.TYPE_TEMPERATURE:
+						addActivitySupportedEvent(newActivity, InteractionType.TEMPERATURE_SENSOR_EVENT);
+						break;
+				}
+			}
+		}
+		
+		if ( com.nofatclips.crawler.planning.Resources.USE_GPS && desc.usesLocationManager() )
+		{
+			addActivitySupportedEvent(newActivity, InteractionType.GPS_LOCATION_CHANGE_EVENT);
+			addActivitySupportedEvent(newActivity, InteractionType.GPS_PROVIDER_DISABLE_EVENT);
+		}
+		
+		if ( com.nofatclips.crawler.planning.Resources.SIMULATE_INCOMING_CALL )
+		{
+			addActivitySupportedEvent(newActivity, InteractionType.INCOMING_CALL_EVENT);
+		}
+		
+		if ( com.nofatclips.crawler.planning.Resources.SIMULATE_INCOMING_SMS )
+		{
+			addActivitySupportedEvent(newActivity, InteractionType.INCOMING_SMS_EVENT);
+		}
+		/** @author nicola amatucci - sensori/reflection */
+		
 		return hasDescription;
 	}
+	
+	/** @author nicola amatucci - sensori/reflection */
+	private void reflectWidget(ActivityState a, View v, TestCaseWidget w)
+	{
+		HashMap<String, Boolean> listenersMap = null;
+		
+		//TODO: casi particolari?
+		if (v instanceof android.opengl.GLSurfaceView)
+			listenersMap = null;
+		else if (v instanceof View)
+			listenersMap = ReflectionHelper.reflectViewListeners(v);
+		
+		if ( listenersMap != null )
+			for ( String key : listenersMap.keySet() )
+				if ( listenersMap.get(key) )
+					addSupportedEvent( a, w.getUniqueId(), key ); //addSupportedEvent( a, w.getUniqueId(), listenerNameToInteractionType(key) );
+		
+		try
+		{
+			// Class.isInstance <-> instanceof
+			if (	Class.forName("com.android.internal.view.menu.IconMenuItemView").isInstance(v) &&
+					a.supportsEvent( SupportedEvent.GENERIC_ACTIVITY_UID , InteractionType.OPEN_MENU))
+			{
+				addSupportedEvent( a, w.getUniqueId(), InteractionType.CLICK );
+			}
+		}
+		catch(Exception ex)
+		{
+			//ignored
+		}
+		
+		if (v instanceof android.widget.TabHost)
+		{
+			addSupportedEvent( a, w.getUniqueId(), InteractionType.SWAP_TAB );
+		}
+	}
+	
+	/*
+	private String listenerNameToInteractionType(String listenerName)
+	{
+		//TODO
+		return listenerName;
+	}
+	*/
+	
+	private void addActivitySupportedEvent(ActivityState a, String eventType)
+	{
+		addSupportedEvent(a, SupportedEvent.GENERIC_ACTIVITY_UID, eventType);
+	}
+	
+	private void addSupportedEvent(ActivityState a, String uid, String eventType)
+	{
+		SupportedEvent supportedEvent = TestCaseSupportedEvent.createSupportedEvent(getTheSession());
+		supportedEvent.setWidgetUniqueId(uid);
+		supportedEvent.setEventType(eventType);
+		a.addSupportedEvent( supportedEvent );
+	}
+	/** @author nicola amatucci - sensori/reflection */
 	
 //	@SuppressWarnings("rawtypes")
 //	private void setCount (View v, WidgetState w) {

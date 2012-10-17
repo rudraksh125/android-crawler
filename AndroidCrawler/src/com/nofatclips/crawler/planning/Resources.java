@@ -5,6 +5,8 @@ import static com.nofatclips.androidtesting.model.SimpleType.*;
 
 import java.util.Arrays;
 
+import android.location.LocationManager;
+
 import com.nofatclips.crawler.Prefs;
 import com.nofatclips.crawler.model.ResourceFile;
 
@@ -13,6 +15,7 @@ public class Resources implements ResourceFile {
 	/** @author nicola */
 	//nome classe del planner (deve ereditare da SimplePlanner)
 	//public static String PLANNER = "DictionarySimplePlanner";
+	//public static String PLANNER = "SimpleReflectionPlanner";
 	public static String PLANNER = "SimplePlanner";
 
 	//comportamento di write_text/type_text normale o con valori presi dal dizionario (true)
@@ -64,6 +67,47 @@ public class Resources implements ResourceFile {
 	// Scheduler Parameters
 	public static String SCHEDULER_ALGORITHM = "BREADTH_FIRST";
 	public static int MAX_TASKS_IN_SCHEDULER = 0;
+	
+	/** @author nicola amatucci - sensori/reflection */
+	public static boolean REFLECT_WIDGETS = false;
+	public static boolean REFLECT_ACTIVITY_LISTENERS = false;
+	
+	//Sensor events on/off
+	public static boolean USE_SENSORS = true;
+	public static boolean EXCLUDE_WIDGETS_INPUTS_IN_SENSORS_EVENTS = true; // aggiunge input prima di scatenare l'evento "sensore"
+	
+	//Sensors used
+	public final static Integer[] SENSOR_TYPES = new Integer[] {
+		//android.hardware.Sensor.TYPE_ACCELEROMETER,
+		android.hardware.Sensor.TYPE_ORIENTATION // Inclinazione del dispositivo + bussola e accelerometro 
+		//,
+		//android.hardware.Sensor.TYPE_MAGNETIC_FIELD,
+		//android.hardware.Sensor.TYPE_TEMPERATURE
+		//android.hardware.Sensor.TYPE_GRAVITY
+		//android.hardware.Sensor.TYPE_GYROSCOPE
+		//android.hardware.Sensor.TYPE_LIGHT
+		//android.hardware.Sensor.TYPE_LINEAR_ACCELERATION
+		//android.hardware.Sensor.TYPE_PRESSURE
+		//android.hardware.Sensor.TYPE_PROXIMITY
+		//android.hardware.Sensor.TYPE_ROTATION_VECTOR
+	};
+	
+	//location provider
+	public static boolean USE_GPS = false;
+	public static boolean EXCLUDE_WIDGETS_INPUTS_IN_GPS_EVENTS = true; // aggiunge input prima di scatenare l'evento "gps"	
+	public static final String TEST_LOCATION_PROVIDER = LocationManager.GPS_PROVIDER;
+	
+	//sms, call
+	public static final boolean SIMULATE_INCOMING_CALL = true;
+	public static final boolean SIMULATE_INCOMING_SMS = true;
+	
+	//for ddms socket connection
+	public static final int EMULATOR_PORT = 5554;
+	/** @author nicola amatucci - sensori/reflection */
+	
+	
+	
+	
 	
 	static {
 		Prefs.updateNode("scheduler", Resources.class);

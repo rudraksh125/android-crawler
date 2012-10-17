@@ -3,6 +3,8 @@ package com.nofatclips.crawler.guitree;
 import java.util.GregorianCalendar;
 import javax.xml.parsers.ParserConfigurationException;
 
+import android.content.Context;
+import android.location.LocationManager;
 import android.util.Log;
 
 import com.nofatclips.androidtesting.guitree.GuiTree;
@@ -10,6 +12,7 @@ import com.nofatclips.androidtesting.model.Session;
 import com.nofatclips.crawler.Engine;
 import com.nofatclips.crawler.automation.*;
 import com.nofatclips.crawler.filters.*;
+import com.nofatclips.crawler.helpers.PackageManagerHelper;
 import com.nofatclips.crawler.model.*;
 import com.nofatclips.crawler.planning.*;
 import com.nofatclips.crawler.planning.interactors.values_cache.ValuesCache;
@@ -94,7 +97,43 @@ public class GuiTreeEngine extends Engine {
 		
 	}
 	
-	protected void setUp () {
+	protected void setUp ()
+	{
+		/** @author nicola amatucci - sensori/reflection */
+		//inizializza l'helper del PackageManager
+		try {
+			theAutomation.packageManagerHelper = new PackageManagerHelper(this.getActivity().getApplicationContext());
+			//theAutomation.packageManagerHelper.getPackagePermissions();
+		} catch (Exception ex) {
+			//ignored			
+		}
+		
+		if (com.nofatclips.crawler.planning.Resources.USE_SENSORS)
+		{
+			it.unina.android.hardware.SensorManager.TESTING = true;
+		}
+		
+		if (com.nofatclips.crawler.planning.Resources.USE_GPS)
+		{
+			//attivo il LocationManager e il provider di test
+			theAutomation.locationManager = (LocationManager) this.getActivity().getSystemService(Context.LOCATION_SERVICE);
+			/* 
+			 * addTestProvider(	String name,
+			 * 					boolean requiresNetwork,
+			 * 					boolean requiresSatellite,
+			 * 					boolean requiresCell,
+			 * 					boolean hasMonetaryCost,
+			 * 					boolean supportsAltitude,
+			 * 					boolean supportsSpeed,
+			 * 					boolean supportsBearing,
+			 * 					int powerRequirement,
+			 * 					int accuracy)
+			 */
+			theAutomation.locationManager.addTestProvider(com.nofatclips.crawler.planning.Resources.TEST_LOCATION_PROVIDER, false, false, false, false, true, true, true, 0, 5);
+			theAutomation.locationManager.setTestProviderEnabled(com.nofatclips.crawler.planning.Resources.TEST_LOCATION_PROVIDER, true);
+		}
+		/** @author nicola amatucci - sensori/reflection */				
+		
 		Strategy s = this.theStrategyFactory.getStrategy();
 		setStrategy (s);
 		this.thePersistenceFactory.setStrategy(s);
@@ -126,6 +165,17 @@ public class GuiTreeEngine extends Engine {
 			ValuesCache.init(this.getActivity().getApplicationContext());
 		/** @author nicola */
 	}
+	
+	/** @author nicola amatucci - sensori/reflection */
+	@Override
+	protected void tearDown() throws Exception
+	{
+		if (theAutomation != null && theAutomation.locationManager != null)
+			theAutomation.locationManager.removeTestProvider(com.nofatclips.crawler.planning.Resources.TEST_LOCATION_PROVIDER);
+		
+		super.tearDown();
+	}
+	/** @author nicola amatucci - sensori/reflection */		
 	
 	public Session getNewSession() {
 		try {

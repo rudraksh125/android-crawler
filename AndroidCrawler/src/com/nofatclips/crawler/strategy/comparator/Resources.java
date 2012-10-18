@@ -13,8 +13,8 @@ import com.nofatclips.crawler.model.ResourceFile;
 public class Resources implements ResourceFile {
 
 //	public static Comparator COMPARATOR = new CustomWidgetsComparator(CustomWidgetsComparator.IGNORE_ACTIVITY_NAME, EDIT_TEXT, BUTTON, LIST_VIEW, MENU_VIEW, IMAGE_VIEW);
-	public static String COMPARATOR_TYPE = "ButtonComparator";
-	public static String[] WIDGET_TYPES = {EDIT_TEXT, BUTTON, LIST_VIEW, MENU_VIEW, IMAGE_VIEW};
+	public static String COMPARATOR_TYPE = "NullComparator";
+	public static String[] WIDGET_TYPES = {};
 	public static boolean COMPARE_ACTIVITY_NAME = true;
 	public static boolean COMPARE_STATE_TITLE = false;
 	public static boolean COMPARE_LIST_COUNT = false;

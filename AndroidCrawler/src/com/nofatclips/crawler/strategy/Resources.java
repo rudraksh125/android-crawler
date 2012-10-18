@@ -14,8 +14,8 @@ public class Resources implements ResourceFile {
 	public static int TRACE_MIN_DEPTH = 0; // Ignore the exploration criteria until this depth is reached
 	public static boolean CHECK_FOR_TRANSITION = false;
 	public static boolean EXPLORE_ONLY_NEW_STATES = true;
-	public static String[] AFTER_EVENT_DONT_EXPLORE = {""};
-	public static int[] AFTER_WIDGET_DONT_EXPLORE = {01234567};
+	public static String[] AFTER_EVENT_DONT_EXPLORE = {};
+	public static int[] AFTER_WIDGET_DONT_EXPLORE = {};
 
 	static {
 		Prefs.updateNode("strategy", Resources.class);

@@ -6,7 +6,7 @@ public class HashGenerator {
 	{
 		if (s != null)
 		{
-			return Integer.toString(s.hashCode());
+			return Integer.toString(s.hashCode() % 100);
 		}
 		else
 		{

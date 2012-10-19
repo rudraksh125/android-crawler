@@ -218,6 +218,12 @@ public class UserFactory {
 				re.setEventWhenNoId(false);
 				u.addInput (addDosAndDonts(re));	
 			}
+			else if(Resources.TEXT_VALUES_ID_HASH)
+			{
+				HashValueEditor re = new HashValueEditor(typesForInput(TYPE_TEXT));
+				re.setEventWhenNoId(false);
+				u.addInput (addDosAndDonts(re));
+			}
 			else
 			{
 				RandomEditor re = new RandomEditor(typesForInput(TYPE_TEXT));
@@ -233,6 +239,12 @@ public class UserFactory {
 				re.setEventWhenNoId(false);
 				u.addInput (addDosAndDonts(re));
 			}
+			else if(Resources.TEXT_VALUES_ID_HASH)
+			{
+				HashValueWriter re = new HashValueWriter(typesForInput(WRITE_TEXT));
+				re.setEventWhenNoId(false);
+				u.addInput (addDosAndDonts(re));
+			}			
 			else
 			{
 				RandomWriter re = new RandomWriter(typesForInput(WRITE_TEXT));				
@@ -349,6 +361,12 @@ public class UserFactory {
 				re.setEventWhenNoId(false);
 				u.addInput (addDosAndDonts(re));	
 			}
+			else if(Resources.TEXT_VALUES_ID_HASH)
+			{
+				HashValueEditor re = new HashValueEditor(typesForInput(TYPE_TEXT));
+				re.setEventWhenNoId(false);
+				u.addInput (addDosAndDonts(re));
+			}
 			else
 			{
 				RandomEditor re = new RandomEditor(typesForInput(TYPE_TEXT));
@@ -364,6 +382,12 @@ public class UserFactory {
 				re.setEventWhenNoId(false);
 				u.addInput (addDosAndDonts(re));
 			}
+			else if(Resources.TEXT_VALUES_ID_HASH)
+			{
+				HashValueWriter re = new HashValueWriter(typesForInput(WRITE_TEXT));
+				re.setEventWhenNoId(false);
+				u.addInput (addDosAndDonts(re));
+			}			
 			else
 			{
 				RandomWriter re = new RandomWriter(typesForInput(WRITE_TEXT));				

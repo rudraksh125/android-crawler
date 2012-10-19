@@ -31,11 +31,17 @@ public class Resources implements ResourceFile {
 	public static boolean DICTIONARY_IGNORE_CONTENT_TYPES = false;
 	/** @author nicola */
 	
+	/** @author Nicola */
+	//utilzza gli hash degli id delle EditText per riempire i campi
+	//(e' escluso se si utilizza il dizionario)
+	public static boolean TEXT_VALUES_ID_HASH = false;
+	/** @author Nicola */
+	
 	public static String EVENTS[];
 	public static String INPUTS[];
 	
 //	// Default events and inputs for the User
-//	static {
+	static {
 //		UserFactory.addEvent(CLICK, BUTTON, MENU_ITEM, LINEAR_LAYOUT, IMAGE_VIEW);
 //		UserFactory.addEvent(LONG_CLICK, WEB_VIEW);
 //		UserFactory.addEvent(LIST_SELECT, LIST_VIEW, SINGLE_CHOICE_LIST, PREFERENCE_LIST);
@@ -47,7 +53,7 @@ public class Resources implements ResourceFile {
 //		UserFactory.addInput(TYPE_TEXT, EDIT_TEXT);
 //		UserFactory.addInput(SPINNER_SELECT, SPINNER);
 //		UserFactory.addInput(LIST_SELECT, MULTI_CHOICE_LIST);
-//	}
+	}
 
 	// User/Planner Parameters
 	public static int MAX_EVENTS_PER_WIDGET = 0; // For GroupViews (0 = try all items in the group)
@@ -98,8 +104,8 @@ public class Resources implements ResourceFile {
 	public static final String TEST_LOCATION_PROVIDER = LocationManager.GPS_PROVIDER;
 	
 	//sms, call
-	public static final boolean SIMULATE_INCOMING_CALL = true;
-	public static final boolean SIMULATE_INCOMING_SMS = true;
+	public static final boolean SIMULATE_INCOMING_CALL = false;
+	public static final boolean SIMULATE_INCOMING_SMS = false;
 	
 	//for ddms socket connection
 	public static final int EMULATOR_PORT = 5554;

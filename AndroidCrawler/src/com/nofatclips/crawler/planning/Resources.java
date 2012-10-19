@@ -10,6 +10,7 @@ import android.location.LocationManager;
 import com.nofatclips.crawler.Prefs;
 import com.nofatclips.crawler.model.ResourceFile;
 
+@SuppressWarnings("unused")
 public class Resources implements ResourceFile {
 
 	/** @author nicola */
@@ -79,13 +80,13 @@ public class Resources implements ResourceFile {
 	public static boolean REFLECT_ACTIVITY_LISTENERS = false;
 	
 	//Sensor events on/off
-	public static boolean USE_SENSORS = true;
+	public static boolean USE_SENSORS = false;
 	public static boolean EXCLUDE_WIDGETS_INPUTS_IN_SENSORS_EVENTS = true; // aggiunge input prima di scatenare l'evento "sensore"
 	
 	//Sensors used
-	public final static Integer[] SENSOR_TYPES = new Integer[] {
+	public static Integer[] SENSOR_TYPES = new Integer[] {
 		//android.hardware.Sensor.TYPE_ACCELEROMETER,
-		android.hardware.Sensor.TYPE_ORIENTATION // Inclinazione del dispositivo + bussola e accelerometro 
+		//android.hardware.Sensor.TYPE_ORIENTATION // Inclinazione del dispositivo + bussola e accelerometro 
 		//,
 		//android.hardware.Sensor.TYPE_MAGNETIC_FIELD,
 		//android.hardware.Sensor.TYPE_TEMPERATURE
@@ -104,11 +105,11 @@ public class Resources implements ResourceFile {
 	public static final String TEST_LOCATION_PROVIDER = LocationManager.GPS_PROVIDER;
 	
 	//sms, call
-	public static final boolean SIMULATE_INCOMING_CALL = false;
-	public static final boolean SIMULATE_INCOMING_SMS = false;
+	public static boolean SIMULATE_INCOMING_CALL = false;
+	public static boolean SIMULATE_INCOMING_SMS = false;
 	
 	//for ddms socket connection
-	public static final int EMULATOR_PORT = 5554;
+	public static int EMULATOR_PORT = 5554;
 	/** @author nicola amatucci - sensori/reflection */
 	
 	

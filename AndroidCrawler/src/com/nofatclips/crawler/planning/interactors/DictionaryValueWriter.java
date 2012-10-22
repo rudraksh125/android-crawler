@@ -47,7 +47,16 @@ public class DictionaryValueWriter extends InteractorAdapter {
 			)
 		{
 			Log.i("nicola", "DictionaryValueWriter: Using values from cache");
-			values = ValuesCache.getInstance().get(w.getId());
+			ValuesCache vCache = ValuesCache.getInstance(); 
+			
+			if (vCache != null)
+			{
+				values = vCache.get(w.getId());
+			}
+			else
+			{
+				throw new RuntimeException("ValuesCache error!");
+			}
 		}
 		
 		//anche se non e' presente nella cache sara' null
@@ -72,7 +81,12 @@ public class DictionaryValueWriter extends InteractorAdapter {
 				)
 		{			
 			Log.i("nicola", "DictionaryValueWriter: Saving values to cache");
-			ValuesCache.getInstance().put(w.getId(), values);
+			ValuesCache vCache = ValuesCache.getInstance(); 
+			
+			if (vCache != null)
+				vCache.put(w.getId(), values);
+			else
+				throw new RuntimeException("ValuesCache error!");
 		}
 		
 		return values;

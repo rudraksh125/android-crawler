@@ -45,8 +45,13 @@ public class DictionaryValueEditor extends InteractorAdapter {
 			&& 	w.getId().equals("") == false
 			)
 		{
-			Log.i("nicola", "DictionaryValueEditor: Using values from cache");
-			values = ValuesCache.getInstance().get(w.getId());
+			Log.i("nicola", "DictionaryValueWriter: Using values from cache");
+			ValuesCache vCache = ValuesCache.getInstance(); 
+			
+			if (vCache != null)
+				values = vCache.get(w.getId());
+			else
+				throw new RuntimeException("ValuesCache not found!");
 		}
 		
 		//anche se non e' presente nella cache sara' null
@@ -70,8 +75,13 @@ public class DictionaryValueEditor extends InteractorAdapter {
 				&& 	w.getId().equals("") == false
 				)
 		{
-			Log.i("nicola", "DictionaryValueEditor: Saving values to cache");
-			ValuesCache.getInstance().put(w.getId(), values);
+			Log.i("nicola", "DictionaryValueWriter: Saving values to cache");
+			ValuesCache vCache = ValuesCache.getInstance(); 
+			
+			if (vCache != null)
+				vCache.put(w.getId(), values);
+			else
+				throw new RuntimeException("ValuesCache not found!");
 		}
 		
 		return values;

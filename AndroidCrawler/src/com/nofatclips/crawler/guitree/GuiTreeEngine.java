@@ -162,7 +162,14 @@ public class GuiTreeEngine extends Engine {
 		
 		/** @author nicola */
 		if (com.nofatclips.crawler.planning.Resources.DICTIONARY_FIXED_VALUE)
-			ValuesCache.init(this.getActivity().getApplicationContext());
+		{
+			Context ctx = this.getActivity().getApplicationContext();
+			
+			if (ctx == null)
+				ctx = this.getInstrumentation().getTargetContext().getApplicationContext();
+			
+			ValuesCache.init(ctx);
+		}
 		/** @author nicola */
 	}
 	

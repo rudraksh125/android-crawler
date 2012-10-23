@@ -102,7 +102,7 @@ public class Resources implements ResourceFile {
 	//location provider
 	public static boolean USE_GPS = false;
 	public static boolean EXCLUDE_WIDGETS_INPUTS_IN_GPS_EVENTS = true; // aggiunge input prima di scatenare l'evento "gps"	
-	public static final String TEST_LOCATION_PROVIDER = LocationManager.GPS_PROVIDER;
+	public static String TEST_LOCATION_PROVIDER = LocationManager.GPS_PROVIDER;
 	
 	//sms, call
 	public static boolean SIMULATE_INCOMING_CALL = false;

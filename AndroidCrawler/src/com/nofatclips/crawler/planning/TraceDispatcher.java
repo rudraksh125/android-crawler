@@ -41,6 +41,10 @@ public class TraceDispatcher implements Iterable<Trace> {
 		this.scheduler = ts;
 	}
 
+	public void addPlannedTasks (List<Trace> t) {
+		getScheduler().addPlannedTasks(t);
+	}
+	
 	public void addTasks (Collection<Trace> t) {
 		getScheduler().addTasks(t);
 	}

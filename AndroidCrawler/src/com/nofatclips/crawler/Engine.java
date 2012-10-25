@@ -172,12 +172,17 @@ public abstract class Engine extends ActivityInstrumentationTestCase2 implements
 		planTests (theTask, thePlan);
 	}
 	
-	protected void planTests (Trace theTask, Plan thePlan) {
+	protected void planTests (Trace baseTask, Plan thePlan) {
+		List<Trace> tasks = new ArrayList<Trace>();
 		for (Transition t: thePlan) {
+			tasks.add(getNewTask(baseTask, t));
+		}
+		getScheduler().addPlannedTasks(tasks);
+//		for (Transition t: thePlan) {
 //			Trace newTrace = getAbstractor().createTrace(theTask, t);
 //			newTrace.setId(nextId());
-			getScheduler().addTasks(getNewTask(theTask, t));
-		}		
+//			getScheduler().addTasks(getNewTask(theTask, t));
+//		}		
 	}
 	
 	protected void doNotPlanTests() { 

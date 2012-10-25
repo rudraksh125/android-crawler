@@ -14,6 +14,7 @@ public interface TaskScheduler {
 	
 	public Trace nextTask();
 	public void addTasks (Collection<Trace> newTasks);
+	public void addPlannedTasks(List<Trace> newTasks);
 	public void setTaskList (List<Trace> theList);
 	public boolean hasMore();
 	public void remove (Trace t);

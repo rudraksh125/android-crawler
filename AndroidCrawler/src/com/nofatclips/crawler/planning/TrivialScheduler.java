@@ -3,6 +3,7 @@ package com.nofatclips.crawler.planning;
 import static com.nofatclips.crawler.planning.Resources.MAX_TASKS_IN_SCHEDULER;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 import android.util.Log;
@@ -45,6 +46,28 @@ class TrivialScheduler implements TaskScheduler {
 				theListener.onNewTaskAdded(t);
 			}
 		}				
+	}
+
+	public void addPlannedTasks(List<Trace> newTasks) {
+		switch (algorithm) {
+			case DEPTH_FIRST:
+				Collections.reverse(newTasks);
+				addTasks(newTasks);
+				break;
+			case BREADTH_FIRST: 
+			default: addTasks(newTasks);
+		}
+//		if (this.algorithm.equals(SchedulerAlgorithm.BREADTH_FIRST)) {
+//			addTasks(newTasks);
+//			return;
+//		}
+//		if (this.algorithm.equals(SchedulerAlgorithm.DEPTH_FIRST)) {
+//			List<Trace> invert = 
+//			for (Trace t: newTasks) {
+//				invert.add(t);
+//			}
+//			addTasks(Collections.reverse(newTasks););
+//		}
 	}
 
 	public void setTaskList(List<Trace> theList) {

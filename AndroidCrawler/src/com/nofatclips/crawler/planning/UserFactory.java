@@ -155,6 +155,14 @@ public class UserFactory {
 			u.addEvent(addDosAndDonts(c));
 		}
 
+		/** @author nicola */
+		if (isRequiredEvent(FOCUS)) {
+			Focuser c = new Focuser (typesForEvent(FOCUS));
+			c.setEventWhenNoId(Resources.EVENT_WHEN_NO_ID);
+			u.addEvent(addDosAndDonts(c));
+		}
+		/** @author nicola */
+		
 		if (isRequiredEvent(LONG_CLICK)) {
 			LongClicker l = new LongClicker (typesForEvent(LONG_CLICK));
 			l.setEventWhenNoId(Resources.EVENT_WHEN_NO_ID);
@@ -204,6 +212,14 @@ public class UserFactory {
 			u.addInput (addDosAndDonts(c2));
 		}
 
+		/** @author nicola */
+		if (isRequiredInput(FOCUS)) {
+			Focuser c = new Focuser (typesForInput(FOCUS));
+			c.setEventWhenNoId(Resources.EVENT_WHEN_NO_ID);
+			u.addEvent(addDosAndDonts(c));
+		}
+		/** @author nicola */
+		
 		if (isRequiredInput(SET_BAR)) {
 			Slider sl = new Slider (typesForInput(SET_BAR));
 			sl.setEventWhenNoId(false);
@@ -298,6 +314,14 @@ public class UserFactory {
 			u.addEvent(addDosAndDonts(c));
 		}
 
+		/** @author nicola */
+		if (eventTypes.contains(FOCUS)) {
+			Focuser c = new Focuser (typesForEvent(FOCUS));
+			c.setEventWhenNoId(Resources.EVENT_WHEN_NO_ID);
+			u.addEvent(addDosAndDonts(c));
+		}
+		/** @author nicola */
+		
 		if (eventTypes.contains(LONG_CLICK)) {
 			LongClicker l = new LongClicker (typesForEvent(LONG_CLICK));
 			l.setEventWhenNoId(Resources.EVENT_WHEN_NO_ID);
@@ -346,6 +370,14 @@ public class UserFactory {
 			c2.setEventWhenNoId(false);
 			u.addInput (addDosAndDonts(c2));
 		}
+		
+		/** @author nicola */
+		if (isRequiredInput(FOCUS)) {
+			Focuser c = new Focuser (typesForInput(FOCUS));
+			c.setEventWhenNoId(Resources.EVENT_WHEN_NO_ID);
+			u.addEvent(addDosAndDonts(c));
+		}
+		/** @author nicola */
 
 		if (isRequiredInput(SET_BAR)) {
 			Slider sl = new Slider (typesForInput(SET_BAR));

@@ -42,8 +42,9 @@ public class Resources implements ResourceFile {
 	public static String INPUTS[];
 	
 //	// Default events and inputs for the User
-	static {
+//	static {
 //		UserFactory.addEvent(CLICK, BUTTON, MENU_ITEM, LINEAR_LAYOUT, IMAGE_VIEW);
+//		UserFactory.addEvent(FOCUS, FOCUSABLE_EDIT_TEXT);
 //		UserFactory.addEvent(LONG_CLICK, WEB_VIEW);
 //		UserFactory.addEvent(LIST_SELECT, LIST_VIEW, SINGLE_CHOICE_LIST, PREFERENCE_LIST);
 //		UserFactory.addEvent(LIST_LONG_SELECT, LIST_VIEW, SINGLE_CHOICE_LIST);
@@ -54,7 +55,7 @@ public class Resources implements ResourceFile {
 //		UserFactory.addInput(TYPE_TEXT, EDIT_TEXT);
 //		UserFactory.addInput(SPINNER_SELECT, SPINNER);
 //		UserFactory.addInput(LIST_SELECT, MULTI_CHOICE_LIST);
-	}
+//	}
 
 	// User/Planner Parameters
 	public static int MAX_EVENTS_PER_WIDGET = 0; // For GroupViews (0 = try all items in the group)

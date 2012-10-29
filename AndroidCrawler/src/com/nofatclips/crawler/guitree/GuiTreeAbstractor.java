@@ -122,12 +122,26 @@ public class GuiTreeAbstractor implements Abstractor, FilterHandler, SaveStateLi
 //			w.setTextType("" + type);
 //		}
 		w.setSimpleType(getTypeDetector().getSimpleType(v));
+		
+		/** @author nicola */
+		if (	//Resources.DETECT_ON_FOCUS_CHANGE_LISTENER &&
+				v.isFocusable()
+			&&	v.isFocusableInTouchMode()
+			&&	ReflectionHelper.checkIfFieldIsSet(v, "android.view.View", "mOnFocusChangeListener")
+		)
+		{
+			w.setSimpleType(SimpleType.FOCUSABLE_EDIT_TEXT);
+		}
+		/** @author nicola */
+		
 		setCount (v,w);
 		setValue (v,w);
 		w.setAvailable((v.isEnabled())?"true":"false");
 		w.setClickable((v.isClickable())?"true":"false");
 		w.setLongClickable((v.isLongClickable())?"true":"false");
 //		w.setIndex(desc.getWidgetIndex(v));
+		
+		
 		
 		/** @author nicola */
 		//if duplicato perché nome e valore vengono settati dopo l'if precedente

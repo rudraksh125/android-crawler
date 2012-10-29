@@ -125,7 +125,7 @@ public class ReflectionHelper
     {
 		HashMap<String, Boolean> ret = new HashMap<String, Boolean>();
 		
-		ret.put( "_focusChange", checkIfFieldIsSet(view, "android.view.View", "mOnFocusChangeListener") );
+		ret.put( InteractionType.FOCUS, checkIfFieldIsSet(view, "android.view.View", "mOnFocusChangeListener") );
 		
 		ret.put( InteractionType.CLICK,
 					checkIfFieldIsSet(view, "android.view.View", "mOnClickListener")

@@ -7,6 +7,6 @@
 	<classpathentry kind="lib" path="libs/droidmodels.jar"/>
 	<classpathentry kind="src" path="/Android Test"/>
 	<classpathentry kind="con" path="com.android.ide.eclipse.adt.LIBRARIES"/>
-	<classpathentry kind="lib" path="libs/robotium-solo-3.1.jar"/>
+	<classpathentry kind="lib" path="libs/robotium-solo-3.5.1.jar"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>

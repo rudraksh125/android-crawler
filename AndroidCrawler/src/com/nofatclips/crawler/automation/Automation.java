@@ -764,7 +764,7 @@ public class Automation implements Robot, Extractor, TaskProcessor, ImageCaptor,
 		}
 		
 		public Bitmap captureImage() {
-			final View view = solo.getViews().get(0);
+			final View view = getWidget(0);
 			final boolean flag = view.isDrawingCacheEnabled();
 			getActivity().runOnUiThread(new Runnable() {
 				public void run() {

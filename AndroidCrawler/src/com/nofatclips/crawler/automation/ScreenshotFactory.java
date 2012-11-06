@@ -30,6 +30,10 @@ public class ScreenshotFactory {
 
 	public static boolean saveScreenshot(String id) {
 		Bitmap b = theImageCaptor.captureImage();
+		
+		if (b == null)
+			return false;
+		
 		try {
 			theImageStorage.saveImage(b, id);
 		} catch (IOException e) {

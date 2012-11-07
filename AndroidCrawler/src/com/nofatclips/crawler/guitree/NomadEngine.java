@@ -7,8 +7,7 @@ import com.nofatclips.crawler.model.MemorylessEngine;
 public class NomadEngine extends RandomEngine implements MemorylessEngine {
 
 	@Override
-	protected void setUp() {
-		super.setUp();
+	protected void setupAfterResume() {
 		planFirstTests(getAbstractor().getBaseActivity());
 	}
 

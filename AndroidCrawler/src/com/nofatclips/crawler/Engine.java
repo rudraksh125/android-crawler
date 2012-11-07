@@ -45,16 +45,24 @@ public abstract class Engine extends ActivityInstrumentationTestCase2 implements
 		getPersistence().setContext(a);
 		ActivityDescription d = getExtractor().describeActivity();
 		getAbstractor().setBaseActivity(d);
-		if (!resume()) {
-			Log.i("nofatclips", "Starting a new session");
-			ActivityState baseActivity = getAbstractor().getBaseActivity(); 
-			getStrategy().addState(baseActivity);
-			if (screenshotEnabled()) {
-				takeScreenshot (baseActivity);
-			}
-			planFirstTests(baseActivity);
+		if (resume()) {
+			setupAfterResume();
+		} else {
+			setupFirstStart();
 		}
 	}
+
+	protected void setupFirstStart() {
+		Log.i("nofatclips", "Starting a new session");
+		ActivityState baseActivity = getAbstractor().getBaseActivity(); 
+		getStrategy().addState(baseActivity);
+		if (screenshotEnabled()) {
+			takeScreenshot (baseActivity);
+		}
+		planFirstTests(baseActivity);
+	}
+
+	protected void setupAfterResume() {/* do nothing*/}
 
 	public void testAndCrawl() {
 		for (Trace theTask: getScheduler()) {

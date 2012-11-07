@@ -33,10 +33,14 @@ public class RandomEngine extends GuiTreeEngine {
 		this.theStrategyFactory.setMoreCriterias(new OnExitPause());
 		this.theStrategyFactory.setPauseTraces(0);
 		this.theStrategyFactory.setExploreNewOnly(false);
-		if (Resources.TRACE_MAX_DEPTH>0) {
+		addMoreCriteria();
+		this.first = true;
+	}
+
+	public void addMoreCriteria() {
+		if (Resources.TRACE_MAX_DEPTH > 0) {
 			this.theStrategyFactory.setMoreCriterias(new MaxDepthTermination(Resources.TRACE_MAX_DEPTH));
 		}
-		this.first = true;
 	}
 	
 	@Override

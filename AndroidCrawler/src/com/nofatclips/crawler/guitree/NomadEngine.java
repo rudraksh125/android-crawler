@@ -10,5 +10,8 @@ public class NomadEngine extends RandomEngine implements MemorylessEngine {
 	protected void setupAfterResume() {
 		planFirstTests(getAbstractor().getBaseActivity());
 	}
+	
+	@Override
+	public void addMoreCriteria() { /* do nothing */ }
 
 }

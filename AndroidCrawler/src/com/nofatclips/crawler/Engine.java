@@ -114,11 +114,52 @@ public abstract class Engine extends ActivityInstrumentationTestCase2 implements
 		ResumingPersistence r = (ResumingPersistence)getPersistence();
 		if (!r.canHasResume()) return false;
 		Log.i("nofatclips", "Attempting to resume previous session");
+//		List<String> entries;
+//		Session sandboxSession = getNewSession();
+//		Element e;
+		
+		importTaskList(r);
+		
+		importActivitiyList(r);
+
+		r.loadParameters();
+		r.setNotFirst();
+		r.saveStep();
+
+		return true;
+	}
+
+	public void importActivitiyList(ResumingPersistence r) {
+		if (getStrategy().getComparator() instanceof StatelessComparator) {
+			Log.i("nofatclips","Stateless comparator: the state file will not be loaded.");
+			return;
+		}
 		List<String> entries;
 		Session sandboxSession = getNewSession();
 		Element e;
-		
-		// Importing task list
+		entries = r.readStateFile();
+		List<ActivityState> stateList = new ArrayList<ActivityState>();
+		ActivityState s;
+		for (String state: entries) {
+			sandboxSession.parse(state);
+			e = ((XmlGraph)sandboxSession).getDom().getDocumentElement();
+			s = getAbstractor().importState (e);
+			stateList.add(s);
+			Log.d("nofatclips", "Imported activity state " + s.getId() + " from disk");
+		}
+		for (ActivityState state: stateList) {
+			getStrategy().addState(state);
+		}
+	}
+
+	public void importTaskList(ResumingPersistence r) {
+		if (this instanceof MemorylessEngine) {
+			Log.i("nofatclips","Memoryless engine: the task file will not be loaded.");
+			return;
+		}
+		List<String> entries;
+		Session sandboxSession = getNewSession();
+		Element e;
 		entries = r.readTaskFile();
 		List<Trace> taskList = new ArrayList<Trace>();
 		Trace t;
@@ -135,39 +176,14 @@ public abstract class Engine extends ActivityInstrumentationTestCase2 implements
 			}
 		}
 		getScheduler().addTasks(taskList);
-		
-		// Importing activity list
-		if (getStrategy().getComparator() instanceof StatelessComparator) {
-			Log.i("nofatclips","Stateless comparator: the state file will not be loaded.");
-		} else {
-			entries = r.readStateFile();
-			List<ActivityState> stateList = new ArrayList<ActivityState>();
-			ActivityState s;
-			for (String state: entries) {
-				sandboxSession.parse(state);
-				e = ((XmlGraph)sandboxSession).getDom().getDocumentElement();
-				s = getAbstractor().importState (e);
-				stateList.add(s);
-				Log.d("nofatclips", "Imported activity state " + s.getId() + " from disk");
-			}
-			for (ActivityState state: stateList) {
-				getStrategy().addState(state);
-			}
-		}
-
-		r.loadParameters();
-		r.setNotFirst();
-		r.saveStep();
-
-		return true;
 	}
 	
-	private void planFirstTests (ActivityState theActivity) {
+	protected void planFirstTests (ActivityState theActivity) {
 		Plan thePlan = getPlanner().getPlanForBaseActivity(theActivity);
 		planTests (null, thePlan);
 	}
 	
-	private void planTests (Trace theTask, ActivityState theActivity) {
+	protected void planTests (Trace theTask, ActivityState theActivity) {
 		Plan thePlan = getPlanner().getPlanForActivity(theActivity);
 		planTests (theTask, thePlan);
 	}

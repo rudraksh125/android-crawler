@@ -37,6 +37,7 @@ public class RandomEngine extends GuiTreeEngine {
 		this.first = true;
 	}
 
+	// When Max Depth is reached, exit
 	public void addMoreCriteria() {
 		if (Resources.TRACE_MAX_DEPTH > 0) {
 			this.theStrategyFactory.setMoreCriterias(new MaxDepthTermination(Resources.TRACE_MAX_DEPTH));

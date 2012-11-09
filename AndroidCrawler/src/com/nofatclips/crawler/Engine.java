@@ -161,9 +161,9 @@ public abstract class Engine extends ActivityInstrumentationTestCase2 implements
 	}
 
 	public void importTaskList(ResumingPersistence r) {
-		if (this instanceof MemorylessEngine) {
-			Log.i("nofatclips","Memoryless engine: the task file will not be loaded.");
-			return;
+		boolean noLoadTasks = this instanceof MemorylessEngine;
+		if (noLoadTasks) {
+			Log.i("nofatclips","Memoryless engine: the task file will not be loaded. Looking for crashed traces.");
 		}
 		List<String> entries;
 		Session sandboxSession = getNewSession();
@@ -178,6 +178,8 @@ public abstract class Engine extends ActivityInstrumentationTestCase2 implements
 			if (t.isFailed()) {
 				Log.d("nofatclips", "Importing crashed trace #" + t.getId() + " from disk");
 				getSession().addCrashedTrace(t);
+			} else if (noLoadTasks) {
+				Log.v("nofatclips", "Discarding trace #" + t.getId());
 			} else {
 				Log.d("nofatclips", "Importing trace #" + t.getId() + " from disk");
 				taskList.add(t);

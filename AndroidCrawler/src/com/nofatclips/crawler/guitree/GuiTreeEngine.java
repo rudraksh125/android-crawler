@@ -4,6 +4,7 @@ import java.util.GregorianCalendar;
 import javax.xml.parsers.ParserConfigurationException;
 
 import android.content.Context;
+import android.location.Location;
 import android.location.LocationManager;
 import android.util.Log;
 
@@ -131,6 +132,15 @@ public class GuiTreeEngine extends Engine {
 			 */
 			theAutomation.locationManager.addTestProvider(com.nofatclips.crawler.planning.Resources.TEST_LOCATION_PROVIDER, false, false, false, false, true, true, true, 0, 5);
 			theAutomation.locationManager.setTestProviderEnabled(com.nofatclips.crawler.planning.Resources.TEST_LOCATION_PROVIDER, true);
+			
+			if (com.nofatclips.crawler.planning.Resources.FIX_GPS_POSITION)
+			{
+				Location location = new Location(com.nofatclips.crawler.planning.Resources.TEST_LOCATION_PROVIDER);
+				location.setTime(System.currentTimeMillis());
+				location.setLatitude(28.574853);
+				location.setLatitude(78.063201);
+				theAutomation.locationManager.setTestProviderLocation(com.nofatclips.crawler.planning.Resources.TEST_LOCATION_PROVIDER, location);
+			}
 		}
 		/** @author nicola amatucci - sensori/reflection */				
 		

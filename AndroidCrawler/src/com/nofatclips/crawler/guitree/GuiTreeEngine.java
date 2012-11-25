@@ -139,6 +139,7 @@ public class GuiTreeEngine extends Engine {
 				location.setTime(System.currentTimeMillis());
 				location.setLatitude(28.574853);
 				location.setLatitude(78.063201);
+				location.setAccuracy(500);
 				theAutomation.locationManager.setTestProviderLocation(com.nofatclips.crawler.planning.Resources.TEST_LOCATION_PROVIDER, location);
 			}
 		}

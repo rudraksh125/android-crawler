@@ -182,7 +182,7 @@ public class AbstractorUtilities {
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			//e.printStackTrace();
-			Log.e("nicola", e.toString());
+			Log.e("nofatclips", e.toString());
 		}
 		
 		return null;

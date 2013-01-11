@@ -83,10 +83,6 @@ This is a legacy parameter and is usually better left to `true`.
 
 A string array containing the precrawling sequence. Refer to [...]
 
-= Screenshot parameters =
-
-Following are the entries of the map stored in the `screenshot` sub-node of the XML file.
-
 *SCREENSHOT_FOR_STATES*: `boolean`
 
 When `true`, an image capture of the display screen is performed after the last action in a task has been performed and saved as a JPEG file.

@@ -46,7 +46,7 @@ public class DictionaryValueWriter extends InteractorAdapter {
 			&& 	w.getId().equals("") == false
 			)
 		{
-			Log.i("nicola", "DictionaryValueWriter: Using values from cache");
+			Log.i("nofatclips", "DictionaryValueWriter: Using values from cache");
 			ValuesCache vCache = ValuesCache.getInstance(); 
 			
 			if (vCache != null)
@@ -62,7 +62,7 @@ public class DictionaryValueWriter extends InteractorAdapter {
 		//anche se non e' presente nella cache sara' null
 		if (values == null)
 		{
-			Log.i("nicola", "DictionaryValueWriter: Generating new values");
+			Log.i("nofatclips", "DictionaryValueWriter: Generating new values");
 			
 			if (com.nofatclips.crawler.planning.Resources.DICTIONARY_IGNORE_CONTENT_TYPES)
 			{
@@ -80,7 +80,7 @@ public class DictionaryValueWriter extends InteractorAdapter {
 				&& 	w.getId().equals("") == false
 				)
 		{			
-			Log.i("nicola", "DictionaryValueWriter: Saving values to cache");
+			Log.i("nofatclips", "DictionaryValueWriter: Saving values to cache");
 			ValuesCache vCache = ValuesCache.getInstance(); 
 			
 			if (vCache != null)

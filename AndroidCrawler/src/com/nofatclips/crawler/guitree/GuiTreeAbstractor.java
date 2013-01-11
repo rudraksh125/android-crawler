@@ -148,9 +148,9 @@ public class GuiTreeAbstractor implements Abstractor, FilterHandler, SaveStateLi
 		if (v instanceof TextView) {
 			//default
 			String txtId = reflectTextualIDbyNumericalID(v.getId());
-			Log.v("nicola", "TextualID : " + txtId);
+			Log.v("nofatclips", "TextualID : " + txtId);
 			w.setContentType(ContentTypeDetector.detect(w, txtId));
-			Log.v("nicola", "ContentType detected : " + w.getContentType());			
+			Log.v("nofatclips", "ContentType detected : " + w.getContentType());			
 		}
 		/** @author nicola */
 		

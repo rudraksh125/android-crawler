@@ -19,7 +19,7 @@ public class DictionarySimplePlanner extends SimplePlanner {
 
 	public void addPlanForActivityWidgets (Plan p, ActivityState a, boolean allowSwapTabs, boolean allowGoBack)
 	{
-		Log.i("nicola", "Planning with RegExPlanner for new Activity " + a.getName());
+		Log.i("nofatclips", "Planning with RegExPlanner for new Activity " + a.getName());
 		
 		//conta i widget EditText con contentType != DEFAULT
 		int nEditText = 0;
@@ -32,7 +32,7 @@ public class DictionarySimplePlanner extends SimplePlanner {
 				nEditText++;
 		}
 		
-		Log.i("nicola", "nEditText=" + nEditText);
+		Log.i("nofatclips", "nEditText=" + nEditText);
 		
 		//Crea gli eventi
 		//0000
@@ -42,7 +42,7 @@ public class DictionarySimplePlanner extends SimplePlanner {
 		//0001
 		for (int currentEditTextWrongRegExIndex = 0; currentEditTextWrongRegExIndex <= nEditText; currentEditTextWrongRegExIndex++)
 		{
-			Log.i("nicola", "currentEditTextWrongRegExIndex=" + currentEditTextWrongRegExIndex);
+			Log.i("nofatclips", "currentEditTextWrongRegExIndex=" + currentEditTextWrongRegExIndex);
 			
 			for (WidgetState w: getEventFilter())
 			{
@@ -71,7 +71,7 @@ public class DictionarySimplePlanner extends SimplePlanner {
 							&&	currentEditTextWrongRegExIndex == currentEditTextIndex) //e' l'edittext che deve essere riempita col valore sbagliato
 						{
 							inp = alternatives.get(0);
-							Log.i("nicola", "edittext " + currentEditTextIndex + ", content=" + formWidget.getContentType() + ", using input=" + inp.getValue());
+							Log.i("nofatclips", "edittext " + currentEditTextIndex + ", content=" + formWidget.getContentType() + ", using input=" + inp.getValue());
 						}
 						else
 						{

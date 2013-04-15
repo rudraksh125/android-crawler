@@ -6,6 +6,7 @@ import java.net.Socket;
 
 import com.nofatclips.crawler.Resources;
 
+@SuppressWarnings("unused")
 public class AndroidConsoleSocket {
 
 	public static void send(String cmd)

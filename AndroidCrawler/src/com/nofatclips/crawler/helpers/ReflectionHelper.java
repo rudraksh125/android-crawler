@@ -200,6 +200,7 @@ public class ReflectionHelper
 		return false;
 	}
 	
+	@SuppressWarnings("rawtypes")
 	public static boolean checkIfArrayListFieldIsSet(Object o, String baseClass, String fieldName)
 	{
 		java.lang.reflect.Field field;

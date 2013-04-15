@@ -157,6 +157,7 @@ public class AbstractorUtilities {
 	 * della descrizione dell'activity una hashmap temporanea <id,nome> (<integer,string>)
 	 * per cui la reflection interviene una sola volta
 	 */
+	@SuppressWarnings("rawtypes")
 	public static String reflectTextualIDbyNumericalID(int id)
 	{
 		try {

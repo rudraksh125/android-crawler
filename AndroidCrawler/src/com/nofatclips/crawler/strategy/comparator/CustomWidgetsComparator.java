@@ -14,9 +14,9 @@ import static com.nofatclips.crawler.strategy.comparator.Resources.COMPARE_MENU_
 import static com.nofatclips.crawler.strategy.comparator.Resources.COMPARE_ACTIVITY_NAME;
 
 // Accetta in input (nel costruttore) un numero arbitrario di tipi di widget e compara le activity
-// considerandone il nome ed i widget dei tipi selezionati. Una activity A sarà diversa da B se il
-// nome di A è diverso da quello di B, o se fra i widget dei tipi selezionati posseduti da A ce
-// n'è almeno uno che B non possiede.
+// considerandone il nome ed i widget dei tipi selezionati. Una activity A sara' diversa da B se il
+// nome di A e' diverso da quello di B, o se fra i widget dei tipi selezionati posseduti da A ce
+// n'e' almeno uno che B non possiede.
 // Sono presi in considerazione solo i widget dotati di ID.
 
 // Es: Comparator COMPARATOR = new CustomWidgetsComparator("button", "editText");

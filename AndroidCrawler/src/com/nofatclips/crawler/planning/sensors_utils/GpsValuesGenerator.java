@@ -52,6 +52,7 @@ public class GpsValuesGenerator {
 		return Math.random() * ( max - min );		
 	}
 	
+	@SuppressWarnings("unused")
 	public static double getRandomPositiveAltitude()
 	{
 		double min = 0;

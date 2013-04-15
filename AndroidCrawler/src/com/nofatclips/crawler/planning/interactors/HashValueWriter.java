@@ -16,6 +16,7 @@ import com.nofatclips.crawler.planning.adapters.InteractorAdapter;
 import com.nofatclips.crawler.planning.interactors.values_cache.ValuesCache;
 import com.nofatclips.dictionary.TestValuesDictionary;
 
+@SuppressWarnings("unused")
 public class HashValueWriter extends InteractorAdapter {
 
 	public HashValueWriter () {

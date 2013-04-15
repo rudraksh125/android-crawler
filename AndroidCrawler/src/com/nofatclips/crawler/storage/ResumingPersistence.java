@@ -10,6 +10,7 @@ import java.util.Map.Entry;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactoryConfigurationError;
 
+import android.annotation.SuppressLint;
 import android.content.ContextWrapper;
 import android.util.Log;
 
@@ -18,6 +19,7 @@ import com.nofatclips.androidtesting.model.*;
 import com.nofatclips.androidtesting.xml.ElementWrapper;
 import com.nofatclips.crawler.model.*;
 
+@SuppressLint("WorldReadableFiles")
 public class ResumingPersistence extends StepDiskPersistence implements DispatchListener, StateDiscoveryListener, TerminationListener {
 
 	private List<Trace> taskList;
@@ -78,13 +80,10 @@ public class ResumingPersistence extends StepDiskPersistence implements Dispatch
 			}
 			closeTaskFile();
 		} catch (TransformerFactoryConfigurationError e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (TransformerException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -147,10 +146,8 @@ public class ResumingPersistence extends StepDiskPersistence implements Dispatch
 			theStream = new ObjectOutputStream(theFile);
 			theStream.writeObject(this.parameters);
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
 			if (theFile!=null && theStream!=null) {
@@ -169,10 +166,8 @@ public class ResumingPersistence extends StepDiskPersistence implements Dispatch
 			theStream = new ObjectInputStream(theFile);
 			this.parameters = (Map<String, SessionParams>) theStream.readObject();
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (ClassNotFoundException ignore) {}
 		
@@ -197,13 +192,10 @@ public class ResumingPersistence extends StepDiskPersistence implements Dispatch
 			writeOnStateFile(xml);
 			closeStateFile();
 		} catch (TransformerFactoryConfigurationError e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (TransformerException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -232,10 +224,8 @@ public class ResumingPersistence extends StepDiskPersistence implements Dispatch
 				osw.close();
 				fOut.close();
 			} catch (FileNotFoundException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 
@@ -255,6 +245,7 @@ public class ResumingPersistence extends StepDiskPersistence implements Dispatch
 	}
 
 	
+	@SuppressWarnings("resource")
 	public List<String> readTaskFile () {
 		FileInputStream theFile;
 		BufferedReader theStream = null;
@@ -273,6 +264,7 @@ public class ResumingPersistence extends StepDiskPersistence implements Dispatch
 		return output;
 	}
 	
+	@SuppressWarnings("resource")
 	public List<String> readStateFile () {
 		FileInputStream theFile;
 		BufferedReader theStream = null;

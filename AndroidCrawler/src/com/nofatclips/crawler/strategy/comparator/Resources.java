@@ -10,6 +10,7 @@ import com.nofatclips.crawler.Prefs;
 import com.nofatclips.crawler.model.Comparator;
 import com.nofatclips.crawler.model.ResourceFile;
 
+@SuppressWarnings("unused")
 public class Resources implements ResourceFile {
 
 //	public static Comparator COMPARATOR = new CustomWidgetsComparator(CustomWidgetsComparator.IGNORE_ACTIVITY_NAME, EDIT_TEXT, BUTTON, LIST_VIEW, MENU_VIEW, IMAGE_VIEW);

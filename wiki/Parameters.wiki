@@ -157,6 +157,31 @@ When `true`, a special event will be fired to scroll the display one page down.
 
 Following are the entries of the map stored in the `planner` sub-node of the XML file.
 
+*PLANNER*: `String`
+
+The possible values are:
+`SimplePlanner` (the default value)
+`DictionarySimplePlanner`
+`SimpleReflectionPlanner`
+
+*TEXT_VALUES_ID_HASH*: `boolean`
+
+When `true`, uses the hash value of the id to fill the EditText
+Ignored if *PLANNER* = `DictionarySimplePlanner`
+
+
+*TEXT_VALUES_FROM_DICTIONARY*: `boolean`
+When `true`, uses the values in dictionaries to fill the EditText 
+The default is `false`.
+
+*DICTIONARY_IGNORE_CONTENT_TYPES*: `boolean`
+When `true`, takes a random value from the dictionary of any contentType
+The default is `false`.
+
+*VALID_DICTIONARY_VALUES*: `boolean` <not yet implemented>
+
+*INVALID_DICTIONARY_VALUES*: `boolean` <not yet implemented>
+
 *MAX_EVENTS_PER_WIDGET*: `int` {0 = infinite}
 
 Limits the number of times an event is generated when iterating on a group widget.

@@ -160,22 +160,30 @@ Following are the entries of the map stored in the `planner` sub-node of the XML
 *PLANNER*: `String`
 
 The possible values are:
+
 `SimplePlanner` (the default value)
+
 `DictionarySimplePlanner`
+
 `SimpleReflectionPlanner`
 
 *TEXT_VALUES_ID_HASH*: `boolean`
 
 When `true`, uses the hash value of the id to fill the EditText
+
 Ignored if *PLANNER* = `DictionarySimplePlanner`
 
 
 *TEXT_VALUES_FROM_DICTIONARY*: `boolean`
+
 When `true`, uses the values in dictionaries to fill the EditText 
+
 The default is `false`.
 
 *DICTIONARY_IGNORE_CONTENT_TYPES*: `boolean`
+
 When `true`, takes a random value from the dictionary of any contentType
+
 The default is `false`.
 
 *VALID_DICTIONARY_VALUES*: `boolean` <not yet implemented>

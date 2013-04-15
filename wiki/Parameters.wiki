@@ -105,7 +105,7 @@ The strategy used to explore the application under test:
  * with the `DEPTH_FIRST` algorithm, the branch starting from a node of the GUI Tree is explored thoroughly before exploring the neighbours of (nodes at the same depth than) that node;
  * with the `BREADTH_FIRST` algorithm, on the opposite, all neighbouring nodes are explored before descending to deeper nodes.
 
-Note that the Random ripper forces the use of the `depth first` strategy.
+Note that the `Random ripper` forces the use of the `depth first` strategy.
 
 *MAX_TASKS_IN_SCHEDULER*: `int`
 
@@ -161,7 +161,7 @@ Following are the entries of the map stored in the `planner` sub-node of the XML
 
 The possible values are:
 
-`SimplePlanner` (the default value)
+`SimplePlanner` {the default value}
 
 `DictionarySimplePlanner`
 
@@ -169,28 +169,24 @@ The possible values are:
 
 *TEXT_VALUES_ID_HASH*: `boolean`
 
-When `true`, uses the hash value of the id to fill the EditText
+When `true`, uses the hash value of the id to fill the Edit Text
 
 Ignored if *PLANNER* = `DictionarySimplePlanner`
 
 
 *TEXT_VALUES_FROM_DICTIONARY*: `boolean`
 
-When `true`, uses the values in dictionaries to fill the EditText 
-
-The default is `false`.
+When `true`, uses the values in dictionaries to fill the Edit Text {default = `false`}.
 
 *DICTIONARY_IGNORE_CONTENT_TYPES*: `boolean`
 
-When `true`, takes a random value from the dictionary of any contentType
-
-The default is `false`.
+When `true`, takes a random value from the dictionary of any contentType {default is `false`}.
 
 *VALID_DICTIONARY_VALUES*: `boolean` <not yet implemented>
 
 *INVALID_DICTIONARY_VALUES*: `boolean` <not yet implemented>
 
-*MAX_EVENTS_PER_WIDGET*: `int` {0 = infinite}
+*MAX_EVENTS_PER_WIDGET*: `int` {0 = `infinite`}
 
 Limits the number of times an event is generated when iterating on a group widget.
 

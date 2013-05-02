@@ -1,0 +1,11 @@
+package it.unina.androidripper.automation.utils;
+
+public class ActivityReflectionCacheElement {
+	public Boolean usesSensors = null;
+	public Boolean usesLocation = null;
+	public Boolean hasMenu = null;
+	public Boolean hasOnOptionsItemSelected = null;
+	public Boolean handlesKeyPress = null;
+	public Boolean handlesLongKeyPress = null;
+	public Boolean isTabActivity = null;
+}

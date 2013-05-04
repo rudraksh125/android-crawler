@@ -34,7 +34,7 @@ public class Resources implements ResourceFile {
 		} else {
 			try {
 				String className = (COMPARATOR_TYPE.indexOf(".") == -1)?
-						("com.nofatclips.crawler.strategy.comparator." + COMPARATOR_TYPE):COMPARATOR_TYPE;
+						("it.unina.androidripper.strategy.comparator." + COMPARATOR_TYPE):COMPARATOR_TYPE;
 				Class<?> theClass = Class.forName(className);
 				COMPARATOR = (Comparator) theClass.newInstance();
 			} catch (ClassNotFoundException e) {

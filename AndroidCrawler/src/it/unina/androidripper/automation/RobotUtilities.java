@@ -318,13 +318,13 @@ public class RobotUtilities {
 //  	try {
 //          Thread.sleep(500);
 //      } catch (InterruptedException e) {
-//          Log.e("nofatclips", "Could not sleep for long press timeout", e);
+//          Log.e("androidripper", "Could not sleep for long press timeout", e);
 //          return;
 //      }
 //  	
-////  	Log.d("nofatclips", "Prima della pausa");
+////  	Log.d("androidripper", "Prima della pausa");
 ////  	solo.sleep(2000);
-////  	Log.d("nofatclips", "Dopo la pausa");
+////  	Log.d("androidripper", "Dopo la pausa");
 //  	
 //  	for (int repetition = 0; repetition<50; repetition++) {
 //	//    	getInstrumentation().sendKeySync(KeyEvent.changeFlags(upEvent, KeyEvent.FLAG_LONG_PRESS));

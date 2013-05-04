@@ -214,7 +214,7 @@ public class GuiTreeAbstractor implements Abstractor, FilterHandler, SaveStateLi
 		if ( desc.isTabActivity() )
 		{
 			//addActivitySupportedEvent(newActivity, InteractionType.SWAP_TAB);
-			Log.v("GuiTreeAbstracor", "Activity is TabActivity");
+			Log.v("androidripper", "Activity is TabActivity");
 		}
 		/** @author nicola amatucci - sensori/reflection */	
 		

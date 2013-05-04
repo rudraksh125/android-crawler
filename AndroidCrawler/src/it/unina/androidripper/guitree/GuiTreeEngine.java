@@ -55,7 +55,7 @@ public class GuiTreeEngine extends Engine {
 		setSession (this.theGuiTree);
 		
 		/** @author nicola */
-		String className = "com.nofatclips.crawler.planning." + it.unina.androidripper.planning.Resources.PLANNER;
+		String className = "it.unina.androidripper.planning." + it.unina.androidripper.planning.Resources.PLANNER;
 		SimplePlanner p;
 		try {
 			p = (SimplePlanner)Class.forName(className).newInstance();

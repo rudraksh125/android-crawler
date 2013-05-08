@@ -1,9 +1,55 @@
 package it.unina.androidripper.automation;
 
 //import static com.nofatclips.crawler.Resources.*;
-import static com.nofatclips.androidtesting.model.InteractionType.*;
-import static com.nofatclips.androidtesting.model.SimpleType.*;
-
+import static com.nofatclips.androidtesting.model.InteractionType.ACCELEROMETER_SENSOR_EVENT;
+import static com.nofatclips.androidtesting.model.InteractionType.AMBIENT_TEMPERATURE_SENSOR_EVENT;
+import static com.nofatclips.androidtesting.model.InteractionType.BACK;
+import static com.nofatclips.androidtesting.model.InteractionType.CHANGE_ORIENTATION;
+import static com.nofatclips.androidtesting.model.InteractionType.CLICK;
+import static com.nofatclips.androidtesting.model.InteractionType.CLICK_ON_TEXT;
+import static com.nofatclips.androidtesting.model.InteractionType.FOCUS;
+import static com.nofatclips.androidtesting.model.InteractionType.GPS_LOCATION_CHANGE_EVENT;
+import static com.nofatclips.androidtesting.model.InteractionType.GPS_PROVIDER_DISABLE_EVENT;
+import static com.nofatclips.androidtesting.model.InteractionType.INCOMING_CALL_EVENT;
+import static com.nofatclips.androidtesting.model.InteractionType.INCOMING_SMS_EVENT;
+import static com.nofatclips.androidtesting.model.InteractionType.LIST_LONG_SELECT;
+import static com.nofatclips.androidtesting.model.InteractionType.LIST_SELECT;
+import static com.nofatclips.androidtesting.model.InteractionType.LONG_CLICK;
+import static com.nofatclips.androidtesting.model.InteractionType.MAGNETIC_FIELD_SENSOR_EVENT;
+import static com.nofatclips.androidtesting.model.InteractionType.OPEN_MENU;
+import static com.nofatclips.androidtesting.model.InteractionType.ORIENTATION_SENSOR_EVENT;
+import static com.nofatclips.androidtesting.model.InteractionType.PRESS_KEY;
+import static com.nofatclips.androidtesting.model.InteractionType.RADIO_SELECT;
+import static com.nofatclips.androidtesting.model.InteractionType.SCROLL_DOWN;
+import static com.nofatclips.androidtesting.model.InteractionType.SET_BAR;
+import static com.nofatclips.androidtesting.model.InteractionType.SPINNER_SELECT;
+import static com.nofatclips.androidtesting.model.InteractionType.SWAP_TAB;
+import static com.nofatclips.androidtesting.model.InteractionType.TEMPERATURE_SENSOR_EVENT;
+import static com.nofatclips.androidtesting.model.InteractionType.TYPE_TEXT;
+import static com.nofatclips.androidtesting.model.InteractionType.WRITE_TEXT;
+import static com.nofatclips.androidtesting.model.SimpleType.BUTTON;
+import static com.nofatclips.androidtesting.model.SimpleType.MENU_ITEM;
+import static it.unina.androidripper.automation.Resources.FORCE_RESTART;
+import static it.unina.androidripper.automation.Resources.IN_AND_OUT_FOCUS;
+import static it.unina.androidripper.automation.Resources.PRECRAWLING;
+import static it.unina.androidripper.automation.Resources.SLEEP_AFTER_EVENT;
+import static it.unina.androidripper.automation.Resources.SLEEP_AFTER_RESTART;
+import static it.unina.androidripper.automation.Resources.SLEEP_ON_THROBBER;
+import static it.unina.androidripper.automation.RobotUtilities.changeOrientation;
+import static it.unina.androidripper.automation.RobotUtilities.click;
+import static it.unina.androidripper.automation.RobotUtilities.clickOnText;
+import static it.unina.androidripper.automation.RobotUtilities.goBack;
+import static it.unina.androidripper.automation.RobotUtilities.longClick;
+import static it.unina.androidripper.automation.RobotUtilities.openMenu;
+import static it.unina.androidripper.automation.RobotUtilities.pressKey;
+import static it.unina.androidripper.automation.RobotUtilities.scrollDown;
+import static it.unina.androidripper.automation.RobotUtilities.selectListItem;
+import static it.unina.androidripper.automation.RobotUtilities.selectRadioItem;
+import static it.unina.androidripper.automation.RobotUtilities.selectSpinnerItem;
+import static it.unina.androidripper.automation.RobotUtilities.setProgressBar;
+import static it.unina.androidripper.automation.RobotUtilities.sync;
+import static it.unina.androidripper.automation.RobotUtilities.typeText;
+import static it.unina.androidripper.automation.RobotUtilities.writeText;
 import it.unina.android.hardware.mock.MockSensorEvent;
 import it.unina.android.hardware.mock.MockSensorEventFactory;
 import it.unina.android.hardware.mock.MockSensorManager;
@@ -12,7 +58,13 @@ import it.unina.androidripper.automation.utils.ActivityReflectionCacheElement;
 import it.unina.androidripper.automation.utils.AndroidConsoleSocket;
 import it.unina.androidripper.helpers.PackageManagerHelper;
 import it.unina.androidripper.helpers.ReflectionHelper;
-import it.unina.androidripper.model.*;
+import it.unina.androidripper.model.ActivityDescription;
+import it.unina.androidripper.model.EventFiredListener;
+import it.unina.androidripper.model.Extractor;
+import it.unina.androidripper.model.ImageCaptor;
+import it.unina.androidripper.model.Restarter;
+import it.unina.androidripper.model.Robot;
+import it.unina.androidripper.model.TaskProcessor;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -23,17 +75,24 @@ import android.app.Activity;
 import android.graphics.Bitmap;
 import android.location.Location;
 import android.location.LocationManager;
-
 import android.test.ActivityInstrumentationTestCase2;
+import android.test.InstrumentationTestCase;
 import android.util.Log;
-import android.view.*;
-import android.widget.*;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ListView;
+import android.widget.ProgressBar;
+import android.widget.RadioGroup;
+import android.widget.Spinner;
+import android.widget.TabHost;
+import android.widget.TextView;
 
 import com.jayway.android.robotium.solo.Solo;
-import com.nofatclips.androidtesting.model.*;
-
-import static it.unina.androidripper.automation.Resources.*;
-import static it.unina.androidripper.automation.RobotUtilities.*;
+import com.nofatclips.androidtesting.model.Trace;
+import com.nofatclips.androidtesting.model.Transition;
+import com.nofatclips.androidtesting.model.UserEvent;
+import com.nofatclips.androidtesting.model.UserInput;
 
 // Automation implements the methods to interact with the application via the Instrumentation (Robot)
 // and to extract informations from it (Extractor); the Robotium framework is used where possible
@@ -84,7 +143,17 @@ public class Automation implements Robot, Extractor, TaskProcessor, ImageCaptor,
 		refreshCurrentActivity();
 		Log.w ("androidripper","--->" + ExtractorUtilities.getActivity().getLocalClassName());
 	}
-	
+
+	// Initializations
+	@SuppressWarnings("rawtypes")
+	public void bindInstrumentationTestCase(InstrumentationTestCase test, Activity activity) {
+//		this.test = test;
+//		this.theActivity = this.test.getActivity();
+		this.solo = RobotUtilities.createRobotiumWithInstrumentationTestCase (test, activity);
+		afterRestart();
+		refreshCurrentActivity();
+		Log.w ("androidripper","--->" + ExtractorUtilities.getActivity().getLocalClassName());
+	}
 	public void execute (Trace t) {
 		this.theRobot.process (t);
 	}

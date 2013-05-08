@@ -12,6 +12,7 @@ import java.util.List;
 import android.app.Activity;
 import android.app.Instrumentation;
 import android.test.ActivityInstrumentationTestCase2;
+import android.test.InstrumentationTestCase;
 import android.util.Log;
 import android.view.Display;
 import android.view.View;
@@ -296,6 +297,12 @@ public class RobotUtilities {
 
 	protected static void assertNotNull (final View v, String errorMessage) {
 		ActivityInstrumentationTestCase2.assertNotNull(errorMessage, v);
+	}
+
+	public static Solo createRobotiumWithInstrumentationTestCase(InstrumentationTestCase test, Activity activity) {
+		instrum = test.getInstrumentation();
+		solo = new Solo (instrum, activity);
+		return solo;
 	}
 
 	

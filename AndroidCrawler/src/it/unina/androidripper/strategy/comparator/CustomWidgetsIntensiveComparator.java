@@ -4,13 +4,13 @@ import com.nofatclips.androidtesting.model.WidgetState;
 
 import static it.unina.androidripper.strategy.comparator.Resources.COMPARE_VALUES;
 
-public class CustomWidgetsDeepComparator extends CustomWidgetsComparator {
+public class CustomWidgetsIntensiveComparator extends CustomWidgetsSimpleComparator {
 	
-	public CustomWidgetsDeepComparator (String... widgets) {
+	public CustomWidgetsIntensiveComparator (String... widgets) {
 		super (widgets);
 	}
 	
-	public CustomWidgetsDeepComparator (boolean ignore, String... widgets) {
+	public CustomWidgetsIntensiveComparator (boolean ignore, String... widgets) {
 		super(ignore, widgets);
 	}
 

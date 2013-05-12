@@ -37,6 +37,15 @@ public class Resources implements ResourceFile {
 	public final static String XML_BODY_BEGIN = "    <TRACE";
 	public final static String XML_BODY_END = "/TRACE>";
 
+	/* INTENT */
+	public static String INTENT_ACTION = null;
+	public static String INTENT_CATEGORY = null;
+	public static String INTENT_TYPE = null;
+	public static String INTENT_FLAGS = null;
+	public static String INTENT_ACTIVITY = null;
+	public static String INTENT_DATA = null;
+	/* INTENT */
+	
 	public static Class<?> theClass;
 	static {
 		Prefs.setMainNode(CRAWLER_PACKAGE);

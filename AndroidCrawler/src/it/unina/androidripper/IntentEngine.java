@@ -391,26 +391,19 @@ public abstract class IntentEngine extends InstrumentationTestCase implements Sa
 	/* INTENT */
 	protected Activity sendIntent(Instrumentation instrumentation)
 	{
-		Instrumentation.ActivityMonitor monitor = instrumentation.addMonitor("org.tomdroid.ui.ViewNote", null, false);	    
-		Intent intent = new Intent("android.intent.action.VIEW");
-	    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-	    intent.setClassName(instrumentation.getTargetContext(), "org.tomdroid.ui.ViewNote");
+		Instrumentation.ActivityMonitor monitor = instrumentation.addMonitor(it.unina.androidripper.Resources.INTENT_ACTIVITY , null, false);	    
+		Intent intent = new Intent(it.unina.androidripper.Resources.INTENT_ACTION);
+	    intent.setFlags(Integer.parseInt(it.unina.androidripper.Resources.INTENT_FLAGS));
+	    intent.setClassName(instrumentation.getTargetContext(), it.unina.androidripper.Resources.INTENT_ACTIVITY);
 
-	    /*
-	    if (actionDescription.hasParameters())
-		    for (Parameter p : actionDescription.getParameters())
-		    	intent.putExtra(p.getName(), p.getValue());
+	    if (it.unina.androidripper.Resources.INTENT_CATEGORY != null && it.unina.androidripper.Resources.INTENT_CATEGORY.equals("") == false)
+	    	intent.addCategory(it.unina.androidripper.Resources.INTENT_CATEGORY);
 	    
-	    if (actionDescription.hasData())
-	    {
-	    	if (actionDescription.getDataType() == null)
-	    		intent.setData(actionDescription.getData());
-	    	else
-	    		intent.setDataAndType(actionDescription.getData(), actionDescription.getDataType());
-	    }
-	    */
-	    Uri location = Uri.parse("content://org.tomdroid.notes/notes/1");
-	    intent.setData(location);
+	    if (it.unina.androidripper.Resources.INTENT_DATA != null && it.unina.androidripper.Resources.INTENT_DATA.equals("") == false)
+	    	intent.setData(Uri.parse(it.unina.androidripper.Resources.INTENT_DATA));
+	    
+	    if (it.unina.androidripper.Resources.INTENT_TYPE != null && it.unina.androidripper.Resources.INTENT_TYPE.equals("") == false)
+	    	intent.setType(it.unina.androidripper.Resources.INTENT_TYPE);
 	    
 	    instrumentation.startActivitySync(intent);	    
 		return this.waitForMonitor(instrumentation, monitor);

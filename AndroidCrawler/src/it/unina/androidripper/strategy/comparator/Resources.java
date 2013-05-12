@@ -13,7 +13,6 @@ import it.unina.androidripper.model.ResourceFile;
 @SuppressWarnings("unused")
 public class Resources implements ResourceFile {
 
-//	public static Comparator COMPARATOR = new CustomWidgetsComparator(CustomWidgetsComparator.IGNORE_ACTIVITY_NAME, EDIT_TEXT, BUTTON, LIST_VIEW, MENU_VIEW, IMAGE_VIEW);
 	public static String COMPARATOR_TYPE = "NullComparator";
 	public static String[] WIDGET_TYPES = {};
 	public static boolean COMPARE_ACTIVITY_NAME = true;
@@ -25,10 +24,10 @@ public class Resources implements ResourceFile {
 	public static void getComparator() {		
 		if (COMPARATOR_TYPE.equals("") || (COMPARATOR_TYPE == null)) return;
 
-		if (COMPARATOR_TYPE.equals("CustomWidgetsComparator")) {
-			COMPARATOR = new CustomWidgetsComparator (WIDGET_TYPES);
-		} else if (COMPARATOR_TYPE.equals("CustomWidgetsDeepComparator")) {
-			COMPARATOR = new CustomWidgetsDeepComparator (WIDGET_TYPES);
+		if (COMPARATOR_TYPE.equals("CustomWidgetsSimpleComparator")) {
+			COMPARATOR = new CustomWidgetsSimpleComparator (WIDGET_TYPES);
+		} else if (COMPARATOR_TYPE.equals("CustomWidgetsIntensiveComparator")) {
+			COMPARATOR = new CustomWidgetsIntensiveComparator (WIDGET_TYPES);
 		} else if (COMPARATOR_TYPE.equals("NameComparator")) {
 			COMPARATOR = new NameComparator ();
 		} else {
@@ -40,10 +39,8 @@ public class Resources implements ResourceFile {
 			} catch (ClassNotFoundException e) {
 				throw new RuntimeException(e);
 			} catch (InstantiationException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (IllegalAccessException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 

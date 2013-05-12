@@ -19,19 +19,19 @@ import static it.unina.androidripper.strategy.comparator.Resources.COMPARE_MENU_
 // n'e' almeno uno che B non possiede.
 // Sono presi in considerazione solo i widget dotati di ID.
 
-// Es: Comparator COMPARATOR = new CustomWidgetsComparator("button", "editText");
+// Es: Comparator COMPARATOR = new CustomWidgetsSimpleComparator("button", "editText");
 
-public class CustomWidgetsComparator extends NameComparator {
+public class CustomWidgetsSimpleComparator extends NameComparator {
 	
 	public final static boolean IGNORE_ACTIVITY_NAME = true;
 //	private boolean byName = true;
 	protected String[] widgetClasses;
 	
-	public CustomWidgetsComparator (String... widgets) {
+	public CustomWidgetsSimpleComparator (String... widgets) {
 		this (!COMPARE_ACTIVITY_NAME, widgets);
 	}
 	
-	public CustomWidgetsComparator (boolean ignore, String... widgets) {
+	public CustomWidgetsSimpleComparator (boolean ignore, String... widgets) {
 		super (!ignore);
 		this.widgetClasses = widgets; 
 	}

@@ -78,6 +78,12 @@ public class SimpleTypeDetector implements TypeDetector {
 			return WEB_VIEW;
 		if (type.endsWith("TwoLineListItem"))
 			return LIST_ITEM;
+		
+		/* NICOLA */
+		if (type.endsWith("SlidingDrawer"))
+			return SLIDING_DRAWER;
+		/* NICOLA */
+		
 		return "";
 	}
 

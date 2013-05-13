@@ -145,7 +145,7 @@ public class GuiTreeAbstractor implements Abstractor, FilterHandler, SaveStateLi
 		
 		
 		/** @author nicola */
-		//if duplicato perché nome e valore vengono settati dopo l'if precedente
+		//if duplicato perche' nome e valore vengono settati dopo l'if precedente
 		if (v instanceof TextView) {
 			//default
 			String txtId = reflectTextualIDbyNumericalID(v.getId());

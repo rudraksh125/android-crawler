@@ -12,7 +12,6 @@ import java.util.Map.Entry;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactoryConfigurationError;
 
-import android.annotation.SuppressLint;
 import android.content.ContextWrapper;
 import android.util.Log;
 
@@ -20,7 +19,6 @@ import com.nofatclips.androidtesting.guitree.FinalActivity;
 import com.nofatclips.androidtesting.model.*;
 import com.nofatclips.androidtesting.xml.ElementWrapper;
 
-@SuppressLint("WorldReadableFiles")
 public class ResumingPersistence extends StepDiskPersistence implements DispatchListener, StateDiscoveryListener, TerminationListener {
 
 	private List<Trace> taskList;

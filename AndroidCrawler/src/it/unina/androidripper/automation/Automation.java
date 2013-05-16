@@ -145,7 +145,6 @@ public class Automation implements Robot, Extractor, TaskProcessor, ImageCaptor,
 	}
 
 	// Initializations
-	@SuppressWarnings("rawtypes")
 	public void bindInstrumentationTestCase(InstrumentationTestCase test, Activity activity) {
 //		this.test = test;
 //		this.theActivity = this.test.getActivity();

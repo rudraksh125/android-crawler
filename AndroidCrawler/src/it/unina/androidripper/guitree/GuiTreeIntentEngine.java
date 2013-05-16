@@ -27,6 +27,7 @@ import static it.unina.androidripper.automation.Resources.*;
 import static it.unina.androidripper.storage.Resources.*;
 import static it.unina.androidripper.strategy.Resources.*;
 
+@SuppressWarnings("unused")
 public class GuiTreeIntentEngine extends IntentEngine {
 
 	public GuiTreeIntentEngine () {

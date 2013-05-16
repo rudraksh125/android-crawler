@@ -13,14 +13,13 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.HashMap;
 
-import android.annotation.SuppressLint;
+
 import android.content.Context;
 import android.content.ContextWrapper;
 import android.util.Log;
 
 
 //NOTA: utilizzo il listener solo per capire quando memorizzare i dati
-@SuppressLint("WorldReadableFiles")
 public class ValuesCache extends HashMap<String,String[]> implements SaveStateListener, Serializable
 {
 	private static final long serialVersionUID = 123456L;

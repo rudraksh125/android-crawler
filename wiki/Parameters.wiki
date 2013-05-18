@@ -81,7 +81,19 @@ This is a legacy parameter and is usually better left to `true`.
 
 *PRECRAWLING*: `String []`
 
-A string array containing the precrawling sequence. Refer to [...]
+A string array containing the precrawling sequence.
+The Separator is ".-.-.";
+ 
+Refer to 
+https://code.google.com/p/android-crawler/source/browse/AndroidCrawler/src/com/nofatclips/crawler/Resources.java?spec=svn189&r=189
+
+for example:
+"selectListItem", "16908298", "2", null,
+
+<entry key=”PRECRAWLING[0]" value="selectListItem"/>
+<entry key=”PRECRAWLING[1]" value="16908298"/>
+<entry key=”PRECRAWLING[2]" value="2"/>
+<entry key=”PRECRAWLING[3]" value=".-.-."/>
 
 *SCREENSHOT_FOR_STATES*: `boolean`
 

@@ -266,15 +266,15 @@ This parameter defines the state equivalence criterion. Allowed values are:
  * `CustomWidgetsSimpleComparator`: two states are equivalent if they share the same set of widgets (each widget in state A is equivalent to a widget in state B and viceversa)
  * `CustomWidgetsIntensiveComparator`: two states are equivalent if they share the same set of widgets, and the equivalent widgets share the same properties
 
-For instance, if state A has an Edit Text with id 1234, `CustomWidgetsComparator` requires that state B has an Edit Text with id 1234 in order to consider B equivalent to A. `CustomWidgetsDeepComparator` additionally requires that the Edit Text has the same hint text.
+For instance, if state A has an Edit Text with id 1234, `CustomWidgetsSimpleComparator` requires that state B has an Edit Text with id 1234 in order to consider B equivalent to A. `CustomWidgetsIntensiveComparator` additionally requires that the Edit Text has the same hint text.
 
 *WIDGET_TYPES*: `String[]`
 
-Defines the subset of widget (types) on which `CustomWidgetsComparator` and `CustomWidgetsDeepComparator` operate. Ignored by `NameComparator`.
+Defines the subset of widget (types) on which `CustomWidgetsSimpleComparator` and `CustomWidgetsIntensiveComparator` operate. Ignored by `NameComparator`.
 
 *COMPARE_ACTIVITY_NAME*: `boolean`
 
-When `true`, name comparation is performed when using `CustomWidgetsComparator` or `CustomWidgetsDeepComparator` too. That is, two states are the same if they share the same name and the same set of widgets (and properties for the deep one).
+When `true`, name comparation is performed when using `CustomWidgetsSimpleComparator` or `CustomWidgetsIntensiveComparator` too. That is, two states are the same if they share the same name and the same set of widgets (and properties for the deep one).
 
 This parameter mainly exists because sometimes the Ripper mistakenly detects an incorrect Activity name, usually in tabbed applications. In these cases it's advisable to set it to `false`, since the name attribute is not reliable.
 
@@ -288,15 +288,15 @@ If *COMPARE_ACTIVITY_NAME* = `true`, this also applies for the other Comparator 
 
 *COMPARE_LIST_COUNT*: `boolean`
 
-When `true` `CustomWidgetsComparator` and `CustomWidgetsDeepComparator` will consider two List View to be equivalent only if they have the same size. Defaults to `false`.
+When `true` `CustomWidgetsSimpleComparator` and `CustomWidgetsIntensiveComparator` will consider two List View to be equivalent only if they have the same size. Defaults to `false`.
 
 *COMPARE_MENU_COUNT*: `boolean`
 
-When `true` `CustomWidgetsComparator` and `CustomWidgetsDeepComparator` will consider two Menu View to be equivalent only if they have the same number of items. Defaults to `true`.
+When `true` `CustomWidgetsSimpleComparator` and `CustomWidgetsIntensiveComparator` will consider two Menu View to be equivalent only if they have the same number of items. Defaults to `true`.
 
 *COMPARE_VALUES*: `boolean`
 
-When `true`, `CustomWidgetsDeepComparator` will consider two widgets to be equivalent only if they have the same value.
+When `true`, `CustomWidgetsIntensiveComparator` will consider two widgets to be equivalent only if they have the same value.
 
 For instance, if state A has a Rating Bar with id 4567, name "Vote for this book" and sat to the value of "4 stars", state B will not be equivalent to A unless it has a Rating Bar with the same id and the same name which is set to the same value.
 

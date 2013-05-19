@@ -82,7 +82,7 @@ This is a legacy parameter and is usually better left to `true`.
 *PRECRAWLING*: `String []`
 
 A string array containing the precrawling sequence.
-The Separator is ".-.-.";
+The Separator (placeholder for the null object, not to be confused with the "null" String) is ".-.-.";
  
 Refer to 
 https://code.google.com/p/android-crawler/source/browse/AndroidCrawler/src/com/nofatclips/crawler/Resources.java?spec=svn189&r=189

@@ -233,26 +233,25 @@ public class RobotUtilities {
 	public static void home () {
 		
 		// Scroll listviews up
-		final ArrayList<View> viewList = solo.getCurrentViews();
+		final ArrayList<ListView> viewList = solo.getCurrentViews(ListView.class);
 		if (viewList.size() > 0) {
 			runOnUiThread(new Runnable() {
 				public void run() {
-					viewList.get(0).setId(0);
-					//((ListView) viewList.get(0)).setSelection(0);
+					viewList.get(0).setSelection(0);
 				}
 			});
 		}
-		/*
+		
 		// Scroll scrollviews up
-		final ArrayList<View> viewScroll = solo.getCurrentViews();
+		final ArrayList<ScrollView> viewScroll = solo.getCurrentViews(ScrollView.class);
 		if (viewScroll.size() > 0) {
 			runOnUiThread(new Runnable() {
 				public void run() {
-					((ScrollView) viewScroll.get(0)).fullScroll(ScrollView.FOCUS_UP);
+					 viewScroll.get(0).fullScroll(ScrollView.FOCUS_UP);
 				}
 			});
 		}
-		*/
+		
 	}
 
 	// Scroll until the view is on the screen if IN_AND_OUT_OF_FOCUS is enabled or if the force parameter is true 

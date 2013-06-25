@@ -1,55 +1,10 @@
 package it.unina.androidripper.automation;
 
-//import static com.nofatclips.crawler.Resources.*;
-import static com.nofatclips.androidtesting.model.InteractionType.ACCELEROMETER_SENSOR_EVENT;
-import static com.nofatclips.androidtesting.model.InteractionType.AMBIENT_TEMPERATURE_SENSOR_EVENT;
-import static com.nofatclips.androidtesting.model.InteractionType.BACK;
-import static com.nofatclips.androidtesting.model.InteractionType.CHANGE_ORIENTATION;
-import static com.nofatclips.androidtesting.model.InteractionType.CLICK;
-import static com.nofatclips.androidtesting.model.InteractionType.CLICK_ON_TEXT;
-import static com.nofatclips.androidtesting.model.InteractionType.FOCUS;
-import static com.nofatclips.androidtesting.model.InteractionType.GPS_LOCATION_CHANGE_EVENT;
-import static com.nofatclips.androidtesting.model.InteractionType.GPS_PROVIDER_DISABLE_EVENT;
-import static com.nofatclips.androidtesting.model.InteractionType.INCOMING_CALL_EVENT;
-import static com.nofatclips.androidtesting.model.InteractionType.INCOMING_SMS_EVENT;
-import static com.nofatclips.androidtesting.model.InteractionType.LIST_LONG_SELECT;
-import static com.nofatclips.androidtesting.model.InteractionType.LIST_SELECT;
-import static com.nofatclips.androidtesting.model.InteractionType.LONG_CLICK;
-import static com.nofatclips.androidtesting.model.InteractionType.MAGNETIC_FIELD_SENSOR_EVENT;
-import static com.nofatclips.androidtesting.model.InteractionType.OPEN_MENU;
-import static com.nofatclips.androidtesting.model.InteractionType.ORIENTATION_SENSOR_EVENT;
-import static com.nofatclips.androidtesting.model.InteractionType.PRESS_KEY;
-import static com.nofatclips.androidtesting.model.InteractionType.RADIO_SELECT;
-import static com.nofatclips.androidtesting.model.InteractionType.SCROLL_DOWN;
-import static com.nofatclips.androidtesting.model.InteractionType.SET_BAR;
-import static com.nofatclips.androidtesting.model.InteractionType.SPINNER_SELECT;
-import static com.nofatclips.androidtesting.model.InteractionType.SWAP_TAB;
-import static com.nofatclips.androidtesting.model.InteractionType.TEMPERATURE_SENSOR_EVENT;
-import static com.nofatclips.androidtesting.model.InteractionType.TYPE_TEXT;
-import static com.nofatclips.androidtesting.model.InteractionType.WRITE_TEXT;
+import static com.nofatclips.androidtesting.model.InteractionType.*;
 import static com.nofatclips.androidtesting.model.SimpleType.BUTTON;
 import static com.nofatclips.androidtesting.model.SimpleType.MENU_ITEM;
-import static it.unina.androidripper.automation.Resources.FORCE_RESTART;
-import static it.unina.androidripper.automation.Resources.IN_AND_OUT_FOCUS;
-import static it.unina.androidripper.automation.Resources.PRECRAWLING;
-import static it.unina.androidripper.automation.Resources.SLEEP_AFTER_EVENT;
-import static it.unina.androidripper.automation.Resources.SLEEP_AFTER_RESTART;
-import static it.unina.androidripper.automation.Resources.SLEEP_ON_THROBBER;
-import static it.unina.androidripper.automation.RobotUtilities.changeOrientation;
-import static it.unina.androidripper.automation.RobotUtilities.click;
-import static it.unina.androidripper.automation.RobotUtilities.clickOnText;
-import static it.unina.androidripper.automation.RobotUtilities.goBack;
-import static it.unina.androidripper.automation.RobotUtilities.longClick;
-import static it.unina.androidripper.automation.RobotUtilities.openMenu;
-import static it.unina.androidripper.automation.RobotUtilities.pressKey;
-import static it.unina.androidripper.automation.RobotUtilities.scrollDown;
-import static it.unina.androidripper.automation.RobotUtilities.selectListItem;
-import static it.unina.androidripper.automation.RobotUtilities.selectRadioItem;
-import static it.unina.androidripper.automation.RobotUtilities.selectSpinnerItem;
-import static it.unina.androidripper.automation.RobotUtilities.setProgressBar;
-import static it.unina.androidripper.automation.RobotUtilities.sync;
-import static it.unina.androidripper.automation.RobotUtilities.typeText;
-import static it.unina.androidripper.automation.RobotUtilities.writeText;
+import static it.unina.androidripper.automation.Resources.*;
+import static it.unina.androidripper.automation.RobotUtilities.*;
 import it.unina.android.hardware.mock.MockSensorEvent;
 import it.unina.android.hardware.mock.MockSensorEventFactory;
 import it.unina.android.hardware.mock.MockSensorManager;
@@ -58,13 +13,7 @@ import it.unina.androidripper.automation.utils.ActivityReflectionCacheElement;
 import it.unina.androidripper.automation.utils.AndroidConsoleSocket;
 import it.unina.androidripper.helpers.PackageManagerHelper;
 import it.unina.androidripper.helpers.ReflectionHelper;
-import it.unina.androidripper.model.ActivityDescription;
-import it.unina.androidripper.model.EventFiredListener;
-import it.unina.androidripper.model.Extractor;
-import it.unina.androidripper.model.ImageCaptor;
-import it.unina.androidripper.model.Restarter;
-import it.unina.androidripper.model.Robot;
-import it.unina.androidripper.model.TaskProcessor;
+import it.unina.androidripper.model.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -82,7 +31,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.ProgressBar;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TabHost;
@@ -578,18 +526,19 @@ public class Automation implements Robot, Extractor, TaskProcessor, ImageCaptor,
 			flag = false;
 			int oldId = 0;
 			ArrayList<View> bars = solo.getCurrentViews();
-			for (View b: bars) {
-				if (b.isShown() && ((ProgressBar) b).isIndeterminate()) {
-					int newId = b.getId();
-					if (newId != oldId) { // Only log if the throbber changed since the last time
-						Log.d("androidripper", "Waiting on Progress Bar #" + newId);
-						oldId = newId;
+				for (View b: bars) {
+					//if (b.isShown() && ((ProgressBar) b).isIndeterminate()) {
+					if (b.isShown()) {
+						int newId = b.getId();
+						if (newId != oldId) { // Only log if the throbber changed since the last time
+							Log.d("androidripper", "Waiting on Progress Bar #" + newId);
+							oldId = newId;
+						}
+						flag = true;
+						wait(500);
+						sleepTime-=500;
 					}
-					flag = true;
-					wait(500);
-					sleepTime-=500;
 				}
-			}
 		} while (flag && (sleepTime>0));
 		sync();
 	}

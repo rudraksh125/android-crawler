@@ -68,20 +68,20 @@ public class RobotUtilities {
 	
 	// List interactions
 	
-	public static void selectListItem (ListView l, String item, boolean b) {
+	public static void selectListItem (ListView l, String item) {
 		selectListItem (l, item, false);
 	}
 
-	public static void selectListItem (View view, Integer integer, boolean longClick) {
-		selectListItem (view, Integer.valueOf(integer), longClick);
+	public static void selectListItem (ListView l, String item, boolean longClick) {
+		selectListItem (l, Integer.valueOf(item), longClick);
 	}
 	
 	public static void selectListItem (ListView l, int num, boolean longClick) {
 		
 		if (l==null) {
-			List<View> lists = solo.getCurrentViews();
+			List<ListView> lists = solo.getCurrentViews(ListView.class);
 			if (lists.size()>0) {
-				l = (ListView) lists.get(0);
+				l = lists.get(0);
 			}
 		}
 		
@@ -127,7 +127,7 @@ public class RobotUtilities {
 		Log.i("androidripper", "Clicking the spinner view");
 		click(s);
 		sync();
-		selectListItem(solo.getCurrentViews().get(0), num, false);
+		selectListItem(solo.getCurrentViews(ListView.class).get(0), num, false);
 	}
 
 	// Text interactions

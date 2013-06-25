@@ -252,7 +252,7 @@ public class Automation implements Robot, Extractor, TaskProcessor, ImageCaptor,
 				swapTab (value);
 			}
 		} else if (interactionType.equals(LIST_SELECT)) {
-			selectListItem((ListView)v, value, false);
+			selectListItem((ListView)v, value);
 		} else if (interactionType.equals(LIST_LONG_SELECT)) {
 			selectListItem((ListView)v, value, true);
 		} else if (interactionType.equals(SPINNER_SELECT)) {
@@ -528,7 +528,7 @@ public class Automation implements Robot, Extractor, TaskProcessor, ImageCaptor,
 			int oldId = 0;
 			ArrayList<ProgressBar> bars = solo.getCurrentViews(ProgressBar.class);
 				for (ProgressBar b: bars) {
-					if (b.isShown() && ((ProgressBar) b).isIndeterminate()) {
+					if (b.isShown() &&  b.isIndeterminate()) {
 						int newId = b.getId();
 						if (newId != oldId) { // Only log if the throbber changed since the last time
 							Log.d("androidripper", "Waiting on Progress Bar #" + newId);

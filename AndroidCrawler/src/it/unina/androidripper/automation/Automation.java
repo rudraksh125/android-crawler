@@ -31,6 +31,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TabHost;
@@ -525,10 +526,9 @@ public class Automation implements Robot, Extractor, TaskProcessor, ImageCaptor,
 		do {
 			flag = false;
 			int oldId = 0;
-			ArrayList<View> bars = solo.getCurrentViews();
-				for (View b: bars) {
-					//if (b.isShown() && ((ProgressBar) b).isIndeterminate()) {
-					if (b.isShown()) {
+			ArrayList<ProgressBar> bars = solo.getCurrentViews(ProgressBar.class);
+				for (ProgressBar b: bars) {
+					if (b.isShown() && ((ProgressBar) b).isIndeterminate()) {
 						int newId = b.getId();
 						if (newId != oldId) { // Only log if the throbber changed since the last time
 							Log.d("androidripper", "Waiting on Progress Bar #" + newId);

@@ -68,20 +68,20 @@ public class RobotUtilities {
 	
 	// List interactions
 	
-	public static void selectListItem (ListView l, String item) {
+	public static void selectListItem (ListView l, String item, boolean b) {
 		selectListItem (l, item, false);
 	}
 
-	public static void selectListItem (ListView l, String item, boolean longClick) {
-		selectListItem (l, Integer.valueOf(item), longClick);
+	public static void selectListItem (View view, Integer integer, boolean longClick) {
+		selectListItem (view, Integer.valueOf(integer), longClick);
 	}
 	
 	public static void selectListItem (ListView l, int num, boolean longClick) {
 		
 		if (l==null) {
-			List<ListView> lists = solo.getCurrentListViews();
+			List<View> lists = solo.getCurrentViews();
 			if (lists.size()>0) {
-				l = lists.get(0);
+				l = (ListView) lists.get(0);
 			}
 		}
 		
@@ -127,7 +127,7 @@ public class RobotUtilities {
 		Log.i("androidripper", "Clicking the spinner view");
 		click(s);
 		sync();
-		selectListItem(solo.getCurrentListViews().get(0), num, false);
+		selectListItem(solo.getCurrentViews().get(0), num, false);
 	}
 
 	// Text interactions
@@ -233,21 +233,21 @@ public class RobotUtilities {
 	public static void home () {
 		
 		// Scroll listviews up
-		final ArrayList<ListView> viewList = solo.getCurrentListViews();
+		final ArrayList<View> viewList = solo.getCurrentViews();
 		if (viewList.size() > 0) {
 			runOnUiThread(new Runnable() {
 				public void run() {
-					viewList.get(0).setSelection(0);
+					((ListView) viewList.get(0)).setSelection(0);
 				}
 			});
 		}
 		
 		// Scroll scrollviews up
-		final ArrayList<ScrollView> viewScroll = solo.getCurrentScrollViews();
+		final ArrayList<View> viewScroll = solo.getCurrentViews();
 		if (viewScroll.size() > 0) {
 			runOnUiThread(new Runnable() {
 				public void run() {
-					viewScroll.get(0).fullScroll(ScrollView.FOCUS_UP);
+					((ScrollView) viewScroll.get(0)).fullScroll(ScrollView.FOCUS_UP);
 				}
 			});
 		}

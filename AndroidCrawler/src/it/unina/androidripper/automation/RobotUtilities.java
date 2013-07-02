@@ -53,6 +53,10 @@ public class RobotUtilities {
 		solo.clickOnView(v);
 	}
 	
+	public static void drag (View v){
+		solo.setSlidingDrawer((SlidingDrawer) v, Solo.OPENED);
+	}
+	
 	public static void longClick (View v) {
 		assertNotNull(v, "Cannot longClick: the widget does not exist");
 //		describeCurrentEvent(v);

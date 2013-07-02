@@ -33,7 +33,6 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.RadioGroup;
-import android.widget.SearchView;
 import android.widget.Spinner;
 import android.widget.TabHost;
 import android.widget.TextView;
@@ -233,7 +232,7 @@ public class Automation implements Robot, Extractor, TaskProcessor, ImageCaptor,
 		/** @author Nicola */
 		
 		} else if (interactionType.equals(DRAG)) {
-			click (v);
+			drag(v);
 	
 		} else if (interactionType.equals(LONG_CLICK)) {
 			longClick(v);

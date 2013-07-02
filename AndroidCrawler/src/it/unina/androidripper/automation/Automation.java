@@ -230,7 +230,10 @@ public class Automation implements Robot, Extractor, TaskProcessor, ImageCaptor,
 		} else if (interactionType.equals(FOCUS)) {
 				click (v);
 		/** @author Nicola */
-				
+		
+		} else if (interactionType.equals(DRAG)) {
+			click (v);
+	
 		} else if (interactionType.equals(LONG_CLICK)) {
 			longClick(v);
 		} else if (interactionType.equals(BACK)) {

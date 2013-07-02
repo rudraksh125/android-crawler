@@ -140,6 +140,11 @@ public class RobotUtilities {
 		typeText (v, "");
 		typeText (v, value);
 	}
+	
+	public static void searchText (EditText v, String value) {
+		solo.enterText(v, value);
+		solo.sendKey(66);
+	}
 
 	// Radio Interactions
 	

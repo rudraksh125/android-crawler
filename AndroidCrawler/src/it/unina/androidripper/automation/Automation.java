@@ -33,6 +33,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.RadioGroup;
+import android.widget.SearchView;
 import android.widget.Spinner;
 import android.widget.TabHost;
 import android.widget.TextView;
@@ -269,6 +270,9 @@ public class Automation implements Robot, Extractor, TaskProcessor, ImageCaptor,
 		} else if (interactionType.equals(WRITE_TEXT)) {
 			writeText((EditText)v, value);
 		/** @author nicola */
+			
+		} else if (interactionType.equals(SEARCH_TEXT)) {
+			searchText((EditText)v, value);	
 			
 		} else if (interactionType.equals(SET_BAR)) {
 			setProgressBar(v, value);

@@ -164,6 +164,75 @@ public class UserFactory {
 		}
 		/** @author nicola */
 		
+		if (isRequiredEvent(DRAG)) {
+			Drager d = new Drager(typesForEvent(DRAG));
+			d.setEventWhenNoId(Resources.EVENT_WHEN_NO_ID);
+			u.addEvent(addDosAndDonts(d));
+		}
+		
+		if (isRequiredEvent(TYPE_TEXT)) {
+			if (Resources.TEXT_VALUES_FROM_DICTIONARY)
+			{
+				DictionaryValueEditor te = new DictionaryValueEditor(typesForEvent(TYPE_TEXT));
+				te.setEventWhenNoId(Resources.EVENT_WHEN_NO_ID);
+				u.addEvent (addDosAndDonts(te));	
+			}
+			else if(Resources.TEXT_VALUES_ID_HASH)
+			{
+				HashValueEditor te = new HashValueEditor(typesForEvent(TYPE_TEXT));
+				te.setEventWhenNoId(Resources.EVENT_WHEN_NO_ID);
+				u.addEvent (addDosAndDonts(te));
+			}
+			else
+			{
+				RandomEditor te = new RandomEditor(typesForEvent(TYPE_TEXT));
+				te.setEventWhenNoId(Resources.EVENT_WHEN_NO_ID);
+				u.addEvent (addDosAndDonts(te));			
+			}
+		}
+
+		if (isRequiredEvent(WRITE_TEXT)) {
+			if (Resources.TEXT_VALUES_FROM_DICTIONARY)
+			{
+				DictionaryValueWriter we = new DictionaryValueWriter(typesForEvent(WRITE_TEXT));
+				we.setEventWhenNoId(Resources.EVENT_WHEN_NO_ID);
+				u.addEvent (addDosAndDonts(we));
+			}
+			else if(Resources.TEXT_VALUES_ID_HASH)
+			{
+				HashValueWriter we = new HashValueWriter(typesForEvent(WRITE_TEXT));
+				we.setEventWhenNoId(Resources.EVENT_WHEN_NO_ID);
+				u.addEvent (addDosAndDonts(we));
+			}			
+			else
+			{
+				RandomWriter we = new RandomWriter(typesForEvent(WRITE_TEXT));				
+				we.setEventWhenNoId(Resources.EVENT_WHEN_NO_ID);
+				u.addEvent (addDosAndDonts(we));
+			}
+		}
+		
+		if (isRequiredEvent(SEARCH_TEXT)) {
+			if (Resources.TEXT_VALUES_FROM_DICTIONARY)
+			{
+				DictionaryValueSearchWriter ste = new DictionaryValueSearchWriter(typesForEvent(SEARCH_TEXT));
+				ste.setEventWhenNoId(Resources.EVENT_WHEN_NO_ID);
+				u.addEvent (addDosAndDonts(ste));
+			}
+			else if(Resources.TEXT_VALUES_ID_HASH)
+			{
+				HashValueSearchWriter ste = new HashValueSearchWriter(typesForEvent(SEARCH_TEXT));
+				ste.setEventWhenNoId(Resources.EVENT_WHEN_NO_ID);
+				u.addEvent (addDosAndDonts(ste));
+			}			
+			else
+			{
+				RandomSearchWriter ste = new RandomSearchWriter(typesForEvent(SEARCH_TEXT));				
+				ste.setEventWhenNoId(Resources.EVENT_WHEN_NO_ID);
+				u.addEvent (addDosAndDonts(ste));
+			}
+		}
+		
 		if (isRequiredEvent(LONG_CLICK)) {
 			LongClicker l = new LongClicker (typesForEvent(LONG_CLICK));
 			l.setEventWhenNoId(Resources.EVENT_WHEN_NO_ID);
@@ -221,6 +290,12 @@ public class UserFactory {
 		}
 		/** @author nicola */
 		
+		if (isRequiredInput(DRAG)) {
+			Drager d = new Drager (typesForInput(DRAG));
+			d.setEventWhenNoId(Resources.EVENT_WHEN_NO_ID);
+			u.addEvent(addDosAndDonts(d));
+		}
+		
 		if (isRequiredInput(SET_BAR)) {
 			Slider sl = new Slider (typesForInput(SET_BAR));
 			sl.setEventWhenNoId(false);
@@ -270,6 +345,27 @@ public class UserFactory {
 			}
 		}
 		/** @author nicola */
+		
+		if (isRequiredInput(SEARCH_TEXT)) {
+			if (Resources.TEXT_VALUES_FROM_DICTIONARY)
+			{
+				DictionaryValueSearchWriter sti = new DictionaryValueSearchWriter(typesForInput(SEARCH_TEXT));
+				sti.setEventWhenNoId(false);
+				u.addInput (addDosAndDonts(sti));
+			}
+			else if(Resources.TEXT_VALUES_ID_HASH)
+			{
+				HashValueSearchWriter sti = new HashValueSearchWriter(typesForInput(SEARCH_TEXT));
+				sti.setEventWhenNoId(false);
+				u.addInput (addDosAndDonts(sti));
+			}			
+			else
+			{
+				RandomSearchWriter sti = new RandomSearchWriter(typesForInput(SEARCH_TEXT));				
+				sti.setEventWhenNoId(false);
+				u.addInput (addDosAndDonts(sti));
+			}
+		}
 		
 		if (isRequiredInput(SPINNER_SELECT)) {
 			RandomSpinnerSelector rss = new RandomSpinnerSelector(typesForInput(SPINNER_SELECT));
@@ -323,6 +419,75 @@ public class UserFactory {
 		}
 		/** @author nicola */
 		
+		if (eventTypes.contains(DRAG)) {
+			Drager d = new Drager (typesForEvent(DRAG));
+			d.setEventWhenNoId(Resources.EVENT_WHEN_NO_ID);
+			u.addEvent(addDosAndDonts(d));
+		}
+		
+		if (eventTypes.contains(TYPE_TEXT)) {
+			if (Resources.TEXT_VALUES_FROM_DICTIONARY)
+			{
+				DictionaryValueEditor te = new DictionaryValueEditor(typesForEvent(TYPE_TEXT));
+				te.setEventWhenNoId(Resources.EVENT_WHEN_NO_ID);
+				u.addEvent (addDosAndDonts(te));	
+			}
+			else if(Resources.TEXT_VALUES_ID_HASH)
+			{
+				HashValueEditor te = new HashValueEditor(typesForEvent(TYPE_TEXT));
+				te.setEventWhenNoId(Resources.EVENT_WHEN_NO_ID);
+				u.addEvent (addDosAndDonts(te));
+			}
+			else
+			{
+				RandomEditor te = new RandomEditor(typesForEvent(TYPE_TEXT));
+				te.setEventWhenNoId(Resources.EVENT_WHEN_NO_ID);
+				u.addEvent (addDosAndDonts(te));			
+			}
+		}
+
+		if (eventTypes.contains(WRITE_TEXT)) {
+			if (Resources.TEXT_VALUES_FROM_DICTIONARY)
+			{
+				DictionaryValueWriter we = new DictionaryValueWriter(typesForEvent(WRITE_TEXT));
+				we.setEventWhenNoId(Resources.EVENT_WHEN_NO_ID);
+				u.addEvent (addDosAndDonts(we));
+			}
+			else if(Resources.TEXT_VALUES_ID_HASH)
+			{
+				HashValueWriter we = new HashValueWriter(typesForEvent(WRITE_TEXT));
+				we.setEventWhenNoId(Resources.EVENT_WHEN_NO_ID);
+				u.addEvent (addDosAndDonts(we));
+			}			
+			else
+			{
+				RandomWriter we = new RandomWriter(typesForEvent(WRITE_TEXT));				
+				we.setEventWhenNoId(Resources.EVENT_WHEN_NO_ID);
+				u.addEvent (addDosAndDonts(we));
+			}
+		}
+		
+		if (eventTypes.contains(SEARCH_TEXT)) {
+			if (Resources.TEXT_VALUES_FROM_DICTIONARY)
+			{
+				DictionaryValueSearchWriter ste = new DictionaryValueSearchWriter(typesForEvent(SEARCH_TEXT));
+				ste.setEventWhenNoId(Resources.EVENT_WHEN_NO_ID);
+				u.addEvent (addDosAndDonts(ste));
+			}
+			else if(Resources.TEXT_VALUES_ID_HASH)
+			{
+				HashValueSearchWriter ste = new HashValueSearchWriter(typesForEvent(SEARCH_TEXT));
+				ste.setEventWhenNoId(Resources.EVENT_WHEN_NO_ID);
+				u.addEvent (addDosAndDonts(ste));
+			}			
+			else
+			{
+				RandomSearchWriter ste = new RandomSearchWriter(typesForEvent(SEARCH_TEXT));				
+				ste.setEventWhenNoId(Resources.EVENT_WHEN_NO_ID);
+				u.addEvent (addDosAndDonts(ste));
+			}
+		}
+
 		if (eventTypes.contains(LONG_CLICK)) {
 			LongClicker l = new LongClicker (typesForEvent(LONG_CLICK));
 			l.setEventWhenNoId(Resources.EVENT_WHEN_NO_ID);
@@ -429,6 +594,28 @@ public class UserFactory {
 			}
 		}
 		/** @author nicola */
+		
+		if (isRequiredInput(SEARCH_TEXT)) {
+			if (Resources.TEXT_VALUES_FROM_DICTIONARY)
+			{
+				DictionaryValueSearchWriter sti = new DictionaryValueSearchWriter(typesForInput(SEARCH_TEXT));
+				sti.setEventWhenNoId(false);
+				u.addInput (addDosAndDonts(sti));
+			}
+			else if(Resources.TEXT_VALUES_ID_HASH)
+			{
+				HashValueSearchWriter sti = new HashValueSearchWriter(typesForInput(SEARCH_TEXT));
+				sti.setEventWhenNoId(false);
+				u.addInput (addDosAndDonts(sti));
+			}			
+			else
+			{
+				RandomSearchWriter sti = new RandomSearchWriter(typesForInput(SEARCH_TEXT));				
+				sti.setEventWhenNoId(false);
+				u.addInput (addDosAndDonts(sti));
+			}
+		}
+		
 		
 		if (isRequiredInput(SPINNER_SELECT)) {
 			RandomSpinnerSelector rss = new RandomSpinnerSelector(typesForInput(SPINNER_SELECT));

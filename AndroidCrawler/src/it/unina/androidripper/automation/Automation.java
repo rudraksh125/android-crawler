@@ -272,6 +272,9 @@ public class Automation implements Robot, Extractor, TaskProcessor, ImageCaptor,
 			
 		} else if (interactionType.equals(SEARCH_TEXT)) {
 			searchText((EditText)v, value);	
+		
+		} else if (interactionType.equals(AUTO_TEXT)) {
+			writeText((EditText)v, value);	
 			
 		} else if (interactionType.equals(SET_BAR)) {
 			setProgressBar(v, value);

@@ -233,6 +233,27 @@ public class UserFactory {
 			}
 		}
 		
+		if (isRequiredEvent(AUTO_TEXT)) {
+			if (Resources.TEXT_VALUES_FROM_DICTIONARY)
+			{
+				DictionaryValueAutoEditor ate = new DictionaryValueAutoEditor(typesForEvent(AUTO_TEXT));
+				ate.setEventWhenNoId(Resources.EVENT_WHEN_NO_ID);
+				u.addEvent (addDosAndDonts(ate));	
+			}
+			else if(Resources.TEXT_VALUES_ID_HASH)
+			{
+				HashValueAutoEditor ate = new HashValueAutoEditor(typesForEvent(AUTO_TEXT));
+				ate.setEventWhenNoId(Resources.EVENT_WHEN_NO_ID);
+				u.addEvent (addDosAndDonts(ate));
+			}
+			else
+			{
+				RandomAutoEditor ate = new RandomAutoEditor(typesForEvent(AUTO_TEXT));
+				ate.setEventWhenNoId(Resources.EVENT_WHEN_NO_ID);
+				u.addEvent (addDosAndDonts(ate));			
+			}
+		}
+		
 		if (isRequiredEvent(LONG_CLICK)) {
 			LongClicker l = new LongClicker (typesForEvent(LONG_CLICK));
 			l.setEventWhenNoId(Resources.EVENT_WHEN_NO_ID);
@@ -289,12 +310,6 @@ public class UserFactory {
 			u.addEvent(addDosAndDonts(c));
 		}
 		/** @author nicola */
-		
-		if (isRequiredInput(DRAG)) {
-			Drager d = new Drager (typesForInput(DRAG));
-			d.setEventWhenNoId(Resources.EVENT_WHEN_NO_ID);
-			u.addEvent(addDosAndDonts(d));
-		}
 		
 		if (isRequiredInput(SET_BAR)) {
 			Slider sl = new Slider (typesForInput(SET_BAR));
@@ -487,7 +502,28 @@ public class UserFactory {
 				u.addEvent (addDosAndDonts(ste));
 			}
 		}
-
+		
+		if (eventTypes.contains(AUTO_TEXT)) {
+			if (Resources.TEXT_VALUES_FROM_DICTIONARY)
+			{
+				DictionaryValueAutoEditor ate = new DictionaryValueAutoEditor(typesForEvent(AUTO_TEXT));
+				ate.setEventWhenNoId(Resources.EVENT_WHEN_NO_ID);
+				u.addEvent (addDosAndDonts(ate));	
+			}
+			else if(Resources.TEXT_VALUES_ID_HASH)
+			{
+				HashValueAutoEditor ate = new HashValueAutoEditor(typesForEvent(AUTO_TEXT));
+				ate.setEventWhenNoId(Resources.EVENT_WHEN_NO_ID);
+				u.addEvent (addDosAndDonts(ate));
+			}
+			else
+			{
+				RandomAutoEditor ate = new RandomAutoEditor(typesForEvent(AUTO_TEXT));
+				ate.setEventWhenNoId(Resources.EVENT_WHEN_NO_ID);
+				u.addEvent (addDosAndDonts(ate));			
+			}
+		}
+		
 		if (eventTypes.contains(LONG_CLICK)) {
 			LongClicker l = new LongClicker (typesForEvent(LONG_CLICK));
 			l.setEventWhenNoId(Resources.EVENT_WHEN_NO_ID);

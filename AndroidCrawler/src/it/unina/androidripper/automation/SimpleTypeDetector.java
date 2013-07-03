@@ -74,6 +74,8 @@ public class SimpleTypeDetector implements TypeDetector {
 				case ListView.CHOICE_MODE_MULTIPLE: return MULTI_CHOICE_LIST;
 			}
 		}
+		if (type.endsWith("AutoCompleteTextView"))
+			return AUTOC_TEXT;
 		if (type.endsWith("TextView"))
 			return TEXT_VIEW;
 		if (type.endsWith("ImageView"))

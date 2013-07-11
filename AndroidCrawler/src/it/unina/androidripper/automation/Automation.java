@@ -141,10 +141,10 @@ public class Automation implements Robot, Extractor, TaskProcessor, ImageCaptor,
 		String eventType = e.getType();
 		String eventValue = e.getValue();
 		if (eventType.equals(BACK) || eventType.equals(SCROLL_DOWN)) { // Special events
-			Log.d("androidripper", "Firing event: type= " + eventType);
+			Log.i("androidripper", "Firing event: type= " + eventType);
 			fireEventOnView(null, eventType, null);
 		} else if (eventType.equals(CLICK_ON_TEXT)) {
-			Log.d("androidripper", "Firing event: type= " + eventType + " value= " + eventValue);
+			Log.i("androidripper", "Firing event: type= " + eventType + " value= " + eventValue);
 			fireEventOnView(null, eventType, eventValue);
 		} else {
 			View v = null;
@@ -166,7 +166,7 @@ public class Automation implements Robot, Extractor, TaskProcessor, ImageCaptor,
 	}
 
 	public void setInput(UserInput i) {
-		Log.d("androidripper", "Setting input: type= " + i.getType() + " id=" + i.getWidgetId() + " value="+ i.getValue());
+		Log.i("androidripper", "Setting input: type= " + i.getType() + " id=" + i.getWidgetId() + " value="+ i.getValue());
 		setInput (Integer.parseInt(i.getWidgetId()), i.getType(), i.getValue(), i.getWidgetName(), i.getWidgetType());
 	}
 	

@@ -2,6 +2,7 @@ package it.unina.androidripper.planning.interactors;
 
 import static com.nofatclips.androidtesting.model.InteractionType.SEARCH_TEXT;
 import static com.nofatclips.androidtesting.model.SimpleType.SEARCH_BAR;
+import static com.nofatclips.androidtesting.model.SimpleType.FOCUSABLE_EDIT_TEXT;
 
 import it.unina.androidripper.planning.adapters.InteractorAdapter;
 
@@ -21,7 +22,7 @@ public class FixedValueSearchEditor extends InteractorAdapter {
 	private Map<String,ArrayList<String>> idValuePairs = new Hashtable<String,ArrayList<String>>();
 	
 	public FixedValueSearchEditor () {
-		this (SEARCH_BAR);
+		this (SEARCH_BAR, FOCUSABLE_EDIT_TEXT);
 	}
 	
 	public FixedValueSearchEditor (String ... simpleTypes) {

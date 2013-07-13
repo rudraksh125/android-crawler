@@ -146,7 +146,8 @@ public class RobotUtilities {
 	}
 	
 	public static void searchText (EditText v, String value) {
-		solo.enterText(v, value);
+		typeText (v, "");
+		typeText (v, value);
 		solo.sendKey(Solo.ENTER);
 	}
 

@@ -64,6 +64,7 @@ public class Resources implements ResourceFile {
 
 	public static boolean BACK_BUTTON_EVENT = true;
 	public static boolean MENU_EVENTS = true;
+	public static boolean ACTIONBARHOME_EVENTS = true;
 	public static boolean ORIENTATION_EVENTS = true;
 	public static boolean SCROLL_DOWN_EVENT = false;
 

@@ -33,13 +33,13 @@ public class SimpleTypeDetector implements TypeDetector {
 			return CHECKBOX;
 		if (type.endsWith("ToggleButton"))
 			return TOGGLE_BUTTON;
-		if (type.endsWith("IconMenuView"))
+		if (type.endsWith("IconMenuView") || type.endsWith("ActionMenuView"))
 			return MENU_VIEW;
 		if (type.endsWith("DatePicker"))
 			return DATE_PICKER;
 		if (type.endsWith("TimePicker"))
 			return TIME_PICKER;
-		if (type.endsWith("IconMenuItemView"))
+		if (type.endsWith("IconMenuItemView") || type.endsWith("ActionMenuItemView"))
 			return MENU_ITEM;
 		if (type.endsWith("DialogTitle"))
 			return DIALOG_VIEW;

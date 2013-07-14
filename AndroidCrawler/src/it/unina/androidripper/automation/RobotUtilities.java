@@ -40,7 +40,7 @@ public class RobotUtilities {
 	public static Instrumentation getInstrumentation() {
 		return instrum;
 	}
-
+	
 	// Click interactions
 	
 	public static void click (View v) {
@@ -187,6 +187,12 @@ public class RobotUtilities {
 
 	public static void openMenu() {
 		solo.sendKey(Solo.MENU);
+	}
+	
+	// ActionBar interactions
+	
+	public static void ActionBarHome () {
+			solo.clickOnActionBarHomeButton();
 	}
 
 	public static void scrollDown() {

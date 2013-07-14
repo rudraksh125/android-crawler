@@ -240,6 +240,8 @@ public class Automation implements Robot, Extractor, TaskProcessor, ImageCaptor,
 			goBack();
 		} else if (interactionType.equals(OPEN_MENU)) {
 			openMenu();
+		} else if (interactionType.equals(HOME_ACTION)) {
+			ActionBarHome();
 		} else if (interactionType.equals(SCROLL_DOWN)) {
 			scrollDown();
 		} else if (interactionType.equals(CHANGE_ORIENTATION)) {

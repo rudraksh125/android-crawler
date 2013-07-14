@@ -74,6 +74,13 @@ public class SimplePlanner implements Planner {
 			Log.i("androidripper", "Created trace to press the menu button");
 			p.addTask(t);
 		}
+		
+		if (Resources.ACTIONBARHOME_EVENTS) {
+			evt = getAbstractor().createEvent(null, HOME_ACTION);
+			t = getAbstractor().createStep(a, new HashSet<UserInput>(), evt);
+			Log.i("androidripper", "Created trace to click on ActionBar Home button");
+			p.addTask(t);
+		}
 
 		// Special handling for scrolling down
 		if (Resources.SCROLL_DOWN_EVENT) {

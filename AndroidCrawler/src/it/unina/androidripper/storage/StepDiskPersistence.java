@@ -88,13 +88,16 @@ public class StepDiskPersistence extends DiskPersistence implements SaveStateLis
 	}
 	
 	public void saveStep () {
-		if (isFirst()) {
-			Log.i ("androidripper", "Saving the session on disk. This is the first batch: the file will be created.");					
-		} else {
-			Log.i ("androidripper", "Saving the session on disk.");
+		if (ENABLE_MODEL) {
+			if (isFirst()) {
+				Log.i ("androidripper", "Saving the session on disk. This is the first batch: the file will be created.");					
+			} else {
+				Log.i ("androidripper", "Saving the session on disk.");
+			}
+			save(isLast());
 		}
-		save(isLast());
 		setNotFirst();
+		
 	}
 	
 	@Override
@@ -110,7 +113,7 @@ public class StepDiskPersistence extends DiskPersistence implements SaveStateLis
 			setLast();
 			Log.i ("androidripper", "Saving the session on disk. This is the last batch. The session will be terminated.");			
 		}
-		super.save();
+		if (ENABLE_MODEL) super.save();
 		for (Trace t: getSession()) {
 			getSession().removeTrace(t);
 		}

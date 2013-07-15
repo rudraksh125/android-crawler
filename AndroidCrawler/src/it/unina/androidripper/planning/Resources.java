@@ -64,7 +64,7 @@ public class Resources implements ResourceFile {
 
 	public static boolean BACK_BUTTON_EVENT = true;
 	public static boolean MENU_EVENTS = true;
-	public static boolean ACTIONBARHOME_EVENTS = true;
+	public static boolean ACTIONBARHOME_EVENTS = false;
 	public static boolean ORIENTATION_EVENTS = true;
 	public static boolean SCROLL_DOWN_EVENT = false;
 
@@ -108,7 +108,6 @@ public class Resources implements ResourceFile {
 	public static String TEST_LOCATION_PROVIDER = LocationManager.GPS_PROVIDER;
 	public static boolean FIX_GPS_POSITION = true;
 	
-	
 	//sms, call
 	public static boolean SIMULATE_INCOMING_CALL = false;
 	public static boolean SIMULATE_INCOMING_SMS = false;
@@ -116,10 +115,6 @@ public class Resources implements ResourceFile {
 	//for ddms socket connection
 	public static int EMULATOR_PORT = 5554;
 	/** @author nicola amatucci - sensori/reflection */
-	
-	
-	
-	
 	
 	static {
 		Prefs.updateNode("scheduler", Resources.class);

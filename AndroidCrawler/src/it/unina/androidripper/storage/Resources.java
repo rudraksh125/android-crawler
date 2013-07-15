@@ -1,5 +1,6 @@
 package it.unina.androidripper.storage;
 
+import it.unina.androidripper.Prefs;
 import it.unina.androidripper.model.ResourceFile;
 
 public class Resources implements ResourceFile {
@@ -10,5 +11,9 @@ public class Resources implements ResourceFile {
 	public static String ACTIVITY_LIST_FILE_NAME = "activities.xml"; // Save state for resume
 	public static String PARAMETERS_FILE_NAME = "parameters.obj"; // Save state for resume
 	public static String FILE_NAME = "guitree.xml"; // Output
+	
+	static {
+		Prefs.updateNode("storage", Resources.class);
+	}
 
 }

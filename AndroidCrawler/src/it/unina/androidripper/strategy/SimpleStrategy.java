@@ -70,9 +70,11 @@ public class SimpleStrategy implements Strategy {
 			}	
 		}
 		
-		Log.i("androidripper", "Registering activity " + name + " (id: " + theActivity.getId() + ") as a new found state");
 		this.positiveComparation = false;
-		addState (theActivity);
+		if (!COMPARATOR_TYPE.equals("NullComparator")) {
+			Log.i("androidripper", "Registering activity " + name + " (id: " + theActivity.getId() + ") as a new found state");
+			addState (theActivity);
+		}
 		return false;
 	}
 	

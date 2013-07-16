@@ -45,8 +45,6 @@ public class RobotUtilities {
 	
 	public static void click (View v) {
 		assertNotNull(v,"Cannot click: the widget does not exist");
-//		android.test.TouchUtils.clickView(this.test, v);
-//		describeCurrentEvent(v);
 		for (EventFiredListener l: listeners) {
 			l.onClickEventFired(v);
 		}
@@ -59,7 +57,6 @@ public class RobotUtilities {
 	
 	public static void longClick (View v) {
 		assertNotNull(v, "Cannot longClick: the widget does not exist");
-//		describeCurrentEvent(v);
 		for (EventFiredListener l: listeners) {
 			l.onLongClickEventFired(v);
 		}
@@ -175,8 +172,6 @@ public class RobotUtilities {
 		for (EventFiredListener l: listeners) {
 			l.onKeyEventFired(keyCode);
 		}
-//		sendKeyDownUpLong(keyCode);
-//		describeKeyEvent();
 	}
 	
 	// Special interactions
@@ -232,14 +227,7 @@ public class RobotUtilities {
 		ActivityInstrumentationTestCase2.assertTrue("Cannot swap tab: tab index out of bound", num<=count);
 		final int n = Math.min(count, Math.max(1,num))-1;
 		Log.i("androidripper", "Swapping to tab " + num);
-//		getActivity().runOnUiThread(new Runnable() {
-//			public void run() {
-//				t.setCurrentTab(n);
-//			}
-//		});
-//		sync();
 		click (t.getTabWidget().getChildAt(n));
-//		describeCurrentEvent(t.getTabWidget().getChildAt(n));
 	}
 
 	// Scroll and search methods
@@ -320,47 +308,5 @@ public class RobotUtilities {
 		solo = new Solo (instrum, activity);
 		return solo;
 	}
-
-	
-//  public void  sendKeyDownUpLong(final int key) {
-////		long downTime = SystemClock.uptimeMillis();
-////		long eventTime = SystemClock.uptimeMillis();
-////		KeyEvent down = new KeyEvent(downTime, eventTime, KeyEvent.ACTION_DOWN, key, 0);
-////      getInstrumentation().sendKeySync(down);
-////      sync();
-////      solo.sleep(1500);//solo.sleep((int) (android.view.ViewConfiguration.getLongPressTimeout() * 2.5f));
-////		eventTime = SystemClock.uptimeMillis();
-////		KeyEvent up = new KeyEvent(downTime, eventTime, KeyEvent.ACTION_UP, key, 0);
-////		up = KeyEvent.changeFlags(down, KeyEvent.FLAG_LONG_PRESS);
-////      getInstrumentation().sendKeySync(up);
-////      sync();
-//  	final KeyEvent downEvent = new KeyEvent (KeyEvent.ACTION_DOWN, key);
-//  	getInstrumentation().sendKeySync(downEvent);
-//    	sync();
-//
-//  	try {
-//          Thread.sleep(500);
-//      } catch (InterruptedException e) {
-//          Log.e("androidripper", "Could not sleep for long press timeout", e);
-//          return;
-//      }
-//  	
-////  	Log.d("androidripper", "Prima della pausa");
-////  	solo.sleep(2000);
-////  	Log.d("androidripper", "Dopo la pausa");
-//  	
-//  	for (int repetition = 0; repetition<50; repetition++) {
-//	//    	getInstrumentation().sendKeySync(KeyEvent.changeFlags(upEvent, KeyEvent.FLAG_LONG_PRESS));
-//  		KeyEvent newEvent = KeyEvent.changeTimeRepeat(downEvent, SystemClock.uptimeMillis(), repetition, downEvent.getFlags() | KeyEvent.FLAG_LONG_PRESS);
-//	    	getInstrumentation().sendKeySync(newEvent);
-//	    	sync();
-//	    	solo.sleep(10);
-//  	}
-//
-//  	final KeyEvent upEvent = new KeyEvent (KeyEvent.ACTION_UP, key);
-//  	getInstrumentation().sendKeySync(upEvent);
-//  	getInstrumentation().waitForIdleSync();
-//  	sync();    	
-//  }
 
 }

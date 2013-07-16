@@ -2,7 +2,7 @@ package it.unina.androidripper.storage;
 
 public abstract class CrawlerLog {
 	
-	private String tag = "Crawler";
+	private String tag = "androidripper";
 	private int defaultLevel = 1;
 	
 	public void setTag (String t) {

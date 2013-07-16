@@ -91,8 +91,6 @@ public class StrategyFactory {
 	}
 	
 	public boolean useCustomStrategy () {
-//		return (checkTransition() || checkForDepth() || checkSessionTime() || hasMoreCriterias() 
-//				|| checkTracesForPause() || checkSessionTimeForPause() || (!exploreNewStatesOnly()) );
 		return true;
 	}
 	

@@ -70,7 +70,6 @@ public abstract class Engine extends ActivityInstrumentationTestCase2 implements
 			GregorianCalendar c=new GregorianCalendar();
 			theTask.setDateTime(c.getTime().toString());
 			getStrategy().setTask(theTask);
-//			getRobot().process(theTask);
 			process(theTask);
 			ActivityDescription d = getExtractor().describeActivity();
 			ActivityState theActivity = getAbstractor().createActivity(d);
@@ -123,10 +122,7 @@ public abstract class Engine extends ActivityInstrumentationTestCase2 implements
 		ResumingPersistence r = (ResumingPersistence)getPersistence();
 		if (!r.canHasResume()) return false;
 		Log.i("androidripper", "Attempting to resume previous session");
-//		List<String> entries;
-//		Session sandboxSession = getNewSession();
-//		Element e;
-		
+
 		importTaskList(r);
 		
 		importActivitiyList(r);
@@ -205,11 +201,6 @@ public abstract class Engine extends ActivityInstrumentationTestCase2 implements
 			tasks.add(getNewTask(baseTask, t));
 		}
 		getScheduler().addPlannedTasks(tasks);
-//		for (Transition t: thePlan) {
-//			Trace newTrace = getAbstractor().createTrace(theTask, t);
-//			newTrace.setId(nextId());
-//			getScheduler().addTasks(getNewTask(theTask, t));
-//		}		
 	}
 	
 	protected void doNotPlanTests() { 

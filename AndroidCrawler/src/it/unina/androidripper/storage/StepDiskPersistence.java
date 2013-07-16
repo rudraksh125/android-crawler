@@ -57,7 +57,6 @@ public class StepDiskPersistence extends DiskPersistence implements SaveStateLis
 		
 		// Session is smaller than the step: fall back to DiskPersistence behavior and save all
 		if (isFirst() && isLast()) {
-//			Log.e("androidripper","Session is smaller than the step: fall back to DiskPersistence behavior and save all");
 			return graph;
 		}
 		
@@ -66,24 +65,20 @@ public class StepDiskPersistence extends DiskPersistence implements SaveStateLis
 		
 		// First step: return header and body, save the footer for the final step
 		if (isFirst()) {
-//			Log.e("androidripper","First step: return header and body, save the footer for the final step");
 			this.footer = graph.substring(bodyEnd);
 			return graph.substring(0,bodyEnd);
 		}
 		
 		// Final step: return the body (if any) and the footer
 		if (isLast()) {
-//			Log.e("androidripper","Final step: return the body (if any) and the footer");
 			return (bodyBegin == -1)?(this.footer):graph.substring(bodyBegin);
 		}
 		
 		if ( (bodyBegin == -1) || (bodyEnd == -1) ) { // Empty body
-//			Log.e("androidripper","Empty body");
 			return "";
 		}
 		
 		// Return the body of the XML graph
-//		Log.e("androidripper","Return the body of the XML graph");
 		return graph.substring(bodyBegin,bodyEnd);
 	}
 	

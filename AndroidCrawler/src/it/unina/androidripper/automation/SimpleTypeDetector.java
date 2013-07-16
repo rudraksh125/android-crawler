@@ -19,12 +19,8 @@ public class SimpleTypeDetector implements TypeDetector {
 		String type = v.getClass().getName(); 
 		if (type.endsWith("null"))
 			return NULL;
-		
-		/* NICOLA */
 		if (type.endsWith("SlidingDrawer"))
 			return SLIDING_DRAWER;
-		/* NICOLA */
-		
 		if (type.endsWith("RadioButton"))
 			return RADIO;
 		if (type.endsWith("RadioGroup"))
@@ -86,8 +82,6 @@ public class SimpleTypeDetector implements TypeDetector {
 			return WEB_VIEW;
 		if (type.endsWith("TwoLineListItem"))
 			return LIST_ITEM;
-		
-
 		
 		return "";
 	}

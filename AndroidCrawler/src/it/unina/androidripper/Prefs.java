@@ -158,13 +158,10 @@ public class Prefs {
 	}
 	
 	protected void setArray (Field parameter, Class<?> type) throws IllegalArgumentException, IllegalAccessException {
-//		Log.e("androidripper","Sono qui");
 		Class<?> component = type.getComponentType();
 		if (component.equals(String.class)) {
-//			Log.e("androidripper","Sono qua");
 			String[] strings = getStringArray(parameter);
 			if (strings!=null) {
-//				Log.e("androidripper","Sono quo");
 				parameter.set (parameter, strings);					
 			}
 		} else if (component.equals(int.class)) {

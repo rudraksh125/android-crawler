@@ -27,10 +27,6 @@ public class MaxDepthExplore implements ExplorationCriteria {
 	}
 
 	public boolean exploration() {
-//		int transitions = 0;
-//		for (Transition t: this.theStrategy.getTask()) {
-//			transitions++;
-//		}
 		int transitions = this.theStrategy.getDepth();
 		Log.i("androidripper", "Checking for depth: this trace is " + transitions + " transitions deep (max = " + getMaxDepth() + ")");
 		return (transitions<getMaxDepth());

@@ -24,7 +24,6 @@ import static it.unina.androidripper.strategy.comparator.Resources.COMPARE_MENU_
 public class CustomWidgetsSimpleComparator extends NameComparator {
 	
 	public final static boolean IGNORE_ACTIVITY_NAME = true;
-//	private boolean byName = true;
 	protected String[] widgetClasses;
 	
 	public CustomWidgetsSimpleComparator (String... widgets) {

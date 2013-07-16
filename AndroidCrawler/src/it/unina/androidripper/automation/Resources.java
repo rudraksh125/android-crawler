@@ -26,7 +26,6 @@ public class Resources implements ResourceFile {
 
 	static {
 		Prefs.updateNode("automation", Resources.class);
-		Prefs.updateNode("screenshot", Resources.class);
 	}
 
 }

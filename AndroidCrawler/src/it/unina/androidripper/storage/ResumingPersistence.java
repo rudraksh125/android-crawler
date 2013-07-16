@@ -205,14 +205,13 @@ public class ResumingPersistence extends StepDiskPersistence implements Dispatch
 		saveTaskList();
 		if (noTasks()) { // Deletes file when crawling is over
 			Log.d("androidripper", "Task list is empty: no resume needed. Deleting parameters and activity list from disk.");
-//			delete (getActivityFileName());
 			delete (backup(getActivityFileName()));
 			delete (getParametersFileName());
 			delete (backup(getParametersFileName()));
 			delete (getTaskListFileName());
 			delete (backup(getTaskListFileName()));
 			
-			// Creazione del file closed (AKA pezzottone)
+			// Creazione del file closed
 			
 			FileOutputStream fOut;
 			try {
@@ -227,8 +226,6 @@ public class ResumingPersistence extends StepDiskPersistence implements Dispatch
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-
-			// Fine Pezzottone
 			
 			return;
 		}

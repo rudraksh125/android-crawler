@@ -19,14 +19,6 @@ public abstract class ArrayListFilter implements Filter {
 	public Iterator<WidgetState> iterator() {
 		return this.filteredItems.iterator();
 	}
-
-//	public void loadItems(Iterable<WidgetState> items) {
-//		for (WidgetState v: items) {
-//			if (isValidItem(v)) {
-//				this.filteredItems.add(v);
-//			}
-//		}
-//	}
 	
 	@Override
 	public void loadItem(View v, WidgetState w) {

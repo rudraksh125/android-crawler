@@ -338,7 +338,6 @@ public class SimplePlanner implements Planner {
 	}
 
 	/** @author nicola amatucci - sensori/reflection */
-	//NOTA: cambiato private -> protected
 	protected Filter eventFilter;
 	protected Filter inputFilter;
 	protected EventHandler user;

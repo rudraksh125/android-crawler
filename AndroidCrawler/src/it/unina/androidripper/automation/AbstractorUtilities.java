@@ -90,7 +90,6 @@ public class AbstractorUtilities {
 		// Textview, Editview et al. -> the value is the displayed text
 		if (v instanceof TextView) {
 			w.setValue(((TextView) v).getText().toString());
-//			Log.e("androidripper", "Hint for " + (((TextView) v).getText().toString()) + " = " + (((TextView) v).getHint()));
 			return;
 		}
 		

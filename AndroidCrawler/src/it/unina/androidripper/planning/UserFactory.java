@@ -156,13 +156,11 @@ public class UserFactory {
 			u.addEvent(addDosAndDonts(c));
 		}
 
-		/** @author nicola */
 		if (isRequiredEvent(FOCUS)) {
 			Focuser c = new Focuser (typesForEvent(FOCUS));
 			c.setEventWhenNoId(Resources.EVENT_WHEN_NO_ID);
 			u.addEvent(addDosAndDonts(c));
 		}
-		/** @author nicola */
 		
 		if (isRequiredEvent(DRAG)) {
 			Drager d = new Drager(typesForEvent(DRAG));
@@ -303,13 +301,11 @@ public class UserFactory {
 			u.addInput (addDosAndDonts(c2));
 		}
 
-		/** @author nicola */
 		if (isRequiredInput(FOCUS)) {
 			Focuser c = new Focuser (typesForInput(FOCUS));
 			c.setEventWhenNoId(Resources.EVENT_WHEN_NO_ID);
 			u.addEvent(addDosAndDonts(c));
 		}
-		/** @author nicola */
 		
 		if (isRequiredInput(SET_BAR)) {
 			Slider sl = new Slider (typesForInput(SET_BAR));
@@ -317,7 +313,6 @@ public class UserFactory {
 			u.addInput (addDosAndDonts(sl));
 		}
 
-		/** @author nicola */
 		if (isRequiredInput(TYPE_TEXT)) {
 			if (Resources.TEXT_VALUES_FROM_DICTIONARY)
 			{
@@ -359,7 +354,6 @@ public class UserFactory {
 				u.addInput (addDosAndDonts(re));
 			}
 		}
-		/** @author nicola */
 		
 		if (isRequiredInput(SEARCH_TEXT)) {
 			if (Resources.TEXT_VALUES_FROM_DICTIONARY)
@@ -426,13 +420,11 @@ public class UserFactory {
 			u.addEvent(addDosAndDonts(c));
 		}
 
-		/** @author nicola */
 		if (eventTypes.contains(FOCUS)) {
 			Focuser c = new Focuser (typesForEvent(FOCUS));
 			c.setEventWhenNoId(Resources.EVENT_WHEN_NO_ID);
 			u.addEvent(addDosAndDonts(c));
 		}
-		/** @author nicola */
 		
 		if (eventTypes.contains(DRAG)) {
 			Drager d = new Drager (typesForEvent(DRAG));
@@ -573,13 +565,11 @@ public class UserFactory {
 			u.addInput (addDosAndDonts(c2));
 		}
 		
-		/** @author nicola */
 		if (isRequiredInput(FOCUS)) {
 			Focuser c = new Focuser (typesForInput(FOCUS));
 			c.setEventWhenNoId(Resources.EVENT_WHEN_NO_ID);
 			u.addEvent(addDosAndDonts(c));
 		}
-		/** @author nicola */
 
 		if (isRequiredInput(SET_BAR)) {
 			Slider sl = new Slider (typesForInput(SET_BAR));
@@ -587,7 +577,6 @@ public class UserFactory {
 			u.addInput (addDosAndDonts(sl));
 		}
 
-		/** @author nicola */
 		if (isRequiredInput(TYPE_TEXT)) {
 			if (Resources.TEXT_VALUES_FROM_DICTIONARY)
 			{
@@ -629,7 +618,6 @@ public class UserFactory {
 				u.addInput (addDosAndDonts(re));
 			}
 		}
-		/** @author nicola */
 		
 		if (isRequiredInput(SEARCH_TEXT)) {
 			if (Resources.TEXT_VALUES_FROM_DICTIONARY)

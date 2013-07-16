@@ -9,6 +9,7 @@ import com.nofatclips.androidtesting.model.Session;
 import com.nofatclips.androidtesting.model.Trace;
 
 import static it.unina.androidripper.Resources.*;
+import static it.unina.androidripper.strategy.comparator.Resources.COMPARATOR_TYPE;
 
 public class StepDiskPersistence extends DiskPersistence implements SaveStateListener {
 
@@ -101,19 +102,24 @@ public class StepDiskPersistence extends DiskPersistence implements SaveStateLis
 	}
 	
 	public void save (boolean last) {
-		if (ENABLE_MODEL){
-			if (!isFirst()) {
-				this.mode = ContextWrapper.MODE_APPEND;
+			if (!COMPARATOR_TYPE.equals("NullComparator")){
+				if (last) {
+					setLast();
+					Log.i ("androidripper", "Saving the session on disk. This is the last batch. The session will be terminated.");			
 				}
-			if (last) {
-				setLast();
-				Log.i ("androidripper", "Saving the session on disk. This is the last batch. The session will be terminated.");			
+			}
+			
+			if (ENABLE_MODEL) {
+				if (!isFirst()) {
+					this.mode = ContextWrapper.MODE_APPEND;
 				}
-			super.save();
+				super.save();
+			}
+			
 			for (Trace t: getSession()) {
 				getSession().removeTrace(t);
 			}
-		}
+			
 	}
 	
 	public boolean isFirst () {

@@ -74,7 +74,12 @@ public class ResumingPersistence extends StepDiskPersistence implements Dispatch
 			openTaskFile();
 			for (Trace task: this.taskList) {
 				Log.v("androidripper", "Backing up trace #" + task.getId() + " to disk.");
-				String xml = ((ElementWrapper)task).toXml() + System.getProperty("line.separator");
+				String xml = new String();
+				if (this instanceof MemorylessEngine){
+					Transition support = task.getFinalTransition();
+					xml = ((ElementWrapper)support).toXml() + System.getProperty("line.separator");
+				}
+				else xml = ((ElementWrapper)task).toXml() + System.getProperty("line.separator");
 				writeOnTaskFile(xml);
 			}
 			closeTaskFile();

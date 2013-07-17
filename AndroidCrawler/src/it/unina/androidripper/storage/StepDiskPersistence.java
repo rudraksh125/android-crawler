@@ -102,6 +102,11 @@ public class StepDiskPersistence extends DiskPersistence implements SaveStateLis
 	}
 	
 	public void save (boolean last) {
+		
+			if (!isFirst()) {
+			this.mode = ContextWrapper.MODE_APPEND;
+			}
+			
 			if (!COMPARATOR_TYPE.equals("NullComparator")){
 				if (last) {
 					setLast();
@@ -109,10 +114,7 @@ public class StepDiskPersistence extends DiskPersistence implements SaveStateLis
 				}
 			}
 			
-			if (ENABLE_MODEL) {
-				if (!isFirst()) {
-					this.mode = ContextWrapper.MODE_APPEND;
-				}
+			if (ENABLE_MODEL) {	
 				super.save();
 			}
 			

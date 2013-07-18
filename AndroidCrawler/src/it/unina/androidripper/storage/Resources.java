@@ -11,6 +11,7 @@ public class Resources implements ResourceFile {
 	public static String ACTIVITY_LIST_FILE_NAME = "activities.xml"; // Save state for resume
 	public static String PARAMETERS_FILE_NAME = "parameters.obj"; // Save state for resume
 	public static String FILE_NAME = "guitree.xml"; // Output
+	public static boolean ONLY_FINALTRANSITION = false;
 	
 	static {
 		Prefs.updateNode("storage", Resources.class);

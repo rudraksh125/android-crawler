@@ -9,7 +9,6 @@ import com.nofatclips.androidtesting.model.Session;
 import com.nofatclips.androidtesting.model.Trace;
 
 import static it.unina.androidripper.Resources.*;
-import static it.unina.androidripper.strategy.comparator.Resources.COMPARATOR_TYPE;
 
 public class StepDiskPersistence extends DiskPersistence implements SaveStateListener {
 

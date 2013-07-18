@@ -1,6 +1,7 @@
 package it.unina.androidripper.storage;
 
 import it.unina.androidripper.model.*;
+import static it.unina.androidripper.storage.Resources.ONLY_FINALTRANSITION;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -75,7 +76,7 @@ public class ResumingPersistence extends StepDiskPersistence implements Dispatch
 			for (Trace task: this.taskList) {
 				Log.v("androidripper", "Backing up trace #" + task.getId() + " to disk.");
 				String xml = new String();
-				if (this instanceof MemorylessEngine){
+				if (ONLY_FINALTRANSITION){
 					Transition support = task.getFinalTransition();
 					xml = ((ElementWrapper)support).toXml() + System.getProperty("line.separator");
 				}

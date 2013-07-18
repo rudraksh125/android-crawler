@@ -221,7 +221,7 @@ public class ResumingPersistence extends StepDiskPersistence implements Dispatch
 			
 			FileOutputStream fOut;
 			try {
-				fOut = w.openFileOutput("closed.txt", ContextWrapper.MODE_WORLD_READABLE);
+				fOut = w.openFileOutput("closed.txt", ContextWrapper.MODE_PRIVATE);
 				OutputStreamWriter osw = new OutputStreamWriter(fOut); 
 				osw.write("the end");
 				osw.flush();

@@ -140,7 +140,7 @@ public class ValuesCache extends HashMap<String,String[]> implements SaveStateLi
 		FileOutputStream fileOutput = null;
 		ObjectOutputStream streamWriter = null;
 		try {
-			fileOutput = context.openFileOutput(name,ContextWrapper.MODE_WORLD_READABLE);
+			fileOutput = context.openFileOutput(name,ContextWrapper.MODE_PRIVATE);
 			streamWriter = new ObjectOutputStream(fileOutput);
 			if (fileOutput != null) {
 				streamWriter.writeObject(this);

@@ -181,7 +181,7 @@ public class DiskPersistence implements Persistence, ImageStorage {
 		FileOutputStream fileOutput = null;
 		OutputStreamWriter streamWriter = null;
 		try {
-			fileOutput = w.openFileOutput(name,ContextWrapper.MODE_WORLD_READABLE);
+			fileOutput = w.openFileOutput(name,ContextWrapper.MODE_PRIVATE);
 			streamWriter = new OutputStreamWriter(fileOutput);
 			if (fileOutput != null) {
 				image.compress(Bitmap.CompressFormat.JPEG, 90, fileOutput);

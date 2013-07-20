@@ -7,11 +7,8 @@ import android.util.Log;
 import com.nofatclips.androidtesting.model.ActivityState;
 import com.nofatclips.androidtesting.model.WidgetState;
 
-import static com.nofatclips.androidtesting.model.SimpleType.LIST_VIEW;
-import static com.nofatclips.androidtesting.model.SimpleType.MENU_VIEW;
-import static it.unina.androidripper.strategy.comparator.Resources.COMPARE_ACTIVITY_NAME;
-import static it.unina.androidripper.strategy.comparator.Resources.COMPARE_LIST_COUNT;
-import static it.unina.androidripper.strategy.comparator.Resources.COMPARE_MENU_COUNT;
+import static com.nofatclips.androidtesting.model.SimpleType.*;
+import static it.unina.androidripper.strategy.comparator.Resources.*;
 
 // Accetta in input (nel costruttore) un numero arbitrario di tipi di widget e compara le activity
 // considerandone il nome ed i widget dei tipi selezionati. Una activity A sara' diversa da B se il

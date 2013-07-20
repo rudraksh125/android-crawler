@@ -100,7 +100,7 @@ public class StepDiskPersistence extends DiskPersistence implements SaveStateLis
 		}
 		
 		setNotFirst();
-		
+		System.gc();
 	}
 	
 	@Override

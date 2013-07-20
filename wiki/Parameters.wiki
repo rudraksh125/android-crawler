@@ -28,7 +28,8 @@ When `true`, the ripper stores its internal state after every trace, in order to
 When `false`, the ripping sessions definitively terminates after any such interruption, potentially leaving entire branches of the GUI tree unexplored. On the other hand, the ripping proceeds faster.
 
 *ENABLE_MODEL*: `boolean`
-When `true`, the ripper creates the FILE_NAME and ACTIVITY_LIST_FILE_NAME.
+
+When `true`, the ripper creates the *FILE_NAME* and *ACTIVITY_LIST_FILE_NAME*.
 
 *RANDOM_SEED*: `long` {0 = random}
 
@@ -85,18 +86,9 @@ This is a legacy parameter and is usually better left to `true`.
 *PRECRAWLING*: `String []`
 
 A string array containing the precrawling sequence.
-The Separator (placeholder for the null object, not to be confused with the "null" String) is ".-.-.";
+The Separator (placeholder for the null object, not to be confused with the `null` String) is ".-.-.";
  
-Refer to 
-https://code.google.com/p/android-crawler/source/browse/AndroidCrawler/src/com/nofatclips/crawler/Resources.java?spec=svn189&r=189
-
-for example:
-"selectListItem", "16908298", "2", null,
-
-<entry key=”PRECRAWLING[0]" value="selectListItem"/>
-<entry key=”PRECRAWLING[1]" value="16908298"/>
-<entry key=”PRECRAWLING[2]" value="2"/>
-<entry key=”PRECRAWLING[3]" value=".-.-."/>
+Refer to [https://code.google.com/p/android-crawler/source/browse/AndroidCrawler/src/com/nofatclips/crawler/Resources.java?spec=svn189&r=189 here]
 
 *SCREENSHOT_FOR_STATES*: `boolean`
 
@@ -167,6 +159,10 @@ When `true`, a special event will be fired to change the orientation of the devi
 *SCROLL_DOWN_EVENT*: `boolean`
 
 When `true`, a special event will be fired to scroll the display one page down.
+
+*ACTIONBARHOME_EVENTS*: `boolean`
+
+Clicks an `ActionBar` Home/Up button.
 
 = Planner parameters =
 
@@ -258,8 +254,8 @@ The name of the file containing the parameters saved by the Ripper components. T
 Change this file name only in case of name conflicts with existing files.
 
 *ONLY_FINALTRANSITION*: `boolean` {default = "false"}
-With ENABLE_MODEL=true it allows to speed up the test Random.
-In Tasklist is stored only the event to execute without the full path.
+
+If it is `true`, in Tasklist is stored only the event to execute without the full path. *ENABLE_MODEL* = `false` and *ONLY_FINALTRANSITION* = `true`, they allow to speed up the test Random.
 
 = Comparator parameters =
 

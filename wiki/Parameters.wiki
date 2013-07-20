@@ -27,6 +27,9 @@ When `true`, the ripper stores its internal state after every trace, in order to
 
 When `false`, the ripping sessions definitively terminates after any such interruption, potentially leaving entire branches of the GUI tree unexplored. On the other hand, the ripping proceeds faster.
 
+*ENABLE_MODEL*: `boolean`
+When `true`, the ripper creates the FILE_NAME and ACTIVITY_LIST_FILE_NAME.
+
 *RANDOM_SEED*: `long` {0 = random}
 
 This value is used to setup the randon number generation mechanism. Several instances of this are used with various purposes such as: filling in the values of text fields, randomizing the sequence of actions to be performed when using the Random engine, and so on...
@@ -253,6 +256,10 @@ The name of the file containing the Activity Map.
 The name of the file containing the parameters saved by the Ripper components. This is a temporary file and is deleted when the ripping session is over.
 
 Change this file name only in case of name conflicts with existing files.
+
+*ONLY_FINALTRANSITION*: `boolean` {default = "false"}
+With ENABLE_MODEL=true it allows to speed up the test Random.
+In Tasklist is stored only the event to execute without the full path.
 
 = Comparator parameters =
 

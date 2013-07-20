@@ -1,16 +1,10 @@
 package it.unina.androidripper.strategy.comparator;
 
-import static com.nofatclips.androidtesting.model.SimpleType.BUTTON;
-import static com.nofatclips.androidtesting.model.SimpleType.EDIT_TEXT;
-import static com.nofatclips.androidtesting.model.SimpleType.IMAGE_VIEW;
-import static com.nofatclips.androidtesting.model.SimpleType.LIST_VIEW;
-import static com.nofatclips.androidtesting.model.SimpleType.MENU_VIEW;
+import static com.nofatclips.androidtesting.model.SimpleType.*;
 import it.unina.androidripper.Prefs;
 import it.unina.androidripper.model.Comparator;
 import it.unina.androidripper.model.ResourceFile;
 
-
-@SuppressWarnings("unused")
 public class Resources implements ResourceFile {
 
 	public static String COMPARATOR_TYPE = "NullComparator";

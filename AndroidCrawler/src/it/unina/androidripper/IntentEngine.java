@@ -419,6 +419,7 @@ public abstract class IntentEngine extends InstrumentationTestCase implements Sa
 		 return instrumentation.waitForMonitorWithTimeout(monitor, time);
 	}
 	
+	@SuppressWarnings("unused")
 	private void doSleep(int millis)
 	{
 		try {

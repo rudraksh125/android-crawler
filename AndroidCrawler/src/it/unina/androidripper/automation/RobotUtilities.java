@@ -3,7 +3,6 @@ package it.unina.androidripper.automation;
 import static android.content.Context.WINDOW_SERVICE;
 import static android.view.Surface.ROTATION_0;
 import static android.view.Surface.ROTATION_180;
-
 import it.unina.androidripper.model.EventFiredListener;
 
 import java.util.ArrayList;
@@ -51,6 +50,7 @@ public class RobotUtilities {
 		solo.clickOnView(v);
 	}
 	
+	@SuppressWarnings("deprecation")
 	public static void drag (View v){
 		solo.setSlidingDrawer((SlidingDrawer) v, Solo.OPENED);
 	}

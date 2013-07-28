@@ -2,7 +2,7 @@ package it.unina.androidripper.strategy.comparator;
 
 import com.nofatclips.androidtesting.model.WidgetState;
 
-import static it.unina.androidripper.strategy.comparator.Resources.COMPARE_VALUES;
+import static it.unina.androidripper.strategy.comparator.Resources.*;
 
 public class CustomWidgetsIntensiveComparator extends CustomWidgetsSimpleComparator {
 	

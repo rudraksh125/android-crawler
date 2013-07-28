@@ -58,17 +58,6 @@ class TrivialScheduler implements TaskScheduler {
 			case BREADTH_FIRST: 
 			default: addTasks(newTasks);
 		}
-//		if (this.algorithm.equals(SchedulerAlgorithm.BREADTH_FIRST)) {
-//			addTasks(newTasks);
-//			return;
-//		}
-//		if (this.algorithm.equals(SchedulerAlgorithm.DEPTH_FIRST)) {
-//			List<Trace> invert = 
-//			for (Trace t: newTasks) {
-//				invert.add(t);
-//			}
-//			addTasks(Collections.reverse(newTasks););
-//		}
 	}
 
 	public void setTaskList(List<Trace> theList) {

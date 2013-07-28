@@ -19,14 +19,4 @@ public interface Interactor {
 	
 	public String getInteractionType ();
 	
-//	public boolean doEventWhenNoId();
-//	public void setEventWhenNoId (boolean eventWhenNoId);
-	
-//	public List<String> getVetoedIds ();
-//	public List<String> getForcedIds ();
-
-//	public void denyIds (String ... ids);
-//	public void denyIds (Collection<String> ids);
-//	public void forceIds(Collection<String> ids);
-	
 }

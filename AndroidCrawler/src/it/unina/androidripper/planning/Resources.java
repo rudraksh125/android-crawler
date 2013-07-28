@@ -10,7 +10,6 @@ import java.util.Arrays;
 
 import android.location.LocationManager;
 
-
 @SuppressWarnings("unused")
 public class Resources implements ResourceFile {
 

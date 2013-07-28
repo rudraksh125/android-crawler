@@ -23,7 +23,6 @@ public class TraceDispatcher implements Iterable<Trace> {
 	
 	public TraceDispatcher () {
 		this (SCHEDULER_ALGORITHM);
-//		setScheduler(getTrivialScheduler());
 	}
 
 	public TraceDispatcher (String algorithm) {
@@ -65,7 +64,6 @@ public class TraceDispatcher implements Iterable<Trace> {
 	}
 
 	public void registerListener(DispatchListener theListener) {
-//		throw new Error();
 		this.theListeners.add(theListener);
 	}
 

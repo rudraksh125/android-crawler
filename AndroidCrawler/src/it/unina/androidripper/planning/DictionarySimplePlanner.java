@@ -26,8 +26,6 @@ public class DictionarySimplePlanner extends SimplePlanner {
 		int nEditText = 0;
 		for (WidgetState w : a) //a.getNotDefaultEditTextCount()
 		{
-			//Log.i("androidripper", "w.getSimpleType()=" + w.getSimpleType());
-			//Log.i("androidripper", "w.getContentType()=" + w.getContentType());
 			if (	w.getSimpleType().equals(SimpleType.EDIT_TEXT) //w.isNotDefaultEditText()
 				&& 	w.getContentType().equals(ContentType.DEFAULT) == false)
 				nEditText++;

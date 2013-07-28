@@ -27,7 +27,8 @@ public abstract class Engine extends ActivityInstrumentationTestCase2 implements
 	
 	@SuppressWarnings("unchecked")
 	public Engine() {
-		super(PACKAGE_NAME,theClass);
+		//super(PACKAGE_NAME,theClass);
+		super(theClass);
 		PersistenceFactory.registerForSavingState(this);
 	}
 	

@@ -61,7 +61,6 @@ public class RandomEngine extends GuiTreeEngine {
 			n = getRandom(max);
 			t = thePlan.getTask(n);
 			type = t.getEvent().getType();
-//			Log.v("androidripper","Estratto: " + (n+1) + " su " + max + " (di tipo " + type + ")");
 			if (!(isBase() && type.equals(BACK))) {
 				getScheduler().addTasks(getNewTask(theTask, t));
 			}

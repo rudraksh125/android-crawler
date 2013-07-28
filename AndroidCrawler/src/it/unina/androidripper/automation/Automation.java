@@ -1,8 +1,7 @@
 package it.unina.androidripper.automation;
 
 import static com.nofatclips.androidtesting.model.InteractionType.*;
-import static com.nofatclips.androidtesting.model.SimpleType.BUTTON;
-import static com.nofatclips.androidtesting.model.SimpleType.MENU_ITEM;
+import static com.nofatclips.androidtesting.model.SimpleType.*;
 import static it.unina.androidripper.automation.Resources.*;
 import static it.unina.androidripper.automation.RobotUtilities.*;
 import it.unina.android.hardware.mock.MockSensorEvent;
@@ -16,9 +15,7 @@ import it.unina.androidripper.helpers.ReflectionHelper;
 import it.unina.androidripper.model.*;
 
 import java.util.ArrayList;
-//import java.util.HashMap;
 import java.util.Iterator;
-//import java.util.Map;
 
 import android.app.Activity;
 import android.graphics.Bitmap;
@@ -49,9 +46,6 @@ import com.nofatclips.androidtesting.model.UserInput;
 
 public class Automation implements Robot, Extractor, TaskProcessor, ImageCaptor, EventFiredListener {
 	
-//	private Instrumentation inst;
-	
-	//private Map<Integer,View> theViews = new HashMap<Integer,View> (); // A list of widgets with an id
 	private SparseArray<View> theViews = new SparseArray<View> (); // A list of widgets with an id
 	private ArrayList<View> allViews = new ArrayList<View>(); // A list of all widgets
 	private Solo solo; // Robotium
@@ -87,8 +81,6 @@ public class Automation implements Robot, Extractor, TaskProcessor, ImageCaptor,
 	// Initializations
 	@SuppressWarnings("rawtypes")
 	public void bind (ActivityInstrumentationTestCase2 test) {
-//		this.test = test;
-//		this.theActivity = this.test.getActivity();
 		this.solo = RobotUtilities.createRobotium (test);
 		afterRestart();
 		refreshCurrentActivity();
@@ -97,8 +89,6 @@ public class Automation implements Robot, Extractor, TaskProcessor, ImageCaptor,
 
 	// Initializations
 	public void bindInstrumentationTestCase(InstrumentationTestCase test, Activity activity) {
-//		this.test = test;
-//		this.theActivity = this.test.getActivity();
 		this.solo = RobotUtilities.createRobotiumWithInstrumentationTestCase (test, activity);
 		afterRestart();
 		refreshCurrentActivity();
@@ -408,10 +398,6 @@ public class Automation implements Robot, Extractor, TaskProcessor, ImageCaptor,
 				if (w instanceof Button || w instanceof RadioGroup) {
 					if (!AbstractorUtilities.getType(w).equals(widgetType)) continue;
 					v = (AbstractorUtilities.detectName(w).equals(widgetName))?w:null;
-//					Button candidate = (Button) w;
-//					if (candidate.getText().equals(widgetName)) {
-//						v = candidate;
-//					}
 				}
 				if (v!=null) break;
 			}
@@ -482,7 +468,6 @@ public class Automation implements Robot, Extractor, TaskProcessor, ImageCaptor,
 	
 	public void setTabs (TabHost t) {
 		this.tabs = t;
-//		this.tabNum = t.getTabWidget().getTabCount();
 	}
 
 	public void afterRestart() {
@@ -657,7 +642,6 @@ public class Automation implements Robot, Extractor, TaskProcessor, ImageCaptor,
 				}
 
 				public String getActivityName() {
-//					return getActivity().getLocalClassName();
 					return getActivity().getClass().getSimpleName();
 				}
 

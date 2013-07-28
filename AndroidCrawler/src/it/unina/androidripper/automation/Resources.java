@@ -3,9 +3,6 @@ package it.unina.androidripper.automation;
 import it.unina.androidripper.Prefs;
 import it.unina.androidripper.model.ResourceFile;
 
-//import static com.nofatclips.androidtesting.model.InteractionType.*;
-//import static com.nofatclips.androidtesting.model.SimpleType.*;
-
 public class Resources implements ResourceFile {
 
 	// Precrawling sequence

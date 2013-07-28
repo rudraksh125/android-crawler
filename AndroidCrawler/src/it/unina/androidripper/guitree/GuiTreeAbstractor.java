@@ -19,6 +19,7 @@ import org.w3c.dom.Element;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
+
 import com.nofatclips.androidtesting.guitree.*;
 import com.nofatclips.androidtesting.model.*;
 import com.nofatclips.dictionary.ContentTypeDetector;
@@ -183,6 +184,7 @@ public class GuiTreeAbstractor implements Abstractor, FilterHandler, SaveStateLi
 //		return name;
 //	}
 	
+	@SuppressWarnings("deprecation")
 	public boolean updateDescription (ActivityState newActivity, ActivityDescription desc, boolean detectDuplicates) {
 		boolean hasDescription = false;
 		

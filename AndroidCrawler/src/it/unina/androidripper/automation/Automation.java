@@ -760,6 +760,7 @@ public class Automation implements Robot, Extractor, TaskProcessor, ImageCaptor,
 					return a.handlesLongKeyPress;
 				}
 				
+				@SuppressWarnings("deprecation")
 				public boolean isTabActivity() 
 				{
 					ActivityReflectionCacheElement a = activityCache.get( getActivity().getClass().getCanonicalName() );

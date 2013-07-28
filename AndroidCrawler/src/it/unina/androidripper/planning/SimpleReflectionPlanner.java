@@ -1,7 +1,6 @@
 package it.unina.androidripper.planning;
 
 import static com.nofatclips.androidtesting.model.InteractionType.*;
-
 import it.unina.androidripper.model.EventHandler;
 import it.unina.androidripper.model.Plan;
 
@@ -60,6 +59,7 @@ public class SimpleReflectionPlanner extends SimplePlanner {
 		}
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public Plan getPlanForActivity (ActivityState a, boolean allowSwapTabs, boolean allowGoBack)
 	{

@@ -51,6 +51,7 @@ public class SimplePlanner implements Planner {
 		}
 	}
 	
+	@SuppressWarnings("deprecation")
 	public Plan getPlanForActivity (ActivityState a, boolean allowSwapTabs, boolean allowGoBack)
 	{
 		Log.i("androidripper", "Planning for new Activity " + a.getName());

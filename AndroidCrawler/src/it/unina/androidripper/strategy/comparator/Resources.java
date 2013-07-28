@@ -5,6 +5,7 @@ import it.unina.androidripper.Prefs;
 import it.unina.androidripper.model.Comparator;
 import it.unina.androidripper.model.ResourceFile;
 
+@SuppressWarnings("unused")
 public class Resources implements ResourceFile {
 
 	public static String COMPARATOR_TYPE = "NullComparator";

@@ -6,6 +6,7 @@ package it.unina.androidripper.planning.sensors_utils;
  */
 public class SensorValuesGenerator
 {
+	@SuppressWarnings("deprecation")
 	public static float[] generateSensorValues(int SENSOR_TYPE)
 	{
 		switch (SENSOR_TYPE)

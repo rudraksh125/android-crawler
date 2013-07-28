@@ -16,9 +16,9 @@ import it.unina.androidripper.helpers.ReflectionHelper;
 import it.unina.androidripper.model.*;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+//import java.util.HashMap;
 import java.util.Iterator;
-import java.util.Map;
+//import java.util.Map;
 
 import android.app.Activity;
 import android.graphics.Bitmap;
@@ -27,6 +27,7 @@ import android.location.LocationManager;
 import android.test.ActivityInstrumentationTestCase2;
 import android.test.InstrumentationTestCase;
 import android.util.Log;
+import android.util.SparseArray;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -50,7 +51,8 @@ public class Automation implements Robot, Extractor, TaskProcessor, ImageCaptor,
 	
 //	private Instrumentation inst;
 	
-	private Map<Integer,View> theViews = new HashMap<Integer,View> (); // A list of widgets with an id
+	//private Map<Integer,View> theViews = new HashMap<Integer,View> (); // A list of widgets with an id
+	private SparseArray<View> theViews = new SparseArray<View> (); // A list of widgets with an id
 	private ArrayList<View> allViews = new ArrayList<View>(); // A list of all widgets
 	private Solo solo; // Robotium
 	private Extractor extractor;
@@ -458,7 +460,7 @@ public class Automation implements Robot, Extractor, TaskProcessor, ImageCaptor,
 		this.theRobot = r;
 	}
 
-	public Map<Integer,View> getWidgets () {
+	public SparseArray<View> getWidgets () {
 		return this.theViews;
 	}
 

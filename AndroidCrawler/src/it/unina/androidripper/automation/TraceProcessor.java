@@ -7,8 +7,6 @@ import com.nofatclips.androidtesting.model.Trace;
 import com.nofatclips.androidtesting.model.Transition;
 import com.nofatclips.androidtesting.model.UserInput;
 
-// Not Used
-
 public class TraceProcessor implements TaskProcessor {
 	
 	private Robot robot;

@@ -39,7 +39,7 @@ public class ScreenshotFactory {
 			theImageStorage.saveImage(b, id);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			// e.printStackTrace();
 		}
 		return true;		
 	}

@@ -5,7 +5,6 @@ import static com.nofatclips.androidtesting.model.InteractionType.WRITE_TEXT;
 import it.unina.androidripper.model.Abstractor;
 import it.unina.androidripper.planning.adapters.RandomInteractorAdapter;
 
-
 public class RandomWriter extends RandomInteractorAdapter {
 	
 	public RandomWriter () {

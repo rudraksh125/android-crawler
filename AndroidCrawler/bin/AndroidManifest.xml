@@ -3,34 +3,10 @@
       package="it.unina.androidripper"
       android:versionCode="1"
       android:versionName="1.0">
-    <uses-sdk android:minSdkVersion="10" />
+    <uses-sdk android:minSdkVersion="10"/>
     <instrumentation android:targetPackage="app.package" android:name="android.test.InstrumentationTestRunner" />
-    <application android:icon="@drawable/icon" android:label="@string/app_name">
-
-    	<uses-library android:name="android.test.runner" />
-    
-    	<activity android:name="it.unina.android.hardware.intent.CaptureImageIntent">
-            <intent-filter>
-                <action android:name="it.unina.android.hardware.intent.CaptureImageIntent" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-       </activity>
-       
-       <activity android:name="it.unina.android.hardware.intent.RecordVideoIntent">
-            <intent-filter>
-                <action android:name="it.unina.android.hardware.intent.RecordVideoIntent" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-       </activity>
+    <application android:icon="@drawable/icon" android:label="@string/app_name" android:allowBackup="true">
+    	<uses-library android:name="android.test.runner" />   
     </application>
-    
-    <!-- necessario per GPS -->
-    <uses-permission android:name="android.permission.ACCESS_MOCK_LOCATION" />
-    
-    <!-- necessario per socket che comunica con ddms -->
-    <uses-permission android:name="android.permission.INTERNET"/>
-    
-    <!-- necessario per intent relativi alla fotocamera -->
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     
 </manifest>

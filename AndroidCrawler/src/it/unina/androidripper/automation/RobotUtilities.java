@@ -184,12 +184,6 @@ public class RobotUtilities {
 		solo.sendKey(Solo.MENU);
 	}
 	
-	// ActionBar interactions
-	
-	public static void ActionBarHome () {
-			solo.clickOnActionBarHomeButton();
-	}
-
 	public static void scrollDown() {
 		solo.scrollDown();
 	}
@@ -199,6 +193,12 @@ public class RobotUtilities {
 		int angle = display.getRotation();
 		int newAngle = ((angle==ROTATION_0)||(angle==ROTATION_180))?Solo.LANDSCAPE:Solo.PORTRAIT;
 		solo.setActivityOrientation(newAngle);
+	}
+	
+	// ActionBar interactions
+	
+	public static void ActionBarHome () {
+			solo.clickOnActionBarHomeButton();
 	}
 	
 	// Progress Bar interactions

@@ -1,7 +1,6 @@
 package it.unina.androidripper.planning.interactors;
 
 import static com.nofatclips.androidtesting.model.InteractionType.AUTO_TEXT;
-import static com.nofatclips.androidtesting.model.SimpleType.AUTOC_TEXT;
 
 import it.unina.androidripper.model.Abstractor;
 import it.unina.androidripper.planning.adapters.InteractorAdapter;
@@ -16,7 +15,6 @@ import com.nofatclips.androidtesting.model.UserInput;
 import com.nofatclips.androidtesting.model.WidgetState;
 import com.nofatclips.dictionary.TestValuesDictionary;
 
-@SuppressWarnings("unused")
 public class DictionaryValueAutoEditor extends InteractorAdapter {
 
 	public DictionaryValueAutoEditor () {
@@ -31,14 +29,6 @@ public class DictionaryValueAutoEditor extends InteractorAdapter {
 		super(simpleTypes);
 	}
 
-	/*
-	 * NOTA: prima il valore "errato" e poi il valore corretto
-	 * poiché il comportamento normale del planner è prendere
-	 * il valore size() - 1 come input corrente
-	 * 
-	 * RegExSimplePlanner invece considera l'indice 0
-	 * come valore errato
-	 */
 	public String[] getValues(WidgetState w)
 	{
 		String[] values = null;
@@ -61,7 +51,6 @@ public class DictionaryValueAutoEditor extends InteractorAdapter {
 			}
 		}
 		
-		//anche se non e' presente nella cache sara' null
 		if (values == null)
 		{
 			Log.i("androidripper", "DictionaryValueAutoEditor: Generating new values");
@@ -76,7 +65,6 @@ public class DictionaryValueAutoEditor extends InteractorAdapter {
 			}
 		}
 		
-		//se necessario aggiungo alla cache
 		if (	it.unina.androidripper.planning.Resources.DICTIONARY_FIXED_VALUE
 				&&	w.getId() != null
 				&& 	w.getId().equals("") == false

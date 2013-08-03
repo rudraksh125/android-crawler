@@ -18,7 +18,6 @@ import android.content.Context;
 import android.content.ContextWrapper;
 import android.util.Log;
 
-
 //NOTA: utilizzo il listener solo per capire quando memorizzare i dati
 public class ValuesCache extends HashMap<String,String[]> implements SaveStateListener, Serializable
 {

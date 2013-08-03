@@ -37,15 +37,6 @@ public class Resources implements ResourceFile {
 	public static boolean RETRY_FAILED_TRACES = false; // Crashed and failed traces are retried once in case the failure had an asynchronous cause
 	public final static String XML_BODY_BEGIN = "    <TRACE";
 	public final static String XML_BODY_END = "/TRACE>";
-
-	/* INTENT */
-	public static String INTENT_ACTION = new String("");
-	public static String INTENT_CATEGORY = new String("");
-	public static String INTENT_TYPE = new String("");
-	public static String INTENT_FLAGS = new String("");
-	public static String INTENT_ACTIVITY = new String("");
-	public static String INTENT_DATA = new String("");
-	/* INTENT */
 	
 	public static Class<?> theClass;
 	static {

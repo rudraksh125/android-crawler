@@ -3,7 +3,6 @@ package it.unina.androidripper.guitree;
 import it.unina.androidripper.Engine;
 import it.unina.androidripper.automation.*;
 import it.unina.androidripper.filters.*;
-import it.unina.androidripper.helpers.PackageManagerHelper;
 import it.unina.androidripper.model.*;
 import it.unina.androidripper.planning.*;
 import it.unina.androidripper.planning.interactors.values_cache.ValuesCache;
@@ -15,8 +14,6 @@ import java.util.GregorianCalendar;
 import javax.xml.parsers.ParserConfigurationException;
 
 import android.content.Context;
-import android.location.Location;
-import android.location.LocationManager;
 import android.util.Log;
 
 import com.nofatclips.androidtesting.guitree.GuiTree;
@@ -54,7 +51,6 @@ public class GuiTreeEngine extends Engine {
 		setAbstractor(this.guiAbstractor);
 		setSession (this.theGuiTree);
 		
-		/** @author nicola */
 		String className = "it.unina.androidripper.planning." + it.unina.androidripper.planning.Resources.PLANNER;
 		SimplePlanner p;
 		try {
@@ -64,7 +60,7 @@ public class GuiTreeEngine extends Engine {
 			Log.e("androidripper", "Error during planner instantiation: " + e.toString());
 			throw new RuntimeException(e);
 		}		
-		/** @author nicola */
+
 
 		Filter inputFilter = new FormFilter();
 		p.setInputFilter (inputFilter);
@@ -99,52 +95,7 @@ public class GuiTreeEngine extends Engine {
 		
 	}
 	
-	protected void setUp ()
-	{
-		/** @author nicola amatucci - sensori/reflection */
-		//inizializza l'helper del PackageManager
-		try {
-			theAutomation.packageManagerHelper = new PackageManagerHelper(this.getActivity().getApplicationContext());
-			//theAutomation.packageManagerHelper.getPackagePermissions();
-		} catch (Exception ex) {
-			//ignored			
-		}
-		
-		if (it.unina.androidripper.planning.Resources.USE_SENSORS)
-		{
-			it.unina.android.hardware.SensorManager.TESTING = true;
-		}
-		
-		if (it.unina.androidripper.planning.Resources.USE_GPS)
-		{
-			//attivo il LocationManager e il provider di test
-			theAutomation.locationManager = (LocationManager) this.getActivity().getSystemService(Context.LOCATION_SERVICE);
-			/* 
-			 * addTestProvider(	String name,
-			 * 					boolean requiresNetwork,
-			 * 					boolean requiresSatellite,
-			 * 					boolean requiresCell,
-			 * 					boolean hasMonetaryCost,
-			 * 					boolean supportsAltitude,
-			 * 					boolean supportsSpeed,
-			 * 					boolean supportsBearing,
-			 * 					int powerRequirement,
-			 * 					int accuracy)
-			 */
-			theAutomation.locationManager.addTestProvider(it.unina.androidripper.planning.Resources.TEST_LOCATION_PROVIDER, false, false, false, false, true, true, true, 0, 5);
-			theAutomation.locationManager.setTestProviderEnabled(it.unina.androidripper.planning.Resources.TEST_LOCATION_PROVIDER, true);
-			
-			if (it.unina.androidripper.planning.Resources.FIX_GPS_POSITION)
-			{
-				Location location = new Location(it.unina.androidripper.planning.Resources.TEST_LOCATION_PROVIDER);
-				location.setTime(System.currentTimeMillis());
-				location.setLatitude(28.574853);
-				location.setLatitude(78.063201);
-				location.setAccuracy(500);
-				theAutomation.locationManager.setTestProviderLocation(it.unina.androidripper.planning.Resources.TEST_LOCATION_PROVIDER, location);
-			}
-		}
-		/** @author nicola amatucci - sensori/reflection */				
+	protected void setUp (){		
 		
 		Strategy s = this.theStrategyFactory.getStrategy();
 		setStrategy (s);
@@ -172,9 +123,7 @@ public class GuiTreeEngine extends Engine {
 			theGuiTree.setStateFileName(ACTIVITY_LIST_FILE_NAME);
 		}
 		
-		/** @author nicola */
-		if (it.unina.androidripper.planning.Resources.DICTIONARY_FIXED_VALUE)
-		{
+		if (it.unina.androidripper.planning.Resources.DICTIONARY_FIXED_VALUE){
 			Context ctx = this.getActivity().getApplicationContext();
 			
 			if (ctx == null)
@@ -182,19 +131,13 @@ public class GuiTreeEngine extends Engine {
 			
 			ValuesCache.init(ctx);
 		}
-		/** @author nicola */
+		
 	}
 	
-	/** @author nicola amatucci - sensori/reflection */
 	@Override
-	protected void tearDown() throws Exception
-	{
-		if (theAutomation != null && theAutomation.locationManager != null)
-			theAutomation.locationManager.removeTestProvider(it.unina.androidripper.planning.Resources.TEST_LOCATION_PROVIDER);
-		
+	protected void tearDown() throws Exception{
 		super.tearDown();
-	}
-	/** @author nicola amatucci - sensori/reflection */		
+	}		
 	
 	public Session getNewSession() {
 		try {

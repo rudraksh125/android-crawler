@@ -50,8 +50,8 @@ public abstract class IterativeInteractorAdapter extends InteractorAdapter {
 	public List<UserEvent> getEvents (WidgetState w) {
 		ArrayList<UserEvent> events = new ArrayList<UserEvent>();
 		if (canUseWidget(w)) {
-			final int fromItem = 1; // int fromItem = Math.min(6,w.getCount());
-			final int toItem = getToItem(w, fromItem, w.getCount()); //Math.min (fromItem + getMaxEventsPerWidget() - 1, w.getCount());
+			final int fromItem = 1; 
+			final int toItem = getToItem(w, fromItem, w.getCount()); 
 			if (toItem<fromItem) return events;
 			Log.d("androidripper", "Handling event " + getInteractionType() + " for items [" + fromItem + "," + toItem + "] on " + w.getSimpleType() + " #" + w.getId() + " count=" + w.getCount());
 			for (int i=fromItem; i<=toItem; i++) {

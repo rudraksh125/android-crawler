@@ -1,6 +1,6 @@
 package it.unina.androidripper.planning.interactors;
 
-import static com.nofatclips.androidtesting.model.SimpleType.EDIT_TEXT;
+import static com.nofatclips.androidtesting.model.InteractionType.TYPE_TEXT;
 
 import it.unina.androidripper.model.Abstractor;
 import it.unina.androidripper.planning.adapters.InteractorAdapter;
@@ -18,7 +18,7 @@ import com.nofatclips.dictionary.TestValuesDictionary;
 public class DictionaryValueEditor extends InteractorAdapter {
 
 	public DictionaryValueEditor () {
-		this (EDIT_TEXT);
+		this (TYPE_TEXT);
 	}
 	
 	public DictionaryValueEditor(Abstractor theAbstractor, String... simpleTypes) {
@@ -29,14 +29,6 @@ public class DictionaryValueEditor extends InteractorAdapter {
 		super(simpleTypes);
 	}
 
-	/*
-	 * NOTA: prima il valore "errato" e poi il valore corretto
-	 * poiche' il comportamento normale del planner e' prendere
-	 * il valore size() - 1 come input corrente
-	 * 
-	 * RegExSimplePlanner invece considera l'indice 0
-	 * come valore errato
-	 */
 	public String[] getValues(WidgetState w)
 	{
 		String[] values = null;
@@ -100,6 +92,6 @@ public class DictionaryValueEditor extends InteractorAdapter {
 	
 	@Override
 	public String getInteractionType() {
-		return EDIT_TEXT;
+		return TYPE_TEXT;
 	}
 }

@@ -1,23 +1,17 @@
 package it.unina.androidripper.planning.interactors;
 
 import static com.nofatclips.androidtesting.model.InteractionType.AUTO_TEXT;
-import static com.nofatclips.androidtesting.model.SimpleType.AUTOC_TEXT;
 
 import it.unina.androidripper.helpers.HashGenerator;
 import it.unina.androidripper.model.Abstractor;
 import it.unina.androidripper.planning.adapters.InteractorAdapter;
-import it.unina.androidripper.planning.interactors.values_cache.ValuesCache;
 
 import java.util.List;
-
-import android.util.Log;
 
 import com.nofatclips.androidtesting.model.UserEvent;
 import com.nofatclips.androidtesting.model.UserInput;
 import com.nofatclips.androidtesting.model.WidgetState;
-import com.nofatclips.dictionary.TestValuesDictionary;
 
-@SuppressWarnings("unused")
 public class HashValueAutoEditor extends InteractorAdapter {
 
 	public HashValueAutoEditor () {

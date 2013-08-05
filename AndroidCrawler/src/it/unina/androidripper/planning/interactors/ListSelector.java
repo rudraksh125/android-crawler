@@ -2,6 +2,7 @@ package it.unina.androidripper.planning.interactors;
 
 import static com.nofatclips.androidtesting.model.InteractionType.LIST_SELECT;
 import static com.nofatclips.androidtesting.model.SimpleType.LIST_VIEW;
+import static com.nofatclips.androidtesting.model.SimpleType.EXPAND_MENU;
 import static com.nofatclips.androidtesting.model.SimpleType.PREFERENCE_LIST;
 import static it.unina.androidripper.planning.Resources.ALL_EVENTS_ON_PREFERENCES;
 import it.unina.androidripper.model.Abstractor;
@@ -53,6 +54,11 @@ public class ListSelector extends IterativeInteractorAdapter {
 		if (w.getSimpleType().equals(PREFERENCE_LIST) && ALL_EVENTS_ON_PREFERENCES) {
 			return toItem;
 		}
+		
+		if (w.getSimpleType().equals(EXPAND_MENU) && ALL_EVENTS_ON_PREFERENCES) {
+			return toItem;
+		}
+		
 		return super.getToItem (w,fromItem,toItem);
 	}
 

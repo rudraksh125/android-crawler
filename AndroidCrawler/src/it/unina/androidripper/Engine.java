@@ -19,11 +19,12 @@ import com.nofatclips.androidtesting.xml.XmlGraph;
 import android.app.Activity;
 import android.test.ActivityInstrumentationTestCase2;
 import android.util.Log;
-
 import static it.unina.androidripper.Resources.*;
 
+@SuppressWarnings("rawtypes")
 public abstract class Engine extends ActivityInstrumentationTestCase2 implements SaveStateListener {
 
+	@SuppressWarnings("unchecked")
 	public Engine() {
 		super(theClass);
 		PersistenceFactory.registerForSavingState(this);

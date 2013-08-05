@@ -56,7 +56,7 @@ public class SimpleTypeDetector implements TypeDetector {
 			return RATING_BAR;
 		if (type.endsWith("TabHost"))
 			return TAB_HOST;
-		if (type.endsWith("ListView") || type.endsWith("ExpandedMenuView")) {
+		if (type.endsWith("ListView")) {
 			ListView l = (ListView)v;
 			if (l.getCount() == 0) return EMPTY_LIST;
 			
@@ -69,6 +69,9 @@ public class SimpleTypeDetector implements TypeDetector {
 				case ListView.CHOICE_MODE_SINGLE: return SINGLE_CHOICE_LIST;
 				case ListView.CHOICE_MODE_MULTIPLE: return MULTI_CHOICE_LIST;
 			}
+		}
+		if (type.endsWith("ExpandedMenuView")) {
+			return EXPAND_MENU;
 		}
 		if (type.endsWith("AutoCompleteTextView"))
 			return AUTOC_TEXT;

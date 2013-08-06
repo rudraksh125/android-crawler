@@ -7,6 +7,7 @@ import it.unina.androidripper.model.TerminationListener;
 import it.unina.androidripper.strategy.criteria.PauseCriteria;
 import it.unina.androidripper.strategy.criteria.TerminationCriteria;
 import static it.unina.androidripper.strategy.comparator.Resources.*;
+import static it.unina.androidripper.storage.Resources.*;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -71,7 +72,7 @@ public class SimpleStrategy implements Strategy {
 		}
 		
 		this.positiveComparation = false;
-		if (!COMPARATOR_TYPE.equals("NullComparator")) {
+		if (ENABLE_MODEL) {
 			Log.i("androidripper", "Registering activity " + name + " (id: " + theActivity.getId() + ") as a new found state");
 			addState (theActivity);
 		}

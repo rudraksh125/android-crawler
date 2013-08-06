@@ -198,7 +198,7 @@ public class RobotUtilities {
 	// ActionBar interactions
 	
 	public static void ActionBarHome () {
-			solo.clickOnActionBarHomeButton();
+		solo.clickOnActionBarHomeButton();
 	}
 	
 	// Progress Bar interactions

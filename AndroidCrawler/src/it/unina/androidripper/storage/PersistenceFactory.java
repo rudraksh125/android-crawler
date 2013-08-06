@@ -1,6 +1,6 @@
 package it.unina.androidripper.storage;
 
-import static it.unina.androidripper.Resources.*;
+import static it.unina.androidripper.storage.Resources.*;
 
 import it.unina.androidripper.automation.ScreenshotFactory;
 import it.unina.androidripper.model.ImageStorage;

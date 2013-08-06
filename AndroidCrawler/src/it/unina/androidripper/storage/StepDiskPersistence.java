@@ -8,7 +8,7 @@ import android.util.Log;
 import com.nofatclips.androidtesting.model.Session;
 import com.nofatclips.androidtesting.model.Trace;
 
-import static it.unina.androidripper.Resources.*;
+import static it.unina.androidripper.storage.Resources.*;
 
 public class StepDiskPersistence extends DiskPersistence implements SaveStateListener {
 

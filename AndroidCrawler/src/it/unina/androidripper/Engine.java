@@ -20,6 +20,7 @@ import android.app.Activity;
 import android.test.ActivityInstrumentationTestCase2;
 import android.util.Log;
 import static it.unina.androidripper.Resources.*;
+import static it.unina.androidripper.storage.Resources.*;
 
 @SuppressWarnings("rawtypes")
 public abstract class Engine extends ActivityInstrumentationTestCase2 implements SaveStateListener {
@@ -305,10 +306,6 @@ public abstract class Engine extends ActivityInstrumentationTestCase2 implements
 	
 	public String getListenerName () {
 		return ACTOR_NAME;
-	}
-	
-	public boolean retry() {
-		return RETRY_FAILED_TRACES;
 	}
 	
 	public boolean screenshotEnabled() {

@@ -21,16 +21,6 @@ The fully qualified name (i.e. including the package) of the class of the start 
 
 Every trace in the ripping session will have this activity as its starting point.
 
-*ENABLE_RESUME*: `boolean`
-
-When `true`, the ripper stores its internal state after every trace, in order to be able to resume the session after any occurrence of an interrupting event (e.g. crashes of the software under test, failures of the Ripper, crashes of the Dalvik VM, crashes of the Android emulator and so on...)
-
-When `false`, the ripping sessions definitively terminates after any such interruption, potentially leaving entire branches of the GUI tree unexplored. On the other hand, the ripping proceeds faster.
-
-*ENABLE_MODEL*: `boolean`
-
-When `true`, the ripper creates the *FILE_NAME* and *ACTIVITY_LIST_FILE_NAME*.
-
 *RANDOM_SEED*: `long` {0 = random}
 
 This value is used to setup the randon number generation mechanism. Several instances of this are used with various purposes such as: filling in the values of text fields, randomizing the sequence of actions to be performed when using the Random engine, and so on...
@@ -38,16 +28,6 @@ This value is used to setup the randon number generation mechanism. Several inst
 When initialized with the same seed, the Ripper should be able to generate the same sequence of random numbers, allowing the exact repetition of a session.
 
 When set to zero, a random seed will be generated at startup based on the system time.
-
-*ACTIVITY_DESCRIPTION_IN_SESSION*: `boolean`
-
-When `false` the output will consist of two files: an Activity Map, with a detailed abstract description of the GUIs (activities) discovered by the Ripper during the exploration, and a GUI Tree, a (finite acyclic) state model of the application under test describing its transitions from a GUI to another in response to user interactions and other events.
-
-When `true`, the output will consist of a single, usually much bigger, XML file (the GUI Tree) describing the whole model of the GUI of the application under test. This is only useful for debugging purposes.
-
-Due to implementation issues, *ACTIVITY_DESCRIPTION_IN_SESSION* = `false` forces *ENABLE_RESUME* = `true`
-
-*RETRY_FAILED_TRACES* : <not yet implemented>
 
 = Automation parameters =
 
@@ -99,8 +79,6 @@ When `true`, an image capture of the display screen is performed after the last 
 When `true`, a screenshot is saved at the end of a task only when a new state is found; in other words, when the final state of a task is equivalent to one of the states already discovered (which we already have a screenshot of), no further pictures are taken.
 
 Ignored if *SCREENSHOT_FOR_STATES* = `false`
-
-*SCREENSHOT_FOR_EVENTS*: <not yet implemented>
 
 = Scheduler parameters =
 
@@ -176,14 +154,11 @@ The possible values are:
 
 `DictionarySimplePlanner`
 
-`SimpleReflectionPlanner`
-
 *TEXT_VALUES_ID_HASH*: `boolean`
 
 When `true`, uses the hash value of the id to fill the Edit Text
 
 Ignored if *PLANNER* = `DictionarySimplePlanner`
-
 
 *TEXT_VALUES_FROM_DICTIONARY*: `boolean`
 
@@ -227,6 +202,12 @@ Events will still not be fired on widgets with no id and no name.
 
 Following are the entries of the map stored in the `storage` sub-node of the XML file.
 
+*ENABLE_RESUME*: `boolean`
+
+When `true`, the ripper stores its internal state after every trace, in order to be able to resume the session after any occurrence of an interrupting event (e.g. crashes of the software under test, failures of the Ripper, crashes of the Dalvik VM, crashes of the Android emulator and so on...)
+
+When `false`, the ripping sessions definitively terminates after any such interruption, potentially leaving entire branches of the GUI tree unexplored. On the other hand, the ripping proceeds faster.
+
 *MAX_TRACES_IN_RAM*: `int` {0 = infinite}
 
 When set to a value other than zero, forces the GUI Tree to be saved incrementally to the disk. The traces are flushed to the XML output file and removed from the device RAM when the model reaches the specified dimension.
@@ -252,6 +233,18 @@ The name of the file containing the Activity Map.
 The name of the file containing the parameters saved by the Ripper components. This is a temporary file and is deleted when the ripping session is over.
 
 Change this file name only in case of name conflicts with existing files.
+
+*ACTIVITY_DESCRIPTION_IN_SESSION*: `boolean`
+
+When `false` the output will consist of two files: an Activity Map, with a detailed abstract description of the GUIs (activities) discovered by the Ripper during the exploration, and a GUI Tree, a (finite acyclic) state model of the application under test describing its transitions from a GUI to another in response to user interactions and other events.
+
+When `true`, the output will consist of a single, usually much bigger, XML file (the GUI Tree) describing the whole model of the GUI of the application under test. This is only useful for debugging purposes.
+
+Due to implementation issues, *ACTIVITY_DESCRIPTION_IN_SESSION* = `false` forces *ENABLE_RESUME* = `true`
+
+*ENABLE_MODEL*: `boolean`
+
+When `true`, the ripper creates the *FILE_NAME*.
 
 *ONLY_FINALTRANSITION*: `boolean` {default = "false"}
 

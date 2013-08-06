@@ -23,7 +23,7 @@ import com.nofatclips.androidtesting.guitree.*;
 import com.nofatclips.androidtesting.model.*;
 import com.nofatclips.dictionary.ContentTypeDetector;
 
-import static it.unina.androidripper.Resources.*;
+import static it.unina.androidripper.storage.Resources.*;
 import static it.unina.androidripper.automation.AbstractorUtilities.*;
 
 public class GuiTreeAbstractor implements Abstractor, FilterHandler, SaveStateListener {

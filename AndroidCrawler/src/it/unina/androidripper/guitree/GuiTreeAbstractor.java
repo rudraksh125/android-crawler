@@ -17,7 +17,9 @@ import org.w3c.dom.Element;
 
 import android.util.Log;
 import android.view.View;
+import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
+import android.widget.SearchView;
 import android.widget.TextView;
 
 import com.nofatclips.androidtesting.guitree.*;
@@ -113,16 +115,20 @@ public class GuiTreeAbstractor implements Abstractor, FilterHandler, SaveStateLi
 		w.setSimpleType(getTypeDetector().getSimpleType(v));
 		
 		if (v instanceof EditText){
-		/** @author nicola */
-			if (	//Resources.DETECT_ON_FOCUS_CHANGE_LISTENER &&
-					v.isFocusable()
-					&&	v.isFocusableInTouchMode()
-					&&	ReflectionHelper.checkIfFieldIsSet(v, "android.view.View", "mOnFocusChangeListener")
-				)
-			{
-				w.setSimpleType(SimpleType.FOCUSABLE_EDIT_TEXT);
+			if (v instanceof AutoCompleteTextView || v instanceof SearchView){
+				//do Nothing
+			}else{
+				/** @author nicola */
+				if (	//Resources.DETECT_ON_FOCUS_CHANGE_LISTENER &&
+						v.isFocusable()
+						&&	v.isFocusableInTouchMode()
+						&&	ReflectionHelper.checkIfFieldIsSet(v, "android.view.View", "mOnFocusChangeListener")
+					)
+				{
+					w.setSimpleType(SimpleType.FOCUSABLE_EDIT_TEXT);
+				}
+				/** @author nicola */
 			}
-		/** @author nicola */
 		}
 		
 		setCount (v,w);

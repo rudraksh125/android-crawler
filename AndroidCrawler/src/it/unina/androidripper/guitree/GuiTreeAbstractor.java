@@ -19,7 +19,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
-import android.widget.SearchView;
 import android.widget.TextView;
 
 import com.nofatclips.androidtesting.guitree.*;
@@ -114,10 +113,10 @@ public class GuiTreeAbstractor implements Abstractor, FilterHandler, SaveStateLi
 		w.setUniqueId(getUniqueWidgetId());
 		w.setSimpleType(getTypeDetector().getSimpleType(v));
 		
-		if (v instanceof EditText){
-			if (v instanceof AutoCompleteTextView || v instanceof SearchView){
-				//do Nothing
-			}else{
+		if (v instanceof AutoCompleteTextView){
+			//do Nothing
+		}else if (v instanceof EditText){
+			
 				/** @author nicola */
 				if (	//Resources.DETECT_ON_FOCUS_CHANGE_LISTENER &&
 						v.isFocusable()
@@ -128,7 +127,7 @@ public class GuiTreeAbstractor implements Abstractor, FilterHandler, SaveStateLi
 					w.setSimpleType(SimpleType.FOCUSABLE_EDIT_TEXT);
 				}
 				/** @author nicola */
-			}
+				
 		}
 		
 		setCount (v,w);

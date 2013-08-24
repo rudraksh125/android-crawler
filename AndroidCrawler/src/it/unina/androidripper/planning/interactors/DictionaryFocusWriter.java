@@ -1,7 +1,7 @@
 package it.unina.androidripper.planning.interactors;
 
-import static com.nofatclips.androidtesting.model.InteractionType.SEARCH_TEXT;
-import static com.nofatclips.androidtesting.model.SimpleType.SEARCH_BAR;
+import static com.nofatclips.androidtesting.model.InteractionType.FOCUS;
+import static com.nofatclips.androidtesting.model.SimpleType.FOCUSABLE_EDIT_TEXT;
 
 import it.unina.androidripper.model.Abstractor;
 import it.unina.androidripper.planning.adapters.InteractorAdapter;
@@ -16,17 +16,17 @@ import com.nofatclips.androidtesting.model.UserInput;
 import com.nofatclips.androidtesting.model.WidgetState;
 import com.nofatclips.dictionary.TestValuesDictionary;
 
-public class DictionaryValueSearchWriter extends InteractorAdapter {
+public class DictionaryFocusWriter extends InteractorAdapter {
 
-	public DictionaryValueSearchWriter () {
-		this (SEARCH_BAR);
+	public DictionaryFocusWriter () {
+		this (FOCUSABLE_EDIT_TEXT);
 	}
 	
-	public DictionaryValueSearchWriter(Abstractor theAbstractor, String... simpleTypes) {
+	public DictionaryFocusWriter(Abstractor theAbstractor, String... simpleTypes) {
 		super(theAbstractor, simpleTypes);
 	}
 
-	public DictionaryValueSearchWriter(String... simpleTypes) {
+	public DictionaryFocusWriter(String... simpleTypes) {
 		super(simpleTypes);
 	}
 
@@ -39,7 +39,7 @@ public class DictionaryValueSearchWriter extends InteractorAdapter {
 			&& 	w.getId().equals("") == false
 			)
 		{
-			Log.i("androidripper", "DictionaryValueSearchWriter: Using values from cache");
+			Log.i("androidripper", "DictionaryValueWriter: Using values from cache");
 			ValuesCache vCache = ValuesCache.getInstance(); 
 			
 			if (vCache != null)
@@ -54,7 +54,7 @@ public class DictionaryValueSearchWriter extends InteractorAdapter {
 		
 		if (values == null)
 		{
-			Log.i("androidripper", "DictionaryValueSearchWriter: Generating new values");
+			Log.i("androidripper", "DictionaryValueWriter: Generating new values");
 			
 			if (it.unina.androidripper.planning.Resources.DICTIONARY_IGNORE_CONTENT_TYPES)
 			{
@@ -71,7 +71,7 @@ public class DictionaryValueSearchWriter extends InteractorAdapter {
 				&& 	w.getId().equals("") == false
 				)
 		{			
-			Log.i("androidripper", "DictionaryValueSearchWriter: Saving values to cache");
+			Log.i("androidripper", "DictionaryValueWriter: Saving values to cache");
 			ValuesCache vCache = ValuesCache.getInstance(); 
 			
 			if (vCache != null)
@@ -95,6 +95,6 @@ public class DictionaryValueSearchWriter extends InteractorAdapter {
 	
 	@Override
 	public String getInteractionType() {
-		return SEARCH_TEXT;
+		return FOCUS;
 	}
 }

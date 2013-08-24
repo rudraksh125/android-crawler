@@ -1,7 +1,7 @@
 package it.unina.androidripper.planning.interactors;
 
-import static com.nofatclips.androidtesting.model.InteractionType.SEARCH_TEXT;
-import static com.nofatclips.androidtesting.model.SimpleType.SEARCH_BAR;
+import static com.nofatclips.androidtesting.model.InteractionType.FOCUS;
+import static com.nofatclips.androidtesting.model.SimpleType.FOCUSABLE_EDIT_TEXT;
 
 import it.unina.androidripper.helpers.HashGenerator;
 import it.unina.androidripper.model.Abstractor;
@@ -13,17 +13,17 @@ import com.nofatclips.androidtesting.model.UserEvent;
 import com.nofatclips.androidtesting.model.UserInput;
 import com.nofatclips.androidtesting.model.WidgetState;
 
-public class HashValueSearchWriter extends InteractorAdapter {
+public class HashFocusWriter extends InteractorAdapter {
 
-	public HashValueSearchWriter () {
-		this (SEARCH_BAR);
+	public HashFocusWriter () {
+		this (FOCUSABLE_EDIT_TEXT);
 	}
 	
-	public HashValueSearchWriter(Abstractor theAbstractor, String... simpleTypes) {
+	public HashFocusWriter(Abstractor theAbstractor, String... simpleTypes) {
 		super(theAbstractor, simpleTypes);
 	}
 
-	public HashValueSearchWriter(String... simpleTypes) {
+	public HashFocusWriter(String... simpleTypes) {
 		super(simpleTypes);
 	}
 
@@ -46,7 +46,6 @@ public class HashValueSearchWriter extends InteractorAdapter {
 	
 	@Override
 	public String getInteractionType() {
-		return SEARCH_TEXT;
+		return FOCUS;
 	}
-	
 }

@@ -16,11 +16,11 @@ import static com.nofatclips.androidtesting.model.SimpleType.*;
 public class SimpleTypeDetector implements TypeDetector {
 
 	public String getSimpleType(View v) {
-		String type = v.getClass().getName(); 
+		String type = v.getClass().getName();
+		
 		if (type.endsWith("null"))
 			return NULL;
-		if (type.endsWith("SlidingDrawer"))
-			return SLIDING_DRAWER;
+		
 		if (type.endsWith("RadioButton"))
 			return RADIO;
 		if (type.endsWith("RadioGroup"))
@@ -29,22 +29,35 @@ public class SimpleTypeDetector implements TypeDetector {
 			return CHECKBOX;
 		if (type.endsWith("ToggleButton"))
 			return TOGGLE_BUTTON;
+		if (type.endsWith("Button"))
+			return BUTTON;
+		
 		if (type.endsWith("IconMenuView") || type.endsWith("ActionMenuView"))
 			return MENU_VIEW;
+		if (type.endsWith("IconMenuItemView") || type.endsWith("ActionMenuItemView"))
+			return MENU_ITEM;
+		
+		if (type.endsWith("DialogTitle"))
+			return DIALOG_VIEW;
+		
 		if (type.endsWith("DatePicker"))
 			return DATE_PICKER;
 		if (type.endsWith("TimePicker"))
 			return TIME_PICKER;
-		if (type.endsWith("IconMenuItemView") || type.endsWith("ActionMenuItemView"))
-			return MENU_ITEM;
-		if (type.endsWith("DialogTitle"))
-			return DIALOG_VIEW;
-		if (type.endsWith("Button"))
-			return BUTTON;
+		
 		if (type.endsWith("EditText"))
 			return EDIT_TEXT;
 		if (type.endsWith("SearchAutoComplete"))
 			return SEARCH_BAR;
+		
+		if (type.endsWith("AutoCompleteTextView"))
+			return AUTOC_TEXT;
+		if (type.endsWith("TextView"))
+			return TEXT_VIEW;
+		
+		if (type.endsWith("ImageView"))
+			return IMAGE_VIEW;
+		
 		if (type.endsWith("Spinner")) {
 			Spinner s = (Spinner)v;
 			if (s.getCount() == 0) return EMPTY_SPINNER;
@@ -56,6 +69,7 @@ public class SimpleTypeDetector implements TypeDetector {
 			return RATING_BAR;
 		if (type.endsWith("TabHost"))
 			return TAB_HOST;
+		
 		if (type.endsWith("ExpandedMenuView") || type.endsWith("AlertController$RecycleListView")) {
 			return EXPAND_MENU;
 		}
@@ -73,23 +87,20 @@ public class SimpleTypeDetector implements TypeDetector {
 				case ListView.CHOICE_MODE_MULTIPLE: return MULTI_CHOICE_LIST;
 			}
 		}
-		if (type.endsWith("AutoCompleteTextView"))
-			return AUTOC_TEXT;
-		if (type.endsWith("TextView"))
-			return TEXT_VIEW;
-		if (type.endsWith("ImageView"))
-			return IMAGE_VIEW;
-		
+		if (type.endsWith("TwoLineListItem"))
+			return LIST_ITEM;
+			
 		if (type.endsWith("LinearLayout"))
 			return LINEAR_LAYOUT;
 		if (type.endsWith("RelativeLayout"))
 			return RELATIVE_LAYOUT;
 		
+		if (type.endsWith("SlidingDrawer"))
+			return SLIDING_DRAWER;
+		
 		if ((v instanceof WebView) || type.endsWith("WebView"))
 			return WEB_VIEW;
-		if (type.endsWith("TwoLineListItem"))
-			return LIST_ITEM;
-		
+
 		return "";
 	}
 

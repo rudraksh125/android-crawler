@@ -1,5 +1,6 @@
 package it.unina.androidripper.planning.interactors;
 
+import static com.nofatclips.androidtesting.model.InteractionType.TYPE_TEXT;
 import static com.nofatclips.androidtesting.model.SimpleType.EDIT_TEXT;
 
 import it.unina.androidripper.helpers.HashGenerator;
@@ -52,6 +53,6 @@ public class HashValueEditor extends InteractorAdapter {
 	
 	@Override
 	public String getInteractionType() {
-		return EDIT_TEXT;
+		return TYPE_TEXT;
 	}
 }

@@ -413,19 +413,19 @@ public class UserFactory {
 			{
 				DictionaryValueAutoEditor ate = new DictionaryValueAutoEditor(typesForInput(AUTO_TEXT));
 				ate.setEventWhenNoId(Resources.EVENT_WHEN_NO_ID);
-				u.addEvent (addDosAndDonts(ate));	
+				u.addInput (addDosAndDonts(ate));	
 			}
 			else if(Resources.TEXT_VALUES_ID_HASH)
 			{
 				HashValueAutoEditor ate = new HashValueAutoEditor(typesForInput(AUTO_TEXT));
 				ate.setEventWhenNoId(Resources.EVENT_WHEN_NO_ID);
-				u.addEvent (addDosAndDonts(ate));
+				u.addInput (addDosAndDonts(ate));
 			}
 			else
 			{
 				RandomAutoEditor ate = new RandomAutoEditor(typesForInput(AUTO_TEXT));
 				ate.setEventWhenNoId(Resources.EVENT_WHEN_NO_ID);
-				u.addEvent (addDosAndDonts(ate));			
+				u.addInput (addDosAndDonts(ate));			
 			}
 		}
 		

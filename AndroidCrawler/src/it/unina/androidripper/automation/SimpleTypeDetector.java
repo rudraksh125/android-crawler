@@ -7,7 +7,6 @@ import android.widget.ListView;
 import android.widget.RatingBar;
 import android.widget.Spinner;
 
-
 import static com.nofatclips.androidtesting.model.SimpleType.*;
 
 // Detect the simple type of the widget based on the name of the class. Faster but won't work always.
@@ -21,22 +20,6 @@ public class SimpleTypeDetector implements TypeDetector {
 		if (type.endsWith("null"))
 			return NULL;
 		
-		if (type.endsWith("RadioButton"))
-			return RADIO;
-		if (type.endsWith("RadioGroup"))
-			return RADIO_GROUP;
-		if (type.endsWith("CheckBox") || type.endsWith("CheckedTextView"))
-			return CHECKBOX;
-		if (type.endsWith("ToggleButton"))
-			return TOGGLE_BUTTON;
-		if (type.endsWith("Button"))
-			return BUTTON;
-		
-		if (type.endsWith("IconMenuView") || type.endsWith("ActionMenuView"))
-			return MENU_VIEW;
-		if (type.endsWith("IconMenuItemView") || type.endsWith("ActionMenuItemView"))
-			return MENU_ITEM;
-		
 		if (type.endsWith("DialogTitle"))
 			return DIALOG_VIEW;
 		
@@ -44,6 +27,26 @@ public class SimpleTypeDetector implements TypeDetector {
 			return DATE_PICKER;
 		if (type.endsWith("TimePicker"))
 			return TIME_PICKER;
+		if (type.endsWith("NumberPicker") || type.endsWith("NumberPickerButton"))
+			return NUMBER_PICKER;
+		
+		if (type.endsWith("RadioButton"))
+			return RADIO;
+		if (type.endsWith("RadioGroup"))
+			return RADIO_GROUP;
+		
+		if (type.endsWith("CheckBox") || type.endsWith("CheckedTextView"))
+			return CHECKBOX;
+		if (type.endsWith("ToggleButton"))
+			return TOGGLE_BUTTON;
+		
+		if (type.endsWith("Button"))
+			return BUTTON;
+		
+		if (type.endsWith("IconMenuView") || type.endsWith("ActionMenuView"))
+			return MENU_VIEW;
+		if (type.endsWith("IconMenuItemView") || type.endsWith("ActionMenuItemView"))
+			return MENU_ITEM;
 		
 		if (type.endsWith("EditText"))
 			return EDIT_TEXT;

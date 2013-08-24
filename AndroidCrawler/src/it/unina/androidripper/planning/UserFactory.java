@@ -321,21 +321,21 @@ public class UserFactory {
 		if (isRequiredInput(FOCUS)) {
 			if (Resources.TEXT_VALUES_FROM_DICTIONARY)
 			{
-				DictionaryFocusWriter f = new DictionaryFocusWriter(typesForEvent(FOCUS));
+				DictionaryFocusWriter f = new DictionaryFocusWriter(typesForInput(FOCUS));
 				f.setEventWhenNoId(Resources.EVENT_WHEN_NO_ID);
-				u.addEvent (addDosAndDonts(f));
+				u.addInput (addDosAndDonts(f));
 			}
 			else if(Resources.TEXT_VALUES_ID_HASH)
 			{
-				HashFocusWriter f = new HashFocusWriter(typesForEvent(FOCUS));
+				HashFocusWriter f = new HashFocusWriter(typesForInput(FOCUS));
 				f.setEventWhenNoId(Resources.EVENT_WHEN_NO_ID);
-				u.addEvent (addDosAndDonts(f));
+				u.addInput (addDosAndDonts(f));
 			}			
 			else
 			{
-				RandomFocusWriter f = new RandomFocusWriter(typesForEvent(FOCUS));				
+				RandomFocusWriter f = new RandomFocusWriter(typesForInput(FOCUS));				
 				f.setEventWhenNoId(Resources.EVENT_WHEN_NO_ID);
-				u.addEvent (addDosAndDonts(f));
+				u.addInput (addDosAndDonts(f));
 			}
 		}
 		
@@ -407,6 +407,28 @@ public class UserFactory {
 				u.addInput (addDosAndDonts(sti));
 			}
 		}
+		
+		if (isRequiredInput(AUTO_TEXT)) {
+			if (Resources.TEXT_VALUES_FROM_DICTIONARY)
+			{
+				DictionaryValueAutoEditor ate = new DictionaryValueAutoEditor(typesForInput(AUTO_TEXT));
+				ate.setEventWhenNoId(Resources.EVENT_WHEN_NO_ID);
+				u.addEvent (addDosAndDonts(ate));	
+			}
+			else if(Resources.TEXT_VALUES_ID_HASH)
+			{
+				HashValueAutoEditor ate = new HashValueAutoEditor(typesForInput(AUTO_TEXT));
+				ate.setEventWhenNoId(Resources.EVENT_WHEN_NO_ID);
+				u.addEvent (addDosAndDonts(ate));
+			}
+			else
+			{
+				RandomAutoEditor ate = new RandomAutoEditor(typesForInput(AUTO_TEXT));
+				ate.setEventWhenNoId(Resources.EVENT_WHEN_NO_ID);
+				u.addEvent (addDosAndDonts(ate));			
+			}
+		}
+		
 		
 		if (isRequiredInput(SPINNER_SELECT)) {
 			RandomSpinnerSelector rss = new RandomSpinnerSelector(typesForInput(SPINNER_SELECT));

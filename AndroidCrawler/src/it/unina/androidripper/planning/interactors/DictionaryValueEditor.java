@@ -1,6 +1,7 @@
 package it.unina.androidripper.planning.interactors;
 
 import static com.nofatclips.androidtesting.model.InteractionType.TYPE_TEXT;
+import static com.nofatclips.androidtesting.model.SimpleType.EDIT_TEXT;
 
 import it.unina.androidripper.model.Abstractor;
 import it.unina.androidripper.planning.adapters.InteractorAdapter;
@@ -18,7 +19,7 @@ import com.nofatclips.dictionary.TestValuesDictionary;
 public class DictionaryValueEditor extends InteractorAdapter {
 
 	public DictionaryValueEditor () {
-		this (TYPE_TEXT);
+		this (EDIT_TEXT);
 	}
 	
 	public DictionaryValueEditor(Abstractor theAbstractor, String... simpleTypes) {

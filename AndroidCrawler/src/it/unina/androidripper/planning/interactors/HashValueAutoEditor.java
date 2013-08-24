@@ -1,6 +1,7 @@
 package it.unina.androidripper.planning.interactors;
 
 import static com.nofatclips.androidtesting.model.InteractionType.AUTO_TEXT;
+import static com.nofatclips.androidtesting.model.SimpleType.AUTOC_TEXT;
 
 import it.unina.androidripper.helpers.HashGenerator;
 import it.unina.androidripper.model.Abstractor;
@@ -15,7 +16,7 @@ import com.nofatclips.androidtesting.model.WidgetState;
 public class HashValueAutoEditor extends InteractorAdapter {
 
 	public HashValueAutoEditor () {
-		this (AUTO_TEXT);
+		this (AUTOC_TEXT);
 	}
 	
 	public HashValueAutoEditor(Abstractor theAbstractor, String... simpleTypes) {

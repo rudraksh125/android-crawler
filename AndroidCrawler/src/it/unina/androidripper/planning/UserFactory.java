@@ -157,9 +157,26 @@ public class UserFactory {
 		}
 
 		if (isRequiredEvent(FOCUS)) {
-			Focuser c = new Focuser (typesForEvent(FOCUS));
-			c.setEventWhenNoId(Resources.EVENT_WHEN_NO_ID);
-			u.addEvent(addDosAndDonts(c));
+			
+			if (Resources.TEXT_VALUES_FROM_DICTIONARY)
+			{
+				DictionaryFocusWriter f = new DictionaryFocusWriter(typesForEvent(FOCUS));
+				f.setEventWhenNoId(Resources.EVENT_WHEN_NO_ID);
+				u.addEvent (addDosAndDonts(f));
+			}
+			else if(Resources.TEXT_VALUES_ID_HASH)
+			{
+				HashFocusWriter f = new HashFocusWriter(typesForEvent(FOCUS));
+				f.setEventWhenNoId(Resources.EVENT_WHEN_NO_ID);
+				u.addEvent (addDosAndDonts(f));
+			}			
+			else
+			{
+				RandomFocusWriter f = new RandomFocusWriter(typesForEvent(FOCUS));				
+				f.setEventWhenNoId(Resources.EVENT_WHEN_NO_ID);
+				u.addEvent (addDosAndDonts(f));
+			}
+			
 		}
 		
 		if (isRequiredEvent(DRAG)) {
@@ -302,9 +319,24 @@ public class UserFactory {
 		}
 
 		if (isRequiredInput(FOCUS)) {
-			Focuser c = new Focuser (typesForInput(FOCUS));
-			c.setEventWhenNoId(Resources.EVENT_WHEN_NO_ID);
-			u.addEvent(addDosAndDonts(c));
+			if (Resources.TEXT_VALUES_FROM_DICTIONARY)
+			{
+				DictionaryFocusWriter f = new DictionaryFocusWriter(typesForEvent(FOCUS));
+				f.setEventWhenNoId(Resources.EVENT_WHEN_NO_ID);
+				u.addEvent (addDosAndDonts(f));
+			}
+			else if(Resources.TEXT_VALUES_ID_HASH)
+			{
+				HashFocusWriter f = new HashFocusWriter(typesForEvent(FOCUS));
+				f.setEventWhenNoId(Resources.EVENT_WHEN_NO_ID);
+				u.addEvent (addDosAndDonts(f));
+			}			
+			else
+			{
+				RandomFocusWriter f = new RandomFocusWriter(typesForEvent(FOCUS));				
+				f.setEventWhenNoId(Resources.EVENT_WHEN_NO_ID);
+				u.addEvent (addDosAndDonts(f));
+			}
 		}
 		
 		if (isRequiredInput(SET_BAR)) {

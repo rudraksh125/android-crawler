@@ -147,6 +147,11 @@ public class RobotUtilities {
 		solo.sendKey(Solo.ENTER);
 	}
 
+	public static void focus (View v, String value) {
+		click (v);
+		writeText((EditText)v, value);
+	}
+	
 	// Radio Interactions
 	
 	public static void selectRadioItem (RadioGroup r, String value) {

@@ -27,9 +27,11 @@ public class SimpleTypeDetector implements TypeDetector {
 			return DATE_PICKER;
 		if (type.endsWith("TimePicker"))
 			return TIME_PICKER;
-		if (type.endsWith("NumberPicker") || type.endsWith("NumberPickerButton"))
+		if (type.endsWith("NumberPicker"))
 			return NUMBER_PICKER;
-		
+		if (type.endsWith("NumberPickerButton"))
+			return NUMBER_PICKER_BUTTON;
+			
 		if (type.endsWith("RadioButton"))
 			return RADIO;
 		if (type.endsWith("RadioGroup"))

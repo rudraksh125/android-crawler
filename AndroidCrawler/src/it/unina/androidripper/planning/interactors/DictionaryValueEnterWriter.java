@@ -1,8 +1,10 @@
 package it.unina.androidripper.planning.interactors;
 
-import static com.nofatclips.androidtesting.model.InteractionType.SEARCH_TEXT;
+import static com.nofatclips.androidtesting.model.InteractionType.ENTER_TEXT;
+import static com.nofatclips.androidtesting.model.SimpleType.AUTOC_TEXT;
+import static com.nofatclips.androidtesting.model.SimpleType.EDIT_TEXT;
+import static com.nofatclips.androidtesting.model.SimpleType.FOCUSABLE_EDIT_TEXT;
 import static com.nofatclips.androidtesting.model.SimpleType.SEARCH_BAR;
-
 import it.unina.androidripper.model.Abstractor;
 import it.unina.androidripper.planning.adapters.InteractorAdapter;
 import it.unina.androidripper.planning.interactors.values_cache.ValuesCache;
@@ -16,17 +18,17 @@ import com.nofatclips.androidtesting.model.UserInput;
 import com.nofatclips.androidtesting.model.WidgetState;
 import com.nofatclips.dictionary.TestValuesDictionary;
 
-public class DictionaryValueSearchWriter extends InteractorAdapter {
+public class DictionaryValueEnterWriter extends InteractorAdapter {
 
-	public DictionaryValueSearchWriter () {
-		this (SEARCH_BAR);
+	public DictionaryValueEnterWriter () {
+		this (EDIT_TEXT, AUTOC_TEXT, SEARCH_BAR, FOCUSABLE_EDIT_TEXT);
 	}
 	
-	public DictionaryValueSearchWriter(Abstractor theAbstractor, String... simpleTypes) {
+	public DictionaryValueEnterWriter(Abstractor theAbstractor, String... simpleTypes) {
 		super(theAbstractor, simpleTypes);
 	}
 
-	public DictionaryValueSearchWriter(String... simpleTypes) {
+	public DictionaryValueEnterWriter(String... simpleTypes) {
 		super(simpleTypes);
 	}
 
@@ -95,6 +97,6 @@ public class DictionaryValueSearchWriter extends InteractorAdapter {
 	
 	@Override
 	public String getInteractionType() {
-		return SEARCH_TEXT;
+		return ENTER_TEXT;
 	}
 }

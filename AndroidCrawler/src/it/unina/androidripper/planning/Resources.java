@@ -5,6 +5,7 @@ import it.unina.androidripper.model.ResourceFile;
 import it.unina.androidripper.planning.adapters.InteractorAdapter;
 import it.unina.androidripper.planning.interactors.*;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 import static com.nofatclips.androidtesting.model.InteractionType.*;
@@ -38,9 +39,12 @@ public class Resources implements ResourceFile {
 	public static String INPUTS[];
 	
 	// Additional Interactions
+	public static String EXTRA_EVENTS[];
+	public static String EXTRA_INPUTS[];
 	public static int[] KEY_EVENTS = {};
-	public static InteractorAdapter[] ADDITIONAL_EVENTS = new InteractorAdapter[] {};
-	public static InteractorAdapter[] ADDITIONAL_INPUTS = new InteractorAdapter[] {};
+	public static ArrayList<InteractorAdapter> ADDITIONAL_EVENTS = new ArrayList<InteractorAdapter>();
+	public static ArrayList<InteractorAdapter> ADDITIONAL_INPUTS = new ArrayList<InteractorAdapter>();
+	
 	
 	// User/Planner Parameters
 	public static int MAX_EVENTS_PER_WIDGET = 0; // For GroupViews (0 = try all items in the group)
@@ -64,6 +68,7 @@ public class Resources implements ResourceFile {
 		Prefs.updateNode("scheduler", Resources.class);
 		Prefs.updateNode("planner", Resources.class);
 		Prefs.updateNode("interactions", Resources.class);
+		
 		if (EVENTS != null) {
 			UserFactory.resetEvents();
 			for (String s: EVENTS) {
@@ -71,6 +76,7 @@ public class Resources implements ResourceFile {
 				UserFactory.addEvent(widgets[0], Arrays.copyOfRange(widgets, 1, widgets.length));
 			}
 		}
+		
 		if (INPUTS != null) {
 			UserFactory.resetInputs();
 			for (String s: INPUTS) {
@@ -78,6 +84,37 @@ public class Resources implements ResourceFile {
 				UserFactory.addInput(widgets[0], Arrays.copyOfRange(widgets, 1, widgets.length));
 			}
 		}
+		
+		if (EXTRA_EVENTS != null) {
+			ADDITIONAL_EVENTS.clear();
+			for (String s: EXTRA_EVENTS) {
+				String[] widgets = s.split("( )?,( )?");
+				if (widgets[0].equals(ENTER_TEXT)){
+					InteractorAdapter i = new FixedValueEnterEditor().addIdValuePair(widgets[1], Arrays.copyOfRange(widgets, 2, widgets.length));
+					ADDITIONAL_EVENTS.add(i);
+				}
+				if (widgets[0].equals(WRITE_TEXT)){
+					InteractorAdapter i = new FixedValueEditor().addIdValuePair(widgets[1], Arrays.copyOfRange(widgets, 2, widgets.length));
+					ADDITIONAL_EVENTS.add(i);
+				}
+			}
+		}
+		
+		if (EXTRA_INPUTS != null) {
+			ADDITIONAL_INPUTS.clear();
+			for (String s: EXTRA_INPUTS) {
+				String[] widgets = s.split("( )?,( )?");
+				if (widgets[0].equals(ENTER_TEXT)){
+					InteractorAdapter i = new FixedValueEnterEditor().addIdValuePair(widgets[1], Arrays.copyOfRange(widgets, 2, widgets.length));
+					ADDITIONAL_INPUTS.add(i);
+				}
+				if (widgets[0].equals(WRITE_TEXT)){
+					InteractorAdapter i = new FixedValueEditor().addIdValuePair(widgets[1], Arrays.copyOfRange(widgets, 2, widgets.length));
+					ADDITIONAL_INPUTS.add(i);
+				}
+			}
+		}
+		
 	}
 
 }

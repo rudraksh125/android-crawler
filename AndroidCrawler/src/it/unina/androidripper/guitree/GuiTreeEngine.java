@@ -77,7 +77,7 @@ public class GuiTreeEngine extends Engine {
 		p.setAbstractor(this.guiAbstractor);
 		setPlanner (p);
 		
-		StrategyFactory sf = new StrategyFactory(Resources.COMPARATOR, ADDITIONAL_CRITERIAS);
+		StrategyFactory sf = new StrategyFactory(Resources.COMPARATOR, ADDITIONAL_CRITERIA);
 		sf.setDepth(TRACE_MAX_DEPTH);
 		sf.setMaxTraces(MAX_NUM_TRACES);
 		sf.setMaxSeconds(MAX_TIME_CRAWLING);

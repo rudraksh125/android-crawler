@@ -203,6 +203,19 @@ public class Automation implements Robot, Extractor, TaskProcessor, ImageCaptor,
 			click (v);
 		} else if (interactionType.equals(LONG_CLICK)) {
 			longClick(v);
+		} else if (interactionType.equals(CLICK_ON_TEXT)) {
+			clickOnText(value);
+		} else if (interactionType.equals(PRESS_KEY)) {
+			pressKey(value);
+			
+		} else if (interactionType.equals(TYPE_TEXT)) {
+			typeText((EditText)v, value);
+		} else if (interactionType.equals(WRITE_TEXT)) {
+			writeText((EditText)v, value);
+		} else if (interactionType.equals(ENTER_TEXT)) {
+			enterText((EditText)v, value);	
+		} else if (interactionType.equals(FOCUS)) {
+			focus (v, value);
 			
 		} else if (interactionType.equals(BACK)) {
 			goBack();
@@ -214,44 +227,26 @@ public class Automation implements Robot, Extractor, TaskProcessor, ImageCaptor,
 			scrollDown();
 		} else if (interactionType.equals(CHANGE_ORIENTATION)) {
 			changeOrientation();
-			
-		} else if (interactionType.equals(CLICK_ON_TEXT)) {
-			clickOnText(value);
-		} else if (interactionType.equals(PRESS_KEY)) {
-			pressKey(value);
-			
+				
 		} else if (interactionType.equals(SWAP_TAB) && (value!=null)) {
 			if (v instanceof TabHost) {
 				RobotUtilities.swapTab (v, value);
 			} else {
 				swapTab (value);
 			}
+		} else if (interactionType.equals(SET_BAR)) {
+			setProgressBar(v, value);
+		} else if (interactionType.equals(DRAG)) {
+			drag(v);
+			
 		} else if (interactionType.equals(LIST_SELECT)) {
 			selectListItem((ListView)v, value);
 		} else if (interactionType.equals(LIST_LONG_SELECT)) {
 			selectListItem((ListView)v, value, true);
-			
 		} else if (interactionType.equals(SPINNER_SELECT)) {
 			selectSpinnerItem((Spinner)v, value);
 		} else if (interactionType.equals(RADIO_SELECT)) {
-			selectRadioItem((RadioGroup)v, value);
-			
-		} else if (interactionType.equals(TYPE_TEXT)) {
-			typeText((EditText)v, value);
-		} else if (interactionType.equals(WRITE_TEXT)) {
-			writeText((EditText)v, value);
-		} else if (interactionType.equals(SEARCH_TEXT)) {
-			searchText((EditText)v, value);	
-		} else if (interactionType.equals(AUTO_TEXT)) {
-			writeText((EditText)v, value);	
-		} else if (interactionType.equals(FOCUS)) {
-			focus (v, value);
-		
-		} else if (interactionType.equals(DRAG)) {
-			drag(v);
-			
-		} else if (interactionType.equals(SET_BAR)) {
-			setProgressBar(v, value);
+			selectRadioItem((RadioGroup)v, value);	
 			
 		} else {
 			return;

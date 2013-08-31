@@ -3,8 +3,8 @@ package it.unina.androidripper.planning.interactors;
 import static com.nofatclips.androidtesting.model.InteractionType.WRITE_TEXT;
 import static com.nofatclips.androidtesting.model.SimpleType.EDIT_TEXT;
 import static com.nofatclips.androidtesting.model.SimpleType.AUTOC_TEXT;
+import static com.nofatclips.androidtesting.model.SimpleType.FOCUSABLE_EDIT_TEXT;
 import static com.nofatclips.androidtesting.model.SimpleType.SEARCH_BAR;
-
 import it.unina.androidripper.planning.adapters.InteractorAdapter;
 
 import java.util.ArrayList;
@@ -23,7 +23,7 @@ public class FixedValueEditor extends InteractorAdapter {
 	private Map<String,ArrayList<String>> idValuePairs = new Hashtable<String,ArrayList<String>>();
 	
 	public FixedValueEditor () {
-		this (EDIT_TEXT, SEARCH_BAR, AUTOC_TEXT);
+		this (EDIT_TEXT, AUTOC_TEXT, SEARCH_BAR, FOCUSABLE_EDIT_TEXT);
 	}
 	
 	public FixedValueEditor (String ... simpleTypes) {

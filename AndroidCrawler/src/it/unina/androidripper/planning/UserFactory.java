@@ -227,45 +227,24 @@ public class UserFactory {
 			}
 		}
 		
-		if (isRequiredEvent(SEARCH_TEXT)) {
+		if (isRequiredEvent(ENTER_TEXT)) {
 			if (Resources.TEXT_VALUES_FROM_DICTIONARY)
 			{
-				DictionaryValueSearchWriter ste = new DictionaryValueSearchWriter(typesForEvent(SEARCH_TEXT));
+				DictionaryValueEnterWriter ste = new DictionaryValueEnterWriter(typesForEvent(ENTER_TEXT));
 				ste.setEventWhenNoId(Resources.EVENT_WHEN_NO_ID);
 				u.addEvent (addDosAndDonts(ste));
 			}
 			else if(Resources.TEXT_VALUES_ID_HASH)
 			{
-				HashValueSearchWriter ste = new HashValueSearchWriter(typesForEvent(SEARCH_TEXT));
+				HashValueEnterWriter ste = new HashValueEnterWriter(typesForEvent(ENTER_TEXT));
 				ste.setEventWhenNoId(Resources.EVENT_WHEN_NO_ID);
 				u.addEvent (addDosAndDonts(ste));
 			}			
 			else
 			{
-				RandomSearchWriter ste = new RandomSearchWriter(typesForEvent(SEARCH_TEXT));				
+				RandomEnterWriter ste = new RandomEnterWriter(typesForEvent(ENTER_TEXT));				
 				ste.setEventWhenNoId(Resources.EVENT_WHEN_NO_ID);
 				u.addEvent (addDosAndDonts(ste));
-			}
-		}
-		
-		if (isRequiredEvent(AUTO_TEXT)) {
-			if (Resources.TEXT_VALUES_FROM_DICTIONARY)
-			{
-				DictionaryValueAutoEditor ate = new DictionaryValueAutoEditor(typesForEvent(AUTO_TEXT));
-				ate.setEventWhenNoId(Resources.EVENT_WHEN_NO_ID);
-				u.addEvent (addDosAndDonts(ate));	
-			}
-			else if(Resources.TEXT_VALUES_ID_HASH)
-			{
-				HashValueAutoEditor ate = new HashValueAutoEditor(typesForEvent(AUTO_TEXT));
-				ate.setEventWhenNoId(Resources.EVENT_WHEN_NO_ID);
-				u.addEvent (addDosAndDonts(ate));
-			}
-			else
-			{
-				RandomAutoEditor ate = new RandomAutoEditor(typesForEvent(AUTO_TEXT));
-				ate.setEventWhenNoId(Resources.EVENT_WHEN_NO_ID);
-				u.addEvent (addDosAndDonts(ate));			
 			}
 		}
 		
@@ -387,48 +366,26 @@ public class UserFactory {
 			}
 		}
 		
-		if (isRequiredInput(SEARCH_TEXT)) {
+		if (isRequiredInput(ENTER_TEXT)) {
 			if (Resources.TEXT_VALUES_FROM_DICTIONARY)
 			{
-				DictionaryValueSearchWriter sti = new DictionaryValueSearchWriter(typesForInput(SEARCH_TEXT));
+				DictionaryValueEnterWriter sti = new DictionaryValueEnterWriter(typesForInput(ENTER_TEXT));
 				sti.setEventWhenNoId(false);
 				u.addInput (addDosAndDonts(sti));
 			}
 			else if(Resources.TEXT_VALUES_ID_HASH)
 			{
-				HashValueSearchWriter sti = new HashValueSearchWriter(typesForInput(SEARCH_TEXT));
+				HashValueEnterWriter sti = new HashValueEnterWriter(typesForInput(ENTER_TEXT));
 				sti.setEventWhenNoId(false);
 				u.addInput (addDosAndDonts(sti));
 			}			
 			else
 			{
-				RandomSearchWriter sti = new RandomSearchWriter(typesForInput(SEARCH_TEXT));				
+				RandomEnterWriter sti = new RandomEnterWriter(typesForInput(ENTER_TEXT));				
 				sti.setEventWhenNoId(false);
 				u.addInput (addDosAndDonts(sti));
 			}
 		}
-		
-		if (isRequiredInput(AUTO_TEXT)) {
-			if (Resources.TEXT_VALUES_FROM_DICTIONARY)
-			{
-				DictionaryValueAutoEditor ate = new DictionaryValueAutoEditor(typesForInput(AUTO_TEXT));
-				ate.setEventWhenNoId(Resources.EVENT_WHEN_NO_ID);
-				u.addInput (addDosAndDonts(ate));	
-			}
-			else if(Resources.TEXT_VALUES_ID_HASH)
-			{
-				HashValueAutoEditor ate = new HashValueAutoEditor(typesForInput(AUTO_TEXT));
-				ate.setEventWhenNoId(Resources.EVENT_WHEN_NO_ID);
-				u.addInput (addDosAndDonts(ate));
-			}
-			else
-			{
-				RandomAutoEditor ate = new RandomAutoEditor(typesForInput(AUTO_TEXT));
-				ate.setEventWhenNoId(Resources.EVENT_WHEN_NO_ID);
-				u.addInput (addDosAndDonts(ate));			
-			}
-		}
-		
 		
 		if (isRequiredInput(SPINNER_SELECT)) {
 			RandomSpinnerSelector rss = new RandomSpinnerSelector(typesForInput(SPINNER_SELECT));

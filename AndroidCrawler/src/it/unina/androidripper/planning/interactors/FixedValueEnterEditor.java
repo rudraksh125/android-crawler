@@ -1,8 +1,10 @@
 package it.unina.androidripper.planning.interactors;
 
-import static com.nofatclips.androidtesting.model.InteractionType.SEARCH_TEXT;
+import static com.nofatclips.androidtesting.model.InteractionType.ENTER_TEXT;
+import static com.nofatclips.androidtesting.model.SimpleType.AUTOC_TEXT;
+import static com.nofatclips.androidtesting.model.SimpleType.EDIT_TEXT;
+import static com.nofatclips.androidtesting.model.SimpleType.FOCUSABLE_EDIT_TEXT;
 import static com.nofatclips.androidtesting.model.SimpleType.SEARCH_BAR;
-
 import it.unina.androidripper.planning.adapters.InteractorAdapter;
 
 import java.util.ArrayList;
@@ -16,15 +18,15 @@ import com.nofatclips.androidtesting.model.UserEvent;
 import com.nofatclips.androidtesting.model.UserInput;
 import com.nofatclips.androidtesting.model.WidgetState;
 
-public class FixedValueSearchEditor extends InteractorAdapter {
+public class FixedValueEnterEditor extends InteractorAdapter {
 
 	private Map<String,ArrayList<String>> idValuePairs = new Hashtable<String,ArrayList<String>>();
 	
-	public FixedValueSearchEditor () {
-		this (SEARCH_BAR);
+	public FixedValueEnterEditor () {
+		this (EDIT_TEXT, AUTOC_TEXT, SEARCH_BAR, FOCUSABLE_EDIT_TEXT);
 	}
 	
-	public FixedValueSearchEditor (String ... simpleTypes) {
+	public FixedValueEnterEditor (String ... simpleTypes) {
 		super (simpleTypes);
 	}
 	
@@ -67,14 +69,14 @@ public class FixedValueSearchEditor extends InteractorAdapter {
 	}
 
 	public String getInteractionType() {
-		return SEARCH_TEXT;
+		return ENTER_TEXT;
 	}
 	
 	public void setIdValuePairs (Map<String,ArrayList<String>> pairs) {
 		this.idValuePairs = pairs;
 	}
 	
-	public FixedValueSearchEditor addIdValuePair (String id, String ... values) {
+	public FixedValueEnterEditor addIdValuePair (String id, String ... values) {
 		ArrayList<String> valuesForId;
 		if (!hasId(id)) {
 			valuesForId = new ArrayList<String>();
@@ -88,7 +90,7 @@ public class FixedValueSearchEditor extends InteractorAdapter {
 		return this;
 	}
 
-	public FixedValueSearchEditor addIdValuePair (int id, String ... value) {
+	public FixedValueEnterEditor addIdValuePair (int id, String ... value) {
 		return addIdValuePair(String.valueOf(id), value);
 	}
 

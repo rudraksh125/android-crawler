@@ -1,11 +1,15 @@
 package it.unina.androidripper.planning;
 
-import static com.nofatclips.androidtesting.model.InteractionType.*;
-import static com.nofatclips.androidtesting.model.SimpleType.*;
 import it.unina.androidripper.Prefs;
 import it.unina.androidripper.model.ResourceFile;
+import it.unina.androidripper.planning.adapters.InteractorAdapter;
+import it.unina.androidripper.planning.interactors.*;
 
 import java.util.Arrays;
+
+import static com.nofatclips.androidtesting.model.InteractionType.*;
+import static com.nofatclips.androidtesting.model.SimpleType.*;
+import static android.view.KeyEvent.*;
 
 @SuppressWarnings("unused")
 public class Resources implements ResourceFile {
@@ -33,6 +37,11 @@ public class Resources implements ResourceFile {
 	public static String EVENTS[];
 	public static String INPUTS[];
 	
+	// Additional Interactions
+	public static int[] KEY_EVENTS = {};
+	public static InteractorAdapter[] ADDITIONAL_EVENTS = new InteractorAdapter[] {};
+	public static InteractorAdapter[] ADDITIONAL_INPUTS = new InteractorAdapter[] {};
+	
 	// User/Planner Parameters
 	public static int MAX_EVENTS_PER_WIDGET = 0; // For GroupViews (0 = try all items in the group)
 	public static int MAX_TASKS_PER_EVENT = 1; // How many input sequences to generate for each event on a widget; 0 = no limit
@@ -46,8 +55,6 @@ public class Resources implements ResourceFile {
 	public static boolean TAB_EVENTS_START_ONLY = false; // true -> click on tabs only on the start activity
 	public static boolean EVENT_WHEN_NO_ID = true; // Whether to inject events on widgets without ID or not
 	public static boolean ALL_EVENTS_ON_PREFERENCES = true; // Bypass MAX_EVENTS_PER_WIDGET for PREFERENCE_LIST when true
-	
-	public static int[] KEY_EVENTS = {};
 
 	// Scheduler Parameters
 	public static String SCHEDULER_ALGORITHM = "BREADTH_FIRST";

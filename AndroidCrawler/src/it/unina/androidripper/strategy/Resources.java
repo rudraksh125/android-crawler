@@ -2,7 +2,10 @@ package it.unina.androidripper.strategy;
 
 import it.unina.androidripper.Prefs;
 import it.unina.androidripper.model.ResourceFile;
+import it.unina.androidripper.model.StrategyCriteria;
+import it.unina.androidripper.strategy.criteria.*;
 
+@SuppressWarnings("unused")
 public class Resources implements ResourceFile {
 
 	// Strategy Parameters
@@ -12,8 +15,13 @@ public class Resources implements ResourceFile {
 	public static long PAUSE_AFTER_TIME = 0; // In seconds (0 = no pause)
 	public static int TRACE_MAX_DEPTH = 0; // Max number of transitions in a trace (0 = no depth limit)
 	public static int TRACE_MIN_DEPTH = 0; // Ignore the exploration criteria until this depth is reached
+	
 	public static boolean CHECK_FOR_TRANSITION = false;
 	public static boolean EXPLORE_ONLY_NEW_STATES = true;
+	
+	// Additional Criteria
+	public static StrategyCriteria[] ADDITIONAL_CRITERIA = new StrategyCriteria[] {};
+	
 	public static String[] AFTER_EVENT_DONT_EXPLORE = {};
 	public static int[] AFTER_WIDGET_DONT_EXPLORE = {};
 

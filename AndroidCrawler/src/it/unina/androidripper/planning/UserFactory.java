@@ -9,7 +9,7 @@ import java.util.*;
 
 import static com.nofatclips.androidtesting.model.InteractionType.*;
 import static it.unina.androidripper.Resources.*;
-
+import static it.unina.androidripper.planning.Resources.*;
 
 public class UserFactory {
 

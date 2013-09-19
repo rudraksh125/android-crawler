@@ -1,5 +1,6 @@
 package it.unina.androidripper.strategy.criteria;
 
+import static it.unina.androidripper.Resources.TAG;
 import it.unina.androidripper.model.Strategy;
 import android.util.Log;
 
@@ -19,7 +20,7 @@ public class MaxStepsPause implements PauseCriteria {
 
 	public boolean pause () {
 		this.current--;
-		Log.i("androidripper", "Check for pause: " + current + " steps left of " + max);
+		Log.i(TAG, "Check for pause: " + current + " steps left of " + max);
 		return (this.current==0);
 	}
 	

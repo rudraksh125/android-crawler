@@ -7,17 +7,16 @@ import java.util.HashMap;
 
 import android.util.Log;
 
+import static it.unina.androidripper.Resources.TAG;
 import com.nofatclips.androidtesting.model.InteractionType;
 
 /**
  * Classe contenente metodi che utilizzano la reflection 
- * 
- * @author nicola
  *
  */
 public class ReflectionHelper
 {
-	public static final String TAG = "androidripper";
+
 	/**
 	 * Controlla se una classe implementa l'interfaccia data
 	 * 

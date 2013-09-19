@@ -9,6 +9,7 @@ public class Resources implements ResourceFile {
 	
 	public final static String CRAWLER_PACKAGE = "it.unina.androidripper";
 	public final static String PREFERENCES_FILE = "preferences.xml";
+	public final static String TAG = "androidripper";
 	
 	public static long RANDOM_SEED = 93874383493L; // 0 = Random
 

@@ -1,5 +1,6 @@
 package it.unina.androidripper.planning.adapters;
 
+import static it.unina.androidripper.Resources.TAG;
 import it.unina.androidripper.model.Abstractor;
 import it.unina.androidripper.planning.adapters.InteractorAdapter;
 
@@ -53,7 +54,7 @@ public abstract class IterativeInteractorAdapter extends InteractorAdapter {
 			final int fromItem = 1; 
 			final int toItem = getToItem(w, fromItem, w.getCount()); 
 			if (toItem<fromItem) return events;
-			Log.d("androidripper", "Handling event " + getInteractionType() + " for items [" + fromItem + "," + toItem + "] on " + w.getSimpleType() + " #" + w.getId() + " count=" + w.getCount());
+			Log.d(TAG, "Handling event " + getInteractionType() + " for items [" + fromItem + "," + toItem + "] on " + w.getSimpleType() + " #" + w.getId() + " count=" + w.getCount());
 			for (int i=fromItem; i<=toItem; i++) {
 				events.add(generateEvent(w, String.valueOf(i)));
 			}

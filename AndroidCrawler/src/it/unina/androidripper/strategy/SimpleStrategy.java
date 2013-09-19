@@ -1,5 +1,6 @@
 package it.unina.androidripper.strategy;
 
+import static it.unina.androidripper.Resources.TAG;
 import it.unina.androidripper.model.Comparator;
 import it.unina.androidripper.model.StateDiscoveryListener;
 import it.unina.androidripper.model.Strategy;
@@ -55,17 +56,17 @@ public class SimpleStrategy implements Strategy {
 		this.positiveComparation = true;
 		String name = theActivity.getName();
 		if (theActivity.isExit()) {
-			Log.i("androidripper", "Exit state. Not performing comparation for activity " + name);
+			Log.i(TAG, "Exit state. Not performing comparation for activity " + name);
 			return false;
 		}
 		
 		if (!COMPARATOR_TYPE.equals("NullComparator")){
-			Log.i("androidripper", "Performing comparation for activity " + name);
+			Log.i(TAG, "Performing comparation for activity " + name);
 			for (ActivityState stored: guiNodes) {
-				Log.d("androidripper", "Comparing against activity " + stored.getName());
+				Log.d(TAG, "Comparing against activity " + stored.getName());
 				if (getComparator().compare(theActivity, stored)) {
 					theActivity.setId(stored.getId());
-					Log.d("androidripper", "This activity state is equivalent to " + stored.getId());
+					Log.d(TAG, "This activity state is equivalent to " + stored.getId());
 					return true;
 				}
 			}	
@@ -73,7 +74,7 @@ public class SimpleStrategy implements Strategy {
 		
 		this.positiveComparation = false;
 		if (ENABLE_MODEL) {
-			Log.i("androidripper", "Registering activity " + name + " (id: " + theActivity.getId() + ") as a new found state");
+			Log.i(TAG, "Registering activity " + name + " (id: " + theActivity.getId() + ") as a new found state");
 			addState (theActivity);
 		}
 		return false;

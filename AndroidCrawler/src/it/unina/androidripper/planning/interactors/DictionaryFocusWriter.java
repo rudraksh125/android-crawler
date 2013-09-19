@@ -1,5 +1,6 @@
 package it.unina.androidripper.planning.interactors;
 
+import static it.unina.androidripper.Resources.TAG;
 import static com.nofatclips.androidtesting.model.InteractionType.FOCUS;
 import static com.nofatclips.androidtesting.model.SimpleType.FOCUSABLE_EDIT_TEXT;
 
@@ -39,7 +40,7 @@ public class DictionaryFocusWriter extends InteractorAdapter {
 			&& 	w.getId().equals("") == false
 			)
 		{
-			Log.i("androidripper", "DictionaryValueWriter: Using values from cache");
+			Log.i(TAG, "DictionaryValueWriter: Using values from cache");
 			ValuesCache vCache = ValuesCache.getInstance(); 
 			
 			if (vCache != null)
@@ -54,7 +55,7 @@ public class DictionaryFocusWriter extends InteractorAdapter {
 		
 		if (values == null)
 		{
-			Log.i("androidripper", "DictionaryValueWriter: Generating new values");
+			Log.i(TAG, "DictionaryValueWriter: Generating new values");
 			
 			if (it.unina.androidripper.planning.Resources.DICTIONARY_IGNORE_CONTENT_TYPES)
 			{
@@ -71,7 +72,7 @@ public class DictionaryFocusWriter extends InteractorAdapter {
 				&& 	w.getId().equals("") == false
 				)
 		{			
-			Log.i("androidripper", "DictionaryValueWriter: Saving values to cache");
+			Log.i(TAG, "DictionaryValueWriter: Saving values to cache");
 			ValuesCache vCache = ValuesCache.getInstance(); 
 			
 			if (vCache != null)

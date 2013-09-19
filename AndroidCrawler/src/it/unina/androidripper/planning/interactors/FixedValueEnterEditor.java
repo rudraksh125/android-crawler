@@ -1,5 +1,6 @@
 package it.unina.androidripper.planning.interactors;
 
+import static it.unina.androidripper.Resources.TAG;
 import static com.nofatclips.androidtesting.model.InteractionType.ENTER_TEXT;
 import static com.nofatclips.androidtesting.model.SimpleType.AUTOC_TEXT;
 import static com.nofatclips.androidtesting.model.SimpleType.EDIT_TEXT;
@@ -48,7 +49,7 @@ public class FixedValueEnterEditor extends InteractorAdapter {
 		if (canUseWidget(w)) {
 			ArrayList<String> values = this.idValuePairs.get(w.getId());
 			for (String value: values) {
-				Log.d("androidripper", "Handling event '" + getInteractionType() + "' on widget id=" + w.getId() + " value=" + value );
+				Log.d(TAG, "Handling event '" + getInteractionType() + "' on widget id=" + w.getId() + " value=" + value );
 				events.add(generateEvent(w, value));
 			}
 		}
@@ -61,7 +62,7 @@ public class FixedValueEnterEditor extends InteractorAdapter {
 		if (canUseWidget(w)) {
 			ArrayList<String> values = this.idValuePairs.get(w.getId());
 			for (String value: values) {
-				Log.d("androidripper", "Handling input '" + getInteractionType() + "' on widget id=" + w.getId() + " value=" + value );
+				Log.d(TAG, "Handling input '" + getInteractionType() + "' on widget id=" + w.getId() + " value=" + value );
 				inputs.add(generateInput(w, value));
 			}
 		}

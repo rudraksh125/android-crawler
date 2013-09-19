@@ -1,5 +1,6 @@
 package it.unina.androidripper.planning.adapters;
 
+import static it.unina.androidripper.Resources.TAG;
 import it.unina.androidripper.model.Abstractor;
 import it.unina.androidripper.model.Interactor;
 
@@ -40,7 +41,7 @@ public abstract class InteractorAdapter implements Interactor {
 	public boolean isVetoedWidget (WidgetState w) {
 		for (String id: getVetoedIds()) {
 			if (w.getId().equals(id)) {
-				Log.d("androidripper", "Event denied for widget #" + id);
+				Log.d(TAG, "Event denied for widget #" + id);
 				return true;
 			}
 		}
@@ -50,7 +51,7 @@ public abstract class InteractorAdapter implements Interactor {
 	public boolean isForcedWidget (WidgetState w) {
 		for (String id: getForcedIds()) {
 			if (w.getId().equals(id)) {
-				Log.d("androidripper", "Event forced for widget #" + id);
+				Log.d(TAG, "Event forced for widget #" + id);
 				return true;
 			}
 		}
@@ -66,7 +67,7 @@ public abstract class InteractorAdapter implements Interactor {
 	public List<UserEvent> getEvents (WidgetState w) {
 		ArrayList<UserEvent> events = new ArrayList<UserEvent>();
 		if (canUseWidget(w)) {
-			Log.d("androidripper", "Handling event '" + getInteractionType() + "' on widget id=" + w.getId() + " type=" + w.getSimpleType() + " name=" + w.getName());
+			Log.d(TAG, "Handling event '" + getInteractionType() + "' on widget id=" + w.getId() + " type=" + w.getSimpleType() + " name=" + w.getName());
 			events.add(generateEvent(w));
 		}
 		return events;
@@ -75,7 +76,7 @@ public abstract class InteractorAdapter implements Interactor {
 	public List<UserInput> getInputs (WidgetState w) {
 		ArrayList<UserInput> inputs = new ArrayList<UserInput>();
 		if (canUseWidget(w)) {
-			Log.d("androidripper", "Handling input '" + getInteractionType() + "' on widget id=" + w.getId() + " type=" + w.getSimpleType() + " name=" + w.getName());
+			Log.d(TAG, "Handling input '" + getInteractionType() + "' on widget id=" + w.getId() + " type=" + w.getSimpleType() + " name=" + w.getName());
 			inputs.add(generateInput(w));
 		}
 		return inputs;
@@ -84,9 +85,9 @@ public abstract class InteractorAdapter implements Interactor {
 	public List<UserEvent> getEvents (WidgetState w, String ... values) {
 		ArrayList<UserEvent> events = new ArrayList<UserEvent>();
 		if (canUseWidget(w)) {
-			Log.d("androidripper", "Handling event '" + getInteractionType() + "' on widget id=" + w.getId() + " type=" + w.getSimpleType() + " name=" + w.getName());
+			Log.d(TAG, "Handling event '" + getInteractionType() + "' on widget id=" + w.getId() + " type=" + w.getSimpleType() + " name=" + w.getName());
 			for (String value: values) {
-				Log.v ("androidripper", "Using value: " + value);
+				Log.v (TAG, "Using value: " + value);
 				events.add(generateEvent(w, value));
 			}
 		}
@@ -96,9 +97,9 @@ public abstract class InteractorAdapter implements Interactor {
 	public List<UserInput> getInputs (WidgetState w, String ... values) {
 		ArrayList<UserInput> inputs = new ArrayList<UserInput>();
 		if (canUseWidget(w)) {
-			Log.d("androidripper", "Handling input '" + getInteractionType() + "' on widget id=" + w.getId() + " type=" + w.getSimpleType() + " name=" + w.getName());
+			Log.d(TAG, "Handling input '" + getInteractionType() + "' on widget id=" + w.getId() + " type=" + w.getSimpleType() + " name=" + w.getName());
 			for (String value: values) {
-				Log.v ("androidripper", "Using value: " + value);
+				Log.v (TAG, "Using value: " + value);
 				inputs.add(generateInput(w, value));	
 			}
 		}
@@ -175,12 +176,12 @@ public abstract class InteractorAdapter implements Interactor {
 	}
 
 	public void denyIds (Collection<String> ids) {
-		Log.v("androidripper", "Added veto for " + this.toString());
+		Log.v(TAG, "Added veto for " + this.toString());
 		getVetoedIds().addAll(ids);
 	}
 
 	public void forceIds(Collection<String> ids) {
-		Log.v("androidripper", "Added override for " + this.toString());
+		Log.v(TAG, "Added override for " + this.toString());
 		getForcedIds().addAll(ids);
 	}
 

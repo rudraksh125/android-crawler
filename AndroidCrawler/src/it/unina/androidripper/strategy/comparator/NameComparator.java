@@ -5,6 +5,7 @@ import android.util.Log;
 
 import com.nofatclips.androidtesting.model.ActivityState;
 
+import static it.unina.androidripper.Resources.TAG;
 import static com.nofatclips.androidtesting.model.SimpleType.NULL;
 import static it.unina.androidripper.strategy.comparator.Resources.COMPARE_STATE_TITLE;
 
@@ -15,9 +16,9 @@ public class NameComparator implements Comparator {
 	};
 
 	public NameComparator (boolean byName) {
-		Log.d("androidripper", "Comparation by name is " + ((byName)?"enabled":"disabled"));
+		Log.d(TAG, "Comparation by name is " + ((byName)?"enabled":"disabled"));
 		this.byName = byName;
-		Log.d("androidripper", "Comparation by title is " + ((compareByTitle())?"enabled":"disabled"));
+		Log.d(TAG, "Comparation by title is " + ((compareByTitle())?"enabled":"disabled"));
 		this.byTitle = COMPARE_STATE_TITLE;
 	};
 

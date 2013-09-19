@@ -1,5 +1,6 @@
 package it.unina.androidripper.planning;
 
+import static it.unina.androidripper.Resources.TAG;
 import static it.unina.androidripper.planning.Resources.MAX_TASKS_IN_SCHEDULER;
 
 import it.unina.androidripper.model.DispatchListener;
@@ -30,7 +31,7 @@ class TrivialScheduler implements TaskScheduler {
 	}
 
 	public Trace nextTask() {
-		Log.i("androidripper", "Dispatching new task. " + tasks.size() + " more tasks remaining.");
+		Log.i(TAG, "Dispatching new task. " + tasks.size() + " more tasks remaining.");
 		if (!hasMore()) return null;
 
 		switch (algorithm) {

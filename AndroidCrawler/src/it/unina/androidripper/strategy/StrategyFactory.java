@@ -15,7 +15,6 @@ import it.unina.androidripper.strategy.criteria.TimeElapsedTermination;
 
 import java.util.ArrayList;
 
-
 public class StrategyFactory {
 
 	private Comparator comparator;

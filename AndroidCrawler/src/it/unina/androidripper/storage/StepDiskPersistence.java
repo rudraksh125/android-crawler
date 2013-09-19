@@ -8,6 +8,7 @@ import android.util.Log;
 import com.nofatclips.androidtesting.model.Session;
 import com.nofatclips.androidtesting.model.Trace;
 
+import static it.unina.androidripper.Resources.TAG;
 import static it.unina.androidripper.storage.Resources.*;
 
 public class StepDiskPersistence extends DiskPersistence implements SaveStateListener {
@@ -40,7 +41,7 @@ public class StepDiskPersistence extends DiskPersistence implements SaveStateLis
 	public void addTrace (Trace t) {
 		super.addTrace (t);
 		this.count++;
-		Log.i("androidripper", "Session count is " + this.count +". Will dump to disk at " + this.step);
+		Log.i(TAG, "Session count is " + this.count +". Will dump to disk at " + this.step);
 		if (this.count == this.step) {
 			saveStep();
 			this.count=0;
@@ -87,9 +88,9 @@ public class StepDiskPersistence extends DiskPersistence implements SaveStateLis
 		if (ENABLE_MODEL) {
 			
 			if (isFirst()) {
-				Log.i ("androidripper", "Saving the session on disk. This is the first batch: the file will be created.");					
+				Log.i (TAG, "Saving the session on disk. This is the first batch: the file will be created.");					
 			} else {
-				Log.i ("androidripper", "Saving the session on disk.");
+				Log.i (TAG, "Saving the session on disk.");
 			}
 			save(isLast());
 			
@@ -114,7 +115,7 @@ public class StepDiskPersistence extends DiskPersistence implements SaveStateLis
 			
 			if (last) {
 				setLast();
-				Log.i ("androidripper", "Saving the session on disk. This is the last batch. The session will be terminated.");			
+				Log.i (TAG, "Saving the session on disk. This is the last batch. The session will be terminated.");			
 			}
 			
 			if (ENABLE_MODEL) super.save();
@@ -150,7 +151,7 @@ public class StepDiskPersistence extends DiskPersistence implements SaveStateLis
 	@Override
 	public void onLoadingState(SessionParams sessionParams) {
 		this.footer = sessionParams.get(PARAM_NAME);
-		Log.d("androidripper", "Backup session footer restored to " + this.footer);
+		Log.d(TAG, "Backup session footer restored to " + this.footer);
 	}
 
 	private int step = 1;

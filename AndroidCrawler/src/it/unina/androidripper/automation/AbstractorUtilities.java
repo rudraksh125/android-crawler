@@ -1,6 +1,7 @@
 package it.unina.androidripper.automation;
 
 import static com.nofatclips.androidtesting.model.InteractionType.PRESS_KEY;
+import static it.unina.androidripper.Resources.TAG;
 
 import java.lang.reflect.Field;
 
@@ -115,7 +116,7 @@ public class AbstractorUtilities {
 			if (f.getType().equals(Integer.TYPE)) {
 				try {
 					if (name.startsWith("KEYCODE_") && (f.getInt(null) == val)) {
-						Log.i("androidripper", "Event Description: " + name);
+						Log.i(TAG, "Event Description: " + name);
 						e.setDescription(name.replaceAll("KEYCODE_", ""));
 						return true;
 					}
@@ -136,7 +137,7 @@ public class AbstractorUtilities {
 		if (v instanceof TextView) {
 			String s = ((TextView)v).getText().toString();
 			e.setDescription(s);
-			Log.d ("androidripper", "Event description: " + s);
+			Log.d (TAG, "Event description: " + s);
 			return true;
 		} else if (v instanceof TabHost) {
 			e.setDescription(((TabHost)v).getCurrentTabTag());
@@ -150,7 +151,6 @@ public class AbstractorUtilities {
 		return false;
 	}
 
-	/** @author nicola */
 	/* NOTA:
 	 * l'esecuzione di questa funziona puo' essere ottimizzata creando al momento
 	 * della descrizione dell'activity una hashmap temporanea <id,nome> (<integer,string>)
@@ -180,12 +180,10 @@ public class AbstractorUtilities {
 				}
 			}
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			//e.printStackTrace();
-			Log.e("androidripper", e.toString());
+			Log.e(TAG, e.toString());
 		}
 		
 		return null;
 	}
-	/** @author nicola */
+
 }

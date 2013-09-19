@@ -57,7 +57,7 @@ public class GuiTreeEngine extends Engine {
 			p = (SimplePlanner)Class.forName(className).newInstance();
 		} catch (Exception e) {		
 			//e.printStackTrace();
-			Log.e("androidripper", "Error during planner instantiation: " + e.toString());
+			Log.e(TAG, "Error during planner instantiation: " + e.toString());
 			throw new RuntimeException(e);
 		}		
 

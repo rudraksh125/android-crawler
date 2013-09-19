@@ -1,5 +1,6 @@
 package it.unina.androidripper.planning;
 
+import static it.unina.androidripper.Resources.TAG;
 import it.unina.androidripper.model.Plan;
 
 import java.util.ArrayList;
@@ -20,7 +21,7 @@ public class DictionarySimplePlanner extends SimplePlanner {
 
 	public void addPlanForActivityWidgets (Plan p, ActivityState a, boolean allowSwapTabs, boolean allowGoBack)
 	{
-		Log.i("androidripper", "Planning with RegExPlanner for new Activity " + a.getName());
+		Log.i(TAG, "Planning with RegExPlanner for new Activity " + a.getName());
 		
 		//conta i widget EditText con contentType != DEFAULT
 		int nEditText = 0;
@@ -31,7 +32,7 @@ public class DictionarySimplePlanner extends SimplePlanner {
 				nEditText++;
 		}
 		
-		Log.i("androidripper", "nEditText=" + nEditText);
+		Log.i(TAG, "nEditText=" + nEditText);
 		
 		//Crea gli eventi
 		//0000
@@ -41,7 +42,7 @@ public class DictionarySimplePlanner extends SimplePlanner {
 		//0001
 		for (int currentEditTextWrongRegExIndex = 0; currentEditTextWrongRegExIndex <= nEditText; currentEditTextWrongRegExIndex++)
 		{
-			Log.i("androidripper", "currentEditTextWrongRegExIndex=" + currentEditTextWrongRegExIndex);
+			Log.i(TAG, "currentEditTextWrongRegExIndex=" + currentEditTextWrongRegExIndex);
 			
 			for (WidgetState w: getEventFilter())
 			{
@@ -70,7 +71,7 @@ public class DictionarySimplePlanner extends SimplePlanner {
 							&&	currentEditTextWrongRegExIndex == currentEditTextIndex) //e' l'edittext che deve essere riempita col valore sbagliato
 						{
 							inp = alternatives.get(0);
-							Log.i("androidripper", "edittext " + currentEditTextIndex + ", content=" + formWidget.getContentType() + ", using input=" + inp.getValue());
+							Log.i(TAG, "edittext " + currentEditTextIndex + ", content=" + formWidget.getContentType() + ", using input=" + inp.getValue());
 						}
 						else
 						{

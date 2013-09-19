@@ -11,6 +11,7 @@ import android.util.Log;
 
 import com.nofatclips.androidtesting.model.*;
 
+import static it.unina.androidripper.Resources.TAG;
 import static com.nofatclips.androidtesting.model.InteractionType.*;
 import static com.nofatclips.androidtesting.model.SimpleType.*;
 
@@ -53,7 +54,7 @@ public class SimplePlanner implements Planner {
 	
 	public Plan getPlanForActivity (ActivityState a, boolean allowSwapTabs, boolean allowGoBack)
 	{
-		Log.i("androidripper", "Planning for new Activity " + a.getName());
+		Log.i(TAG, "Planning for new Activity " + a.getName());
 		Plan p = new Plan();
 		addPlanForActivityWidgets(p, a, allowSwapTabs, allowGoBack);
 		
@@ -64,21 +65,21 @@ public class SimplePlanner implements Planner {
 		if (Resources.BACK_BUTTON_EVENT && allowGoBack) {
 			evt = getAbstractor().createEvent(null, BACK);
 			t = getAbstractor().createStep(a, new HashSet<UserInput>(), evt);
-			Log.i("androidripper", "Created trace to press the back button");
+			Log.i(TAG, "Created trace to press the back button");
 			p.addTask(t);
 		}
 		
 		if (Resources.MENU_EVENTS) {
 			evt = getAbstractor().createEvent(null, OPEN_MENU);
 			t = getAbstractor().createStep(a, new HashSet<UserInput>(), evt);
-			Log.i("androidripper", "Created trace to press the menu button");
+			Log.i(TAG, "Created trace to press the menu button");
 			p.addTask(t);
 		}
 		
 		if (Resources.ACTIONBARHOME_EVENTS) {
 			evt = getAbstractor().createEvent(null, HOME_ACTION);
 			t = getAbstractor().createStep(a, new HashSet<UserInput>(), evt);
-			Log.i("androidripper", "Created trace to click on ActionBar Home button");
+			Log.i(TAG, "Created trace to click on ActionBar Home button");
 			p.addTask(t);
 		}
 
@@ -86,14 +87,14 @@ public class SimplePlanner implements Planner {
 		if (Resources.SCROLL_DOWN_EVENT) {
 			evt = getAbstractor().createEvent(null, SCROLL_DOWN);
 			t = getAbstractor().createStep(a, new HashSet<UserInput>(), evt);
-			Log.i("androidripper", "Created trace to perform scrolling down");
+			Log.i(TAG, "Created trace to perform scrolling down");
 			p.addTask(t);
 		}
 
 		if (Resources.ORIENTATION_EVENTS) {
 			evt = getAbstractor().createEvent(null, CHANGE_ORIENTATION);
 			t = getAbstractor().createStep(a, new HashSet<UserInput>(), evt);
-			Log.i("androidripper", "Created trace to change orientation");
+			Log.i(TAG, "Created trace to change orientation");
 			p.addTask(t);
 		}
 		
@@ -102,7 +103,7 @@ public class SimplePlanner implements Planner {
 				evt = getAbstractor().createEvent(null, PRESS_KEY);
 				evt.setValue(String.valueOf(keyCode));
 				t = getAbstractor().createStep(a, new HashSet<UserInput>(), evt);
-				Log.i("androidripper", "Created trace to perform key press (key code: " + keyCode + ")");
+				Log.i(TAG, "Created trace to perform key press (key code: " + keyCode + ")");
 				p.addTask(t);
 			}
 		}	

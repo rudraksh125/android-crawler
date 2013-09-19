@@ -29,7 +29,7 @@ public class RandomEngine extends GuiTreeEngine {
 	public RandomEngine () {
 		super();
 		this.theStrategyFactory.setExploreNewOnly(false);
-		Log.d("androidripper", "Starting random testing");
+		Log.d(TAG, "Starting random testing");
 		this.taskLottery = new SaveStateRandom(RANDOM_SEED);
 		this.theStrategyFactory.setMoreCriterias(new OnExitPause());
 		this.theStrategyFactory.setPauseTraces(0);
@@ -84,7 +84,7 @@ public class RandomEngine extends GuiTreeEngine {
 		if (this.first) {
 			super.process(theTask);
 		} else {
-			Log.i ("androidripper", "Incrementally Playing Trace " + theTask.getId());
+			Log.i (TAG, "Incrementally Playing Trace " + theTask.getId());
 			getRobot().process(theTask.getFinalTransition());
 		}
 		this.first=false;
@@ -127,7 +127,7 @@ public class RandomEngine extends GuiTreeEngine {
 		
 		public void onLoadingState(SessionParams sessionParams) {
 			this.count = sessionParams.getInt(PARAM_NAME);
-			Log.d("androidripper", "Restored random counter to: " + this.count);
+			Log.d(TAG, "Restored random counter to: " + this.count);
 			for (int i=0; i<this.count; i++) {
 				nextInt();
 			}

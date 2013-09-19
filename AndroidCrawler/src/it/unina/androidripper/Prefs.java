@@ -1,7 +1,6 @@
 package it.unina.androidripper;
 
-import static it.unina.androidripper.Resources.CRAWLER_PACKAGE;
-import static it.unina.androidripper.Resources.PREFERENCES_FILE;
+import static it.unina.androidripper.Resources.*;
 
 import it.unina.androidripper.model.ResourceFile;
 
@@ -61,12 +60,12 @@ public class Prefs {
 		InputStream is = null;
 
 		if (!(new File(path).exists())) {
-			Log.i("androidripper", "Preferences file not found.");
+			Log.i(TAG, "Preferences file not found.");
 			notFound = true;
 			return;
 		}
 		
-		Log.i("androidripper", "Preferences file found.");
+		Log.i(TAG, "Preferences file found.");
 		try {
 			is = new BufferedInputStream(new FileInputStream(path));
 			Preferences.importPreferences(is);
@@ -84,7 +83,7 @@ public class Prefs {
 	}
 	
 	public static Preferences loadNode (String localNode) {
-		Log.d("androidripper","Loading node " + localNode);
+		Log.d(TAG,"Loading node " + localNode);
 		if (getMainNode() == null) return null;
 		return getMainNode().node(localNode);
 	}
@@ -173,7 +172,7 @@ public class Prefs {
 	}
 
 	protected void updateValue (Field parameter) throws IllegalArgumentException, IllegalAccessException {
-		Log.v("androidripper", "Updating value " + parameter.getName());
+		Log.v(TAG, "Updating value " + parameter.getName());
 		Class<?> type = parameter.getType();
 		String before = (parameter.get("") != null)?parameter.get("").toString():null;
 		if (type.equals(int.class)) {
@@ -193,9 +192,9 @@ public class Prefs {
 		String after = (o==null)?"null":o.toString();
 		if (!after.equals(before)) {
 			if (!type.isArray()) {
-				Log.d("androidripper", "Updated value of parameter " + parameter.getName() + " to " + after + " (default = " + before + ")");
+				Log.d(TAG, "Updated value of parameter " + parameter.getName() + " to " + after + " (default = " + before + ")");
 			} else {
-				Log.d("androidripper", "Updated values of array parameter " + parameter.getName());
+				Log.d(TAG, "Updated values of array parameter " + parameter.getName());
 			}
 		}
 	}
@@ -205,7 +204,7 @@ public class Prefs {
 	}
 
 	public static void updateNode (String node, Class<? extends ResourceFile> resources) {
-		Log.d("androidripper", "Updating node " + node);
+		Log.d(TAG, "Updating node " + node);
 		Prefs p = new Prefs (node, resources);
 		p.updateResources();
 	}

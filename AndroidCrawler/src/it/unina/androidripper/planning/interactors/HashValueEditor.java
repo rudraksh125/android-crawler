@@ -1,5 +1,6 @@
 package it.unina.androidripper.planning.interactors;
 
+import static it.unina.androidripper.Resources.TAG;
 import static com.nofatclips.androidtesting.model.InteractionType.TYPE_TEXT;
 import static com.nofatclips.androidtesting.model.SimpleType.AUTOC_TEXT;
 import static com.nofatclips.androidtesting.model.SimpleType.EDIT_TEXT;
@@ -18,8 +19,6 @@ import com.nofatclips.androidtesting.model.UserInput;
 import com.nofatclips.androidtesting.model.WidgetState;
 
 public class HashValueEditor extends InteractorAdapter {
-
-	public static final String TAG = "HashValueEditor";
 	
 	public HashValueEditor () {
 		this (EDIT_TEXT, AUTOC_TEXT, SEARCH_BAR, FOCUSABLE_EDIT_TEXT);

@@ -3,6 +3,7 @@ package it.unina.androidripper.automation;
 import static android.content.Context.WINDOW_SERVICE;
 import static android.view.Surface.ROTATION_0;
 import static android.view.Surface.ROTATION_180;
+import static it.unina.androidripper.Resources.TAG;
 import it.unina.androidripper.model.EventFiredListener;
 
 import java.util.ArrayList;
@@ -88,7 +89,7 @@ public class RobotUtilities {
 		
 		assertNotNull(l, "Cannon select list item: the list does not exist");
 		requestFocus(l);
-		Log.i("androidripper", "Swapping to listview item " + num);
+		Log.i(TAG, "Swapping to listview item " + num);
 		solo.sendKey(Solo.DOWN);
 
 		final ListView theList = l;
@@ -125,7 +126,7 @@ public class RobotUtilities {
 
 	public static void selectSpinnerItem (final Spinner s, int num) {
 		assertNotNull(s, "Cannon press spinner item: the spinner does not exist");
-		Log.i("androidripper", "Clicking the spinner view");
+		Log.i(TAG, "Clicking the spinner view");
 		click(s);
 		sync();
 		selectListItem(solo.getCurrentViews(ListView.class).get(0), num, false);
@@ -161,7 +162,7 @@ public class RobotUtilities {
 	public static void selectRadioItem (final RadioGroup r, int num) {
 		if (num<1) assertNotNull(null, "Cannot press radio group item: the index must be a positive number");
 		assertNotNull(r, "Cannon press radio group item: the radio group does not exist");
-		Log.i("androidripper", "Selecting from the Radio Group view");
+		Log.i(TAG, "Selecting from the Radio Group view");
 		click(r.getChildAt(num-1));
 		sync();
 	}
@@ -231,7 +232,7 @@ public class RobotUtilities {
 		int count = t.getTabWidget().getTabCount();
 		ActivityInstrumentationTestCase2.assertTrue("Cannot swap tab: tab index out of bound", num<=count);
 		final int n = Math.min(count, Math.max(1,num))-1;
-		Log.i("androidripper", "Swapping to tab " + num);
+		Log.i(TAG, "Swapping to tab " + num);
 		click (t.getTabWidget().getChildAt(n));
 	}
 
@@ -296,7 +297,7 @@ public class RobotUtilities {
 	}
 	
 	public static void wait (int milli) {
-		Log.i("androidripper", "Waiting for " + ((milli>=1000)?(milli/1000 + " sec."):(milli + " msec.")));
+		Log.i(TAG, "Waiting for " + ((milli>=1000)?(milli/1000 + " sec."):(milli + " msec.")));
 		solo.sleep(milli);
 	}
 	

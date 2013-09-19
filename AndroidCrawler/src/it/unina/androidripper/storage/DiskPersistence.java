@@ -1,5 +1,6 @@
 package it.unina.androidripper.storage;
 
+import static it.unina.androidripper.Resources.TAG;
 import it.unina.androidripper.model.ImageStorage;
 import it.unina.androidripper.model.Persistence;
 import it.unina.androidripper.model.SaveStateListener;
@@ -185,7 +186,7 @@ public class DiskPersistence implements Persistence, ImageStorage {
 			streamWriter = new OutputStreamWriter(fileOutput);
 			if (fileOutput != null) {
 				image.compress(Bitmap.CompressFormat.JPEG, 90, fileOutput);
-				Log.i("androidripper","Saved image on disk: " + name);
+				Log.i(TAG,"Saved image on disk: " + name);
 			}
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block

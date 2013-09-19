@@ -7,6 +7,7 @@ import android.util.Log;
 import com.nofatclips.androidtesting.model.ActivityState;
 import com.nofatclips.androidtesting.model.WidgetState;
 
+import static it.unina.androidripper.Resources.TAG;
 import static com.nofatclips.androidtesting.model.SimpleType.*;
 import static it.unina.androidripper.strategy.comparator.Resources.*;
 
@@ -52,28 +53,28 @@ public class CustomWidgetsSimpleComparator extends NameComparator {
 		if (this.byName && !super.compare (currentActivity, storedActivity)) return false; // Different name, different activity, early return
 			
 		// Check if current has at least one widget that stored ain't got
-		Log.d("androidripper","Looking for additional widgets");
+		Log.d(TAG,"Looking for additional widgets");
 		for (WidgetState campo: currentActivity) {
 			int id = Integer.valueOf(campo.getId());
 			String type = campo.getSimpleType();
-			Log.d("androidripper","Comparator found widget " + id + " (type = " + type + ")");
+			Log.d(TAG,"Comparator found widget " + id + " (type = " + type + ")");
 			
 			if (matchClass(campo.getSimpleType()) && (id>0) ) {
-				Log.v("androidripper","Comparing " + type + " #" + id);
+				Log.v(TAG,"Comparing " + type + " #" + id);
 				if (!lookFor(campo, storedActivity)) return false;
 				checkedAlready.add(campo.getId()); // store widgets checked in this step to skip them in the next step
 			}
 		}
 		
 		// Check if stored has at least one widget that current ain't got. Skip if already checked.
-		Log.d("androidripper","Looking for missing widgets");
+		Log.d(TAG,"Looking for missing widgets");
 		for (WidgetState campo: storedActivity) {
 			int id = Integer.valueOf(campo.getId());
 			String type = campo.getSimpleType();
-			Log.d("androidripper","Comparator found widget " + id + " (type = " + type + ")");
+			Log.d(TAG,"Comparator found widget " + id + " (type = " + type + ")");
 			
 			if ( matchClass(campo.getSimpleType()) && (id>0) && (!checkedAlready.contains(campo.getId())) ) {
-				Log.v("androidripper","Comparing " + type + " #" + id);
+				Log.v(TAG,"Comparing " + type + " #" + id);
 				if (!lookFor(campo, currentActivity)) return false;
 			}
 		}

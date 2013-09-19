@@ -1,6 +1,7 @@
 package it.unina.androidripper.storage;
 
 import it.unina.androidripper.model.*;
+import static it.unina.androidripper.Resources.TAG;
 import static it.unina.androidripper.storage.Resources.ONLY_FINALTRANSITION;
 
 import java.io.*;
@@ -58,23 +59,23 @@ public class ResumingPersistence extends StepDiskPersistence implements Dispatch
 	public void saveTaskList() {
 		// No tasks to save
 		if (noTasks()) {
-			Log.d("androidripper", "Task list is empty. Deleting file from disk.");
+			Log.d(TAG, "Task list is empty. Deleting file from disk.");
 			delete (getTaskListFileName());
 			return;
 		}
 		
 		// Creating a copy of the backup file
 		if (exists(getTaskListFileName())) {
-			Log.d("androidripper", "Performing backup of the old task list on disk");
+			Log.d(TAG, "Performing backup of the old task list on disk");
 			backupFile (getTaskListFileName());
 		}
 
 		// Saving tasks in XML format - the old content of tasklist.xml is deleted
 		try {
-			Log.d("androidripper", "Saving task list on disk");
+			Log.d(TAG, "Saving task list on disk");
 			openTaskFile();
 			for (Trace task: this.taskList) {
-				Log.v("androidripper", "Backing up trace #" + task.getId() + " to disk.");
+				Log.v(TAG, "Backing up trace #" + task.getId() + " to disk.");
 				String xml = new String();
 				if (ONLY_FINALTRANSITION){
 					Transition support = task.getFinalTransition();
@@ -94,11 +95,11 @@ public class ResumingPersistence extends StepDiskPersistence implements Dispatch
 
 		// Deleting backup copies
 		if (exists(backup(this.taskListFile))) {
-			Log.d("androidripper", "Deleting backup of the old task list from disk");
+			Log.d(TAG, "Deleting backup of the old task list from disk");
 			delete (backup(this.taskListFile));
 		}
 		if (exists(backup(this.activityFile))) {
-			Log.d("androidripper", "Deleting backup of the old activity list from disk");
+			Log.d(TAG, "Deleting backup of the old activity list from disk");
 			delete (backup(this.activityFile));
 		}
 
@@ -106,20 +107,20 @@ public class ResumingPersistence extends StepDiskPersistence implements Dispatch
 	
 	public boolean canHasResume () {
 		if (!exists(getFileName())) {
-			Log.d("androidripper", "No session to resume: GUI Tree not found. Will start from scratch.");
+			Log.d(TAG, "No session to resume: GUI Tree not found. Will start from scratch.");
 			return false; // GUI Tree not found
 		}
 		if (!exists(getActivityFileName())) throw new Error("Cannot resume previous session: state list not found.");
 		if (exists(backup(getTaskListFileName()))) {
-			Log.d("androidripper", "Restoring backup of the task list");
+			Log.d(TAG, "Restoring backup of the task list");
 			restoreFile(getTaskListFileName());
 			if (exists(backup(getActivityFileName()))) {
-				Log.d("androidripper", "Restoring backup of the activity list");
+				Log.d(TAG, "Restoring backup of the activity list");
 				restoreFile(getActivityFileName());
 			}
 		}
 		if (!exists(getTaskListFileName())) {
-			Log.d("androidripper", "No session to resume: task list not found. Will start from scratch.");
+			Log.d(TAG, "No session to resume: task list not found. Will start from scratch.");
 			return false;
 		}
 		return true;
@@ -185,13 +186,13 @@ public class ResumingPersistence extends StepDiskPersistence implements Dispatch
 
 		// Creating a copy of the state file
 		if (exists(getActivityFileName())) {
-			Log.d("androidripper", "Performing backup of the old activity list on disk");
+			Log.d(TAG, "Performing backup of the old activity list on disk");
 			backupFile (getActivityFileName());
 		}
 		
 		// Updating the file
 		try {
-			Log.d("androidripper", "Saving new found state '" + newState.getId() + "' on disk");
+			Log.d(TAG, "Saving new found state '" + newState.getId() + "' on disk");
 			openStateFile(newState instanceof FinalActivity); // append if final activity - write from scratch if start activity
 			String xml = ((ElementWrapper)newState).toXml() + System.getProperty("line.separator");
 			writeOnStateFile(xml);
@@ -210,7 +211,7 @@ public class ResumingPersistence extends StepDiskPersistence implements Dispatch
 		saveParameters();
 		saveTaskList();
 		if (noTasks()) { // Deletes file when crawling is over
-			Log.d("androidripper", "Task list is empty: no resume needed. Deleting parameters and activity list from disk.");
+			Log.d(TAG, "Task list is empty: no resume needed. Deleting parameters and activity list from disk.");
 			delete (backup(getActivityFileName()));
 			delete (getParametersFileName());
 			delete (backup(getParametersFileName()));
@@ -253,7 +254,7 @@ public class ResumingPersistence extends StepDiskPersistence implements Dispatch
 		BufferedReader theStream = null;
 		String line;
 		List<String> output = new ArrayList<String>();
-		Log.i("androidripper", "Reading task file");
+		Log.i(TAG, "Reading task file");
 		try{
 			theFile = w.openFileInput (getTaskListFileName());
 			theStream = new BufferedReader (new FileReader (theFile.getFD()));
@@ -272,7 +273,7 @@ public class ResumingPersistence extends StepDiskPersistence implements Dispatch
 		BufferedReader theStream = null;
 		String line;
 		List<String> output = new ArrayList<String>();
-		Log.i("androidripper", "Reading state file");
+		Log.i(TAG, "Reading state file");
 		try{
 			theFile = w.openFileInput (getActivityFileName());
 			theStream = new BufferedReader (new FileReader (theFile.getFD()));
@@ -301,7 +302,7 @@ public class ResumingPersistence extends StepDiskPersistence implements Dispatch
 
 	public void openStateFile (boolean append) {
 		try{
-			Log.v("androidripper", "Opening state file in " + ((append)?"append":"overwrite") + " mode.");
+			Log.v(TAG, "Opening state file in " + ((append)?"append":"overwrite") + " mode.");
 			this.stateFile = w.openFileOutput(getActivityFileName(), (append)?ContextWrapper.MODE_APPEND:ContextWrapper.MODE_PRIVATE);
 			this.stateStream = new OutputStreamWriter(this.stateFile);
 		}

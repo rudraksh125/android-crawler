@@ -25,6 +25,7 @@ import com.nofatclips.androidtesting.guitree.*;
 import com.nofatclips.androidtesting.model.*;
 import com.nofatclips.dictionary.ContentTypeDetector;
 
+import static it.unina.androidripper.Resources.TAG;
 import static it.unina.androidripper.storage.Resources.*;
 import static it.unina.androidripper.automation.AbstractorUtilities.*;
 
@@ -114,19 +115,16 @@ public class GuiTreeAbstractor implements Abstractor, FilterHandler, SaveStateLi
 		w.setSimpleType(getTypeDetector().getSimpleType(v));
 		
 		if (v instanceof AutoCompleteTextView){
-			//do Nothing
+			// do Nothing
 		}else if (v instanceof EditText){
 			
-				/** @author nicola */
-				if (	//Resources.DETECT_ON_FOCUS_CHANGE_LISTENER &&
-						v.isFocusable()
+				if (	v.isFocusable()
 						&&	v.isFocusableInTouchMode()
 						&&	ReflectionHelper.checkIfFieldIsSet(v, "android.view.View", "mOnFocusChangeListener")
 					)
 				{
 					w.setSimpleType(SimpleType.FOCUSABLE_EDIT_TEXT);
 				}
-				/** @author nicola */
 				
 		}
 		
@@ -136,16 +134,14 @@ public class GuiTreeAbstractor implements Abstractor, FilterHandler, SaveStateLi
 		w.setClickable((v.isClickable())?"true":"false");
 		w.setLongClickable((v.isLongClickable())?"true":"false");
 
-		/** @author nicola */
 		//if duplicato perche' nome e valore vengono settati dopo l'if precedente
 		if (v instanceof TextView) {
 			//default
 			String txtId = reflectTextualIDbyNumericalID(v.getId());
-			Log.v("androidripper", "TextualID : " + txtId);
+			Log.v(TAG, "TextualID : " + txtId);
 			w.setContentType(ContentTypeDetector.detect(w, txtId));
-			Log.v("androidripper", "ContentType detected : " + w.getContentType());			
+			Log.v(TAG, "ContentType detected : " + w.getContentType());			
 		}
-		/** @author nicola */
 		
 		return w;
 	}
@@ -269,7 +265,7 @@ public class GuiTreeAbstractor implements Abstractor, FilterHandler, SaveStateLi
 			t.setEvent (event);
 		}
 		catch (DOMException e) {
-			Log.i("androidripper", "Abstractor->createStep(activity): " + ((e.code==DOMException.HIERARCHY_REQUEST_ERR)?"HIERARCHY_REQUEST_ERR":String.valueOf(e.code)));
+			Log.i(TAG, "Abstractor->createStep(activity): " + ((e.code==DOMException.HIERARCHY_REQUEST_ERR)?"HIERARCHY_REQUEST_ERR":String.valueOf(e.code)));
 		}
 		return t;
 	}
@@ -315,7 +311,7 @@ public class GuiTreeAbstractor implements Abstractor, FilterHandler, SaveStateLi
 		this.inputId = sessionParams.getInt(INPUT_PARAM_NAME);
 		this.activityId = sessionParams.getInt(ACTIVITY_PARAM_NAME);
 		this.widgetId = sessionParams.getInt(WIDGET_PARAM_NAME);
-		Log.d("androidripper", "Restored abstractor counters to: event = " + eventId + " - input = " + inputId + " - activity = " + activityId);
+		Log.d(TAG, "Restored abstractor counters to: event = " + eventId + " - input = " + inputId + " - activity = " + activityId);
 	}
 
 	public String getListenerName() {

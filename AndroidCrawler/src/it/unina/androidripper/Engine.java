@@ -54,7 +54,7 @@ public abstract class Engine extends ActivityInstrumentationTestCase2 implements
 	}
 
 	protected void setupFirstStart() {
-		Log.i("androidripper", "Starting a new session");
+		Log.i(TAG, "Starting a new session");
 		ActivityState baseActivity = getAbstractor().getBaseActivity(); 
 		getStrategy().addState(baseActivity);
 		if (screenshotEnabled()) {
@@ -63,7 +63,9 @@ public abstract class Engine extends ActivityInstrumentationTestCase2 implements
 		planFirstTests(baseActivity);
 	}
 
-	protected void setupAfterResume() {/* do nothing*/}
+	protected void setupAfterResume() {
+		// do nothing
+	}
 
 	public void testAndCrawl() {
 		for (Trace theTask: getScheduler()) {
@@ -111,17 +113,17 @@ public abstract class Engine extends ActivityInstrumentationTestCase2 implements
 	public boolean resume() {
 		boolean flag = ENABLE_RESUME;
 		if (!flag) {
-			Log.i("androidripper", "Resume not enabled.");
+			Log.i(TAG, "Resume not enabled.");
 			return false;
 		}
 		if (!(getPersistence() instanceof ResumingPersistence)) {
-			Log.w("androidripper", "The instance of Persistence does not implement Resuming.");
+			Log.w(TAG, "The instance of Persistence does not implement Resuming.");
 			return false;
 		}
 		
 		ResumingPersistence r = (ResumingPersistence)getPersistence();
 		if (!r.canHasResume()) return false;
-		Log.i("androidripper", "Attempting to resume previous session");
+		Log.i(TAG, "Attempting to resume previous session");
 
 		importTaskList(r);
 		
@@ -136,7 +138,7 @@ public abstract class Engine extends ActivityInstrumentationTestCase2 implements
 
 	public void importActivitiyList(ResumingPersistence r) {
 		if (getStrategy().getComparator() instanceof StatelessComparator) {
-			Log.i("androidripper","Stateless comparator: the state file will not be loaded.");
+			Log.i(TAG,"Stateless comparator: the state file will not be loaded.");
 			return;
 		}
 		List<String> entries;
@@ -150,7 +152,7 @@ public abstract class Engine extends ActivityInstrumentationTestCase2 implements
 			e = ((XmlGraph)sandboxSession).getDom().getDocumentElement();
 			s = getAbstractor().importState (e);
 			stateList.add(s);
-			Log.d("androidripper", "Imported activity state " + s.getId() + " from disk");
+			Log.d(TAG, "Imported activity state " + s.getId() + " from disk");
 		}
 		for (ActivityState state: stateList) {
 			getStrategy().addState(state);
@@ -160,7 +162,7 @@ public abstract class Engine extends ActivityInstrumentationTestCase2 implements
 	public void importTaskList(ResumingPersistence r) {
 		boolean noLoadTasks = this instanceof MemorylessEngine;
 		if (noLoadTasks) {
-			Log.i("androidripper","Memoryless engine: the task file will not be loaded. Looking for crashed traces.");
+			Log.i(TAG,"Memoryless engine: the task file will not be loaded. Looking for crashed traces.");
 		}
 		List<String> entries;
 		Session sandboxSession = getNewSession();
@@ -173,12 +175,12 @@ public abstract class Engine extends ActivityInstrumentationTestCase2 implements
 			e = ((XmlGraph)sandboxSession).getDom().getDocumentElement();
 			t = getAbstractor().importTask (e);
 			if (t.isFailed()) {
-				Log.d("androidripper", "Importing crashed trace #" + t.getId() + " from disk");
+				Log.d(TAG, "Importing crashed trace #" + t.getId() + " from disk");
 				getSession().addCrashedTrace(t);
 			} else if (noLoadTasks) {
-				Log.v("androidripper", "Discarding trace #" + t.getId());
+				Log.v(TAG, "Discarding trace #" + t.getId());
 			} else {
-				Log.d("androidripper", "Importing trace #" + t.getId() + " from disk");
+				Log.d(TAG, "Importing trace #" + t.getId() + " from disk");
 				taskList.add(t);
 			}
 		}
@@ -219,7 +221,7 @@ public abstract class Engine extends ActivityInstrumentationTestCase2 implements
 	
 	public void onLoadingState(SessionParams sessionParams) {
 		this.id = sessionParams.getInt(PARAM_NAME);
-		Log.d("androidripper","Restored trace count to " + this.id);
+		Log.d(TAG,"Restored trace count to " + this.id);
 	}
 	
 	public Robot getRobot() {

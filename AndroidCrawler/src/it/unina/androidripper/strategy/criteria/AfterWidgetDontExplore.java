@@ -1,8 +1,8 @@
 package it.unina.androidripper.strategy.criteria;
 
+import static it.unina.androidripper.Resources.TAG;
 import it.unina.androidripper.model.Strategy;
 import android.util.Log;
-
 
 public class AfterWidgetDontExplore implements ExplorationCriteria {
 
@@ -32,7 +32,7 @@ public class AfterWidgetDontExplore implements ExplorationCriteria {
 	private boolean checkWidgetId() {
 		String widgetId = this.theStrategy.getTask().getFinalTransition().getEvent().getWidgetId();
 		if (widgetId.equals("")) return true;
-		Log.i("androidripper", "Checking for exploration: event widget id = " + widgetId);
+		Log.i(TAG, "Checking for exploration: event widget id = " + widgetId);
 		for (String id: this.forbiddenWidgets) {
 			if (id.equals(widgetId)) return false;
 		}

@@ -1,5 +1,6 @@
 package it.unina.androidripper.strategy.criteria;
 
+import static it.unina.androidripper.Resources.TAG;
 import it.unina.androidripper.model.SaveStateListener;
 import it.unina.androidripper.model.SessionParams;
 import it.unina.androidripper.model.Strategy;
@@ -27,7 +28,7 @@ public class TimeElapsedTermination implements TerminationCriteria, SaveStateLis
 	
 	public boolean termination () {
 		long current = (SystemClock.uptimeMillis()-this.start)/1000;
-		Log.i ("androidripper", "Check for termination. Time elapsed: " + current + "s; time limit: " + this.max + "s");
+		Log.i (TAG, "Check for termination. Time elapsed: " + current + "s; time limit: " + this.max + "s");
 		return (current>=max);
 	}
 	

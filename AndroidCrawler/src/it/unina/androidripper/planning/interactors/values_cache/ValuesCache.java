@@ -1,5 +1,6 @@
 package it.unina.androidripper.planning.interactors.values_cache;
 
+import static it.unina.androidripper.Resources.TAG;
 import it.unina.androidripper.model.SaveStateListener;
 import it.unina.androidripper.model.SessionParams;
 import it.unina.androidripper.storage.PersistenceFactory;
@@ -143,7 +144,7 @@ public class ValuesCache extends HashMap<String,String[]> implements SaveStateLi
 			streamWriter = new ObjectOutputStream(fileOutput);
 			if (fileOutput != null) {
 				streamWriter.writeObject(this);
-				Log.i("androidripper","Saved values cache on disk: " + name);
+				Log.i(TAG,"Saved values cache on disk: " + name);
 			}
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block

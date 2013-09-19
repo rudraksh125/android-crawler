@@ -1,5 +1,6 @@
 package it.unina.androidripper.storage;
 
+import static it.unina.androidripper.Resources.TAG;
 import static it.unina.androidripper.storage.Resources.*;
 
 import it.unina.androidripper.automation.ScreenshotFactory;
@@ -45,7 +46,7 @@ public class PersistenceFactory {
 	public Persistence getPersistence () {
 		Persistence thePersistence;
 		if (resumingPersistence()) {
-			Log.d("androidripper", "Generated Resuming Persistence");
+			Log.d(TAG, "Generated Resuming Persistence");
 			ResumingPersistence resumer = new ResumingPersistence();
 			thePersistence = resumer;
 			
@@ -64,10 +65,10 @@ public class PersistenceFactory {
 				((SimpleStrategy)getStrategy()).registerStateListener(resumer);				
 			}
 		} else if (stepPersistence()) {
-			Log.d("androidripper", "Generated Step Persistence with step = " + Resources.MAX_TRACES_IN_RAM);
+			Log.d(TAG, "Generated Step Persistence with step = " + Resources.MAX_TRACES_IN_RAM);
 			thePersistence = new StepDiskPersistence (Resources.MAX_TRACES_IN_RAM);
 		} else {
-			Log.d("androidripper", "Generated Default Persistence");
+			Log.d(TAG, "Generated Default Persistence");
 			thePersistence = new DiskPersistence();
 		}
 		

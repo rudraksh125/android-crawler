@@ -18,7 +18,6 @@ public class Resources implements ResourceFile {
 
 	// Screenshot Parameters
 	public static boolean SCREENSHOT_FOR_STATES = true; // Performs an image capture of the screen after processing a task
-	//public static boolean SCREENSHOT_FOR_EVENTS = true; // Performs an image capture of the screen before firing an event
 	public static boolean SCREENSHOT_ONLY_NEW_STATES = false; // Capture only if comparation was negative - Only relevant if SCREENSHOT_FOR_STATES is true
 
 	static {

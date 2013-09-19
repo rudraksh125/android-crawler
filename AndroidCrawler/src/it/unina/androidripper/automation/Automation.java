@@ -2,6 +2,7 @@ package it.unina.androidripper.automation;
 
 import static com.nofatclips.androidtesting.model.InteractionType.*;
 import static com.nofatclips.androidtesting.model.SimpleType.*;
+import static it.unina.androidripper.Resources.TAG;
 import static it.unina.androidripper.automation.Resources.*;
 import static it.unina.androidripper.automation.RobotUtilities.*;
 import it.unina.androidripper.model.*;
@@ -68,7 +69,7 @@ public class Automation implements Robot, Extractor, TaskProcessor, ImageCaptor,
 		this.solo = RobotUtilities.createRobotium (test);
 		afterRestart();
 		refreshCurrentActivity();
-		Log.w ("androidripper","--->" + ExtractorUtilities.getActivity().getLocalClassName());
+		Log.w (TAG,"--->" + ExtractorUtilities.getActivity().getLocalClassName());
 	}
 
 	// Initializations
@@ -76,21 +77,21 @@ public class Automation implements Robot, Extractor, TaskProcessor, ImageCaptor,
 		this.solo = RobotUtilities.createRobotiumWithInstrumentationTestCase (test, activity);
 		afterRestart();
 		refreshCurrentActivity();
-		Log.w ("androidripper","--->" + ExtractorUtilities.getActivity().getLocalClassName());
+		Log.w (TAG,"--->" + ExtractorUtilities.getActivity().getLocalClassName());
 	}
 	public void execute (Trace t) {
 		this.theRobot.process (t);
 	}
 	
 	public void process (Trace t) {
-		Log.i ("androidripper", "Restarting");
+		Log.i (TAG, "Restarting");
 		if (FORCE_RESTART) {
 			this.restarter.restart();
 			this.precrawlNeeded = true;
 		}
 		afterRestart();
 		extractState();
-		Log.i ("androidripper", "Playing Trace " + t.getId());
+		Log.i (TAG, "Playing Trace " + t.getId());
 		for (Transition step: t) {
 			process (step);
 		}
@@ -117,10 +118,10 @@ public class Automation implements Robot, Extractor, TaskProcessor, ImageCaptor,
 		String eventType = e.getType();
 		String eventValue = e.getValue();
 		if (eventType.equals(BACK) || eventType.equals(SCROLL_DOWN)) { // Special events
-			Log.i("androidripper", "Firing event: type= " + eventType);
+			Log.i(TAG, "Firing event: type= " + eventType);
 			fireEventOnView(null, eventType, null);
 		} else if (eventType.equals(CLICK_ON_TEXT)) {
-			Log.i("androidripper", "Firing event: type= " + eventType + " value= " + eventValue);
+			Log.i(TAG, "Firing event: type= " + eventType + " value= " + eventValue);
 			fireEventOnView(null, eventType, eventValue);
 		} else {
 			View v = null;
@@ -128,13 +129,13 @@ public class Automation implements Robot, Extractor, TaskProcessor, ImageCaptor,
 				v = getAllWidgets().get(e.getWidget().getIndex()); // Search widget by index
 			}
 			if ((v!=null) && checkWidgetEquivalence(v, Integer.parseInt(e.getWidgetId()), e.getWidgetType(), e.getWidgetName())) { // Widget found
-				Log.i("androidripper", "Firing event: type= " + eventType + " index=" + e.getWidget().getIndex() + " widget="+ e.getWidgetType());
+				Log.i(TAG, "Firing event: type= " + eventType + " index=" + e.getWidget().getIndex() + " widget="+ e.getWidgetType());
 				fireEventOnView (v, eventType, eventValue);
 			} else if (e.getWidgetId().equals("-1")) { // Widget not found. Search widget by name
-				Log.i("androidripper", "Firing event: type= " + eventType + " name=" + e.getWidgetName() + " widget="+ e.getWidgetType());
+				Log.i(TAG, "Firing event: type= " + eventType + " name=" + e.getWidgetName() + " widget="+ e.getWidgetType());
 				fireEvent (e.getWidgetName(), e.getWidget().getSimpleType(), eventType, eventValue);
 			} else { // Widget not found. Search widget by id
-				Log.i("androidripper", "Firing event: type= " + eventType + " id=" + e.getWidgetId() + " widget="+ e.getWidgetType());
+				Log.i(TAG, "Firing event: type= " + eventType + " id=" + e.getWidgetId() + " widget="+ e.getWidgetType());
 				fireEvent (Integer.parseInt(e.getWidgetId()), e.getWidgetName(), e.getWidget().getSimpleType(), eventType, eventValue);
 			}
 		}
@@ -142,7 +143,7 @@ public class Automation implements Robot, Extractor, TaskProcessor, ImageCaptor,
 	}
 
 	public void setInput(UserInput i) {
-		Log.i("androidripper", "Setting input: type= " + i.getType() + " id=" + i.getWidgetId() + " value="+ i.getValue());
+		Log.i(TAG, "Setting input: type= " + i.getType() + " id=" + i.getWidgetId() + " value="+ i.getValue());
 		setInput (Integer.parseInt(i.getWidgetId()), i.getType(), i.getValue(), i.getWidgetName(), i.getWidgetType());
 	}
 	
@@ -255,7 +256,7 @@ public class Automation implements Robot, Extractor, TaskProcessor, ImageCaptor,
 			
 	private void refreshCurrentActivity() {
 		ExtractorUtilities.setActivity(solo.getCurrentActivity());
-		Log.i("androidripper", "Current activity is " + getActivity().getLocalClassName());
+		Log.i(TAG, "Current activity is " + getActivity().getLocalClassName());
 	}
 
 	private void setInput (int widgetId, String inputType, String value, String widgetName, String widgetType) {
@@ -299,18 +300,18 @@ public class Automation implements Robot, Extractor, TaskProcessor, ImageCaptor,
 	public void retrieveWidgets () {
 		RobotUtilities.home();
 		clearWidgetList();
-		Log.i("androidripper", "Retrieving widgets");
+		Log.i(TAG, "Retrieving widgets");
 		ArrayList<View> viewList = (isInAndOutFocusEnabled())?solo.getViews():solo.getCurrentViews();
 		for (View w: viewList) {
 			String text = (w instanceof TextView)?": "+((TextView)w).getText().toString():"";
-			Log.d("androidripper", "Found widget: id=" + w.getId() + " ("+ w.toString() + ")" + text); // + " in window at [" + xy[0] + "," + xy[1] + "] on screen at [" + xy2[0] + "," + xy2[1] +"]");			
+			Log.d(TAG, "Found widget: id=" + w.getId() + " ("+ w.toString() + ")" + text); // + " in window at [" + xy[0] + "," + xy[1] + "] on screen at [" + xy2[0] + "," + xy2[1] +"]");			
 			allViews.add(w);
 			if (w.getId()>0) {
 				theViews.put(w.getId(), w); // Add only if the widget has a valid ID
 			}
 			if (w instanceof TabHost) {
 				setTabs((TabHost)w);
-				Log.d("androidripper", "Found tabhost: id=" + w.getId());
+				Log.d(TAG, "Found tabhost: id=" + w.getId());
 			}
 		}
 	}
@@ -353,11 +354,11 @@ public class Automation implements Robot, Extractor, TaskProcessor, ImageCaptor,
 			extractState();
 			processPrecrawling();
 		}
-		Log.d("androidripper", "Ready to operate after restarting...");
+		Log.d(TAG, "Ready to operate after restarting...");
 	}
 	
 	private void processPrecrawling() {
-		Log.i("androidripper", "Processing precrawling");
+		Log.i(TAG, "Processing precrawling");
 		String[] params = new String[3];
 		int paramCount=0;
 		for (String s: PRECRAWLING) {
@@ -365,18 +366,18 @@ public class Automation implements Robot, Extractor, TaskProcessor, ImageCaptor,
 				switch (paramCount) {
 					case 0: continue;
 					case 1: {
-						Log.i ("androidripper", "Firing event " + params[0]);
+						Log.i (TAG, "Firing event " + params[0]);
 						fireEventOnView(null, params[0], null);
 						break;
 					}
 					case 2: {
-						Log.i ("androidripper", "Firing event " + params[0] + " with value: " + params[1]);
+						Log.i (TAG, "Firing event " + params[0] + " with value: " + params[1]);
 						fireEventOnView(null, params[0], params[1]);
 						break;
 					}	
 					case 3: {
 						View v = getWidget(Integer.parseInt(params[1]));
-						Log.i ("androidripper", "Firing event " + params[0] + " on widget #" + params[1] + " with value: " + params[2]);
+						Log.i (TAG, "Firing event " + params[0] + " on widget #" + params[1] + " with value: " + params[2]);
 						fireEventOnView(v, params[0], params[2]);
 						break;
 					}
@@ -402,7 +403,7 @@ public class Automation implements Robot, Extractor, TaskProcessor, ImageCaptor,
 					if (b.isShown() &&  b.isIndeterminate()) {
 						int newId = b.getId();
 						if (newId != oldId) { // Only log if the throbber changed since the last time
-							Log.d("androidripper", "Waiting on Progress Bar #" + newId);
+							Log.d(TAG, "Waiting on Progress Bar #" + newId);
 							oldId = newId;
 						}
 						flag = true;
@@ -432,14 +433,14 @@ public class Automation implements Robot, Extractor, TaskProcessor, ImageCaptor,
 	}
 	
 	public boolean checkWidgetEquivalence (View testee, int theId, String theType, String theName) {
-		Log.i("androidripper", "Retrieved from return list id=" + testee.getId());
+		Log.i(TAG, "Retrieved from return list id=" + testee.getId());
 		
 		String testeeType = AbstractorUtilities.getType(testee); 
-		Log.d("androidripper", "Testing for type (" + testeeType + ") against the original (" + theType + ")");
+		Log.d(TAG, "Testing for type (" + testeeType + ") against the original (" + theType + ")");
 		if ( !(theType.equals(testeeType)) ) return false;
 		
 		String testeeName = AbstractorUtilities.detectName(testee);
-		Log.d("androidripper", "Testing for name (" + testeeName + ") against the original (" + theName + ")");
+		Log.d(TAG, "Testing for name (" + testeeName + ") against the original (" + theName + ")");
 		return ( (theName.equals(testeeName)) && (theId == testee.getId()) );
 	}
 	
@@ -447,7 +448,7 @@ public class Automation implements Robot, Extractor, TaskProcessor, ImageCaptor,
 		ArrayList<View> theList = new ArrayList<View>();
 		for (View theView: getAllWidgets()) {
 			if (theView.getId() == id) {
-				Log.d("androidripper", "Added to return list id=" + id);
+				Log.d(TAG, "Added to return list id=" + id);
 				theList.add(theView);
 			}
 		}

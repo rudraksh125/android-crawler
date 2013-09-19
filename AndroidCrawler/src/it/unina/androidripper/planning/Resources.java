@@ -22,9 +22,6 @@ public class Resources implements ResourceFile {
 	//comportamento di write_text/type_text normale o con valori presi dal dizionario (true)
 	public static boolean TEXT_VALUES_FROM_DICTIONARY = false;
 	
-	//public static boolean VALID_DICTIONARY_VALUES = true;
-	//public static boolean INVALID_DICTIONARY_VALUES = true;
-	
 	//il valore deve essere sistematico o meno (attiva il caching dei valori)
 	public static boolean DICTIONARY_FIXED_VALUE = false;
 	

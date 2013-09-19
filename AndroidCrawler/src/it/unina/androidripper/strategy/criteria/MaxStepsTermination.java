@@ -1,5 +1,6 @@
 package it.unina.androidripper.strategy.criteria;
 
+import static it.unina.androidripper.Resources.TAG;
 import it.unina.androidripper.model.SaveStateListener;
 import it.unina.androidripper.model.SessionParams;
 import it.unina.androidripper.model.Strategy;
@@ -26,7 +27,7 @@ public class MaxStepsTermination implements TerminationCriteria, SaveStateListen
 
 	public boolean termination () {
 		this.current--;
-		Log.i("androidripper", "Check for termination: " + current + " steps left of " + max);
+		Log.i(TAG, "Check for termination: " + current + " steps left of " + max);
 		return (this.current==0);
 	}
 	
@@ -42,7 +43,7 @@ public class MaxStepsTermination implements TerminationCriteria, SaveStateListen
 
 	public void onLoadingState(SessionParams sessionParams) {
 		this.current = sessionParams.getInt(PARAM_NAME);
-		Log.d("androidripper", "Current step countdown restored to " + this.current);
+		Log.d(TAG, "Current step countdown restored to " + this.current);
 	}
 
 	public String getListenerName() {

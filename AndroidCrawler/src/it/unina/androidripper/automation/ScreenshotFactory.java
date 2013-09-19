@@ -1,11 +1,13 @@
 package it.unina.androidripper.automation;
 
+import static it.unina.androidripper.Resources.TAG;
 import it.unina.androidripper.model.ImageCaptor;
 import it.unina.androidripper.model.ImageStorage;
 
 import java.io.IOException;
 
 import android.graphics.Bitmap;
+import android.util.Log;
 
 
 public class ScreenshotFactory {
@@ -38,8 +40,7 @@ public class ScreenshotFactory {
 		try {
 			theImageStorage.saveImage(b, id);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			// e.printStackTrace();
+			Log.e(TAG, e.toString());
 		}
 		return true;		
 	}

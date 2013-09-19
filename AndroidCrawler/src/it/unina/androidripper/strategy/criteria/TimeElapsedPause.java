@@ -1,9 +1,9 @@
 package it.unina.androidripper.strategy.criteria;
 
+import static it.unina.androidripper.Resources.TAG;
 import it.unina.androidripper.model.Strategy;
 import android.os.SystemClock;
 import android.util.Log;
-
 
 public class TimeElapsedPause implements PauseCriteria {
 	
@@ -21,7 +21,7 @@ public class TimeElapsedPause implements PauseCriteria {
 	
 	public boolean pause () {
 		long current = (SystemClock.uptimeMillis()-this.start)/1000;
-		Log.i ("androidripper", "Check for pause. Time elapsed: " + current + "s; time limit: " + this.max + "s");
+		Log.i (TAG, "Check for pause. Time elapsed: " + current + "s; time limit: " + this.max + "s");
 		return (current>=max);
 	}
 	

@@ -1,5 +1,6 @@
 package it.unina.androidripper.strategy.criteria;
 
+import static it.unina.androidripper.Resources.TAG;
 import it.unina.androidripper.model.Strategy;
 import android.util.Log;
 
@@ -28,7 +29,7 @@ public class MaxDepthTermination implements TerminationCriteria {
 
 	public boolean termination() {
 		int transitions = theStrategy.getDepth();
-		Log.i("androidripper", "Checking for depth: this trace is " + transitions + " transitions deep (max = " + getMaxDepth() + ")");
+		Log.i(TAG, "Checking for depth: this trace is " + transitions + " transitions deep (max = " + getMaxDepth() + ")");
 		return (transitions>=getMaxDepth());
 	}
 

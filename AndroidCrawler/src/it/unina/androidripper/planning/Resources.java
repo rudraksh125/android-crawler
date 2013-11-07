@@ -15,21 +15,9 @@ import static android.view.KeyEvent.*;
 @SuppressWarnings("unused")
 public class Resources implements ResourceFile {
 
-	//nome classe del planner (deve ereditare da SimplePlanner)
-	//public static String PLANNER = "DictionarySimplePlanner";
 	public static String PLANNER = "SimplePlanner";
 
-	//comportamento di write_text/type_text normale o con valori presi dal dizionario (true)
-	public static boolean TEXT_VALUES_FROM_DICTIONARY = false;
-	
-	//il valore deve essere sistematico o meno (attiva il caching dei valori)
-	public static boolean DICTIONARY_FIXED_VALUE = false;
-	
-	//prende un valore casuale di qualsiasi contentType dal dizionario
-	public static boolean DICTIONARY_IGNORE_CONTENT_TYPES = false;
-
 	//utilzza gli hash degli id delle EditText per riempire i campi
-	//(e' escluso se si utilizza il dizionario)
 	public static boolean TEXT_VALUES_ID_HASH = false;
 	
 	public static String EVENTS[];

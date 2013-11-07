@@ -5,7 +5,6 @@ import it.unina.androidripper.automation.*;
 import it.unina.androidripper.filters.*;
 import it.unina.androidripper.model.*;
 import it.unina.androidripper.planning.*;
-import it.unina.androidripper.planning.interactors.values_cache.ValuesCache;
 import it.unina.androidripper.storage.PersistenceFactory;
 import it.unina.androidripper.strategy.*;
 import it.unina.androidripper.strategy.comparator.Resources;
@@ -13,7 +12,6 @@ import it.unina.androidripper.strategy.comparator.Resources;
 import java.util.GregorianCalendar;
 import javax.xml.parsers.ParserConfigurationException;
 
-import android.content.Context;
 import android.util.Log;
 
 import com.nofatclips.androidtesting.guitree.GuiTree;
@@ -45,7 +43,6 @@ public class GuiTreeEngine extends Engine {
 			GregorianCalendar c=new GregorianCalendar();
 			theGuiTree.setDateTime(c.getTime().toString());
 		} catch (ParserConfigurationException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		setAbstractor(this.guiAbstractor);
@@ -104,7 +101,6 @@ public class GuiTreeEngine extends Engine {
 		try {
 			super.setUp();
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		theRestarter.setRestartPoint(theAutomation.getActivity());
@@ -122,16 +118,7 @@ public class GuiTreeEngine extends Engine {
 		if (!ACTIVITY_DESCRIPTION_IN_SESSION) {
 			theGuiTree.setStateFileName(ACTIVITY_LIST_FILE_NAME);
 		}
-		
-		if (it.unina.androidripper.planning.Resources.DICTIONARY_FIXED_VALUE){
-			Context ctx = this.getActivity().getApplicationContext();
-			
-			if (ctx == null)
-				ctx = this.getInstrumentation().getTargetContext().getApplicationContext();
-			
-			ValuesCache.init(ctx);
-		}
-		
+				
 	}
 	
 	@Override
@@ -143,7 +130,6 @@ public class GuiTreeEngine extends Engine {
 		try {
 			return new GuiTree();
 		} catch (ParserConfigurationException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return null;

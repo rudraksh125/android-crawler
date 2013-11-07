@@ -9,7 +9,7 @@ import com.nofatclips.androidtesting.model.*;
 
 public abstract class RandomInteractorAdapter extends InteractorAdapter implements RandomInteractor {
 	
-	private Random random;
+	private Random random = new Random();
 	private int min=0;
 	private int max=99;
 

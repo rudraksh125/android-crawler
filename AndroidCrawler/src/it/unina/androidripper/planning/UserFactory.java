@@ -158,13 +158,7 @@ public class UserFactory {
 
 		if (isRequiredEvent(FOCUS)) {
 			
-			if (Resources.TEXT_VALUES_FROM_DICTIONARY)
-			{
-				DictionaryFocusWriter f = new DictionaryFocusWriter(typesForEvent(FOCUS));
-				f.setEventWhenNoId(Resources.EVENT_WHEN_NO_ID);
-				u.addEvent (addDosAndDonts(f));
-			}
-			else if(Resources.TEXT_VALUES_ID_HASH)
+			if(Resources.TEXT_VALUES_ID_HASH)
 			{
 				HashFocusWriter f = new HashFocusWriter(typesForEvent(FOCUS));
 				f.setEventWhenNoId(Resources.EVENT_WHEN_NO_ID);
@@ -186,13 +180,7 @@ public class UserFactory {
 		}
 		
 		if (isRequiredEvent(TYPE_TEXT)) {
-			if (Resources.TEXT_VALUES_FROM_DICTIONARY)
-			{
-				DictionaryValueEditor te = new DictionaryValueEditor(typesForEvent(TYPE_TEXT));
-				te.setEventWhenNoId(Resources.EVENT_WHEN_NO_ID);
-				u.addEvent (addDosAndDonts(te));	
-			}
-			else if(Resources.TEXT_VALUES_ID_HASH)
+			 if(Resources.TEXT_VALUES_ID_HASH)
 			{
 				HashValueEditor te = new HashValueEditor(typesForEvent(TYPE_TEXT));
 				te.setEventWhenNoId(Resources.EVENT_WHEN_NO_ID);
@@ -207,13 +195,7 @@ public class UserFactory {
 		}
 
 		if (isRequiredEvent(WRITE_TEXT)) {
-			if (Resources.TEXT_VALUES_FROM_DICTIONARY)
-			{
-				DictionaryValueWriter we = new DictionaryValueWriter(typesForEvent(WRITE_TEXT));
-				we.setEventWhenNoId(Resources.EVENT_WHEN_NO_ID);
-				u.addEvent (addDosAndDonts(we));
-			}
-			else if(Resources.TEXT_VALUES_ID_HASH)
+			if(Resources.TEXT_VALUES_ID_HASH)
 			{
 				HashValueWriter we = new HashValueWriter(typesForEvent(WRITE_TEXT));
 				we.setEventWhenNoId(Resources.EVENT_WHEN_NO_ID);
@@ -228,13 +210,7 @@ public class UserFactory {
 		}
 		
 		if (isRequiredEvent(ENTER_TEXT)) {
-			if (Resources.TEXT_VALUES_FROM_DICTIONARY)
-			{
-				DictionaryValueEnterWriter ste = new DictionaryValueEnterWriter(typesForEvent(ENTER_TEXT));
-				ste.setEventWhenNoId(Resources.EVENT_WHEN_NO_ID);
-				u.addEvent (addDosAndDonts(ste));
-			}
-			else if(Resources.TEXT_VALUES_ID_HASH)
+			if(Resources.TEXT_VALUES_ID_HASH)
 			{
 				HashValueEnterWriter ste = new HashValueEnterWriter(typesForEvent(ENTER_TEXT));
 				ste.setEventWhenNoId(Resources.EVENT_WHEN_NO_ID);
@@ -298,13 +274,7 @@ public class UserFactory {
 		}
 
 		if (isRequiredInput(FOCUS)) {
-			if (Resources.TEXT_VALUES_FROM_DICTIONARY)
-			{
-				DictionaryFocusWriter f = new DictionaryFocusWriter(typesForInput(FOCUS));
-				f.setEventWhenNoId(Resources.EVENT_WHEN_NO_ID);
-				u.addInput (addDosAndDonts(f));
-			}
-			else if(Resources.TEXT_VALUES_ID_HASH)
+			if(Resources.TEXT_VALUES_ID_HASH)
 			{
 				HashFocusWriter f = new HashFocusWriter(typesForInput(FOCUS));
 				f.setEventWhenNoId(Resources.EVENT_WHEN_NO_ID);
@@ -325,13 +295,7 @@ public class UserFactory {
 		}
 
 		if (isRequiredInput(TYPE_TEXT)) {
-			if (Resources.TEXT_VALUES_FROM_DICTIONARY)
-			{
-				DictionaryValueEditor re = new DictionaryValueEditor(typesForInput(TYPE_TEXT));
-				re.setEventWhenNoId(false);
-				u.addInput (addDosAndDonts(re));	
-			}
-			else if(Resources.TEXT_VALUES_ID_HASH)
+			 if(Resources.TEXT_VALUES_ID_HASH)
 			{
 				HashValueEditor re = new HashValueEditor(typesForInput(TYPE_TEXT));
 				re.setEventWhenNoId(false);
@@ -346,13 +310,7 @@ public class UserFactory {
 		}
 
 		if (isRequiredInput(WRITE_TEXT)) {
-			if (Resources.TEXT_VALUES_FROM_DICTIONARY)
-			{
-				DictionaryValueWriter re = new DictionaryValueWriter(typesForInput(WRITE_TEXT));
-				re.setEventWhenNoId(false);
-				u.addInput (addDosAndDonts(re));
-			}
-			else if(Resources.TEXT_VALUES_ID_HASH)
+			if(Resources.TEXT_VALUES_ID_HASH)
 			{
 				HashValueWriter re = new HashValueWriter(typesForInput(WRITE_TEXT));
 				re.setEventWhenNoId(false);
@@ -367,13 +325,7 @@ public class UserFactory {
 		}
 		
 		if (isRequiredInput(ENTER_TEXT)) {
-			if (Resources.TEXT_VALUES_FROM_DICTIONARY)
-			{
-				DictionaryValueEnterWriter sti = new DictionaryValueEnterWriter(typesForInput(ENTER_TEXT));
-				sti.setEventWhenNoId(false);
-				u.addInput (addDosAndDonts(sti));
-			}
-			else if(Resources.TEXT_VALUES_ID_HASH)
+			if(Resources.TEXT_VALUES_ID_HASH)
 			{
 				HashValueEnterWriter sti = new HashValueEnterWriter(typesForInput(ENTER_TEXT));
 				sti.setEventWhenNoId(false);

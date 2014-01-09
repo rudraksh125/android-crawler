@@ -26,7 +26,7 @@ import android.widget.Spinner;
 import android.widget.TabHost;
 import android.widget.TextView;
 
-import com.jayway.android.robotium.solo.Solo;
+import com.robotium.solo.Solo;
 import com.nofatclips.androidtesting.model.Trace;
 import com.nofatclips.androidtesting.model.Transition;
 import com.nofatclips.androidtesting.model.UserEvent;

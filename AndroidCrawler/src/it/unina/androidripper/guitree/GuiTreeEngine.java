@@ -42,7 +42,7 @@ public class GuiTreeEngine extends Engine {
 			this.theGuiTree = this.guiAbstractor.getTheSession();
 			GregorianCalendar c=new GregorianCalendar();
 			theGuiTree.setDateTime(c.getTime().toString());
-		} catch (ParserConfigurationException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		setAbstractor(this.guiAbstractor);

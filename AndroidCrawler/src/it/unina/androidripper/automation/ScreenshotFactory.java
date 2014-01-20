@@ -4,8 +4,6 @@ import static it.unina.androidripper.Resources.TAG;
 import it.unina.androidripper.model.ImageCaptor;
 import it.unina.androidripper.model.ImageStorage;
 
-import java.io.IOException;
-
 import android.graphics.Bitmap;
 import android.util.Log;
 
@@ -39,7 +37,7 @@ public class ScreenshotFactory {
 		
 		try {
 			theImageStorage.saveImage(b, id);
-		} catch (IOException e) {
+		} catch (Exception e) {
 			Log.e(TAG, e.toString());
 		}
 		return true;		

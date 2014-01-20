@@ -9,7 +9,6 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.prefs.InvalidPreferencesFormatException;
 import java.util.prefs.Preferences;
 
 import android.util.Log;
@@ -69,14 +68,7 @@ public class Prefs {
 		try {
 			is = new BufferedInputStream(new FileInputStream(path));
 			Preferences.importPreferences(is);
-		} catch (FileNotFoundException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (InvalidPreferencesFormatException e) {
-			// TODO Auto-generated catch block
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		prefs = Preferences.userRoot().node(node);
@@ -98,11 +90,7 @@ public class Prefs {
 		    if (Modifier.isFinal(f.getModifiers())) continue;
 		    try {
 				updateValue (f);
-			} catch (IllegalArgumentException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IllegalAccessException e) {
-				// TODO Auto-generated catch block
+			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}

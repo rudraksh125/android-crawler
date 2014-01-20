@@ -19,6 +19,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
+import android.widget.SlidingDrawer;
 import android.widget.TextView;
 
 import com.nofatclips.androidtesting.guitree.*;
@@ -29,6 +30,7 @@ import static it.unina.androidripper.Resources.TAG;
 import static it.unina.androidripper.storage.Resources.*;
 import static it.unina.androidripper.automation.AbstractorUtilities.*;
 
+@SuppressWarnings("deprecation")
 public class GuiTreeAbstractor implements Abstractor, FilterHandler, SaveStateListener {
 
 	private GuiTree theSession;
@@ -130,8 +132,15 @@ public class GuiTreeAbstractor implements Abstractor, FilterHandler, SaveStateLi
 		
 		setCount (v,w);
 		setValue (v,w);
-		w.setAvailable((v.isEnabled())?"true":"false");
-		w.setClickable((v.isClickable())?"true":"false");
+		
+		if (v instanceof SlidingDrawer) {
+			w.setAvailable("true");
+			w.setClickable("true");
+		}else{
+			w.setAvailable((v.isEnabled())?"true":"false");
+			w.setClickable((v.isClickable())?"true":"false");
+		}
+		
 		w.setLongClickable((v.isLongClickable())?"true":"false");
 
 		//if duplicato perche' nome e valore vengono settati dopo l'if precedente
@@ -151,7 +160,12 @@ public class GuiTreeAbstractor implements Abstractor, FilterHandler, SaveStateLi
 		
 		for (View v: desc) {
 			hasDescription = true;
-			if (!v.isShown()) continue;
+			
+			if (v instanceof SlidingDrawer) {
+				// do Nothing
+			}
+			else if (!v.isShown()) continue;
+						
 			TestCaseWidget w = createWidget (v);
 			w.setIndex(desc.getWidgetIndex(v));
 			if (detectDuplicates && newActivity.hasWidget(w)) continue;

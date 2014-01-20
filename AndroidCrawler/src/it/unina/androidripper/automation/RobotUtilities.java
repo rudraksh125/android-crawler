@@ -119,7 +119,6 @@ public class RobotUtilities {
 	}
 	
 	// Spinner interactions
-	
 	public static void selectSpinnerItem (Spinner l, String item) {
 		selectSpinnerItem (l, Integer.valueOf(item));
 	}
@@ -133,13 +132,12 @@ public class RobotUtilities {
 	}
 
 	// Text interactions
-	
 	public static void typeText (EditText v, String value) {
 		solo.enterText(v, value);
 	}
 	
 	public static void writeText (EditText v, String value) {
-		typeText (v, "");
+		solo.clearEditText(v);
 		typeText (v, value);
 	}
 	
@@ -154,7 +152,6 @@ public class RobotUtilities {
 	}
 	
 	// Radio Interactions
-	
 	public static void selectRadioItem (RadioGroup r, String value) {
 		selectRadioItem (r, Integer.valueOf(value));
 	}
@@ -168,7 +165,6 @@ public class RobotUtilities {
 	}
 	
 	// Key interactions
-	
 	public static void pressKey (String keyCode) {
 		pressKey (Integer.parseInt(keyCode));
 	}
@@ -181,7 +177,6 @@ public class RobotUtilities {
 	}
 	
 	// Special interactions
-	
 	public static void goBack() {
 		solo.goBack();
 	}
@@ -202,13 +197,11 @@ public class RobotUtilities {
 	}
 	
 	// ActionBar interactions
-	
 	public static void ActionBarHome () {
 		solo.clickOnActionBarHomeButton();
 	}
 	
 	// Progress Bar interactions
-	
 	public static void setProgressBar (View v, String value) {
 		setProgressBar((ProgressBar)v, Integer.parseInt(value));
 	}
@@ -218,7 +211,6 @@ public class RobotUtilities {
 	}
 	
 	// Tab interactions
-
 	public static void swapTab (View v, String tab) {
 		swapTab ((TabHost)v, Integer.valueOf(tab));
 	}

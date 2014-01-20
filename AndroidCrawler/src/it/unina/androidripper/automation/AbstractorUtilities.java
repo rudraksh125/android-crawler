@@ -120,8 +120,9 @@ public class AbstractorUtilities {
 						e.setDescription(name.replaceAll("KEYCODE_", ""));
 						return true;
 					}
-				} catch (IllegalArgumentException iae) {
-				} catch (IllegalAccessException iae) {}
+				} catch (Exception ex) {
+					Log.e(TAG, e.toString());
+				} 
 			}
 		}
 		return false;		

@@ -121,7 +121,7 @@ public class AbstractorUtilities {
 						return true;
 					}
 				} catch (Exception ex) {
-					Log.e(TAG, e.toString());
+					Log.e(TAG, ex.toString());
 				} 
 			}
 		}

@@ -1,12 +1,14 @@
 package it.unina.androidripper.guitree;
 
+import it.unina.androidripper.model.MemorylessEngine;
 import it.unina.androidripper.model.Plan;
 import it.unina.androidripper.model.SaveStateListener;
 import it.unina.androidripper.model.SessionParams;
 import it.unina.androidripper.planning.TraceDispatcher;
 import it.unina.androidripper.storage.PersistenceFactory;
 import it.unina.androidripper.strategy.Resources;
-import it.unina.androidripper.strategy.criteria.MaxDepthTermination;
+import it.unina.androidripper.strategy.criteria.MaxDepthPause;
+//import it.unina.androidripper.strategy.criteria.MaxDepthTermination;
 import it.unina.androidripper.strategy.criteria.OnExitPause;
 
 import java.util.Random;
@@ -21,7 +23,7 @@ import static com.nofatclips.androidtesting.model.InteractionType.*;
 import static it.unina.androidripper.Resources.*;
 import static it.unina.androidripper.planning.TraceDispatcher.SchedulerAlgorithm.DEPTH_FIRST;
 
-public class RandomEngine extends GuiTreeEngine {
+public class RandomEngine extends SystematicEngine implements MemorylessEngine {
 
 	Random taskLottery;
 	boolean first;
@@ -38,17 +40,29 @@ public class RandomEngine extends GuiTreeEngine {
 		this.first = true;
 	}
 
-	// When Max Depth is reached, exit
-	public void addMoreCriteria() {
-		if (Resources.TRACE_MAX_DEPTH > 0) {
-			this.theStrategyFactory.setMoreCriterias(new MaxDepthTermination(Resources.TRACE_MAX_DEPTH));
-		}
-	}
-	
 	@Override
 	protected void setUp () {
 		super.setUp();
 	}
+	
+	@Override
+	protected void setupAfterResume() {
+		planFirstTests(getAbstractor().getBaseActivity());
+	}
+
+	// When Max Depth is reached, pause
+	public void addMoreCriteria() {
+		if (Resources.TRACE_MAX_DEPTH > 0) {
+			this.theStrategyFactory.setMoreCriterias(new MaxDepthPause(Resources.TRACE_MAX_DEPTH));
+		}
+	}
+	
+	// When Max Depth is reached, exit
+//	public void addMoreCriteria() {
+//		if (Resources.TRACE_MAX_DEPTH > 0) {
+//			this.theStrategyFactory.setMoreCriterias(new MaxDepthTermination(Resources.TRACE_MAX_DEPTH));
+//		}
+//	}
 	
 	@Override
 	protected void planTests (Trace theTask, Plan thePlan) {

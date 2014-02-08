@@ -22,9 +22,9 @@ import static it.unina.androidripper.automation.Resources.*;
 import static it.unina.androidripper.storage.Resources.*;
 import static it.unina.androidripper.strategy.Resources.*;
 
-public class GuiTreeEngine extends Engine {
+public class SystematicEngine extends Engine {
 
-	public GuiTreeEngine () {
+	public SystematicEngine () {
 		super ();
 		
 		setScheduler(getNewScheduler());

@@ -16,34 +16,29 @@ import static android.view.KeyEvent.*;
 public class Resources implements ResourceFile {
 
 	public static String PLANNER = "SimplePlanner";
-
-	//utilzza gli hash degli id delle EditText per riempire i campi
-	public static boolean TEXT_VALUES_ID_HASH = false;
 	
 	public static String EVENTS[];
-	public static String INPUTS[];
-	
-	// Additional Interactions
-	public static String EXTRA_EVENTS[];
-	public static String EXTRA_INPUTS[];
 	public static int[] KEY_EVENTS = {};
-	public static ArrayList<InteractorAdapter> ADDITIONAL_EVENTS = new ArrayList<InteractorAdapter>();
-	public static ArrayList<InteractorAdapter> ADDITIONAL_INPUTS = new ArrayList<InteractorAdapter>();
 	
-	
-	// User/Planner Parameters
-	public static int MAX_EVENTS_PER_WIDGET = 0; // For GroupViews (0 = try all items in the group)
-	public static int MAX_TASKS_PER_EVENT = 1; // How many input sequences to generate for each event on a widget; 0 = no limit
-
 	public static boolean BACK_BUTTON_EVENT = true;
 	public static boolean MENU_EVENTS = true;
 	public static boolean ACTIONBARHOME_EVENTS = false;
 	public static boolean ORIENTATION_EVENTS = true;
 	public static boolean SCROLL_DOWN_EVENT = false;
-
+	
+	public static String INPUTS[];
+	public static boolean TEXT_VALUES_ID_HASH = false;
+	
+	// Additional Interactions
+	public static String EXTRA_EVENTS[];
+	public static String EXTRA_INPUTS[];
+	public static ArrayList<InteractorAdapter> ADDITIONAL_EVENTS = new ArrayList<InteractorAdapter>();
+	public static ArrayList<InteractorAdapter> ADDITIONAL_INPUTS = new ArrayList<InteractorAdapter>();
+	
+	// User/Planner Parameters
+	public static int MAX_EVENTS_PER_WIDGET = 0; // For GroupViews (0 = try all items in the group)
 	public static boolean TAB_EVENTS_START_ONLY = false; // true -> click on tabs only on the start activity
 	public static boolean EVENT_WHEN_NO_ID = true; // Whether to inject events on widgets without ID or not
-	public static boolean ALL_EVENTS_ON_PREFERENCES = true; // Bypass MAX_EVENTS_PER_WIDGET for PREFERENCE_LIST when true
 
 	// Scheduler Parameters
 	public static String SCHEDULER_ALGORITHM = "BREADTH_FIRST";

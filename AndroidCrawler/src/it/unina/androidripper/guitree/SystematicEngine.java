@@ -115,9 +115,7 @@ public class SystematicEngine extends Engine {
 		theGuiTree.setSleepAfterTask(SLEEP_AFTER_TASK);
 		theGuiTree.setRandomSeed(RANDOM_SEED);
 		theGuiTree.setMaxDepth(TRACE_MAX_DEPTH);
-		if (!ACTIVITY_DESCRIPTION_IN_SESSION) {
-			theGuiTree.setStateFileName(ACTIVITY_LIST_FILE_NAME);
-		}
+		theGuiTree.setStateFileName(ACTIVITY_LIST_FILE_NAME);
 				
 	}
 	
@@ -141,10 +139,6 @@ public class SystematicEngine extends Engine {
 
 	public Automation getNewAutomation() {
 		return new Automation();
-	}
-
-	public boolean stepPersistence () {
-		return (MAX_TRACES_IN_RAM>0);
 	}
 	
 	private Automation theAutomation;

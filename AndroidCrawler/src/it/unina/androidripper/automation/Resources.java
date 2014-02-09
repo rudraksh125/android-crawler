@@ -5,7 +5,6 @@ import it.unina.androidripper.model.ResourceFile;
 
 public class Resources implements ResourceFile {
 
-	// Precrawling sequence
 	public static int SLEEP_AFTER_EVENT = 1000;
 	public static int SLEEP_AFTER_RESTART = 1000;
 	public static int SLEEP_ON_THROBBER = 1000; // How long to wait on spinning wheels (in ms -- 0 = don't wait)

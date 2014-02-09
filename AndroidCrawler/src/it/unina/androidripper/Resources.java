@@ -7,7 +7,7 @@ public class Resources implements ResourceFile {
 	public static String PACKAGE_NAME = "app.package";
 	public static String CLASS_NAME = "app.package.class";
 	
-	public final static String CRAWLER_PACKAGE = "it.unina.androidripper";
+	public final static String CRAWLER_PACKAGE = Resources.class.getPackage().getName();
 	public final static String PREFERENCES_FILE = "preferences.xml";
 	public final static String TAG = "androidripper";
 	

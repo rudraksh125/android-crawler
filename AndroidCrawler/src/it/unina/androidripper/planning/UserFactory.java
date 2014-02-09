@@ -134,22 +134,11 @@ public class UserFactory {
 	public static boolean doForceSeed () {
 		return (RANDOM_SEED==0);
 	}
-	
-	public static boolean isUserSimple () {
-		int m = Resources.MAX_TASKS_PER_EVENT;
-		return (m == 1);
-	}
-	
+		
 	public static UserAdapter getUser (Abstractor a) {
 		
-		UserAdapter u;
-
-		if (isUserSimple()) {
-			u = (doForceSeed())?new SimpleUser (a):new SimpleUser(a,new Random(RANDOM_SEED));
-		} else {
-			u = (doForceSeed())?new AlternativeUser (a):new AlternativeUser(a,new Random(RANDOM_SEED));
-		}
-
+		UserAdapter u = (doForceSeed())?new SimpleUser (a):new SimpleUser(a,new Random(RANDOM_SEED));
+		
 		if (isRequiredEvent(CLICK)) {
 			Clicker c = new Clicker (typesForEvent(CLICK));
 			c.setEventWhenNoId(Resources.EVENT_WHEN_NO_ID);

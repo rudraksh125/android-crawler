@@ -16,15 +16,19 @@ public class Resources implements ResourceFile {
 	public static boolean COMPARE_MENU_COUNT = true;
 	public static boolean COMPARE_VALUES = false;
 	
+	final static String NULL_COMPARATOR = "NullComparator";
+	final static String SIMPLE_COMPARATOR = "CustomWidgetsSimpleComparator";
+	final static String INTENSIVE_COMPARATOR = "CustomWidgetsIntensiveComparator";
+	
 	public static void getComparator() {		
 		if (COMPARATOR_TYPE.equals("") || (COMPARATOR_TYPE == null)) return;
 
-		if (COMPARATOR_TYPE.equals("CustomWidgetsSimpleComparator")) {
+		if (COMPARATOR_TYPE.equals(NULL_COMPARATOR)){
+			COMPARATOR = new NullComparator();
+		} else if (COMPARATOR_TYPE.equals(SIMPLE_COMPARATOR)) {
 			COMPARATOR = new CustomWidgetsSimpleComparator (WIDGET_TYPES);
-		} else if (COMPARATOR_TYPE.equals("CustomWidgetsIntensiveComparator")) {
+		} else if (COMPARATOR_TYPE.equals(INTENSIVE_COMPARATOR)) {
 			COMPARATOR = new CustomWidgetsIntensiveComparator (WIDGET_TYPES);
-		} else if (COMPARATOR_TYPE.equals("NameComparator")) {
-			COMPARATOR = new NameComparator ();
 		} else {
 			try {
 				String className = (COMPARATOR_TYPE.indexOf(".") == -1)?
@@ -38,12 +42,10 @@ public class Resources implements ResourceFile {
 			} catch (IllegalAccessException e) {
 				e.printStackTrace();
 			}
-
 		}
-		
 	}
 	
-	public static Comparator COMPARATOR = new NullComparator();
+	public static Comparator COMPARATOR;
 	static {
 		Prefs.updateNode("comparator", Resources.class);
 		getComparator();

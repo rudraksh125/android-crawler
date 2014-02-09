@@ -1,7 +1,6 @@
 package it.unina.androidripper.storage;
 
 import static it.unina.androidripper.Resources.TAG;
-import static it.unina.androidripper.storage.Resources.*;
 
 import it.unina.androidripper.automation.ScreenshotFactory;
 import it.unina.androidripper.model.ImageStorage;
@@ -45,33 +44,25 @@ public class PersistenceFactory {
 
 	public Persistence getPersistence () {
 		Persistence thePersistence;
-		if (resumingPersistence()) {
-			Log.d(TAG, "Generated Resuming Persistence");
-			ResumingPersistence resumer = new ResumingPersistence();
-			thePersistence = resumer;
-			
-			resumer.setTaskList(getDispatcher().getScheduler().getTaskList());
-			resumer.setTaskListFile(Resources.TASK_LIST_FILE_NAME);
-			resumer.setActivityFile(Resources.ACTIVITY_LIST_FILE_NAME);
-			resumer.setParametersFile(Resources.PARAMETERS_FILE_NAME);
-			getStrategy().registerTerminationListener(resumer);
-			
-			for (SaveStateListener saver: stateSavers) {
-				resumer.registerListener(saver);
-			}
+		Log.d(TAG, "Generated Resuming Persistence");
+		ResumingPersistence resumer = new ResumingPersistence();
+		thePersistence = resumer;
 
-			getDispatcher().registerListener(resumer);
-			if (getStrategy() instanceof SimpleStrategy) {
-				((SimpleStrategy)getStrategy()).registerStateListener(resumer);				
-			}
-		} else if (stepPersistence()) {
-			Log.d(TAG, "Generated Step Persistence with step = " + Resources.MAX_TRACES_IN_RAM);
-			thePersistence = new StepDiskPersistence (Resources.MAX_TRACES_IN_RAM);
-		} else {
-			Log.d(TAG, "Generated Default Persistence");
-			thePersistence = new DiskPersistence();
+		resumer.setTaskList(getDispatcher().getScheduler().getTaskList());
+		resumer.setTaskListFile(Resources.TASK_LIST_FILE_NAME);
+		resumer.setActivityFile(Resources.ACTIVITY_LIST_FILE_NAME);
+		resumer.setParametersFile(Resources.PARAMETERS_FILE_NAME);
+		getStrategy().registerTerminationListener(resumer);
+
+		for (SaveStateListener saver: stateSavers) {
+			resumer.registerListener(saver);
 		}
-		
+
+		getDispatcher().registerListener(resumer);
+		if (getStrategy() instanceof SimpleStrategy) {
+			((SimpleStrategy)getStrategy()).registerStateListener(resumer);				
+		}
+				
 		thePersistence.setSession(getTheSession());
 		if (thePersistence instanceof ImageStorage) {
 			ScreenshotFactory.setTheImageStorage((ImageStorage)thePersistence);
@@ -79,15 +70,7 @@ public class PersistenceFactory {
 		
 		return thePersistence;
 	}
-
-	public boolean stepPersistence () {
-		return (Resources.MAX_TRACES_IN_RAM>0);
-	}
 	
-	public boolean resumingPersistence () {
-		return ENABLE_RESUME || (!ACTIVITY_DESCRIPTION_IN_SESSION);
-	}
-
 	public Session getTheSession() {
 		return this.theSession;
 	}

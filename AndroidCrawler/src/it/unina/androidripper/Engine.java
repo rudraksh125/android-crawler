@@ -20,7 +20,6 @@ import android.app.Activity;
 import android.test.ActivityInstrumentationTestCase2;
 import android.util.Log;
 import static it.unina.androidripper.Resources.*;
-import static it.unina.androidripper.storage.Resources.*;
 
 @SuppressWarnings("rawtypes")
 public abstract class Engine extends ActivityInstrumentationTestCase2 implements SaveStateListener {
@@ -111,11 +110,6 @@ public abstract class Engine extends ActivityInstrumentationTestCase2 implements
 	}
 	
 	public boolean resume() {
-		boolean flag = ENABLE_RESUME;
-		if (!flag) {
-			Log.i(TAG, "Resume not enabled.");
-			return false;
-		}
 		if (!(getPersistence() instanceof ResumingPersistence)) {
 			Log.w(TAG, "The instance of Persistence does not implement Resuming.");
 			return false;

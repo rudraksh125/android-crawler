@@ -27,7 +27,6 @@ import com.nofatclips.androidtesting.model.*;
 import com.nofatclips.dictionary.ContentTypeDetector;
 
 import static it.unina.androidripper.Resources.TAG;
-import static it.unina.androidripper.storage.Resources.*;
 import static it.unina.androidripper.automation.AbstractorUtilities.*;
 
 @SuppressWarnings("deprecation")
@@ -189,11 +188,11 @@ public class GuiTreeAbstractor implements Abstractor, FilterHandler, SaveStateLi
 	}
 
 	public void setStartActivity (Transition theStep, ActivityState theActivity) {
-		theStep.setStartActivity ((ACTIVITY_DESCRIPTION_IN_SESSION)?theActivity:stubActivity(theActivity));
+		theStep.setStartActivity (stubActivity(theActivity));
 	}
 
 	public void setFinalActivity (Trace theTask, ActivityState theActivity) {
-		theTask.setFinalActivity ((ACTIVITY_DESCRIPTION_IN_SESSION)?theActivity:stubActivity(theActivity));
+		theTask.setFinalActivity (stubActivity(theActivity));
 	}
 	
 	private TestCaseActivity stubActivity (ActivityState theActivity) {

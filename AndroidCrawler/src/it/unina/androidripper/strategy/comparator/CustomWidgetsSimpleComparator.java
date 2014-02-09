@@ -21,15 +21,10 @@ import static it.unina.androidripper.strategy.comparator.Resources.*;
 
 public class CustomWidgetsSimpleComparator extends NameComparator {
 	
-	public final static boolean IGNORE_ACTIVITY_NAME = true;
 	protected String[] widgetClasses;
 	
 	public CustomWidgetsSimpleComparator (String... widgets) {
-		this (!COMPARE_ACTIVITY_NAME, widgets);
-	}
-	
-	public CustomWidgetsSimpleComparator (boolean ignore, String... widgets) {
-		super (!ignore);
+		super ();
 		this.widgetClasses = widgets; 
 	}
 	
@@ -48,10 +43,10 @@ public class CustomWidgetsSimpleComparator extends NameComparator {
 
 	@Override
 	public boolean compare(ActivityState currentActivity, ActivityState storedActivity) {
-		HashSet<String> checkedAlready = new HashSet<String>();
 
-		if (this.byName && !super.compare (currentActivity, storedActivity)) return false; // Different name, different activity, early return
-			
+		if (!super.compare (currentActivity, storedActivity)) return false; // Different name, different activity, early return
+		
+		HashSet<String> checkedAlready = new HashSet<String>();
 		// Check if current has at least one widget that stored ain't got
 		Log.d(TAG,"Looking for additional widgets");
 		for (WidgetState campo: currentActivity) {

@@ -9,10 +9,6 @@ public class CustomWidgetsIntensiveComparator extends CustomWidgetsSimpleCompara
 	public CustomWidgetsIntensiveComparator (String... widgets) {
 		super (widgets);
 	}
-	
-	public CustomWidgetsIntensiveComparator (boolean ignore, String... widgets) {
-		super(ignore, widgets);
-	}
 
 	@Override
 	protected boolean matchWidget (WidgetState campo, WidgetState altroCampo) {
